@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<BPC.Auto>Auto</BPC.Auto>
+	<BPC.Rename>Rename</BPC.Rename>
+	<BPC.Settings>Policies settings</BPC.Settings>
+
+	<BPC.NewAnimalPolicy>New animal &amp; area policy</BPC.NewAnimalPolicy>
+	<BPC.AnimalPolicy>Policy </BPC.AnimalPolicy>
+	<BPC.CurrentAnimalPolicy>Active animal policy</BPC.CurrentAnimalPolicy>
+	
+	<BPC.NewAssignPolicy>New outfit &amp; drug policy</BPC.NewAssignPolicy>
+	<BPC.AssignPolicy>Policy </BPC.AssignPolicy>
+	<BPC.CurrentAssignPolicy>Active assign policy</BPC.CurrentAssignPolicy>
+	
+</LanguageData>
