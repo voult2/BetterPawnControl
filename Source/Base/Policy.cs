@@ -25,8 +25,8 @@ namespace BetterPawnControl
         /// </summary>
         public void ExposeData()
         {
-            Scribe_Values.LookValue<string>(ref label, "label", "Auto", true);
-            Scribe_Values.LookValue<int>(ref id, "id", 0, true);
+            Scribe_Values.Look<string>(ref label, "label", "Auto", true);
+            Scribe_Values.Look<int>(ref id, "id", 0, true);
         }
     }
 }

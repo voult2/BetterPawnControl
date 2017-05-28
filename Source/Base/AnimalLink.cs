@@ -35,13 +35,13 @@ namespace BetterPawnControl
         /// </summary>
         public void ExposeData()
         {
-            Scribe_Values.LookValue<int>(ref zone, "zone", 0, true);
-            Scribe_References.LookReference<Pawn>(ref animal, "animal");
-            Scribe_References.LookReference<Pawn>(ref master, "master");
-            Scribe_References.LookReference<Area>(ref area, "area");
-            Scribe_Values.LookValue<bool>(ref followDrafted, "followDrafted", true, true);
-            Scribe_Values.LookValue<bool>(ref followFieldwork, "followFieldwork", true, true);
-            Scribe_Values.LookValue<int>(ref mapId, "mapId", 0, true);
+            Scribe_Values.Look<int>(ref zone, "zone", 0, true);
+            Scribe_References.Look<Pawn>(ref animal, "animal");
+            Scribe_References.Look<Pawn>(ref master, "master");
+            Scribe_References.Look<Area>(ref area, "area");
+            Scribe_Values.Look<bool>(ref followDrafted, "followDrafted", true, true);
+            Scribe_Values.Look<bool>(ref followFieldwork, "followFieldwork", true, true);
+            Scribe_Values.Look<int>(ref mapId, "mapId", 0, true);
         }
     }
 }

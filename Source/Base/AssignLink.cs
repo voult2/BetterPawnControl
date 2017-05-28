@@ -39,13 +39,13 @@ namespace BetterPawnControl
         /// </summary>
         public void ExposeData()
         {
-            Scribe_Values.LookValue<int>(ref zone, "zone", 0, true);
-            Scribe_References.LookReference<Pawn>(ref colonist, "colonist");
-            Scribe_References.LookReference<Outfit>(ref outfit, "outfit");
-            Scribe_References.LookReference<DrugPolicy>(ref drugPolicy, "drugPolicy");
-            Scribe_Values.LookValue<HostilityResponseMode>(ref hostilityResponse, "hostilityResponse", HostilityResponseMode.Flee, true);
-            Scribe_Values.LookValue<int>(ref loadoutId, "loadoutId", 1, true);
-            Scribe_Values.LookValue<int>(ref mapId, "mapId", 0, true);
+            Scribe_Values.Look<int>(ref zone, "zone", 0, true);
+            Scribe_References.Look<Pawn>(ref colonist, "colonist");
+            Scribe_References.Look<Outfit>(ref outfit, "outfit");
+            Scribe_References.Look<DrugPolicy>(ref drugPolicy, "drugPolicy");
+            Scribe_Values.Look<HostilityResponseMode>(ref hostilityResponse, "hostilityResponse", HostilityResponseMode.Flee, true);
+            Scribe_Values.Look<int>(ref loadoutId, "loadoutId", 1, true);
+            Scribe_Values.Look<int>(ref mapId, "mapId", 0, true);
         }
     }
 }

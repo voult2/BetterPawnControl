@@ -45,3 +45,6 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+/Source/.vs/BetterPawnControl/v14
+/Source/bin
+/Source/obj

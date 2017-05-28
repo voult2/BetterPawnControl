@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<MainTabDefs>
+<MainButtonDefs>
 
-  <MainTabDef>
+  <MainButtonDef>
     <defName>Assign</defName>
     <label>assign</label>
     <description>Configure what each colonist is allowed to wear, and how to react to nearby enemies.</description>
-    <windowClass>BetterPawnControl.MainTabWindow_Assign_Policies</windowClass>
+    <tabWindowClass>BetterPawnControl.MainTabWindow_Assign_Policies</tabWindowClass>
     <order>30</order>
-	<defaultToggleKey>F3</defaultToggleKey>
-  </MainTabDef>
+	<!--<defaultToggleKey>F3</defaultToggleKey>-->
+  </MainButtonDef>
   
-</MainTabDefs>
+</MainButtonDefs>

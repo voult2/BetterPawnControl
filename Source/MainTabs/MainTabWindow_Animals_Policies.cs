@@ -2,6 +2,7 @@
 using RimWorld;
 using UnityEngine;
 using Verse;
+using System.Linq;
 
 /// <summary>
 /// Adds the ability to create profiles for the Animal Tab
@@ -13,33 +14,17 @@ namespace BetterPawnControl
     /// <summary>
     /// Enherit everthing from vanilla and avoid breaking it at all costs
     /// </summary>
-    [StaticConstructorOnStartup]
+
     public class MainTabWindow_Animals_Policies : MainTabWindow_Animals
     {
-
-        public override Vector2 RequestedTabSize
-        {
-            get
-            {
-                if (Widget_AnimalTab.AnimalTabAvailable)
-                {
-                    base.BuildPawnList();
-                }
-                return new Vector2(1050f, 65f + base.PawnsCount * 30f + 65f);
-            }
-        }
 
         public override void PreOpen()
         {
             base.PreOpen();
-            if (Widget_AnimalTab.AnimalTabAvailable)
-            {
-                Widget_AnimalTab.BuildPawnList();
-            }
-            //PrintAllAnimalPolicies();
-            LoadState(AnimalManager.links, this.pawns, AnimalManager.GetActivePolicy());
+            ////PrintAllAnimalPolicies();
+            LoadState(AnimalManager.links, this.Pawns.ToList(), AnimalManager.GetActivePolicy());
             CleanDeadMaps();
-            CleanDeadAnimals(this.pawns);
+            CleanDeadAnimals(this.Pawns.ToList());
 
         }
 
@@ -47,8 +32,8 @@ namespace BetterPawnControl
         {
             base.PreClose();
             CleanDeadMaps();
-            CleanDeadAnimals(this.pawns);
-            SaveCurrentState(this.pawns);
+            CleanDeadAnimals(this.Pawns.ToList());
+            SaveCurrentState(this.Pawns.ToList());
         }
 
         /// <summary>
@@ -58,20 +43,11 @@ namespace BetterPawnControl
         {
             if (AnimalManager.DirtyPolicy)
             {
-                LoadState(AnimalManager.links, this.pawns, AnimalManager.GetActivePolicy());
+                LoadState(AnimalManager.links, this.Pawns.ToList(), AnimalManager.GetActivePolicy());
             }
-
 
             float num = 5f;
-            if (Widget_AnimalTab.AnimalTabAvailable)
-            {
-                Widget_AnimalTab.DoWindowContents(fillRect);
-                num = 240f;
-            }
-            else
-            {
-                base.DoWindowContents(fillRect);
-            }
+            base.DoWindowContents(fillRect);
 
             Rect position = new Rect(0f, 0f, fillRect.width, 65f);
 
@@ -87,14 +63,14 @@ namespace BetterPawnControl
             Rect rect2 = new Rect(num, Mathf.Round(position.height / 4f) - 4f, rect1.width, Mathf.Round(position.height / 4f) + 4f);
             if (Widgets.ButtonText(rect2, AnimalManager.GetActivePolicy().label, true, false, true))
             {
-                SaveCurrentState(this.pawns);
-                OpenAnimalPolicySelectMenu(AnimalManager.links, this.pawns);
+                SaveCurrentState(this.Pawns.ToList());
+                OpenAnimalPolicySelectMenu(AnimalManager.links, this.Pawns.ToList());
             }
             num += rect1.width;
             Rect rect3 = new Rect(num, 0f, 20f, Mathf.Round(position.height / 2f));
             if (Widgets.ButtonText(rect3, "", true, false, true))
             {
-                Find.WindowStack.Add(new Dialog_ManagePolicies());
+                Find.WindowStack.Add(new Dialog_ManagePolicies(Find.VisibleMap));
             }
             Rect rect4 = new Rect(num + 3f, rect3.height / 4f, 14f, 14f);
             GUI.DrawTexture(rect4, Resources.Settings);

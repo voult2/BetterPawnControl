@@ -32,13 +32,17 @@
     <RootNamespace>BetterPawnControl</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony, Version=1.0.9.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\workshop\content\294100\818773962\Assemblies\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\RimWorldWin_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="HugsLib">
-      <HintPath>..\..\..\..\..\..\..\MyMod\RimworldHugsLib-master\Mods\HugsLib\Assemblies\HugsLib.dll</HintPath>
+    <Reference Include="HugsLib, Version=0.17.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\workshop\content\294100\818773962\Assemblies\HugsLib.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -56,8 +60,6 @@
     <Compile Include="Base\Policy.cs" />
     <Compile Include="Dialogs\Dialog_ManagePolicies.cs" />
     <Compile Include="Dialogs\Dialog_RenamePolicy.cs" />
-    <Compile Include="Helpers\Widget_AnimalTab.cs" />
-    <Compile Include="Helpers\Widget_CombatRealism.cs" />
     <Compile Include="MainTabs\MainTabWindow_Animals_Policies.cs" />
     <Compile Include="MainTabs\MainTabWindow_Assign_Policies.cs" />
     <Compile Include="Managers\AnimalManager.cs" />
@@ -74,6 +76,6 @@
     <VisualStudio AllowExistingFolder="true" />
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>xcopy "C:\Users\Alexandre\Documents\Visual Studio 2015\Projects\BetterAnimalControl\BetterAnimalControl\bin\Release\BetterPawnControl.dll" "D:\Steam\SteamApps\common\RimWorld\Mods\BetterPawnControl\Assemblies" /y</PostBuildEvent>
+    <PostBuildEvent>xcopy "D:\Steam\SteamApps\common\RimWorld\Mods\BetterPawnControl\Source\bin\Release\BetterPawnControl.dll" "D:\Steam\SteamApps\common\RimWorld\Mods\BetterPawnControl\Assemblies" /y</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -2,32 +2,36 @@
 using UnityEngine;
 using Verse;
 
+
 namespace BetterPawnControl
 {
     class Dialog_ManagePolicies : Window
     {
+        private Map map;
+
         /// <summary>
         /// Copy paste from vanilla
         /// </summary>
-        private static Regex validNameRegex = new Regex("^[a-zA-Z0-9 '\\-]*$");
+		private static Regex validNameRegex = new Regex("^[a-zA-Z0-9 '\\-]*$");
         private const int MAX_POLICIES = 20;
 
         /// <summary>
         /// Copy paste from vanilla
         /// </summary>
-        public override Vector2 InitialSize
+		public override Vector2 InitialSize
         {
             get
             {
-                return new Vector2(700f, 700f);
+                return new Vector2(700f, 710f);
             }
         }
 
         /// <summary>
         /// Copy paste from vanilla
         /// </summary>
-        public Dialog_ManagePolicies()
+        public Dialog_ManagePolicies(Map map)
         {
+            this.map = map;
             this.forcePause = true;
             this.doCloseX = true;
             this.closeOnEscapeKey = true;
@@ -41,8 +45,9 @@ namespace BetterPawnControl
         /// </summary>
         public override void DoWindowContents(Rect inRect)
         {
-            Listing_Standard listing_Standard = new Listing_Standard(inRect);
+            Listing_Standard listing_Standard = new Listing_Standard();
             listing_Standard.ColumnWidth = inRect.width;
+            listing_Standard.Begin(inRect);
 
             int rows = (AnimalManager.policies.Count > AssignManager.policies.Count) ?
                          AnimalManager.policies.Count : AssignManager.policies.Count;
@@ -113,7 +118,7 @@ namespace BetterPawnControl
         {
 
             float half = rect.width / 2f;
-            float twoThirds = 2f * half / 3f + 10f;
+            float twoThirds = 2f * half / 3f + 28f;
             float offset = 0;
 
             Rect rect2 = new Rect(offset, rect.y, twoThirds, rect.height + 6f);

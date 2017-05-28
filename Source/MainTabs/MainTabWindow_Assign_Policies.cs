@@ -2,62 +2,40 @@
 using RimWorld;
 using UnityEngine;
 using Verse;
+using System.Linq;
 
 namespace BetterPawnControl
 {
-    [StaticConstructorOnStartup]
     class MainTabWindow_Assign_Policies : MainTabWindow_Assign
     {
-        public override Vector2 RequestedTabSize
-        {
-            get
-            {
-                if (Widget_CombatRealism.CombatRealismAvailable)
-                {
-                    base.BuildPawnList();
-                }
-                return new Vector2(1050f, 65f + base.PawnsCount * 30f + 65f);
-            }
-        }
 
         public override void PreOpen()
         {
             base.PreOpen();
-            if (Widget_CombatRealism.CombatRealismAvailable)
-            {
-                Widget_CombatRealism.BuildPawnList();
-            }
             //PrintAllAssignPolicies();
-            LoadState(AssignManager.links, pawns, AssignManager.GetActivePolicy());
+            LoadState(AssignManager.links, this.Pawns.ToList(), AssignManager.GetActivePolicy());
             CleanDeadMaps();
-            CleanDeadColonists(this.pawns);
+            CleanDeadColonists(this.Pawns.ToList());
         }
 
         public override void PreClose()
         {
             base.PreClose();
-            CleanDeadColonists(this.pawns);
+            CleanDeadColonists(this.Pawns.ToList());
             CleanDeadMaps();
-            SaveCurrentState(this.pawns);
+            SaveCurrentState(this.Pawns.ToList());
         }
 
         public override void DoWindowContents(Rect fillRect)
         {
             if (AssignManager.DirtyPolicy)
             {
-                LoadState(AssignManager.links, pawns, AssignManager.GetActivePolicy());
+                LoadState(AssignManager.links, this.Pawns.ToList(), AssignManager.GetActivePolicy());
             }
 
 
             float num = 5f;
-            if (Widget_CombatRealism.CombatRealismAvailable)
-            {
-                Widget_CombatRealism.DoWindowContents(fillRect);
-            }
-            else
-            {
-                base.DoWindowContents(fillRect);
-            }
+            base.DoWindowContents(fillRect);
 
             Rect position = new Rect(0f, 0f, fillRect.width, 65f);
 
@@ -74,14 +52,14 @@ namespace BetterPawnControl
             if (Widgets.ButtonText(rect2, AssignManager.GetActivePolicy().label, true, false, true))
             {
                 //CleanDeadColonists(this.pawns);
-                SaveCurrentState(this.pawns);
-                OpenAssignPolicySelectMenu(AssignManager.links, this.pawns);
+                SaveCurrentState(this.Pawns.ToList());
+                OpenAssignPolicySelectMenu(AssignManager.links, this.Pawns.ToList());
             }
             num += rect1.width;
             Rect rect3 = new Rect(num, 0f, 20f, Mathf.Round(position.height / 2f));
             if (Widgets.ButtonText(rect3, "", true, false, true))
             {
-                Find.WindowStack.Add(new Dialog_ManagePolicies());
+                Find.WindowStack.Add(new Dialog_ManagePolicies(Find.VisibleMap));
             }
             Rect rect4 = new Rect(num + 3f, rect3.height / 4f, 14f, 14f);
             GUI.DrawTexture(rect4, Resources.Settings);
@@ -103,19 +81,11 @@ namespace BetterPawnControl
                     link.outfit = p.outfits.CurrentOutfit;
                     link.drugPolicy = p.drugs.CurrentPolicy;
                     link.hostilityResponse = p.playerSettings.hostilityResponse;
-                    if (Widget_CombatRealism.CombatRealismAvailable)
-                    {
-                        link.loadoutId = Widget_CombatRealism.GetLoadoutId(p);
-                    }
                 }
                 else
                 {
                     //colonist not found. So add it to the AssignLink list
                     int loadoutId = 0;
-                    if (Widget_CombatRealism.CombatRealismAvailable)
-                    {
-                        loadoutId = Widget_CombatRealism.GetLoadoutId(p);
-                    }
                     AssignManager.links.Add(
                         new AssignLink(
                             AssignManager.GetActivePolicy().id,
@@ -177,10 +147,6 @@ namespace BetterPawnControl
                         p.outfits.CurrentOutfit = OutfitExits(l.outfit) ? l.outfit : null;
                         p.drugs.CurrentPolicy = DrugPolicyExits(l.drugPolicy) ? l.drugPolicy : null;
                         p.playerSettings.hostilityResponse = l.hostilityResponse;
-                        if (Widget_CombatRealism.CombatRealismAvailable)
-                        {
-                            Widget_CombatRealism.SetLoadoutById(p, l.loadoutId);
-                        }
                     }
                 }
             }

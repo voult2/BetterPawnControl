@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<MainTabDefs>
+<MainButtonDefs>
 
-  <MainTabDef>
+  <MainButtonDef>
     <defName>Animals</defName>
     <label>animals</label>
     <description>Configure how the colony's tame animals should be treated.</description>
-    <windowClass>BetterPawnControl.MainTabWindow_Animals_Policies</windowClass>
+    <tabWindowClass>BetterPawnControl.MainTabWindow_Animals_Policies</tabWindowClass>
     <order>40</order>
-	<defaultToggleKey>F4</defaultToggleKey>
-  </MainTabDef>
+	<!--<defaultToggleKey>F4</defaultToggleKey>-->
+  </MainButtonDef>
   
-</MainTabDefs>
+</MainButtonDefs>

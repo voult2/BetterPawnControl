@@ -22,8 +22,8 @@ namespace BetterPawnControl
 
         public void ExposeData()
         {
-            Scribe_Values.LookValue<int>(ref mapId, "mapId", 0, true);
-            Scribe_Deep.LookDeep<Policy>(ref activePolicy, "activePolicy");
+            Scribe_Values.Look<int>(ref mapId, "mapId", 0, true);
+            Scribe_Deep.Look<Policy>(ref activePolicy, "activePolicy");
         }
     }
 }
