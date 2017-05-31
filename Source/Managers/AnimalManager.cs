@@ -33,5 +33,6 @@ namespace BetterPawnControl
         {
             activePolicies.Remove(map);
         }
+
     }
 }

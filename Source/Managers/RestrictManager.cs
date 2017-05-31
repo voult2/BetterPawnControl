@@ -3,7 +3,7 @@
 namespace BetterPawnControl
 {
     [StaticConstructorOnStartup]
-    class AssignManager : Manager<AssignLink>
+    class RestrictManager : Manager<RestrictLink>
     {
         internal static void DeletePolicy(Policy policy)
         {
@@ -33,5 +33,6 @@ namespace BetterPawnControl
         {
             activePolicies.Remove(map);
         }
+
     }
 }

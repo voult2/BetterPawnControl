@@ -4,12 +4,20 @@
 	<BPC.Rename>Rename</BPC.Rename>
 	<BPC.Settings>Policies settings</BPC.Settings>
 
-	<BPC.NewAnimalPolicy>New animal &amp; area policy</BPC.NewAnimalPolicy>
+	<BPC.NewAnimalPolicy>New animal policy</BPC.NewAnimalPolicy>
 	<BPC.AnimalPolicy>Policy </BPC.AnimalPolicy>
 	<BPC.CurrentAnimalPolicy>Active animal policy</BPC.CurrentAnimalPolicy>
 	
-	<BPC.NewAssignPolicy>New outfit &amp; drug policy</BPC.NewAssignPolicy>
+	<BPC.NewAssignPolicy>New assign policy</BPC.NewAssignPolicy>
 	<BPC.AssignPolicy>Policy </BPC.AssignPolicy>
 	<BPC.CurrentAssignPolicy>Active assign policy</BPC.CurrentAssignPolicy>
+	
+	<BPC.NewRestrictPolicy>New restrict policy</BPC.NewRestrictPolicy>
+	<BPC.RestrictPolicy>Policy </BPC.RestrictPolicy>
+	<BPC.CurrentRestrictPolicy>Active restrict policy</BPC.CurrentRestrictPolicy>
+	
+	<BPC.RestrictTab>Restrict</BPC.RestrictTab>
+	<BPC.AssignTab>Assign</BPC.AssignTab>
+	<BPC.AnimalTab>Animals</BPC.AnimalTab>
 	
 </LanguageData>

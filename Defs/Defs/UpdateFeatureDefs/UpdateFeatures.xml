@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<HugsLib.UpdateFeatureDef Abstract="true" Name="UpdateFeatureBase">
+		<defName>UpdateFeature</defName>
+		<modNameReadable>Better Pawn Control</modNameReadable>
+		<modIdentifier>BetterPawnControl</modIdentifier>
+		<linkUrl>https://ludeon.com/forums/index.php?topic=26618.0</linkUrl>
+	</HugsLib.UpdateFeatureDef>
+	
+	<!-- Note: these are probably not worth translating. This is a lot of text, and the player will only see this once -->
+		
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>BetterPawnControl_1_6_0</defName>
+		<assemblyVersion>1.6.0</assemblyVersion>
+		<content>Added BetterPawnControl to the Restrict Tab! You can now bulk assignment colonist to restricted areas! |
+&lt;b&gt;HOW TO USE&lt;/b&gt;
+1. Create a policy either for animals or for colonists by clicking the dented wheel icon 
+2. Select and activate a new created policy 
+3. Configure the policy by setting the areas or outfits, etc as you always do
+4. Done.|Repeat this process for other policies and THEN change between them in one click. WIN! </content>
+	</HugsLib.UpdateFeatureDef>
+		
+</Defs>
