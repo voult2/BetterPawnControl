@@ -12,7 +12,6 @@ namespace BetterPawnControl
         public override void PreOpen()
         {
             base.PreOpen();
-            //PrintAllAssignPolicies();
             LoadState(AssignManager.links, this.Pawns.ToList(), AssignManager.GetActivePolicy());
             CleanDeadMaps();
             CleanDeadColonists(this.Pawns.ToList());
@@ -33,10 +32,8 @@ namespace BetterPawnControl
                 LoadState(AssignManager.links, this.Pawns.ToList(), AssignManager.GetActivePolicy());
             }
 
-
             float num = 5f;
             base.DoWindowContents(fillRect);
-
             Rect position = new Rect(0f, 0f, fillRect.width, 65f);
 
             GUI.BeginGroup(position);
@@ -81,11 +78,20 @@ namespace BetterPawnControl
                     link.outfit = p.outfits.CurrentOutfit;
                     link.drugPolicy = p.drugs.CurrentPolicy;
                     link.hostilityResponse = p.playerSettings.hostilityResponse;
+                    if (Widget_CombatExtended.CombatExtendedAvailable)
+                    {
+                        link.loadoutId = Widget_CombatExtended.GetLoadoutId(p);
+                    }
                 }
                 else
                 {
                     //colonist not found. So add it to the AssignLink list
                     int loadoutId = 0;
+                    if (Widget_CombatExtended.CombatExtendedAvailable)
+                    {
+                        loadoutId = Widget_CombatExtended.GetLoadoutId(p);
+                    }
+
                     AssignManager.links.Add(
                         new AssignLink(
                             AssignManager.GetActivePolicy().id,
@@ -147,6 +153,10 @@ namespace BetterPawnControl
                         p.outfits.CurrentOutfit = OutfitExits(l.outfit) ? l.outfit : null;
                         p.drugs.CurrentPolicy = DrugPolicyExits(l.drugPolicy) ? l.drugPolicy : null;
                         p.playerSettings.hostilityResponse = l.hostilityResponse;
+                        if (Widget_CombatExtended.CombatExtendedAvailable)
+                        {
+                            Widget_CombatExtended.SetLoadoutById(p, l.loadoutId);
+                        }
                     }
                 }
             }

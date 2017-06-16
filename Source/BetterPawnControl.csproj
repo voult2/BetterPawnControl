@@ -61,6 +61,7 @@
     <Compile Include="Base\Policy.cs" />
     <Compile Include="Dialogs\Dialog_ManagePolicies.cs" />
     <Compile Include="Dialogs\Dialog_RenamePolicy.cs" />
+    <Compile Include="Helpers\Widget_CombatExtended.cs" />
     <Compile Include="MainTabs\MainTabWindow_Restrict_Policies.cs" />
     <Compile Include="MainTabs\MainTabWindow_Animals_Policies.cs" />
     <Compile Include="MainTabs\MainTabWindow_Assign_Policies.cs" />
@@ -80,6 +81,6 @@
     <VisualStudio AllowExistingFolder="true" />
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>xcopy "D:\Steam\SteamApps\common\RimWorld\Mods\BetterPawnControl\Source\bin\Release\BetterPawnControl.dll" "D:\Steam\SteamApps\common\RimWorld\Mods\BetterPawnControl\Assemblies" /y</PostBuildEvent>
+    <PostBuildEvent>xcopy "D:\BetterPawnControl\Source\bin\Release\BetterPawnControl.dll" "D:\Steam\SteamApps\common\RimWorld\Mods\BetterPawnControl\Assemblies" /y</PostBuildEvent>
   </PropertyGroup>
 </Project>
