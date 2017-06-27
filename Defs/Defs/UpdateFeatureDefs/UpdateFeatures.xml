@@ -25,6 +25,12 @@
 		<assemblyVersion>1.6.2</assemblyVersion>
 		<content>Added Combat Extended Integration. If you use the Combat Extended mod then you can now bulk assign loadouts!</content>
 	</HugsLib.UpdateFeatureDef>
+	
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>BetterPawnControl_1_6_3</defName>
+		<assemblyVersion>1.6.3</assemblyVersion>
+		<content>Added support for Korean language</content>
+	</HugsLib.UpdateFeatureDef>
 
 	
 
