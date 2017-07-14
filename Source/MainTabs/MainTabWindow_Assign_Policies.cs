@@ -92,11 +92,17 @@ namespace BetterPawnControl
                         loadoutId = Widget_CombatExtended.GetLoadoutId(p);
                     }
 
+                    Outfit outfit = p.outfits.CurrentOutfit;
+                    if (p.outfits.CurrentOutfit == Current.Game.outfitDatabase.AllOutfits[0])
+                    {
+                        outfit = AssignManager.DefaultOutfit;
+                    }
+
                     AssignManager.links.Add(
                         new AssignLink(
                             AssignManager.GetActivePolicy().id,
                             p,
-                            p.outfits.CurrentOutfit,
+                            outfit,
                             p.drugs.CurrentPolicy,
                             p.playerSettings.hostilityResponse,
                             loadoutId,

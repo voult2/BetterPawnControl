@@ -1,10 +1,30 @@
 ﻿using Verse;
+using RimWorld;
 
 namespace BetterPawnControl
 {
     [StaticConstructorOnStartup]
     class AssignManager : Manager<AssignLink>
     {
+        internal static Outfit _defaultOutfit = null;
+        internal static Outfit DefaultOutfit
+        {
+            get
+            {
+                if (_defaultOutfit == null)
+                {
+                    _defaultOutfit = Current.Game.outfitDatabase.AllOutfits[0];
+                }
+                return _defaultOutfit;
+            }
+
+            set
+            {
+                _defaultOutfit = value;
+            }
+        }
+
+
         internal static void DeletePolicy(Policy policy)
         {
             //delete if not default AssignPolicy

@@ -23,7 +23,7 @@
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
 		<defName>BetterPawnControl_1_6_2</defName>
 		<assemblyVersion>1.6.2</assemblyVersion>
-		<content>Added Combat Extended Integration. If you use the Combat Extended mod then you can now bulk assign loadouts!</content>
+		<content>Added Combat Extended Integration. If you use the Combat Extended mod, you can now assign loadouts in bulk</content>
 	</HugsLib.UpdateFeatureDef>
 	
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
@@ -31,8 +31,10 @@
 		<assemblyVersion>1.6.3</assemblyVersion>
 		<content>Added support for Korean language</content>
 	</HugsLib.UpdateFeatureDef>
-
 	
-
-		
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>BetterPawnControl_1_6_4</defName>
+		<assemblyVersion>1.6.4</assemblyVersion>
+		<content>You can now set a default outfit. When a new colonist joins your colony the default outfit will be automatically applied!</content>
+	</HugsLib.UpdateFeatureDef>	
 </Defs>

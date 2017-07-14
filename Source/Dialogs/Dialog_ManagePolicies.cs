@@ -1,6 +1,8 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using Verse;
+using RimWorld;
 
 
 namespace BetterPawnControl
@@ -22,7 +24,7 @@ namespace BetterPawnControl
         {
             get
             {
-                return new Vector2(1050f, 650f);
+                return new Vector2(1000f, 700f);
             }
         }
 
@@ -45,7 +47,7 @@ namespace BetterPawnControl
         /// </summary>
         public override void DoWindowContents(Rect inRect)
         {
-     
+
             Listing_Standard listing_Standard = new Listing_Standard();
             listing_Standard.ColumnWidth = inRect.width;
             listing_Standard.Begin(inRect);
@@ -58,8 +60,8 @@ namespace BetterPawnControl
             for (int i = 0; i < rows; i++)
             {
                 Policy restrictP = (i < RestrictManager.policies.Count) ? RestrictManager.policies[i] : null;
-                Policy assignP   = (i < AssignManager.policies.Count) ? AssignManager.policies[i] : null;
-                Policy animalP   = (i < AnimalManager.policies.Count) ? AnimalManager.policies[i] : null;
+                Policy assignP = (i < AssignManager.policies.Count) ? AssignManager.policies[i] : null;
+                Policy animalP = (i < AnimalManager.policies.Count) ? AnimalManager.policies[i] : null;
 
                 Rect rect2 = listing_Standard.GetRect(24f);
                 DoRow(rect2, restrictP, assignP, animalP);
@@ -67,7 +69,15 @@ namespace BetterPawnControl
             }
 
             Rect rect3 = listing_Standard.GetRect(24f);
-            DoBottonRow(rect3);
+            DoNewPoliciesRow(rect3);
+            listing_Standard.Gap(6f);
+
+            Rect rect4 = listing_Standard.GetRect(24f);
+            Widgets.DrawLineHorizontal(rect4.x, rect4.y + 12f, inRect.width);
+            listing_Standard.Gap(6f);
+
+            Rect rect5 = listing_Standard.GetRect(24f);
+            DoDefaultOutfitRow(rect5);
             listing_Standard.End();
         }
 
@@ -117,7 +127,7 @@ namespace BetterPawnControl
                         case Resources.Type.restrict:
                             RestrictManager.DeletePolicy(policy);
                             break;
-                    }                    
+                    }
                 }
             }
             GUI.EndGroup();
@@ -143,7 +153,7 @@ namespace BetterPawnControl
             Text.Anchor = TextAnchor.UpperLeft;
         }
 
-        private static void DoBottonRow(Rect rect)
+        private static void DoNewPoliciesRow(Rect rect)
         {
 
             float one = rect.width / 3f;
@@ -171,6 +181,13 @@ namespace BetterPawnControl
                 int label_id = AssignManager.policies[lastItem].id;
                 label_id++;
                 AssignManager.policies.Add(new Policy(label_id, "BPC.AssignPolicy".Translate() + label_id));
+
+                Rect rect4 = new Rect(offset, rect2.height + 6f, buttonWidth, rect.height + 6f);
+                if (Widgets.ButtonText(rect2, "BPC.DefaultOutfit".Translate(), true, false, true))
+                {
+                    OpenOutfitSelectMenu();
+                }
+
             }
 
             if (AnimalManager.policies.Count < MAX_POLICIES && Widgets.ButtonText(rect3, "BPC.NewAnimalPolicy".Translate(), true, false, true))
@@ -180,13 +197,40 @@ namespace BetterPawnControl
                 label_id++;
                 AnimalManager.policies.Add(new Policy(label_id, "BPC.AnimalPolicy".Translate() + label_id));
             }
+        }
 
+        private static void DoDefaultOutfitRow(Rect rect)
+        {
+            float one = rect.width / 4f;
+            float two = one * 2f;
 
+            Rect label = new Rect(one, rect.y, one, rect.height + 6f);
+            Rect button = new Rect(two, rect.y, one, rect.height + 6f);
+
+            Text.Anchor = TextAnchor.MiddleCenter;
+            Widgets.Label(label, "BPC.SelectedDefaultOutfit".Translate());
+            Text.Anchor = TextAnchor.UpperLeft;
+
+            if (Widgets.ButtonText(button, AssignManager.DefaultOutfit.label, true, false, true))
+            {
+                OpenOutfitSelectMenu();
+            }
         }
 
         private static int MaxNumber(int first, int second)
         {
             return (first > second ? first : second);
+        }
+
+        private static void OpenOutfitSelectMenu()
+        {
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
+
+            foreach (Outfit outfit in Current.Game.outfitDatabase.AllOutfits)
+            {
+                list.Add(new FloatMenuOption(outfit.label, delegate { AssignManager.DefaultOutfit = outfit; }, MenuOptionPriority.Default, null, null, 0f, null));
+            }
+            Find.WindowStack.Add(new FloatMenu(list));
         }
     }
 }
