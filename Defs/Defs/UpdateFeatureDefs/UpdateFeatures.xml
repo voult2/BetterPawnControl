@@ -36,5 +36,11 @@
 		<defName>BetterPawnControl_1_6_4</defName>
 		<assemblyVersion>1.6.4</assemblyVersion>
 		<content>You can now set a default outfit. When a new colonist joins your colony the default outfit will be automatically applied!</content>
-	</HugsLib.UpdateFeatureDef>	
+	</HugsLib.UpdateFeatureDef>
+
+  <HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+    <defName>BetterPawnControl_1_6_5</defName>
+    <assemblyVersion>1.6.5</assemblyVersion>
+    <content>Added support for French language</content>
+  </HugsLib.UpdateFeatureDef>
 </Defs>
