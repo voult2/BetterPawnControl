@@ -11,6 +11,7 @@ namespace BetterPawnControl
     public static class Resources
     {
         public enum Type { animal, assign, restrict };
-        public static readonly Texture2D Settings = ContentFinder<Texture2D>.Get("UI/Buttons/Settings");
+        public static readonly Texture2D Settings = 
+            ContentFinder<Texture2D>.Get("UI/Buttons/Settings");
     }
 }

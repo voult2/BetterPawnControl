@@ -26,7 +26,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
     <RootNamespace>BetterPawnControl</RootNamespace>
@@ -61,6 +61,7 @@
     <Compile Include="Base\Policy.cs" />
     <Compile Include="Dialogs\Dialog_ManagePolicies.cs" />
     <Compile Include="Dialogs\Dialog_RenamePolicy.cs" />
+    <Compile Include="Helpers\Widget_AnimalTab.cs" />
     <Compile Include="Helpers\Widget_CombatExtended.cs" />
     <Compile Include="MainTabs\MainTabWindow_Restrict_Policies.cs" />
     <Compile Include="MainTabs\MainTabWindow_Animals_Policies.cs" />

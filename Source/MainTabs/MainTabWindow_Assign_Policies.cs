@@ -12,8 +12,17 @@ namespace BetterPawnControl
         public override void PreOpen()
         {
             base.PreOpen();
-            LoadState(AssignManager.links, this.Pawns.ToList(), AssignManager.GetActivePolicy());
+
+            UpdateState(
+                AssignManager.links, this.Pawns.ToList(),
+                AssignManager.GetActivePolicy());
+
+            LoadState(
+                AssignManager.links, this.Pawns.ToList(), 
+                AssignManager.GetActivePolicy());
+
             CleanDeadMaps();
+
             CleanDeadColonists(this.Pawns.ToList());
         }
 
@@ -29,7 +38,9 @@ namespace BetterPawnControl
         {
             if (AssignManager.DirtyPolicy)
             {
-                LoadState(AssignManager.links, this.Pawns.ToList(), AssignManager.GetActivePolicy());
+                LoadState(
+                    AssignManager.links, this.Pawns.ToList(), 
+                    AssignManager.GetActivePolicy());
             }
 
             float num = 5f;
@@ -39,24 +50,33 @@ namespace BetterPawnControl
             GUI.BeginGroup(position);
             Text.Font = GameFont.Tiny;
             Text.Anchor = TextAnchor.LowerCenter;
-            Rect rect1 = new Rect(num, -8f, 165f, Mathf.Round(position.height / 3f));
+            Rect rect1 = 
+                new Rect(num, -8f, 165f, Mathf.Round(position.height / 3f));
             Widgets.Label(rect1, "BPC.CurrentAssignPolicy".Translate());
             GUI.EndGroup();
 
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.UpperLeft;
-            Rect rect2 = new Rect(num, Mathf.Round(position.height / 4f) - 4f, rect1.width, Mathf.Round(position.height / 4f) + 4f);
-            if (Widgets.ButtonText(rect2, AssignManager.GetActivePolicy().label, true, false, true))
+            Rect rect2 = new Rect(
+                num, Mathf.Round(position.height / 4f) - 4f, 
+                rect1.width, Mathf.Round(position.height / 4f) + 4f);
+
+            if (Widgets.ButtonText(
+                rect2, AssignManager.GetActivePolicy().label, 
+                true, false, true))
             {
                 //CleanDeadColonists(this.pawns);
                 SaveCurrentState(this.Pawns.ToList());
-                OpenAssignPolicySelectMenu(AssignManager.links, this.Pawns.ToList());
+                OpenAssignPolicySelectMenu(
+                    AssignManager.links, this.Pawns.ToList());
             }
             num += rect1.width;
-            Rect rect3 = new Rect(num, 0f, 20f, Mathf.Round(position.height / 2f));
+            Rect rect3 = new Rect(
+                num, 0f, 20f, Mathf.Round(position.height / 2f));
             if (Widgets.ButtonText(rect3, "", true, false, true))
             {
-                Find.WindowStack.Add(new Dialog_ManagePolicies(Find.VisibleMap));
+                Find.WindowStack.Add(
+                    new Dialog_ManagePolicies(Find.VisibleMap));
             }
             Rect rect4 = new Rect(num + 3f, rect3.height / 4f, 14f, 14f);
             GUI.DrawTexture(rect4, Resources.Settings);
@@ -70,14 +90,18 @@ namespace BetterPawnControl
             foreach (Pawn p in pawns)
             {
                 //find colonist on the current zone in the current map
-                AssignLink link = AssignManager.links.Find(x => x.colonist.Equals(p) && x.zone == AssignManager.GetActivePolicy().id && x.mapId == currentMap);
+                AssignLink link = AssignManager.links.Find(
+                    x => x.colonist.Equals(p) && 
+                    x.zone == AssignManager.GetActivePolicy().id && 
+                    x.mapId == currentMap);
 
                 if (link != null)
                 {
                     //colonist found! save 
                     link.outfit = p.outfits.CurrentOutfit;
                     link.drugPolicy = p.drugs.CurrentPolicy;
-                    link.hostilityResponse = p.playerSettings.hostilityResponse;
+                    link.hostilityResponse = 
+                        p.playerSettings.hostilityResponse;
                     if (Widget_CombatExtended.CombatExtendedAvailable)
                     {
                         link.loadoutId = Widget_CombatExtended.GetLoadoutId(p);
@@ -93,7 +117,8 @@ namespace BetterPawnControl
                     }
 
                     Outfit outfit = p.outfits.CurrentOutfit;
-                    if (p.outfits.CurrentOutfit == Current.Game.outfitDatabase.AllOutfits[0])
+                    if (p.outfits.CurrentOutfit == 
+                        Current.Game.outfitDatabase.AllOutfits[0])
                     {
                         outfit = AssignManager.DefaultOutfit;
                     }
@@ -139,7 +164,8 @@ namespace BetterPawnControl
             }
         }
 
-        private static void LoadState(List<AssignLink> links, List<Pawn> pawns, Policy policy)
+        private static void UpdateState(
+            List<AssignLink> links, List<Pawn> pawns, Policy policy)
         {
             List<AssignLink> mapLinks = null;
             List<AssignLink> zoneLinks = null;
@@ -156,12 +182,43 @@ namespace BetterPawnControl
                 {
                     if (l.colonist != null && l.colonist.Equals(p))
                     {
-                        p.outfits.CurrentOutfit = OutfitExits(l.outfit) ? l.outfit : null;
-                        p.drugs.CurrentPolicy = DrugPolicyExits(l.drugPolicy) ? l.drugPolicy : null;
-                        p.playerSettings.hostilityResponse = l.hostilityResponse;
+                        l.hostilityResponse = 
+                            p.playerSettings.hostilityResponse;       
+                    }
+                }
+            }
+
+            AssignManager.SetActivePolicy(policy);
+        }
+
+        private static void LoadState(
+            List<AssignLink> links, List<Pawn> pawns, Policy policy)
+        {
+            List<AssignLink> mapLinks = null;
+            List<AssignLink> zoneLinks = null;
+            int currentMap = Find.VisibleMap.uniqueID;
+
+            //get all links from the current map
+            mapLinks = links.FindAll(x => x.mapId == currentMap);
+            //get all links from the selected zone
+            zoneLinks = mapLinks.FindAll(x => x.zone == policy.id);
+
+            foreach (Pawn p in pawns)
+            {
+                foreach (AssignLink l in zoneLinks)
+                {
+                    if (l.colonist != null && l.colonist.Equals(p))
+                    {
+                        p.outfits.CurrentOutfit = OutfitExits(l.outfit) ?
+                            l.outfit : null;
+                        p.drugs.CurrentPolicy = DrugPolicyExits(l.drugPolicy) ?
+                            l.drugPolicy : null;
+                        p.playerSettings.hostilityResponse = 
+                            l.hostilityResponse;
                         if (Widget_CombatExtended.CombatExtendedAvailable)
                         {
-                            Widget_CombatExtended.SetLoadoutById(p, l.loadoutId);
+                            Widget_CombatExtended.SetLoadoutById(
+                                p, l.loadoutId);
                         }
                     }
                 }
@@ -184,7 +241,8 @@ namespace BetterPawnControl
 
         private static bool DrugPolicyExits(DrugPolicy drugPolicy)
         {
-            foreach (DrugPolicy drug in Current.Game.drugPolicyDatabase.AllPolicies)
+            foreach (DrugPolicy drug in 
+                Current.Game.drugPolicyDatabase.AllPolicies)
             {
                 if (drug.Equals(drugPolicy))
                 {
@@ -194,32 +252,49 @@ namespace BetterPawnControl
             return false;
         }
 
-        private static void OpenAssignPolicySelectMenu(List<AssignLink> links, List<Pawn> pawns)
+        private static void OpenAssignPolicySelectMenu(
+            List<AssignLink> links, List<Pawn> pawns)
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
 
             foreach (Policy assignPolicy in AssignManager.policies)
             {
-                list.Add(new FloatMenuOption(assignPolicy.label, delegate { LoadState(links, pawns, assignPolicy); }, MenuOptionPriority.Default, null, null, 0f, null));
+                list.Add(
+                    new FloatMenuOption(
+                        assignPolicy.label, 
+                        delegate 
+                        {
+                            LoadState(
+                                links, 
+                                pawns, 
+                                assignPolicy);
+                        }, 
+                        MenuOptionPriority.Default, null, null, 0f, null));
             }
             Find.WindowStack.Add(new FloatMenu(list));
         }
 
         private static void PrintAllAssignPolicies()
         {
-            Log.Message("[BPC] === List Policies START [" + AssignManager.policies.Count + "] ===");
+            Log.Message("[BPC] === List Policies START [" + 
+                AssignManager.policies.Count + 
+                "] ===");
             foreach (Policy p in AssignManager.policies)
             {
                 Log.Message("[BPC]\t" + p.ToString());
             }
 
-            Log.Message("[BPC] === List ActivePolices START [" + AssignManager.activePolicies.Count + "] ===");
+            Log.Message("[BPC] === List ActivePolices START [" + 
+                AssignManager.activePolicies.Count + 
+                "] ===");
             foreach (MapActivePolicy m in AssignManager.activePolicies)
             {
                 Log.Message("[BPC]\t" + m.ToString());
             }
 
-            Log.Message("[BPC] === List links START [" + AssignManager.links.Count + "] ===");
+            Log.Message("[BPC] === List links START [" + 
+                AssignManager.links.Count + 
+                "] ===");
             foreach (AssignLink assignLink in AssignManager.links)
             {
                 Log.Message("[BPC]\t" + assignLink.ToString());

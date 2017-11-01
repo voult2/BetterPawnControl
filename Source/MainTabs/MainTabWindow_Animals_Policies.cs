@@ -3,6 +3,7 @@ using RimWorld;
 using UnityEngine;
 using Verse;
 using System.Linq;
+using System;
 
 /// <summary>
 /// Adds the ability to create profiles for the Animal Tab
@@ -12,18 +13,39 @@ using System.Linq;
 namespace BetterPawnControl
 {
     /// <summary>
-    /// Enherit everthing from vanilla and avoid breaking it at all costs
+    /// Enherit everthing from vanilla and avoid breaking it at all costs      
     /// </summary>
 
     public class MainTabWindow_Animals_Policies : MainTabWindow_Animals
     {
 
+        protected override float ExtraTopSpace
+        {
+            get
+            {
+                float offsetY = 0f;
+                if (Widget_AnimalTab.AnimalTabAvailable)
+                {
+                    offsetY = 30f;
+                }
+                return offsetY;
+            }
+        }
+
         public override void PreOpen()
         {
             base.PreOpen();
-            ////PrintAllAnimalPolicies();
-            LoadState(AnimalManager.links, this.Pawns.ToList(), AnimalManager.GetActivePolicy());
+
+            UpdateState(
+                AnimalManager.links, this.Pawns.ToList(),
+                AnimalManager.GetActivePolicy());
+
+            LoadState(
+                AnimalManager.links, this.Pawns.ToList(), 
+                AnimalManager.GetActivePolicy());
+
             CleanDeadMaps();
+
             CleanDeadAnimals(this.Pawns.ToList());
 
         }
@@ -43,36 +65,49 @@ namespace BetterPawnControl
         {
             if (AnimalManager.DirtyPolicy)
             {
-                LoadState(AnimalManager.links, this.Pawns.ToList(), AnimalManager.GetActivePolicy());
+                LoadState(
+                    AnimalManager.links, 
+                    this.Pawns.ToList(), 
+                    AnimalManager.GetActivePolicy());
             }
 
-            float num = 5f;
+            float offsetX = 5f;
             base.DoWindowContents(fillRect);
 
-            Rect position = new Rect(0f, 0f, fillRect.width, 65f);
+            Rect position = new Rect(0f, 0f, fillRect.width, 65f);  
 
             GUI.BeginGroup(position);
             Text.Font = GameFont.Tiny;
             Text.Anchor = TextAnchor.LowerCenter;
-            Rect rect1 = new Rect(num, -8f, 165f, Mathf.Round(position.height / 3f));
+            Rect rect1 = 
+                new Rect(offsetX, -8f, 165f, 
+                    Mathf.Round(position.height / 3f));
             Widgets.Label(rect1, "BPC.CurrentAnimalPolicy".Translate());
             GUI.EndGroup();
 
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.UpperLeft;
-            Rect rect2 = new Rect(num, Mathf.Round(position.height / 4f) - 4f, rect1.width, Mathf.Round(position.height / 4f) + 4f);
-            if (Widgets.ButtonText(rect2, AnimalManager.GetActivePolicy().label, true, false, true))
+            Rect rect2 = 
+                new Rect(
+                    offsetX, Mathf.Round(position.height / 4f) - 4f, 
+                    rect1.width, Mathf.Round(position.height / 4f) + 4f);
+            if (Widgets.ButtonText(
+                rect2, AnimalManager.GetActivePolicy().label, 
+                true, false, true))
             {
                 SaveCurrentState(this.Pawns.ToList());
-                OpenAnimalPolicySelectMenu(AnimalManager.links, this.Pawns.ToList());
+                OpenAnimalPolicySelectMenu(
+                    AnimalManager.links, this.Pawns.ToList());
             }
-            num += rect1.width;
-            Rect rect3 = new Rect(num, 0f, 20f, Mathf.Round(position.height / 2f));
+            offsetX += rect1.width;
+            Rect rect3 = 
+                new Rect(offsetX, 0f, 20f, Mathf.Round(position.height / 2f));
             if (Widgets.ButtonText(rect3, "", true, false, true))
             {
-                Find.WindowStack.Add(new Dialog_ManagePolicies(Find.VisibleMap));
+                Find.WindowStack.Add(
+                    new Dialog_ManagePolicies(Find.VisibleMap));
             }
-            Rect rect4 = new Rect(num + 3f, rect3.height / 4f, 14f, 14f);
+            Rect rect4 = new Rect(offsetX + 3f, rect3.height / 4f, 14f, 14f);
             GUI.DrawTexture(rect4, Resources.Settings);
             TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
         }
@@ -84,15 +119,23 @@ namespace BetterPawnControl
             foreach (Pawn p in pawns)
             {
                 //find animal on the current zone
-                AnimalLink animalLink = AnimalManager.links.Find(x => x.animal.Equals(p) && x.zone == AnimalManager.GetActivePolicy().id && x.mapId == currentMap);
+                AnimalLink animalLink = 
+                    AnimalManager.links.Find(
+                        x => x.animal.Equals(p) && 
+                        x.zone == AnimalManager.GetActivePolicy().id && 
+                        x.mapId == currentMap);
 
                 if (animalLink != null)
                 {
                     //animal found! save master and area
-                    animalLink.master = p.playerSettings.master;
-                    animalLink.area = p.playerSettings.AreaRestriction;
-                    animalLink.followDrafted = p.playerSettings.followDrafted;
-                    animalLink.followFieldwork = p.playerSettings.followFieldwork;
+                    animalLink.master = 
+                        p.playerSettings.master;
+                    animalLink.area = 
+                        p.playerSettings.AreaRestriction;
+                    animalLink.followDrafted = 
+                        p.playerSettings.followDrafted;
+                    animalLink.followFieldwork = 
+                        p.playerSettings.followFieldwork;
                 }
                 else
                 {
@@ -130,7 +173,8 @@ namespace BetterPawnControl
         /// <summary>
         /// Get and set all links from a AnimalPolicy 
         /// </summary>
-        private static void LoadState(List<AnimalLink> links, List<Pawn> pawns, Policy policy)
+        private static void LoadState(
+            List<AnimalLink> links, List<Pawn> pawns, Policy policy)
         {
             List<AnimalLink> mapLinks = null;
             List<AnimalLink> zoneLinks = null;
@@ -148,7 +192,9 @@ namespace BetterPawnControl
                     if (l.animal != null && l.animal.Equals(p))
                     {
                         //found animal in zone. Update master if alive
-                        p.playerSettings.master = (l.master != null && l.master.Dead) ? null : l.master;
+                        p.playerSettings.master = 
+                            (l.master != null && l.master.Dead) ? 
+                                null : l.master;
                         p.playerSettings.AreaRestriction = l.area;
                         p.playerSettings.followDrafted = l.followDrafted;
                         p.playerSettings.followFieldwork = l.followFieldwork;
@@ -159,15 +205,56 @@ namespace BetterPawnControl
         }
 
         /// <summary>
+        /// Updates pawn area and master in case it was changed via inspector
+        /// window
+        /// </summary>
+        private static void UpdateState(
+            List<AnimalLink> links, List<Pawn> pawns, Policy policy)
+        {
+            List<AnimalLink> mapLinks = null;
+            List<AnimalLink> zoneLinks = null;
+            int currentMap = Find.VisibleMap.uniqueID;
+
+            //get all links from the current map
+            mapLinks = links.FindAll(x => x.mapId == currentMap);
+            //get all links from the selected zone
+            zoneLinks = mapLinks.FindAll(x => x.zone == policy.id);
+
+            foreach (Pawn p in pawns)
+            {
+                foreach (AnimalLink l in zoneLinks)
+                {
+                    if (l.animal != null && l.animal.Equals(p))
+                    {
+                        l.master = p.playerSettings.master;
+                        l.area = p.playerSettings.AreaRestriction;
+                    }
+                }
+            }
+            AnimalManager.SetActivePolicy(policy);
+        }
+
+        /// <summary>
         /// Open select AnimalPolicy menu
         /// </summary>
-        private static void OpenAnimalPolicySelectMenu(List<AnimalLink> links, List<Pawn> pawns)
+        private static void OpenAnimalPolicySelectMenu(
+            List<AnimalLink> links, List<Pawn> pawns)
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
 
             foreach (Policy animalPolicy in AnimalManager.policies)
             {
-                list.Add(new FloatMenuOption(animalPolicy.label, delegate { LoadState(links, pawns, animalPolicy); }, MenuOptionPriority.Default, null, null, 0f, null));
+                list.Add(
+                    new FloatMenuOption(
+                        animalPolicy.label, 
+                        delegate 
+                        {
+                            LoadState(
+                                links, 
+                                pawns, 
+                                animalPolicy);
+                        },
+                        MenuOptionPriority.Default, null, null, 0f, null));
             }
             Find.WindowStack.Add(new FloatMenu(list));
         }
@@ -187,19 +274,26 @@ namespace BetterPawnControl
 
         private static void PrintAllAnimalPolicies()
         {
-            Log.Message("[BPC] ### List Animal Policies [" + AnimalManager.policies.Count + "] ###");
+            Log.Message(
+                "[BPC] ### List Animal Policies [" + 
+                AnimalManager.policies.Count + 
+                "] ###");
             foreach (Policy p in AnimalManager.policies)
             {
                 Log.Message("[BPC]\t" + p.ToString());
             }
 
-            Log.Message("[BPC] ### List ActivePolices START [" + AnimalManager.activePolicies.Count + "] ===");
+            Log.Message("[BPC] ### List ActivePolices START [" 
+                + AnimalManager.activePolicies.Count + 
+                "] ===");
             foreach (MapActivePolicy m in AnimalManager.activePolicies)
             {
                 Log.Message("[BPC]\t" + m.ToString());
             }
 
-            Log.Message("[BPC] ### List Animal links [" + AnimalManager.links.Count + "] ###");
+            Log.Message("[BPC] ### List Animal links [" 
+                + AnimalManager.links.Count 
+                + "] ###");
             foreach (AnimalLink l in AnimalManager.links)
             {
                 Log.Message("[BPC]\t" + l.ToString());

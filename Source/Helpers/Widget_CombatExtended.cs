@@ -15,7 +15,8 @@ namespace BetterPawnControl
         private const string PF_METHOD_GETLOADOUT = "GetLoadoutId";
         private const string PF_METHOD_SETLOADOUT = "SetLoadoutById";
 
-        private const BindingFlags BINDINGDLAGS_ALL = (BindingFlags)60; // public + private + static + instance;
+        // public + private + static + instance;
+        private const BindingFlags BINDINGDLAGS_ALL = (BindingFlags)60; 
 
         private static bool _anyError = false;
         private static bool _initialized = false;
@@ -38,7 +39,8 @@ namespace BetterPawnControl
 
         private static void Initialize()
         {
-            _available = LoadedModManager.RunningMods.Any(mod => mod.Name == PF_MOD_NAME);
+            _available = LoadedModManager.RunningMods.Any(
+                mod => mod.Name == PF_MOD_NAME);
 
             _initialized = true;
             if (_available)
@@ -52,25 +54,34 @@ namespace BetterPawnControl
 
                     if (PF_assembly == null)
                     {
-                        throw new Exception("[BPC] Combat Extended assembly not found.");
+                        throw new Exception(
+                            "[BPC] Combat Extended assembly not found.");
                     }
 
                     var PF_UtilsType = PF_assembly.GetType(PF_TYPE_UTILS);
                     if (PF_UtilsType == null)
                     {
-                        throw new Exception("[BPC] Combat Extended type not found: " + PF_TYPE_UTILS);
+                        throw new Exception(
+                            "[BPC] Combat Extended type not found: " + 
+                            PF_TYPE_UTILS);
                     }
 
-                    _hasGetLoadoutId = PF_UtilsType.GetMethod(PF_METHOD_GETLOADOUT, BINDINGDLAGS_ALL);
+                    _hasGetLoadoutId = PF_UtilsType.GetMethod(
+                        PF_METHOD_GETLOADOUT, BINDINGDLAGS_ALL);
                     if (_hasGetLoadoutId == null)
                     {
-                        throw new Exception("[BPC] Combat Extended method not found: " + PF_METHOD_GETLOADOUT);
+                        throw new Exception(
+                            "[BPC] Combat Extended method not found: " + 
+                            PF_METHOD_GETLOADOUT);
                     }
 
-                    _hasSetLoadoutById = PF_UtilsType.GetMethod(PF_METHOD_SETLOADOUT, BINDINGDLAGS_ALL);
+                    _hasSetLoadoutById = PF_UtilsType.GetMethod(
+                        PF_METHOD_SETLOADOUT, BINDINGDLAGS_ALL);
                     if (_hasSetLoadoutById == null)
                     {
-                        throw new Exception("[BPC] Combat Extended method not found: " + PF_METHOD_SETLOADOUT);
+                        throw new Exception(
+                            "[BPC] Combat Extended method not found: " + 
+                            PF_METHOD_SETLOADOUT);
                     }
 
                     Log.Message("[BPC] Combat Extended functionality integrated");

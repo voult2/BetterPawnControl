@@ -55,13 +55,21 @@ namespace BetterPawnControl
             Rect rect = listing_Standard.GetRect(60f);
             DoHeaderRow(rect);
 
-            int rows = MaxNumber(MaxNumber(AnimalManager.policies.Count, AssignManager.policies.Count), RestrictManager.policies.Count);
+            int rows = 
+                MaxNumber(
+                    MaxNumber(
+                        AnimalManager.policies.Count, 
+                        AssignManager.policies.Count), 
+                    RestrictManager.policies.Count);
 
             for (int i = 0; i < rows; i++)
             {
-                Policy restrictP = (i < RestrictManager.policies.Count) ? RestrictManager.policies[i] : null;
-                Policy assignP = (i < AssignManager.policies.Count) ? AssignManager.policies[i] : null;
-                Policy animalP = (i < AnimalManager.policies.Count) ? AnimalManager.policies[i] : null;
+                Policy restrictP = (i < RestrictManager.policies.Count) ? 
+                    RestrictManager.policies[i] : null;
+                Policy assignP = (i < AssignManager.policies.Count) ? 
+                    AssignManager.policies[i] : null;
+                Policy animalP = (i < AnimalManager.policies.Count) ? 
+                    AnimalManager.policies[i] : null;
 
                 Rect rect2 = listing_Standard.GetRect(24f);
                 DoRow(rect2, restrictP, assignP, animalP);
@@ -82,9 +90,11 @@ namespace BetterPawnControl
         }
 
         /// <summary>
-        /// Draw table row with AnimalPolicy label, rename button and delete button
+        /// Draw table row with AnimalPolicy label, rename button and delete 
+        /// button
         /// </summary>
-        private static void DoRow(Rect rect, Policy restrictP, Policy assignP, Policy animalP)
+        private static void DoRow(
+            Rect rect, Policy restrictP, Policy assignP, Policy animalP)
         {
 
             float one = rect.width / 3f;
@@ -102,19 +112,25 @@ namespace BetterPawnControl
             DoColumn(rect3, animalP, Resources.Type.animal);
         }
 
-        private static void DoColumn(Rect rect, Policy policy, Resources.Type type)
+        private static void DoColumn(
+            Rect rect, Policy policy, Resources.Type type)
         {
             GUI.BeginGroup(rect);
-            WidgetRow widgetRow = new WidgetRow(0f, 0f, UIDirection.RightThenUp, 99999f, 4f);
+            WidgetRow widgetRow = 
+                new WidgetRow(0f, 0f, UIDirection.RightThenUp, 99999f, 4f);
             widgetRow.Gap(4f);
             if (policy != null)
             {
                 widgetRow.Label(policy.label, 138f);
-                if (widgetRow.ButtonText("BPC.Rename".Translate(), null, true, false))
+                if (widgetRow.ButtonText(
+                    "BPC.Rename".Translate(), null, true, false))
                 {
                     Find.WindowStack.Add(new Dialog_RenamePolicy(policy, type));
                 }
-                if (policy.id > 0 && widgetRow.ButtonIcon(ContentFinder<Texture2D>.Get("UI/Buttons/Delete", true), null))
+                if (policy.id > 0 && 
+                    widgetRow.ButtonIcon(
+                        ContentFinder<Texture2D>.Get(
+                            "UI/Buttons/Delete", true), null))
                 {
                     switch (type)
                     {
@@ -163,39 +179,63 @@ namespace BetterPawnControl
             float offset = 0f;
             //float offset = one / 2f - buttonWidth / 2f;
 
-            Rect rect1 = new Rect(offset, rect.y, buttonWidth, rect.height + 6f);
-            Rect rect2 = new Rect(offset + one, rect.y, buttonWidth, rect.height + 6f);
-            Rect rect3 = new Rect(offset + two, rect.y, buttonWidth, rect.height + 6f);
+            Rect rect1 = 
+                new Rect(offset, rect.y, buttonWidth, rect.height + 6f);
+            Rect rect2 = 
+                new Rect(offset + one, rect.y, buttonWidth, rect.height + 6f);
+            Rect rect3 =
+                new Rect(offset + two, rect.y, buttonWidth, rect.height + 6f);
 
-            if (RestrictManager.policies.Count < MAX_POLICIES && Widgets.ButtonText(rect1, "BPC.NewRestrictPolicy".Translate(), true, false, true))
+            if (RestrictManager.policies.Count < MAX_POLICIES && 
+                Widgets.ButtonText(
+                    rect1, "BPC.NewRestrictPolicy".Translate(), 
+                    true, false, true))
             {
                 int lastItem = RestrictManager.policies.Count - 1;
                 int label_id = RestrictManager.policies[lastItem].id;
                 label_id++;
-                RestrictManager.policies.Add(new Policy(label_id, "BPC.RestrictPolicy".Translate() + label_id));
+                RestrictManager.policies.Add(
+                    new Policy(
+                        label_id, 
+                        "BPC.RestrictPolicy".Translate() + label_id));
             }
 
-            if (AssignManager.policies.Count < MAX_POLICIES && Widgets.ButtonText(rect2, "BPC.NewAssignPolicy".Translate(), true, false, true))
+            if (AssignManager.policies.Count < MAX_POLICIES && 
+                Widgets.ButtonText(
+                    rect2, 
+                    "BPC.NewAssignPolicy".Translate(), true, false, true))
             {
                 int lastItem = AssignManager.policies.Count - 1;
                 int label_id = AssignManager.policies[lastItem].id;
                 label_id++;
-                AssignManager.policies.Add(new Policy(label_id, "BPC.AssignPolicy".Translate() + label_id));
+                AssignManager.policies.Add(
+                    new Policy(label_id, 
+                    "BPC.AssignPolicy".Translate() + label_id));
 
-                Rect rect4 = new Rect(offset, rect2.height + 6f, buttonWidth, rect.height + 6f);
-                if (Widgets.ButtonText(rect2, "BPC.DefaultOutfit".Translate(), true, false, true))
+                Rect rect4 = 
+                    new Rect(
+                        offset, rect2.height + 6f, 
+                        buttonWidth, rect.height + 6f);
+                if (Widgets.ButtonText(
+                    rect2, 
+                    "BPC.DefaultOutfit".Translate(), true, false, true))
                 {
                     OpenOutfitSelectMenu();
                 }
 
             }
 
-            if (AnimalManager.policies.Count < MAX_POLICIES && Widgets.ButtonText(rect3, "BPC.NewAnimalPolicy".Translate(), true, false, true))
+            if (AnimalManager.policies.Count < MAX_POLICIES && 
+                Widgets.ButtonText(
+                    rect3, "BPC.NewAnimalPolicy".Translate(), 
+                    true, false, true))
             {
                 int lastItem = AnimalManager.policies.Count - 1;
                 int label_id = AnimalManager.policies[lastItem].id;
                 label_id++;
-                AnimalManager.policies.Add(new Policy(label_id, "BPC.AnimalPolicy".Translate() + label_id));
+                AnimalManager.policies.Add(
+                    new Policy(
+                        label_id, "BPC.AnimalPolicy".Translate() + label_id));
             }
         }
 
@@ -211,7 +251,8 @@ namespace BetterPawnControl
             Widgets.Label(label, "BPC.SelectedDefaultOutfit".Translate());
             Text.Anchor = TextAnchor.UpperLeft;
 
-            if (Widgets.ButtonText(button, AssignManager.DefaultOutfit.label, true, false, true))
+            if (Widgets.ButtonText(
+                button, AssignManager.DefaultOutfit.label, true, false, true))
             {
                 OpenOutfitSelectMenu();
             }
@@ -228,7 +269,14 @@ namespace BetterPawnControl
 
             foreach (Outfit outfit in Current.Game.outfitDatabase.AllOutfits)
             {
-                list.Add(new FloatMenuOption(outfit.label, delegate { AssignManager.DefaultOutfit = outfit; }, MenuOptionPriority.Default, null, null, 0f, null));
+                list.Add(
+                    new FloatMenuOption(
+                        outfit.label, 
+                        delegate 
+                        {
+                            AssignManager.DefaultOutfit = outfit;
+                        }, 
+                        MenuOptionPriority.Default, null, null, 0f, null));
             }
             Find.WindowStack.Add(new FloatMenu(list));
         }

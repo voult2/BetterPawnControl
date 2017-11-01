@@ -9,13 +9,17 @@ namespace BetterPawnControl
         internal Pawn colonist = null;
         internal Outfit outfit = null;
         internal DrugPolicy drugPolicy = null;
-        internal HostilityResponseMode hostilityResponse = HostilityResponseMode.Flee;
+        internal HostilityResponseMode hostilityResponse =
+            HostilityResponseMode.Flee;
         internal int loadoutId = 1;
         internal int mapId = 0;
 
         public AssignLink() { }
 
-        public AssignLink(int zone, Pawn colonist, Outfit outfit, DrugPolicy drugPolicy, HostilityResponseMode hostilityResponse, int loadoutId, int mapId)
+        public AssignLink(
+            int zone, Pawn colonist, Outfit outfit, 
+            DrugPolicy drugPolicy, HostilityResponseMode hostilityResponse, 
+            int loadoutId, int mapId)
         {
             this.zone = zone;
             this.colonist = colonist;
@@ -28,10 +32,16 @@ namespace BetterPawnControl
 
         public override string ToString()
         {
-            string tmp = (outfit == null) ? null : outfit.label;
-            string tmp2 = (drugPolicy == null) ? null : drugPolicy.label;
-            return "Policy:" + zone + "  Pawn: " + colonist + "  Outfit: " + tmp + "  DrugPolicy: " +
-                tmp2 + " HostilityResponse: " + hostilityResponse + " LoadoutId: " + loadoutId + " MapID: " + mapId;
+            string tmp = outfit?.label;
+            string tmp2 = drugPolicy?.label;
+            return 
+                "Policy:" + zone + 
+                "  Pawn: " + colonist + 
+                "  Outfit: " + tmp + 
+                "  DrugPolicy: " + tmp2 + 
+                "  HostilityResponse: " + hostilityResponse + 
+                "  LoadoutId: " + loadoutId + 
+                "  MapID: " + mapId;
         }
 
         /// <summary>
@@ -43,7 +53,9 @@ namespace BetterPawnControl
             Scribe_References.Look<Pawn>(ref colonist, "colonist");
             Scribe_References.Look<Outfit>(ref outfit, "outfit");
             Scribe_References.Look<DrugPolicy>(ref drugPolicy, "drugPolicy");
-            Scribe_Values.Look<HostilityResponseMode>(ref hostilityResponse, "hostilityResponse", HostilityResponseMode.Flee, true);
+            Scribe_Values.Look<HostilityResponseMode>(
+                ref hostilityResponse, 
+                "hostilityResponse", HostilityResponseMode.Flee, true);
             Scribe_Values.Look<int>(ref loadoutId, "loadoutId", 1, true);
             Scribe_Values.Look<int>(ref mapId, "mapId", 0, true);
         }

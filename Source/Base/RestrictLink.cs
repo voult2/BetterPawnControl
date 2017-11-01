@@ -21,7 +21,11 @@ namespace BetterPawnControl
 
         public override string ToString()
         {
-            return "Policy:" + zone + "  Colonist: " + colonist + "  Area: " + area  + " MapID: " + mapId;
+            return 
+                "Policy:" + zone +
+                "  Colonist: " + colonist + 
+                "  Area: " + area  + 
+                "  MapID: " + mapId;
         }
 
         /// <summary>

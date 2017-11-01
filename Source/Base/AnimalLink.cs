@@ -14,7 +14,9 @@ namespace BetterPawnControl
 
         public AnimalLink() { }
 
-        public AnimalLink(int zone, Pawn animal, Pawn master, Area area, bool followDrafted, bool followFieldwork, int mapId)
+        public AnimalLink(
+            int zone, Pawn animal, Pawn master, Area area, 
+            bool followDrafted, bool followFieldwork, int mapId)
         {
             this.zone = zone;
             this.animal = animal;
@@ -27,7 +29,14 @@ namespace BetterPawnControl
 
         public override string ToString()
         {
-            return "Policy:" + zone + "  Animal: " + animal + "  Master: " + master + "  Area: " + area + " FollowDrafted: " + followDrafted + " FollowFieldwork: " + followFieldwork + " MapID: " + mapId;
+            return 
+                "Policy:" + zone + 
+                "  Animal: " + animal + 
+                "  Master: " + master + 
+                "  Area: " + area + 
+                "  FollowDrafted: " + followDrafted + 
+                "  FollowFieldwork: " + followFieldwork + 
+                "  MapID: " + mapId;
         }
 
         /// <summary>
@@ -39,8 +48,10 @@ namespace BetterPawnControl
             Scribe_References.Look<Pawn>(ref animal, "animal");
             Scribe_References.Look<Pawn>(ref master, "master");
             Scribe_References.Look<Area>(ref area, "area");
-            Scribe_Values.Look<bool>(ref followDrafted, "followDrafted", true, true);
-            Scribe_Values.Look<bool>(ref followFieldwork, "followFieldwork", true, true);
+            Scribe_Values.Look<bool>(
+                ref followDrafted, "followDrafted", true, true);
+            Scribe_Values.Look<bool>(
+                ref followFieldwork, "followFieldwork", true, true);
             Scribe_Values.Look<int>(ref mapId, "mapId", 0, true);
         }
     }

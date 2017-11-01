@@ -17,19 +17,7 @@
 1. Create a policy either for animals or for colonists by clicking the dented wheel icon 
 2. Select and activate a new created policy 
 3. Configure the policy by setting the areas or outfits, etc as you always do
-4. Done.|Repeat this process for other policies and THEN change between them in one click. WIN! </content>
-	</HugsLib.UpdateFeatureDef>
-	
-	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>BetterPawnControl_1_6_2</defName>
-		<assemblyVersion>1.6.2</assemblyVersion>
-		<content>Added Combat Extended Integration. If you use the Combat Extended mod, you can now assign loadouts in bulk</content>
-	</HugsLib.UpdateFeatureDef>
-	
-	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>BetterPawnControl_1_6_3</defName>
-		<assemblyVersion>1.6.3</assemblyVersion>
-		<content>Added support for Korean language</content>
+4. Done.|Repeat this process for other policies and THEN change between them in one click. WIN!</content>
 	</HugsLib.UpdateFeatureDef>
 	
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
@@ -39,8 +27,9 @@
 	</HugsLib.UpdateFeatureDef>
 
   <HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-    <defName>BetterPawnControl_1_6_5</defName>
-    <assemblyVersion>1.6.5</assemblyVersion>
-    <content>Added support for French language</content>
+    <defName>BetterPawnControl_1_6_6</defName>
+    <assemblyVersion>1.6.6</assemblyVersion>
+    <content>Now this mod works better with Animal Tab! Improved integration. | 
+Now Inspector Window changes, such change the area restriction or Animal master, applies to current policy</content>
   </HugsLib.UpdateFeatureDef>
 </Defs>

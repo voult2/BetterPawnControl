@@ -6,12 +6,14 @@ namespace BetterPawnControl
     abstract class Manager<T>
     {
         internal static List<Policy> policies = new List<Policy>();
-        internal static List<MapActivePolicy> activePolicies = new List<MapActivePolicy>();
+        internal static List<MapActivePolicy> activePolicies = 
+            new List<MapActivePolicy>();
         internal static List<T> links = new List<T>();
 
         static Manager()
         {
-            Policy defaultPolicy = new Policy(policies.Count, "BPC.Auto".Translate());
+            Policy defaultPolicy = new Policy(
+                policies.Count, "BPC.Auto".Translate());
             policies.Add(defaultPolicy);
             activePolicies.Add(new MapActivePolicy(0, defaultPolicy));
         }
@@ -42,7 +44,8 @@ namespace BetterPawnControl
 
         internal static Policy GetActivePolicy(int mapId)
         {
-            MapActivePolicy mapPolicy = activePolicies.Find(x => x.mapId == mapId);
+            MapActivePolicy mapPolicy = activePolicies.Find(
+                x => x.mapId == mapId);
             if (mapPolicy == null)
             {
                 //new map!create default
