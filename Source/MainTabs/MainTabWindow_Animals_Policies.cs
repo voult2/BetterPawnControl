@@ -26,7 +26,7 @@ namespace BetterPawnControl
                 float offsetY = 0f;
                 if (Widget_AnimalTab.AnimalTabAvailable)
                 {
-                    offsetY = 30f;
+                    offsetY = 30f+12f;
                 }
                 return offsetY;
             }
@@ -63,6 +63,7 @@ namespace BetterPawnControl
         /// </summary>
         public override void DoWindowContents(Rect fillRect)
         {
+  
             if (AnimalManager.DirtyPolicy)
             {
                 LoadState(
@@ -72,8 +73,9 @@ namespace BetterPawnControl
             }
 
             float offsetX = 5f;
-            base.DoWindowContents(fillRect);
 
+            base.DoWindowContents(fillRect);
+           
             Rect position = new Rect(0f, 0f, fillRect.width, 65f);  
 
             GUI.BeginGroup(position);
@@ -171,7 +173,7 @@ namespace BetterPawnControl
         }
 
         /// <summary>
-        /// Get and set all links from a AnimalPolicy 
+        /// Get and set all links from an AnimalPolicy 
         /// </summary>
         private static void LoadState(
             List<AnimalLink> links, List<Pawn> pawns, Policy policy)

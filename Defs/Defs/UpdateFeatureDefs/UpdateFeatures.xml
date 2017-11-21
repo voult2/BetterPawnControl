@@ -29,7 +29,13 @@
   <HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
     <defName>BetterPawnControl_1_6_6</defName>
     <assemblyVersion>1.6.6</assemblyVersion>
-    <content>Now this mod works better with Animal Tab! Improved integration. | 
+    <content>Now this mod works better a little better with Animal Tab but it still overwrites the filter button | 
 Now Inspector Window changes, such change the area restriction or Animal master, applies to current policy</content>
+  </HugsLib.UpdateFeatureDef>
+  
+    <HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+    <defName>BetterPawnControl_1_6_7</defName>
+    <assemblyVersion>1.6.7</assemblyVersion>
+    <content>A18 compatilibility release</content>
   </HugsLib.UpdateFeatureDef>
 </Defs>
