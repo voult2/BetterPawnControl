@@ -21,4 +21,5 @@
 	<BPC.AnimalTab>동물</BPC.AnimalTab>
 	
 	<BPC.SelectedDefaultOutfit>기본 복장</BPC.SelectedDefaultOutfit>
+	<BPC.SelectedDefaultDrug>기본 약</BPC.SelectedDefaultDrug>  
 </LanguageData>

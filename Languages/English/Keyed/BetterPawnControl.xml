@@ -21,4 +21,6 @@
 	<BPC.AnimalTab>Animals</BPC.AnimalTab>
 	
 	<BPC.SelectedDefaultOutfit>Default outfit</BPC.SelectedDefaultOutfit>	
+	<BPC.SelectedDefaultDrug>Default drug</BPC.SelectedDefaultDrug>
+	
 </LanguageData>

@@ -20,5 +20,6 @@
   <BPC.AssignTab>Assignations</BPC.AssignTab>
   <BPC.AnimalTab>Animaux</BPC.AnimalTab>
   
-  <BPC.SelectedDefaultOutfit>Equipement par défaut</BPC.SelectedDefaultOutfit> 
+  <BPC.SelectedDefaultOutfit>Equipement par défaut</BPC.SelectedDefaultOutfit>
+	<BPC.SelectedDefaultDrug>Drogue par défaut</BPC.SelectedDefaultDrug>  
 </LanguageData>

@@ -13,6 +13,7 @@ namespace BetterPawnControl
             {
                 if (_defaultOutfit == null)
                 {
+                    
                     _defaultOutfit = Current.Game.outfitDatabase.AllOutfits[0];
                 }
                 return _defaultOutfit;
@@ -21,6 +22,24 @@ namespace BetterPawnControl
             set
             {
                 _defaultOutfit = value;
+            }
+        }
+
+        internal static DrugPolicy _defaultDrugPolicy = null;
+        internal static DrugPolicy DefaultDrugPolicy
+        {
+            get
+            {
+                if (_defaultDrugPolicy == null)
+                {
+                    _defaultDrugPolicy = Current.Game.drugPolicyDatabase.AllPolicies[0];
+                }
+                return _defaultDrugPolicy;
+            }
+
+            set
+            {
+                _defaultDrugPolicy = value;
             }
         }
 

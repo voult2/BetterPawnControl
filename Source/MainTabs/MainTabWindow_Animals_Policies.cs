@@ -70,6 +70,7 @@ namespace BetterPawnControl
                     AnimalManager.links, 
                     this.Pawns.ToList(), 
                     AnimalManager.GetActivePolicy());
+                AnimalManager.DirtyPolicy = false;
             }
 
             float offsetX = 5f;

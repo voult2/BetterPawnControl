@@ -19,23 +19,12 @@
 3. Configure the policy by setting the areas or outfits, etc as you always do
 4. Done.|Repeat this process for other policies and THEN change between them in one click. WIN!</content>
 	</HugsLib.UpdateFeatureDef>
-	
-	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>BetterPawnControl_1_6_4</defName>
-		<assemblyVersion>1.6.4</assemblyVersion>
-		<content>You can now set a default outfit. When a new colonist joins your colony the default outfit will be automatically applied!</content>
-	</HugsLib.UpdateFeatureDef>
-
-  <HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-    <defName>BetterPawnControl_1_6_6</defName>
-    <assemblyVersion>1.6.6</assemblyVersion>
-    <content>Now this mod works better a little better with Animal Tab but it still overwrites the filter button | 
-Now Inspector Window changes, such change the area restriction or Animal master, applies to current policy</content>
-  </HugsLib.UpdateFeatureDef>
   
     <HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-    <defName>BetterPawnControl_1_6_7</defName>
-    <assemblyVersion>1.6.7</assemblyVersion>
-    <content>A18 compatilibility release</content>
-  </HugsLib.UpdateFeatureDef>
+		<defName>BetterPawnControl_1_6_8</defName>
+		<assemblyVersion>1.6.8</assemblyVersion>
+		<content>Added default drug policy 
+Fixed rare bug where a policy would become stuck
+Fixed default policies not being saved</content>
+	</HugsLib.UpdateFeatureDef>
 </Defs>

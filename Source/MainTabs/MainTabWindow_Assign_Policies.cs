@@ -41,6 +41,7 @@ namespace BetterPawnControl
                 LoadState(
                     AssignManager.links, this.Pawns.ToList(), 
                     AssignManager.GetActivePolicy());
+                AssignManager.DirtyPolicy = false;
             }
 
             float num = 5f;

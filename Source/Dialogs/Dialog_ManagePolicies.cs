@@ -243,18 +243,40 @@ namespace BetterPawnControl
         {
             float one = rect.width / 4f;
             float two = one * 2f;
+            float three = one * 3f;
 
-            Rect label = new Rect(one, rect.y, one, rect.height + 6f);
-            Rect button = new Rect(two, rect.y, one, rect.height + 6f);
+            Rect labelDefaultOutfit = 
+                new Rect(0, rect.y, one, rect.height + 6f);
+            Rect buttonDefaultOutfit = 
+                new Rect(one, rect.y, one, rect.height + 6f);
+
+            Rect labelDefaultDrug =
+                new Rect(two, rect.y, one, rect.height + 6f);
+            Rect buttonDefaultDrug =
+                new Rect(three, rect.y, one, rect.height + 6f);
 
             Text.Anchor = TextAnchor.MiddleCenter;
-            Widgets.Label(label, "BPC.SelectedDefaultOutfit".Translate());
+            Widgets.Label(
+                labelDefaultOutfit, "BPC.SelectedDefaultOutfit".Translate());
+            Text.Anchor = TextAnchor.UpperLeft;
+
+            Text.Anchor = TextAnchor.MiddleCenter;
+            Widgets.Label(
+                labelDefaultDrug, "BPC.SelectedDefaultDrug".Translate());
             Text.Anchor = TextAnchor.UpperLeft;
 
             if (Widgets.ButtonText(
-                button, AssignManager.DefaultOutfit.label, true, false, true))
+                buttonDefaultOutfit, 
+                AssignManager.DefaultOutfit.label, true, false, true))
             {
                 OpenOutfitSelectMenu();
+            }
+
+            if (Widgets.ButtonText(
+                buttonDefaultDrug,
+                AssignManager.DefaultDrugPolicy.label, true, false, true))
+            {
+                OpenDrugSelectMenu();
             }
         }
 
@@ -280,5 +302,24 @@ namespace BetterPawnControl
             }
             Find.WindowStack.Add(new FloatMenu(list));
         }
+
+        private static void OpenDrugSelectMenu()
+        {
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
+
+            foreach (DrugPolicy drugPolicy in Current.Game.drugPolicyDatabase.AllPolicies)
+            {
+                list.Add(
+                    new FloatMenuOption(
+                        drugPolicy.label,
+                        delegate
+                        {
+                            AssignManager.DefaultDrugPolicy = drugPolicy;
+                        },
+                        MenuOptionPriority.Default, null, null, 0f, null));
+            }
+            Find.WindowStack.Add(new FloatMenu(list));
+        }
+
     }
 }

@@ -20,5 +20,7 @@
 	<BPC.AssignTab>Zuweisung</BPC.AssignTab>
 	<BPC.AnimalTab>Tiere</BPC.AnimalTab>
 	
-	<BPC.SelectedDefaultOutfit>Standard-Outfit</BPC.SelectedDefaultOutfit>	
+	<BPC.SelectedDefaultOutfit>Standard-Outfit</BPC.SelectedDefaultOutfit>
+	<BPC.SelectedDefaultDrug>Standard-Droge</BPC.SelectedDefaultDrug>  
+	
 </LanguageData>

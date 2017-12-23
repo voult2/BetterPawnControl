@@ -42,6 +42,7 @@ namespace BetterPawnControl
                 LoadState(
                     RestrictManager.links, this.Pawns.ToList(), 
                     RestrictManager.GetActivePolicy());
+                RestrictManager.DirtyPolicy = false;
             }
 
 

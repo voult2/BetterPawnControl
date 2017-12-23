@@ -1,6 +1,7 @@
 ﻿using HugsLib;
 using HugsLib.Utils;
 using Verse;
+using RimWorld;
 using System.Collections.Generic;
 
 namespace BetterPawnControl
@@ -16,7 +17,6 @@ namespace BetterPawnControl
         {
             var obj = 
                 UtilityWorldObjectManager.GetUtilityWorldObject<WorldDataStore>();
-
         }
 
         private class WorldDataStore : UtilityWorldObject
@@ -24,63 +24,63 @@ namespace BetterPawnControl
             public override void ExposeData()
             {
                 base.ExposeData();
-                bool loadRestrictData = false;
 
-                if (Scribe.mode == LoadSaveMode.LoadingVars)
-                {
-                    //used for migration for version 1.6
-                    List<Policy> saveFileContainsRestrictData = 
-                        new List<Policy>();  
-                    Scribe_Collections.Look<Policy>(
-                        ref saveFileContainsRestrictData, 
-                        "RestrictPolicies", LookMode.Deep);
-                    if (saveFileContainsRestrictData != null)
-                    {
-                        //flag for loading!
-                        loadRestrictData = true;
-                    }
-                }
-
-                if (Scribe.mode == LoadSaveMode.LoadingVars || 
+                if (Scribe.mode == LoadSaveMode.LoadingVars ||
                     Scribe.mode == LoadSaveMode.Saving)
                 {
+                    Scribe_References.Look<Outfit>(
+                        ref AssignManager._defaultOutfit, "DefaultOutfit");
+
+                    Scribe_References.Look<DrugPolicy>(
+                        ref AssignManager._defaultDrugPolicy, "DefaultDrugPolicy");
+
                     Scribe_Collections.Look<Policy>(
-                        ref AssignManager.policies, 
+                        ref AssignManager.policies,
                         "AssignPolicies", LookMode.Deep);
+
                     Scribe_Collections.Look<AssignLink>(
-                        ref AssignManager.links, 
+                        ref AssignManager.links,
                         "AssignLinks", LookMode.Deep);
+
                     Scribe_Collections.Look<MapActivePolicy>(
-                        ref AssignManager.activePolicies, 
+                        ref AssignManager.activePolicies,
                         "AssignActivePolicies", LookMode.Deep);
 
                     Scribe_Collections.Look<Policy>(
-                        ref AnimalManager.policies, 
+                        ref AnimalManager.policies,
                         "AnimalPolicies", LookMode.Deep);
+
                     Scribe_Collections.Look<AnimalLink>(
-                        ref AnimalManager.links, 
+                        ref AnimalManager.links,
                         "AnimalLinks", LookMode.Deep);
+
                     Scribe_Collections.Look<MapActivePolicy>(
-                        ref AnimalManager.activePolicies, 
+                        ref AnimalManager.activePolicies,
                         "AnimalActivePolicies", LookMode.Deep);
 
+                    Scribe_Collections.Look<Policy>(
+                        ref RestrictManager.policies,
+                        "RestrictPolicies", LookMode.Deep);
 
-                    if (loadRestrictData || Scribe.mode == LoadSaveMode.Saving)
-                    {
-                        Scribe_Collections.Look<Policy>(
-                            ref RestrictManager.policies, 
-                            "RestrictPolicies", LookMode.Deep);
-                        Scribe_Collections.Look<RestrictLink>(
-                            ref RestrictManager.links, 
-                            "RestrictLinks", LookMode.Deep);
-                        Scribe_Collections.Look<MapActivePolicy>(
-                            ref RestrictManager.activePolicies, 
-                            "RestrictActivePolicies", LookMode.Deep);
-                        loadRestrictData = false;
-                    }
+                    Scribe_Collections.Look<RestrictLink>(
+                        ref RestrictManager.links,
+                        "RestrictLinks", LookMode.Deep);
+
+                    Scribe_Collections.Look<MapActivePolicy>(
+                        ref RestrictManager.activePolicies,
+                        "RestrictActivePolicies", LookMode.Deep);
                 }
 
 
+                if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs)
+                {
+                    Scribe_References.Look<Outfit>(
+                        ref AssignManager._defaultOutfit, "DefaultOutfit");
+
+                    Scribe_References.Look<DrugPolicy>(
+                        ref AssignManager._defaultDrugPolicy, "DefaultDrugPolicy");
+
+                }
             }
         }
     }
