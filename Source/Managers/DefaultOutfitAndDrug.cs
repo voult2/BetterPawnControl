@@ -20,7 +20,7 @@ namespace BetterPawnControl
                 //Log.Message("[BPC] Tick! 600");
                 //check if a new pawn has joined the player colony
                 IEnumerable<Pawn> Pawns = 
-                    Find.VisibleMap.mapPawns.FreeColonists;
+                    Find.CurrentMap.mapPawns.FreeColonists;
                 foreach (Pawn p in Pawns)
                 {
                     if (!AssignManager.links.Exists(x => x.colonist == p))

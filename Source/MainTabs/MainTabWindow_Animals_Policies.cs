@@ -108,7 +108,7 @@ namespace BetterPawnControl
             if (Widgets.ButtonText(rect3, "", true, false, true))
             {
                 Find.WindowStack.Add(
-                    new Dialog_ManagePolicies(Find.VisibleMap));
+                    new Dialog_ManagePolicies(Find.CurrentMap));
             }
             Rect rect4 = new Rect(offsetX + 3f, rect3.height / 4f, 14f, 14f);
             GUI.DrawTexture(rect4, Resources.Settings);
@@ -117,7 +117,7 @@ namespace BetterPawnControl
 
         private static void SaveCurrentState(List<Pawn> pawns)
         {
-            int currentMap = Find.VisibleMap.uniqueID;
+            int currentMap = Find.CurrentMap.uniqueID;
             //Save current state
             foreach (Pawn p in pawns)
             {
@@ -132,7 +132,7 @@ namespace BetterPawnControl
                 {
                     //animal found! save master and area
                     animalLink.master = 
-                        p.playerSettings.master;
+                        p.playerSettings.Master;
                     animalLink.area = 
                         p.playerSettings.AreaRestriction;
                     animalLink.followDrafted = 
@@ -146,7 +146,7 @@ namespace BetterPawnControl
                     AnimalManager.links.Add(new AnimalLink(
                         AnimalManager.GetActivePolicy().id,
                         p,
-                        p.playerSettings.master,
+                        p.playerSettings.Master,
                         p.playerSettings.AreaRestriction,
                         p.playerSettings.followDrafted,
                         p.playerSettings.followFieldwork,
@@ -181,7 +181,7 @@ namespace BetterPawnControl
         {
             List<AnimalLink> mapLinks = null;
             List<AnimalLink> zoneLinks = null;
-            int currentMap = Find.VisibleMap.uniqueID;
+            int currentMap = Find.CurrentMap.uniqueID;
 
             //get all links from the current map
             mapLinks = links.FindAll(x => x.mapId == currentMap);
@@ -195,7 +195,7 @@ namespace BetterPawnControl
                     if (l.animal != null && l.animal.Equals(p))
                     {
                         //found animal in zone. Update master if alive
-                        p.playerSettings.master = 
+                        p.playerSettings.Master = 
                             (l.master != null && l.master.Dead) ? 
                                 null : l.master;
                         p.playerSettings.AreaRestriction = l.area;
@@ -216,7 +216,7 @@ namespace BetterPawnControl
         {
             List<AnimalLink> mapLinks = null;
             List<AnimalLink> zoneLinks = null;
-            int currentMap = Find.VisibleMap.uniqueID;
+            int currentMap = Find.CurrentMap.uniqueID;
 
             //get all links from the current map
             mapLinks = links.FindAll(x => x.mapId == currentMap);
@@ -229,7 +229,7 @@ namespace BetterPawnControl
                 {
                     if (l.animal != null && l.animal.Equals(p))
                     {
-                        l.master = p.playerSettings.master;
+                        l.master = p.playerSettings.Master;
                         l.area = p.playerSettings.AreaRestriction;
                     }
                 }

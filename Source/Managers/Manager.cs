@@ -34,12 +34,12 @@ namespace BetterPawnControl
 
         internal static Policy GetActivePolicy()
         {
-            return GetActivePolicy(Find.VisibleMap.uniqueID);
+            return GetActivePolicy(Find.CurrentMap.uniqueID);
         }
 
         internal static void SetActivePolicy(Policy policy)
         {
-            SetActivePolicy(Find.VisibleMap.uniqueID, policy);
+            SetActivePolicy(Find.CurrentMap.uniqueID, policy);
         }
 
         internal static Policy GetActivePolicy(int mapId)

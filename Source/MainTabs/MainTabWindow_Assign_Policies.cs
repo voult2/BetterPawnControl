@@ -77,7 +77,7 @@ namespace BetterPawnControl
             if (Widgets.ButtonText(rect3, "", true, false, true))
             {
                 Find.WindowStack.Add(
-                    new Dialog_ManagePolicies(Find.VisibleMap));
+                    new Dialog_ManagePolicies(Find.CurrentMap));
             }
             Rect rect4 = new Rect(num + 3f, rect3.height / 4f, 14f, 14f);
             GUI.DrawTexture(rect4, Resources.Settings);
@@ -86,7 +86,7 @@ namespace BetterPawnControl
 
         private static void SaveCurrentState(List<Pawn> pawns)
         {
-            int currentMap = Find.VisibleMap.uniqueID;
+            int currentMap = Find.CurrentMap.uniqueID;
             //Save current state
             foreach (Pawn p in pawns)
             {
@@ -170,7 +170,7 @@ namespace BetterPawnControl
         {
             List<AssignLink> mapLinks = null;
             List<AssignLink> zoneLinks = null;
-            int currentMap = Find.VisibleMap.uniqueID;
+            int currentMap = Find.CurrentMap.uniqueID;
 
             //get all links from the current map
             mapLinks = links.FindAll(x => x.mapId == currentMap);
@@ -197,7 +197,7 @@ namespace BetterPawnControl
         {
             List<AssignLink> mapLinks = null;
             List<AssignLink> zoneLinks = null;
-            int currentMap = Find.VisibleMap.uniqueID;
+            int currentMap = Find.CurrentMap.uniqueID;
 
             //get all links from the current map
             mapLinks = links.FindAll(x => x.mapId == currentMap);

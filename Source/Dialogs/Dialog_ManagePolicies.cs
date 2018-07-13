@@ -36,7 +36,7 @@ namespace BetterPawnControl
             this.map = map;
             this.forcePause = true;
             this.doCloseX = true;
-            this.closeOnEscapeKey = true;
+            //this.closeOnEscapeKey = true;
             this.doCloseButton = true;
             this.closeOnClickedOutside = true;
             this.absorbInputAroundWindow = true;

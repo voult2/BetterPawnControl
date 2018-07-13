@@ -51,7 +51,7 @@ namespace BetterPawnControl
             {
                 links.RemoveAll(x => x.zone == policy.id);
                 policies.Remove(policy);
-                int mapId = Find.VisibleMap.uniqueID;
+                int mapId = Find.CurrentMap.uniqueID;
                 foreach (MapActivePolicy m in activePolicies)
                 {
                     if (m.activePolicy.id == policy.id)
