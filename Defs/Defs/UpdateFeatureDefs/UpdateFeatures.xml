@@ -27,4 +27,10 @@
 Fixed rare bug where a policy would become stuck
 Fixed default policies not being saved</content>
 	</HugsLib.UpdateFeatureDef>
+	
+	    <HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>BetterPawnControl_1_7_1</defName>
+		<assemblyVersion>1.7.1</assemblyVersion>
+		<content>Better Pawn Control is now compatible with B19</content>
+	</HugsLib.UpdateFeatureDef>
 </Defs>

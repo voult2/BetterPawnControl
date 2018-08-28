@@ -47,7 +47,6 @@ namespace BetterPawnControl
             CleanDeadMaps();
 
             CleanDeadAnimals(this.Pawns.ToList());
-
         }
 
         public override void PreClose()
@@ -63,28 +62,23 @@ namespace BetterPawnControl
         /// </summary>
         public override void DoWindowContents(Rect fillRect)
         {
-  
             if (AnimalManager.DirtyPolicy)
             {
                 LoadState(
-                    AnimalManager.links, 
-                    this.Pawns.ToList(), 
+                    AnimalManager.links, this.Pawns.ToList(), 
                     AnimalManager.GetActivePolicy());
                 AnimalManager.DirtyPolicy = false;
             }
 
             float offsetX = 5f;
-
-            base.DoWindowContents(fillRect);
-           
+            base.DoWindowContents(fillRect);           
             Rect position = new Rect(0f, 0f, fillRect.width, 65f);  
 
             GUI.BeginGroup(position);
             Text.Font = GameFont.Tiny;
             Text.Anchor = TextAnchor.LowerCenter;
             Rect rect1 = 
-                new Rect(offsetX, -8f, 165f, 
-                    Mathf.Round(position.height / 3f));
+                new Rect(offsetX, -8f, 165f, Mathf.Round(position.height / 3f));
             Widgets.Label(rect1, "BPC.CurrentAnimalPolicy".Translate());
             GUI.EndGroup();
 
@@ -94,6 +88,7 @@ namespace BetterPawnControl
                 new Rect(
                     offsetX, Mathf.Round(position.height / 4f) - 4f, 
                     rect1.width, Mathf.Round(position.height / 4f) + 4f);
+
             if (Widgets.ButtonText(
                 rect2, AnimalManager.GetActivePolicy().label, 
                 true, false, true))
@@ -105,6 +100,7 @@ namespace BetterPawnControl
             offsetX += rect1.width;
             Rect rect3 = 
                 new Rect(offsetX, 0f, 20f, Mathf.Round(position.height / 2f));
+
             if (Widgets.ButtonText(rect3, "", true, false, true))
             {
                 Find.WindowStack.Add(

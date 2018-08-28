@@ -29,8 +29,8 @@ namespace BetterPawnControl
         public override void PreClose()
         {
             base.PreClose();
-            CleanDeadColonists(this.Pawns.ToList());
             CleanDeadMaps();
+            CleanDeadColonists(this.Pawns.ToList());         
             SaveCurrentState(this.Pawns.ToList());
         }
 
