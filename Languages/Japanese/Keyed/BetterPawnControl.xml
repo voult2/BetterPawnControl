@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <BPC.Auto>自動</BPC.Auto>
+  <BPC.Rename>名前の変更</BPC.Rename>
+  <BPC.Settings>方針の設定</BPC.Settings>
+
+  <BPC.NewAnimalPolicy>新規動物設定</BPC.NewAnimalPolicy>
+  <BPC.AnimalPolicy>方針: </BPC.AnimalPolicy>
+  <BPC.CurrentAnimalPolicy>有効な動物の方針</BPC.CurrentAnimalPolicy>
+
+  <BPC.NewAssignPolicy>新規服装・任命方針</BPC.NewAssignPolicy>
+  <BPC.AssignPolicy>方針: </BPC.AssignPolicy>
+  <BPC.CurrentAssignPolicy>有効な服装・任命の方針</BPC.CurrentAssignPolicy>
+
+  <BPC.NewRestrictPolicy>新規制約方針</BPC.NewRestrictPolicy>
+  <BPC.RestrictPolicy>方針: </BPC.RestrictPolicy>
+  <BPC.CurrentRestrictPolicy>有効な制約の方針</BPC.CurrentRestrictPolicy>
+
+  <BPC.RestrictTab>制約</BPC.RestrictTab>
+  <BPC.AssignTab>服装・任命</BPC.AssignTab>
+  <BPC.AnimalTab>動物</BPC.AnimalTab>
+
+  <BPC.SelectedDefaultOutfit>初期設定:服装</BPC.SelectedDefaultOutfit>
+  <BPC.SelectedDefaultDrug>初期設定:ドラッグ</BPC.SelectedDefaultDrug>
+
+</LanguageData>
