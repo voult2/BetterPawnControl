@@ -57,6 +57,7 @@
     <Compile Include="Base\Policy.cs" />
     <Compile Include="Dialogs\Dialog_ManagePolicies.cs" />
     <Compile Include="Dialogs\Dialog_RenamePolicy.cs" />
+    <Compile Include="Helpers\Widget_CSL.cs" />
     <Compile Include="Helpers\Widget_AnimalTab.cs" />
     <Compile Include="Helpers\Widget_CombatExtended.cs" />
     <Compile Include="MainTabs\MainTabWindow_Restrict_Policies.cs" />

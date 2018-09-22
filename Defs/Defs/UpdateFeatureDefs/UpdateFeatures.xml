@@ -33,4 +33,11 @@ Fixed default policies not being saved</content>
 		<assemblyVersion>1.7.1</assemblyVersion>
 		<content>Better Pawn Control is now compatible with B19</content>
 	</HugsLib.UpdateFeatureDef>
+	
+		    <HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>BetterPawnControl_1_8_0</defName>
+		<assemblyVersion>1.8.0</assemblyVersion>
+		<content>Integrated with 'Children, School and Learning' mod to move the Assignment in the restrict tab to the right
+Added support for Japanese, Spanish (and SpanishLatin) languages</content>
+	</HugsLib.UpdateFeatureDef>
 </Defs>
