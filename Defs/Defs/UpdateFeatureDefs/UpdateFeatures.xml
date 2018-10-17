@@ -6,38 +6,16 @@
 		<modIdentifier>BetterPawnControl</modIdentifier>
 		<linkUrl>https://ludeon.com/forums/index.php?topic=26618.0</linkUrl>
 	</HugsLib.UpdateFeatureDef>
-	
-	<!-- Note: these are probably not worth translating. This is a lot of text, and the player will only see this once -->
 
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>BetterPawnControl_1_6_1</defName>
-		<assemblyVersion>1.6.1</assemblyVersion>
-		<content>Added BetterPawnControl to the Restrict Tab! You can now bulk assignment colonist to restricted areas! |
+		<defName>BetterPawnControl_1_9_0</defName>
+		<assemblyVersion>1.9.0</assemblyVersion>
+		<content>Bulk assignment of animals or Colonists to areas, outfits, drugs, masters in one single action. Setup different policies and switch at will. 
 &lt;b&gt;HOW TO USE&lt;/b&gt;
-1. Create a policy either for animals or for colonists by clicking the dented wheel icon 
-2. Select and activate a new created policy 
-3. Configure the policy by setting the areas or outfits, etc as you always do
+1. Create a policy either for animals or for colonists by clicking the dented wheel icon
+2. Select and activate a new created policy by clicking on the button next to the dented wheel icon
+3. Configure the policy by setting the areas, outfits, drugs, etc as you always do
 4. Done.|Repeat this process for other policies and THEN change between them in one click. WIN!</content>
 	</HugsLib.UpdateFeatureDef>
-  
-    <HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>BetterPawnControl_1_6_8</defName>
-		<assemblyVersion>1.6.8</assemblyVersion>
-		<content>Added default drug policy 
-Fixed rare bug where a policy would become stuck
-Fixed default policies not being saved</content>
-	</HugsLib.UpdateFeatureDef>
-	
-	    <HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>BetterPawnControl_1_7_1</defName>
-		<assemblyVersion>1.7.1</assemblyVersion>
-		<content>Better Pawn Control is now compatible with B19</content>
-	</HugsLib.UpdateFeatureDef>
-	
-		    <HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>BetterPawnControl_1_8_0</defName>
-		<assemblyVersion>1.8.0</assemblyVersion>
-		<content>Integrated with 'Children, School and Learning' mod to move the Assignment in the restrict tab to the right
-Added support for Japanese, Spanish (and SpanishLatin) languages</content>
-	</HugsLib.UpdateFeatureDef>
+
 </Defs>
