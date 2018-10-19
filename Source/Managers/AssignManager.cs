@@ -14,7 +14,7 @@ namespace BetterPawnControl
                 if (_defaultOutfit == null)
                 {
                     
-                    _defaultOutfit = Current.Game.outfitDatabase.AllOutfits[0];
+                    _defaultOutfit = Current.Game.outfitDatabase.DefaultOutfit();
                 }
                 return _defaultOutfit;
             }
@@ -32,7 +32,7 @@ namespace BetterPawnControl
             {
                 if (_defaultDrugPolicy == null)
                 {
-                    _defaultDrugPolicy = Current.Game.drugPolicyDatabase.AllPolicies[0];
+                    _defaultDrugPolicy = Current.Game.drugPolicyDatabase.DefaultDrugPolicy();
                 }
                 return _defaultDrugPolicy;
             }
@@ -40,6 +40,24 @@ namespace BetterPawnControl
             set
             {
                 _defaultDrugPolicy = value;
+            }
+        }
+
+        internal static FoodRestriction _defaultFoodPolicy = null;
+        internal static FoodRestriction DefaultFoodPolicy
+        {
+            get
+            {
+                if (_defaultFoodPolicy == null)
+                {
+                    _defaultFoodPolicy = Current.Game.foodRestrictionDatabase.DefaultFoodRestriction();
+                }
+                return _defaultFoodPolicy;
+            }
+
+            set
+            {
+                _defaultFoodPolicy = value;
             }
         }
 

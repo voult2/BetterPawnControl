@@ -21,5 +21,6 @@
 	<BPC.AnimalTab>animal</BPC.AnimalTab>
 	
 	<BPC.SelectedDefaultOutfit>Vestimentas por defecto</BPC.SelectedDefaultOutfit>
-	<BPC.SelectedDefaultDrug>Drogas por defecto</BPC.SelectedDefaultDrug>  
+	<BPC.SelectedDefaultDrug>Drogas por defecto</BPC.SelectedDefaultDrug>
+	<BPC.SelectedDefaultFood>Comida por defecto</BPC.SelectedDefaultFood>	
 </LanguageData>

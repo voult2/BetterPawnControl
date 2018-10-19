@@ -241,23 +241,36 @@ namespace BetterPawnControl
 
         private static void DoDefaultOutfitRow(Rect rect)
         {
-            float one = rect.width / 4f;
+            float one = rect.width / 6f;
             float two = one * 2f;
             float three = one * 3f;
+            float four = one * 4f;
+            float five = one * 5f;
+            float buttonWidth = 4f * one / 5f;
 
             Rect labelDefaultOutfit = 
                 new Rect(0, rect.y, one, rect.height + 6f);
             Rect buttonDefaultOutfit = 
-                new Rect(one, rect.y, one, rect.height + 6f);
+                new Rect(one, rect.y, buttonWidth, rect.height + 6f);
+
+            Rect labelDefaultFood =
+                new Rect(two, rect.y, one, rect.height + 6f);
+            Rect buttonDefaultFood =
+                new Rect(three, rect.y, buttonWidth, rect.height + 6f);
 
             Rect labelDefaultDrug =
-                new Rect(two, rect.y, one, rect.height + 6f);
+                new Rect(four, rect.y, one, rect.height + 6f);
             Rect buttonDefaultDrug =
-                new Rect(three, rect.y, one, rect.height + 6f);
+                new Rect(five, rect.y, buttonWidth, rect.height + 6f);
 
             Text.Anchor = TextAnchor.MiddleCenter;
             Widgets.Label(
                 labelDefaultOutfit, "BPC.SelectedDefaultOutfit".Translate());
+            Text.Anchor = TextAnchor.UpperLeft;
+
+            Text.Anchor = TextAnchor.MiddleCenter;
+            Widgets.Label(
+                labelDefaultFood, "BPC.SelectedDefaultFood".Translate());
             Text.Anchor = TextAnchor.UpperLeft;
 
             Text.Anchor = TextAnchor.MiddleCenter;
@@ -273,11 +286,19 @@ namespace BetterPawnControl
             }
 
             if (Widgets.ButtonText(
+                buttonDefaultFood,
+                AssignManager.DefaultFoodPolicy.label, true, false, true))
+            {
+                OpenFoodSelectMenu();
+            }
+
+            if (Widgets.ButtonText(
                 buttonDefaultDrug,
                 AssignManager.DefaultDrugPolicy.label, true, false, true))
             {
                 OpenDrugSelectMenu();
             }
+
         }
 
         private static int MaxNumber(int first, int second)
@@ -315,6 +336,24 @@ namespace BetterPawnControl
                         delegate
                         {
                             AssignManager.DefaultDrugPolicy = drugPolicy;
+                        },
+                        MenuOptionPriority.Default, null, null, 0f, null));
+            }
+            Find.WindowStack.Add(new FloatMenu(list));
+        }
+
+        private static void OpenFoodSelectMenu()
+        {
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
+
+            foreach (FoodRestriction foodPolicy in Current.Game.foodRestrictionDatabase.AllFoodRestrictions)
+            {
+                list.Add(
+                    new FloatMenuOption(
+                        foodPolicy.label,
+                        delegate
+                        {
+                            AssignManager.DefaultFoodPolicy = foodPolicy;
                         },
                         MenuOptionPriority.Default, null, null, 0f, null));
             }

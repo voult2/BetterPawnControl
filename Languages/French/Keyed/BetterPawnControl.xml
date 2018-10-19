@@ -21,5 +21,6 @@
   <BPC.AnimalTab>Animaux</BPC.AnimalTab>
   
   <BPC.SelectedDefaultOutfit>Equipement par défaut</BPC.SelectedDefaultOutfit>
-	<BPC.SelectedDefaultDrug>Drogue par défaut</BPC.SelectedDefaultDrug>  
+  <BPC.SelectedDefaultDrug>Drogue par défaut</BPC.SelectedDefaultDrug>  
+  <BPC.SelectedDefaultFood>Aliment par défaut</BPC.SelectedDefaultFood>
 </LanguageData>

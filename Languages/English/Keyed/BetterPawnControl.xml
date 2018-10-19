@@ -22,5 +22,6 @@
 	
 	<BPC.SelectedDefaultOutfit>Default outfit</BPC.SelectedDefaultOutfit>	
 	<BPC.SelectedDefaultDrug>Default drug</BPC.SelectedDefaultDrug>
+	<BPC.SelectedDefaultFood>Default food</BPC.SelectedDefaultFood>
 	
 </LanguageData>

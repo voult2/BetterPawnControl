@@ -21,6 +21,7 @@
 	<BPC.AnimalTab>Tiere</BPC.AnimalTab>
 	
 	<BPC.SelectedDefaultOutfit>Standard-Outfit</BPC.SelectedDefaultOutfit>
-	<BPC.SelectedDefaultDrug>Standard-Droge</BPC.SelectedDefaultDrug>  
+	<BPC.SelectedDefaultDrug>Standard-Droge</BPC.SelectedDefaultDrug>
+	<BPC.SelectedDefaultFood>Standard-Essen</BPC.SelectedDefaultFood>
 	
 </LanguageData>

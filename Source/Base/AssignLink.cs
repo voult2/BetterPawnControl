@@ -8,6 +8,7 @@ namespace BetterPawnControl
         internal int zone = 0;
         internal Pawn colonist = null;
         internal Outfit outfit = null;
+        internal FoodRestriction foodPolicy = null;
         internal DrugPolicy drugPolicy = null;
         internal HostilityResponseMode hostilityResponse =
             HostilityResponseMode.Flee;
@@ -17,13 +18,14 @@ namespace BetterPawnControl
         public AssignLink() { }
 
         public AssignLink(
-            int zone, Pawn colonist, Outfit outfit, 
+            int zone, Pawn colonist, Outfit outfit, FoodRestriction foodPolicy,
             DrugPolicy drugPolicy, HostilityResponseMode hostilityResponse, 
             int loadoutId, int mapId)
         {
             this.zone = zone;
             this.colonist = colonist;
             this.outfit = outfit;
+            this.foodPolicy = foodPolicy;
             this.drugPolicy = drugPolicy;
             this.hostilityResponse = hostilityResponse;
             this.loadoutId = loadoutId;
@@ -32,13 +34,15 @@ namespace BetterPawnControl
 
         public override string ToString()
         {
-            string tmp = outfit?.label;
-            string tmp2 = drugPolicy?.label;
+            string outifit = outfit?.label;
+            string drug = drugPolicy?.label;
+            string food = foodPolicy?.label;
             return 
                 "Policy:" + zone + 
                 "  Pawn: " + colonist + 
-                "  Outfit: " + tmp + 
-                "  DrugPolicy: " + tmp2 + 
+                "  Outfit: " + outifit + 
+                "  Food: " + food +
+                "  DrugPolicy: " + drug + 
                 "  HostilityResponse: " + hostilityResponse + 
                 "  LoadoutId: " + loadoutId + 
                 "  MapID: " + mapId;
@@ -52,6 +56,7 @@ namespace BetterPawnControl
             Scribe_Values.Look<int>(ref zone, "zone", 0, true);
             Scribe_References.Look<Pawn>(ref colonist, "colonist");
             Scribe_References.Look<Outfit>(ref outfit, "outfit");
+            Scribe_References.Look<FoodRestriction>(ref foodPolicy, "foodPolicy");
             Scribe_References.Look<DrugPolicy>(ref drugPolicy, "drugPolicy");
             Scribe_Values.Look<HostilityResponseMode>(
                 ref hostilityResponse, 

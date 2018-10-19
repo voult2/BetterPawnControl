@@ -6,18 +6,17 @@ using Verse;
 
 namespace BetterPawnControl
 {
-    public class DefaultOutfitAndDrug : MapComponent
+    public class DefaultOutfitAndFoodAndDrug : MapComponent
     {
 
-        public DefaultOutfitAndDrug(Map map) : base(map) { }
+        public DefaultOutfitAndFoodAndDrug(Map map) : base(map) { }
 
         public override void MapComponentTick()
         {
-
             if (Current.Game.tickManager.TicksGame % 1800 == 0 &&
                 !Find.WindowStack.IsOpen<MainTabWindow_Assign_Policies>())
             {
-                //Log.Message("[BPC] Tick! 600");
+                //Log.Message("[BPC] Tick! 1800");
                 //check if a new pawn has joined the player colony
                 IEnumerable<Pawn> Pawns = 
                     Find.CurrentMap.mapPawns.FreeColonists;
@@ -28,6 +27,7 @@ namespace BetterPawnControl
                         //not found so set an outfit and drug
                         p.outfits.CurrentOutfit = AssignManager.DefaultOutfit;
                         p.drugs.CurrentPolicy = AssignManager.DefaultDrugPolicy;
+                        p.foodRestriction.CurrentFoodRestriction = AssignManager.DefaultFoodPolicy;
                     }
                 }
 

@@ -103,6 +103,7 @@ namespace BetterPawnControl
                     link.drugPolicy = p.drugs.CurrentPolicy;
                     link.hostilityResponse = 
                         p.playerSettings.hostilityResponse;
+                    link.foodPolicy = p.foodRestriction.CurrentFoodRestriction;
                     if (Widget_CombatExtended.CombatExtendedAvailable)
                     {
                         link.loadoutId = Widget_CombatExtended.GetLoadoutId(p);
@@ -118,10 +119,24 @@ namespace BetterPawnControl
                     }
 
                     Outfit outfit = p.outfits.CurrentOutfit;
-                    if (p.outfits.CurrentOutfit == 
-                        Current.Game.outfitDatabase.AllOutfits[0])
+                    if (outfit == 
+                        Current.Game.outfitDatabase.DefaultOutfit())
                     {
                         outfit = AssignManager.DefaultOutfit;
+                    }
+
+                    DrugPolicy drug = p.drugs.CurrentPolicy;
+                    if (drug ==
+                        Current.Game.drugPolicyDatabase.DefaultDrugPolicy())
+                    {
+                        drug = AssignManager.DefaultDrugPolicy;
+                    }
+
+                    FoodRestriction food = p.foodRestriction.CurrentFoodRestriction;
+                    if (food ==
+                        Current.Game.foodRestrictionDatabase.DefaultFoodRestriction())
+                    {
+                        food = AssignManager.DefaultFoodPolicy;
                     }
 
                     AssignManager.links.Add(
@@ -129,7 +144,8 @@ namespace BetterPawnControl
                             AssignManager.GetActivePolicy().id,
                             p,
                             outfit,
-                            p.drugs.CurrentPolicy,
+                            food,
+                            drug,
                             p.playerSettings.hostilityResponse,
                             loadoutId,
                             currentMap));
@@ -214,6 +230,8 @@ namespace BetterPawnControl
                             l.outfit : null;
                         p.drugs.CurrentPolicy = DrugPolicyExits(l.drugPolicy) ?
                             l.drugPolicy : null;
+                        p.foodRestriction.CurrentFoodRestriction = FoodPolicyExits(l.foodPolicy) ?
+                            l.foodPolicy : null;
                         p.playerSettings.hostilityResponse = 
                             l.hostilityResponse;
                         if (Widget_CombatExtended.CombatExtendedAvailable)
@@ -246,6 +264,19 @@ namespace BetterPawnControl
                 Current.Game.drugPolicyDatabase.AllPolicies)
             {
                 if (drug.Equals(drugPolicy))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static bool FoodPolicyExits(FoodRestriction foodPolicy)
+        {
+            foreach (FoodRestriction food in
+                Current.Game.foodRestrictionDatabase.AllFoodRestrictions)
+            {
+                if (food.Equals(foodPolicy))
                 {
                     return true;
                 }
