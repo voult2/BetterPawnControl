@@ -12,16 +12,22 @@
 		<assemblyVersion>1.9.0</assemblyVersion>
 		<content>Bulk assignment of animals or Colonists to areas, outfits, drugs, masters in one single action. Setup different policies and switch at will.| 
 &lt;b&gt;HOW TO USE&lt;/b&gt;
-1. Create a policy either for animals or for colonists by clicking the dented wheel icon
-2. Select and activate a new created policy by clicking on the button next to the dented wheel icon
+1. Create a policy either for animals or for colonists by clicking the cog icon
+2. Select and activate a new created policy by clicking on the button next to the cog icon
 3. Configure the policy by setting the areas, outfits, drugs, etc as you always do
 4. Done.|Repeat this process for other policies and THEN change between them in one click. WIN!</content>
 	</HugsLib.UpdateFeatureDef>
 
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>BetterPawnControl_1_9_1</defName>
-		<assemblyVersion>1.9.1</assemblyVersion>
+		<defName>BetterPawnControl_1_9_2</defName>
+		<assemblyVersion>1.9.2</assemblyVersion>
 		<content>Added Food Restrictions (from Assign tab) and Default Food</content>
+	</HugsLib.UpdateFeatureDef>
+	
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>BetterPawnControl_1_9_2</defName>
+		<assemblyVersion>1.9.2</assemblyVersion>
+		<content>Fixed food restriction update via pawn inspector window not being saved</content>
 	</HugsLib.UpdateFeatureDef>
 
 </Defs>

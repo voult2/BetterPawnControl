@@ -200,7 +200,8 @@ namespace BetterPawnControl
                     if (l.colonist != null && l.colonist.Equals(p))
                     {
                         l.hostilityResponse = 
-                            p.playerSettings.hostilityResponse;       
+                            p.playerSettings.hostilityResponse;
+                        l.foodPolicy = p.foodRestriction.CurrentFoodRestriction;
                     }
                 }
             }
