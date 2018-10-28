@@ -16,11 +16,12 @@ namespace BetterPawnControl
         /// </summary>
 		private static Regex validNameRegex = new Regex("^[a-zA-Z0-9 '\\-]*$");
         private const int MAX_POLICIES = 15;
-
+        enum PawnType {Colonist, Prisioner};
+        
         /// <summary>
         /// Copy paste from vanilla
         /// </summary>
-		public override Vector2 InitialSize
+        public override Vector2 InitialSize
         {
             get
             {
@@ -85,7 +86,12 @@ namespace BetterPawnControl
             listing_Standard.Gap(6f);
 
             Rect rect5 = listing_Standard.GetRect(24f);
-            DoDefaultOutfitRow(rect5);
+            DoDefaultsRow(rect5);
+            listing_Standard.Gap(12f);
+
+            Rect rect6 = listing_Standard.GetRect(24f);
+            DoPrisionerDefaultsRow(rect6);
+
             listing_Standard.End();
         }
 
@@ -222,7 +228,6 @@ namespace BetterPawnControl
                 {
                     OpenOutfitSelectMenu();
                 }
-
             }
 
             if (AnimalManager.policies.Count < MAX_POLICIES && 
@@ -239,7 +244,7 @@ namespace BetterPawnControl
             }
         }
 
-        private static void DoDefaultOutfitRow(Rect rect)
+        private static void DoDefaultsRow(Rect rect)
         {
             float one = rect.width / 6f;
             float two = one * 2f;
@@ -289,7 +294,7 @@ namespace BetterPawnControl
                 buttonDefaultFood,
                 AssignManager.DefaultFoodPolicy.label, true, false, true))
             {
-                OpenFoodSelectMenu();
+                OpenFoodSelectMenu(PawnType.Colonist);
             }
 
             if (Widgets.ButtonText(
@@ -297,6 +302,34 @@ namespace BetterPawnControl
                 AssignManager.DefaultDrugPolicy.label, true, false, true))
             {
                 OpenDrugSelectMenu();
+            }
+
+        }
+
+        private static void DoPrisionerDefaultsRow(Rect rect)
+        {
+            float one = rect.width / 6f;
+            float two = one * 2f;
+            float three = one * 3f;
+            float four = one * 4f;
+            float five = one * 5f;
+            float buttonWidth = 4f * one / 5f;
+
+            Rect labelPrisionerDefaultFood =
+                new Rect(two, rect.y, one, rect.height + 6f);
+            Rect buttonPrisionerDefaultFood =
+                new Rect(three, rect.y, buttonWidth, rect.height + 6f);
+
+            Text.Anchor = TextAnchor.MiddleCenter;
+            Widgets.Label(
+                labelPrisionerDefaultFood, "BPC.SelectedPrisionerDefaultFood".Translate());
+            Text.Anchor = TextAnchor.UpperLeft;
+
+            if (Widgets.ButtonText(
+                buttonPrisionerDefaultFood,
+                AssignManager.DefaultPrisonerFoodPolicy.label, true, false, true))
+            {
+                OpenFoodSelectMenu(PawnType.Prisioner);
             }
 
         }
@@ -342,7 +375,7 @@ namespace BetterPawnControl
             Find.WindowStack.Add(new FloatMenu(list));
         }
 
-        private static void OpenFoodSelectMenu()
+        private static void OpenFoodSelectMenu(PawnType type)
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
 
@@ -353,12 +386,18 @@ namespace BetterPawnControl
                         foodPolicy.label,
                         delegate
                         {
-                            AssignManager.DefaultFoodPolicy = foodPolicy;
+                            if (type == PawnType.Colonist)
+                            {
+                                AssignManager.DefaultFoodPolicy = foodPolicy;
+                            }
+                            else
+                            {
+                                AssignManager.DefaultPrisonerFoodPolicy = foodPolicy;
+                            }                            
                         },
                         MenuOptionPriority.Default, null, null, 0f, null));
             }
             Find.WindowStack.Add(new FloatMenu(list));
         }
-
     }
 }

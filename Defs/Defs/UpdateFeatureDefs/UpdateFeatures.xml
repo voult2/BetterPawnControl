@@ -15,19 +15,16 @@
 1. Create a policy either for animals or for colonists by clicking the cog icon
 2. Select and activate a new created policy by clicking on the button next to the cog icon
 3. Configure the policy by setting the areas, outfits, drugs, etc as you always do
-4. Done.|Repeat this process for other policies and THEN change between them in one click. WIN!</content>
+4. Done.|Repeat this process for other policies and THEN change between them in one click. WIN!
+You can also setup a default outfit, food and drug when a new colonist joins your colony</content>
 	</HugsLib.UpdateFeatureDef>
 
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>BetterPawnControl_1_9_2</defName>
-		<assemblyVersion>1.9.2</assemblyVersion>
-		<content>Added Food Restrictions (from Assign tab) and Default Food</content>
+		<defName>BetterPawnControl_1_9_3</defName>
+		<assemblyVersion>1.9.3</assemblyVersion>
+		<content>Added Prisioner Default Food
+Fixed Food Restrictions not being saved in save file</content>
 	</HugsLib.UpdateFeatureDef>
-	
-	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>BetterPawnControl_1_9_2</defName>
-		<assemblyVersion>1.9.2</assemblyVersion>
-		<content>Fixed food restriction update via pawn inspector window not being saved</content>
-	</HugsLib.UpdateFeatureDef>
+
 
 </Defs>

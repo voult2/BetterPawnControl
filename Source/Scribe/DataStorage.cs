@@ -34,6 +34,12 @@ namespace BetterPawnControl
                     Scribe_References.Look<DrugPolicy>(
                         ref AssignManager._defaultDrugPolicy, "DefaultDrugPolicy");
 
+                    Scribe_References.Look<FoodRestriction>(
+                        ref AssignManager._defaultFoodPolicy, "DefaultFoodPolicy");
+
+                    Scribe_References.Look<FoodRestriction>(
+                        ref AssignManager._defaultPrisonerFoodPolicy, "DefaultPrisonerFoodPolicy");
+
                     Scribe_Collections.Look<Policy>(
                         ref AssignManager.policies,
                         "AssignPolicies", LookMode.Deep);
@@ -41,6 +47,10 @@ namespace BetterPawnControl
                     Scribe_Collections.Look<AssignLink>(
                         ref AssignManager.links,
                         "AssignLinks", LookMode.Deep);
+
+                    Scribe_Collections.Look<string>(
+                        ref AssignManager.Prisioners,
+                        "Prisioners", LookMode.Value);
 
                     Scribe_Collections.Look<MapActivePolicy>(
                         ref AssignManager.activePolicies,
@@ -80,6 +90,11 @@ namespace BetterPawnControl
                     Scribe_References.Look<DrugPolicy>(
                         ref AssignManager._defaultDrugPolicy, "DefaultDrugPolicy");
 
+                    Scribe_References.Look<FoodRestriction>(
+                        ref AssignManager._defaultFoodPolicy, "DefaultFoodPolicy");
+
+                    Scribe_References.Look<FoodRestriction>(
+                        ref AssignManager._defaultPrisonerFoodPolicy, "DefaultPrisonerFoodPolicy");
                 }
             }
         }

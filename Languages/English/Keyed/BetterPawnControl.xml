@@ -20,8 +20,9 @@
 	<BPC.AssignTab>Assign</BPC.AssignTab>
 	<BPC.AnimalTab>Animals</BPC.AnimalTab>
 	
-	<BPC.SelectedDefaultOutfit>Default outfit</BPC.SelectedDefaultOutfit>	
-	<BPC.SelectedDefaultDrug>Default drug</BPC.SelectedDefaultDrug>
-	<BPC.SelectedDefaultFood>Default food</BPC.SelectedDefaultFood>
+	<BPC.SelectedDefaultOutfit>Default Outfit</BPC.SelectedDefaultOutfit>	
+	<BPC.SelectedDefaultDrug>Default Drug</BPC.SelectedDefaultDrug>
+	<BPC.SelectedDefaultFood>Default Colonist Food</BPC.SelectedDefaultFood>
+	<BPC.SelectedPrisionerDefaultFood>Default Prisioner Food</BPC.SelectedPrisionerDefaultFood>
 	
 </LanguageData>

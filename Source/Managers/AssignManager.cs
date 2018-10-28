@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using System.Collections.Generic;
+using Verse;
 using RimWorld;
 
 namespace BetterPawnControl
@@ -6,6 +7,9 @@ namespace BetterPawnControl
     [StaticConstructorOnStartup]
     class AssignManager : Manager<AssignLink>
     {
+        
+        internal static List<string> Prisioners = new List<string>();
+
         internal static Outfit _defaultOutfit = null;
         internal static Outfit DefaultOutfit
         {
@@ -58,6 +62,24 @@ namespace BetterPawnControl
             set
             {
                 _defaultFoodPolicy = value;
+            }
+        }
+
+        internal static FoodRestriction _defaultPrisonerFoodPolicy = null;
+        internal static FoodRestriction DefaultPrisonerFoodPolicy
+        {
+            get
+            {
+                if (_defaultPrisonerFoodPolicy == null)
+                {
+                    _defaultPrisonerFoodPolicy = DefaultFoodPolicy;
+                }
+                return _defaultPrisonerFoodPolicy;
+            }
+
+            set
+            {
+                _defaultPrisonerFoodPolicy = value;
             }
         }
 
