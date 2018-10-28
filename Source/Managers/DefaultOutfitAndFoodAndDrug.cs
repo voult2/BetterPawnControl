@@ -29,16 +29,16 @@ namespace BetterPawnControl
                         p.foodRestriction.CurrentFoodRestriction = AssignManager.DefaultFoodPolicy;
                     }
 
-                    if (p.IsColonist && AssignManager.Prisioners.Exists(x => x == p.GetUniqueLoadID()))
+                    if (p.IsColonist && AssignManager.Prisoners.Exists(x => x == p.GetUniqueLoadID()))
                     {
                         //found but was prisioner
-                        AssignManager.Prisioners.Remove(p.GetUniqueLoadID());
+                        AssignManager.Prisoners.Remove(p.GetUniqueLoadID());
                     }
                     
-                    if (p.IsPrisoner && !AssignManager.Prisioners.Exists(x => x == p.GetUniqueLoadID())) 
+                    if (p.IsPrisoner && !AssignManager.Prisoners.Exists(x => x == p.GetUniqueLoadID())) 
                     {
                         p.foodRestriction.CurrentFoodRestriction = AssignManager.DefaultPrisonerFoodPolicy;
-                        AssignManager.Prisioners.Add(p.GetUniqueLoadID());
+                        AssignManager.Prisoners.Add(p.GetUniqueLoadID());
                     }
                 }
             }

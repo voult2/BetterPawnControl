@@ -23,4 +23,5 @@
   <BPC.SelectedDefaultOutfit>Equipement par défaut</BPC.SelectedDefaultOutfit>
   <BPC.SelectedDefaultDrug>Drogue par défaut</BPC.SelectedDefaultDrug>  
   <BPC.SelectedDefaultFood>Aliment par défaut</BPC.SelectedDefaultFood>
+  <BPC.SelectedPrisionerDefaultFood>Aliment par défaut pour prisonniers</BPC.SelectedPrisionerDefaultFood>
 </LanguageData>

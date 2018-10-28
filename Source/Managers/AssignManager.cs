@@ -8,7 +8,7 @@ namespace BetterPawnControl
     class AssignManager : Manager<AssignLink>
     {
         
-        internal static List<string> Prisioners = new List<string>();
+        internal static List<string> Prisoners = new List<string>();
 
         internal static Outfit _defaultOutfit = null;
         internal static Outfit DefaultOutfit

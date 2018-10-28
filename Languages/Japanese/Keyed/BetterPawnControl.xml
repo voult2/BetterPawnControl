@@ -23,6 +23,6 @@
   <BPC.SelectedDefaultOutfit>初期設定:服装</BPC.SelectedDefaultOutfit>
   <BPC.SelectedDefaultDrug>初期設定:ドラッグ</BPC.SelectedDefaultDrug>
   <BPC.SelectedDefaultFood>デフォルトフード</BPC.SelectedDefaultFood>
-   
+  <BPC.SelectedPrisionerDefaultFood>>標準捕虜食</BPC.SelectedPrisionerDefaultFood>
 
 </LanguageData>

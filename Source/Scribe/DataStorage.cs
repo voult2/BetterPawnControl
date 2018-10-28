@@ -49,8 +49,8 @@ namespace BetterPawnControl
                         "AssignLinks", LookMode.Deep);
 
                     Scribe_Collections.Look<string>(
-                        ref AssignManager.Prisioners,
-                        "Prisioners", LookMode.Value);
+                        ref AssignManager.Prisoners,
+                        "Prisoners", LookMode.Value);
 
                     Scribe_Collections.Look<MapActivePolicy>(
                         ref AssignManager.activePolicies,
