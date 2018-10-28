@@ -29,12 +29,6 @@ namespace BetterPawnControl
                         p.foodRestriction.CurrentFoodRestriction = AssignManager.DefaultFoodPolicy;
                     }
 
-                    if (AssignManager.Prisoners == null)
-                    {
-                        //only require from v1.9.2 if previous save included prisioners
-                        AssignManager.initPrisoners();
-                    }
-
                     if (p.IsColonist && AssignManager.Prisoners.Exists(x => x == p.GetUniqueLoadID()))
                     {
                         //found but was prisioner

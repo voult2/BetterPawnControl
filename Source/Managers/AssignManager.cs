@@ -7,11 +7,12 @@ namespace BetterPawnControl
     [StaticConstructorOnStartup]
     class AssignManager : Manager<AssignLink>
     {
-
         internal static List<string> Prisoners = new List<string>();
 
-        internal static void initPrisoners()
+        internal static void InstantiatePrisoners()
         {
+            //this is required if there were no prisoners when loading the 
+            //save file
             Prisoners = new List<string>();
         }
 

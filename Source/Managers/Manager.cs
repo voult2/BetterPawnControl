@@ -17,6 +17,10 @@ namespace BetterPawnControl
             policies.Add(defaultPolicy);
             activePolicies.Add(new MapActivePolicy(0, defaultPolicy));
         }
+        internal static void InstantiateLinks()
+        {
+            links = new List<T>();
+        }
 
         private static bool _dirtyPolicy = false;
         public static bool DirtyPolicy

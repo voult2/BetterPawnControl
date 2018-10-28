@@ -29,16 +29,20 @@ namespace BetterPawnControl
                     Scribe.mode == LoadSaveMode.Saving)
                 {
                     Scribe_References.Look<Outfit>(
-                        ref AssignManager._defaultOutfit, "DefaultOutfit");
+                        ref AssignManager._defaultOutfit, 
+                        "DefaultOutfit");
 
                     Scribe_References.Look<DrugPolicy>(
-                        ref AssignManager._defaultDrugPolicy, "DefaultDrugPolicy");
+                        ref AssignManager._defaultDrugPolicy, 
+                        "DefaultDrugPolicy");
 
                     Scribe_References.Look<FoodRestriction>(
-                        ref AssignManager._defaultFoodPolicy, "DefaultFoodPolicy");
+                        ref AssignManager._defaultFoodPolicy, 
+                        "DefaultFoodPolicy");
 
                     Scribe_References.Look<FoodRestriction>(
-                        ref AssignManager._defaultPrisonerFoodPolicy, "DefaultPrisonerFoodPolicy");
+                        ref AssignManager._defaultPrisonerFoodPolicy, 
+                        "DefaultPrisonerFoodPolicy");
 
                     Scribe_Collections.Look<Policy>(
                         ref AssignManager.policies,
@@ -48,9 +52,23 @@ namespace BetterPawnControl
                         ref AssignManager.links,
                         "AssignLinks", LookMode.Deep);
 
+                    if (AssignManager.links == null)
+                    {
+                        //this is only required if the save file contains
+                        //empty links
+                        AssignManager.InstantiateLinks();
+                    }
+
                     Scribe_Collections.Look<string>(
                         ref AssignManager.Prisoners,
                         "Prisoners", LookMode.Value);
+
+                    if (AssignManager.Prisoners == null)
+                    {
+                        //this is only required if the save file contains
+                        //empty prisoners
+                        AssignManager.InstantiatePrisoners();
+                    }
 
                     Scribe_Collections.Look<MapActivePolicy>(
                         ref AssignManager.activePolicies,
@@ -64,6 +82,13 @@ namespace BetterPawnControl
                         ref AnimalManager.links,
                         "AnimalLinks", LookMode.Deep);
 
+                    if (AnimalManager.links == null)
+                    {
+                        //this is only required if the save file contains
+                        //empty links
+                        AnimalManager.InstantiateLinks();
+                    }
+
                     Scribe_Collections.Look<MapActivePolicy>(
                         ref AnimalManager.activePolicies,
                         "AnimalActivePolicies", LookMode.Deep);
@@ -76,25 +101,35 @@ namespace BetterPawnControl
                         ref RestrictManager.links,
                         "RestrictLinks", LookMode.Deep);
 
+                    if (RestrictManager.links == null)
+                    {
+                        //this is only required if the save file contains
+                        //empty links
+                        RestrictManager.InstantiateLinks();
+                    }
+
                     Scribe_Collections.Look<MapActivePolicy>(
                         ref RestrictManager.activePolicies,
                         "RestrictActivePolicies", LookMode.Deep);
                 }
 
-
                 if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs)
                 {
                     Scribe_References.Look<Outfit>(
-                        ref AssignManager._defaultOutfit, "DefaultOutfit");
+                        ref AssignManager._defaultOutfit, 
+                        "DefaultOutfit");
 
                     Scribe_References.Look<DrugPolicy>(
-                        ref AssignManager._defaultDrugPolicy, "DefaultDrugPolicy");
+                        ref AssignManager._defaultDrugPolicy, 
+                        "DefaultDrugPolicy");
 
                     Scribe_References.Look<FoodRestriction>(
-                        ref AssignManager._defaultFoodPolicy, "DefaultFoodPolicy");
+                        ref AssignManager._defaultFoodPolicy, 
+                        "DefaultFoodPolicy");
 
                     Scribe_References.Look<FoodRestriction>(
-                        ref AssignManager._defaultPrisonerFoodPolicy, "DefaultPrisonerFoodPolicy");
+                        ref AssignManager._defaultPrisonerFoodPolicy, 
+                        "DefaultPrisonerFoodPolicy");
                 }
             }
         }

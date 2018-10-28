@@ -148,7 +148,7 @@ namespace BetterPawnControl
                         p.playerSettings.followFieldwork,
                         currentMap));
                 }
-            }
+            }            
         }
 
         /// <summary>
