@@ -6,20 +6,20 @@ using System.Linq;
 
 namespace BetterPawnControl
 {
-    class MainTabWindow_Restrict_Policies : MainTabWindow_Restrict
+    class MainTabWindow_Work_Policies : MainTabWindow_Work
     {
+
         public override void PreOpen()
         {
             base.PreOpen();
-            //PrintAllAssignPolicies();
 
             UpdateState(
-                RestrictManager.links, this.Pawns.ToList(),
-                RestrictManager.GetActivePolicy());
+                WorkManager.links, this.Pawns.ToList(),
+                WorkManager.GetActivePolicy());
 
             LoadState(
-                RestrictManager.links, this.Pawns.ToList(), 
-                RestrictManager.GetActivePolicy());
+                WorkManager.links, this.Pawns.ToList(),
+                WorkManager.GetActivePolicy());
 
             CleanDeadMaps();
 
@@ -29,51 +29,47 @@ namespace BetterPawnControl
         public override void PreClose()
         {
             base.PreClose();
-            CleanDeadColonists(this.Pawns.ToList());
             CleanDeadMaps();
+            CleanDeadColonists(this.Pawns.ToList());
             SaveCurrentState(this.Pawns.ToList());
         }
 
         public override void DoWindowContents(Rect fillRect)
         {
-            if (RestrictManager.DirtyPolicy)
+            if (WorkManager.DirtyPolicy)
             {
                 LoadState(
-                    RestrictManager.links, this.Pawns.ToList(), 
-                    RestrictManager.GetActivePolicy());
-                RestrictManager.DirtyPolicy = false;
+                    WorkManager.links, this.Pawns.ToList(),
+                    WorkManager.GetActivePolicy());
+                WorkManager.DirtyPolicy = false;
             }
 
             float offsetX = 200f;
-            if (Widget_CSL.CLSAvailable)
-            {
-                offsetX = offsetX + 87f;
-            }
-
             base.DoWindowContents(fillRect);
             Rect position = new Rect(0f, 0f, fillRect.width, 65f);
 
             GUI.BeginGroup(position);
             Text.Font = GameFont.Tiny;
             Text.Anchor = TextAnchor.LowerCenter;
-            Rect rect1 = 
+            Rect rect1 =
                 new Rect(offsetX, -8f, 165f, Mathf.Round(position.height / 3f));
-            Widgets.Label(rect1, "BPC.CurrentRestrictPolicy".Translate());
+            Widgets.Label(rect1, "BPC.CurrentWorkPolicy".Translate());
             GUI.EndGroup();
 
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.UpperLeft;
             Rect rect2 = new Rect(
-                offsetX, Mathf.Round(position.height / 4f) - 4f, 
+                offsetX, Mathf.Round(position.height / 4f) - 4f,
                 rect1.width, Mathf.Round(position.height / 4f) + 4f);
+
             if (Widgets.ButtonText(
-                rect2, RestrictManager.GetActivePolicy().label, 
+                rect2, WorkManager.GetActivePolicy().label,
                 true, false, true))
             {
                 //CleanDeadColonists(this.pawns);
                 SaveCurrentState(this.Pawns.ToList());
-                OpenRestrictPolicySelectMenu(
-                    RestrictManager.links, this.Pawns.ToList());
+                OpenWorkPolicySelectMenu(
+                    WorkManager.links, this.Pawns.ToList());
             }
             offsetX += rect1.width;
             Rect rect3 = new Rect(
@@ -95,39 +91,41 @@ namespace BetterPawnControl
             foreach (Pawn p in pawns)
             {
                 //find colonist on the current zone in the current map
-                RestrictLink link = RestrictManager.links.Find(
-                    x => x.colonist.Equals(p) && 
-                    x.zone == RestrictManager.GetActivePolicy().id && 
+                WorkLink link = WorkManager.links.Find(
+                    x => x.colonist.Equals(p) &&
+                    x.zone == WorkManager.GetActivePolicy().id &&
                     x.mapId == currentMap);
 
                 if (link != null)
                 {
-                    //colonist found! save 
-                    link.area = p.playerSettings.AreaRestriction;
+                    //colonist found! save                    
+                    WorkManager.SavePawnPriorities(p, link);
                 }
                 else
                 {
-                    //colonist not found. So add it to the RestrictLink list
-                    RestrictManager.links.Add(
-                        new RestrictLink(
-                            RestrictManager.GetActivePolicy().id,
-                            p,
-                            p.playerSettings.AreaRestriction,
-                            currentMap));
+                    //colonist not found. So add it to the WorkLink list
+                    link = new WorkLink(
+                        WorkManager.GetActivePolicy().id,
+                        p,
+                        new Dictionary<WorkTypeDef, int>(),
+                        currentMap);
+                    WorkManager.links.Add(link);
+                    WorkManager.SavePawnPriorities(p, link);
+
                 }
             }
         }
 
         private static void CleanDeadColonists(List<Pawn> pawns)
         {
-            for (int i = 0; i < RestrictManager.links.Count; i++)
+            for (int i = 0; i < WorkManager.links.Count; i++)
             {
-                RestrictLink pawn = RestrictManager.links[i];
+                WorkLink pawn = WorkManager.links[i];
                 if (!pawns.Contains(pawn.colonist))
                 {
                     if (pawn.colonist == null || pawn.colonist.Dead)
                     {
-                        RestrictManager.links.Remove(pawn);
+                        WorkManager.links.Remove(pawn);
                     }
                 }
             }
@@ -135,22 +133,22 @@ namespace BetterPawnControl
 
         private static void CleanDeadMaps()
         {
-            for (int i = 0; i < RestrictManager.activePolicies.Count; i++)
+            for (int i = 0; i < WorkManager.activePolicies.Count; i++)
             {
-                MapActivePolicy map = RestrictManager.activePolicies[i];
+                MapActivePolicy map = WorkManager.activePolicies[i];
                 if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
                 {
-                    RestrictManager.DeleteLinksInMap(map.mapId);
-                    RestrictManager.DeleteMap(map);
+                    WorkManager.DeleteLinksInMap(map.mapId);
+                    WorkManager.DeleteMap(map);
                 }
             }
         }
 
         private static void UpdateState(
-            List<RestrictLink> links, List<Pawn> pawns, Policy policy)
+            List<WorkLink> links, List<Pawn> pawns, Policy policy)
         {
-            List<RestrictLink> mapLinks = null;
-            List<RestrictLink> zoneLinks = null;
+            List<WorkLink> mapLinks = null;
+            List<WorkLink> zoneLinks = null;
             int currentMap = Find.CurrentMap.uniqueID;
 
             //get all links from the current map
@@ -160,23 +158,23 @@ namespace BetterPawnControl
 
             foreach (Pawn p in pawns)
             {
-                foreach (RestrictLink l in zoneLinks)
+                foreach (WorkLink l in zoneLinks)
                 {
                     if (l.colonist != null && l.colonist.Equals(p))
-                    {
-                        l.area = p.playerSettings.AreaRestriction;
+                    {                        
+                        WorkManager.LoadPawnPriorities(p, l);
                     }
                 }
             }
 
-            RestrictManager.SetActivePolicy(policy);
+            WorkManager.SetActivePolicy(policy);
         }
 
         private static void LoadState(
-            List<RestrictLink> links, List<Pawn> pawns, Policy policy)
+            List<WorkLink> links, List<Pawn> pawns, Policy policy)
         {
-            List<RestrictLink> mapLinks = null;
-            List<RestrictLink> zoneLinks = null;
+            List<WorkLink> mapLinks = null;
+            List<WorkLink> zoneLinks = null;
             int currentMap = Find.CurrentMap.uniqueID;
 
             //get all links from the current map
@@ -186,64 +184,64 @@ namespace BetterPawnControl
 
             foreach (Pawn p in pawns)
             {
-                foreach (RestrictLink l in zoneLinks)
+                foreach (WorkLink l in zoneLinks)
                 {
                     if (l.colonist != null && l.colonist.Equals(p))
                     {
-                        p.playerSettings.AreaRestriction = l.area;
+                        WorkManager.LoadPawnPriorities(p, l);
                     }
                 }
             }
 
-            RestrictManager.SetActivePolicy(policy);
+            WorkManager.SetActivePolicy(policy);
         }
 
-        private static void OpenRestrictPolicySelectMenu(
-            List<RestrictLink> links, List<Pawn> pawns)
+        private static void OpenWorkPolicySelectMenu(
+            List<WorkLink> links, List<Pawn> pawns)
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
 
-            foreach (Policy restrictPolicy in RestrictManager.policies)
+            foreach (Policy workPolicy in WorkManager.policies)
             {
                 list.Add(
                     new FloatMenuOption(
-                        restrictPolicy.label, 
-                        delegate 
+                        workPolicy.label,
+                        delegate
                         {
                             LoadState(
-                                links, 
-                                pawns, 
-                                restrictPolicy);
-                        }, 
+                                links,
+                                pawns,
+                                workPolicy);
+                        },
                         MenuOptionPriority.Default, null, null, 0f, null));
             }
             Find.WindowStack.Add(new FloatMenu(list));
         }
 
-        private static void PrintAllAssignPolicies()
+        private static void PrintAllWorkPolicies()
         {
-            Log.Message("[BPC] === List Policies START [" + 
-                RestrictManager.policies.Count + 
+            Log.Message("[BPC] === List Work Policies START [" +
+                WorkManager.policies.Count +
                 "] ===");
-            foreach (Policy p in RestrictManager.policies)
+            foreach (Policy p in WorkManager.policies)
             {
                 Log.Message("[BPC]\t" + p.ToString());
             }
 
-            Log.Message("[BPC] === List ActivePolices START [" + 
-                RestrictManager.activePolicies.Count + 
+            Log.Message("[BPC] === List Work ActivePolices START [" +
+                WorkManager.activePolicies.Count +
                 "] ===");
-            foreach (MapActivePolicy m in RestrictManager.activePolicies)
+            foreach (MapActivePolicy m in WorkManager.activePolicies)
             {
                 Log.Message("[BPC]\t" + m.ToString());
             }
 
-            Log.Message("[BPC] === List links START [" + 
-                RestrictManager.links.Count + 
+            Log.Message("[BPC] === List Work links START [" +
+                WorkManager.links.Count +
                 "] ===");
-            foreach (RestrictLink RestrictLink in RestrictManager.links)
+            foreach (WorkLink WorkLink in WorkManager.links)
             {
-                Log.Message("[BPC]\t" + RestrictLink.ToString());
+                Log.Message("[BPC]\t" + WorkLink.ToString());
             }
         }
     }

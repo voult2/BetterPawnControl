@@ -21,18 +21,24 @@ namespace BetterPawnControl
                     Find.CurrentMap.mapPawns.FreeColonistsAndPrisoners;
                 foreach (Pawn p in Pawns)
                 {
-                    if (p.IsColonist && !AssignManager.links.Exists(x => x.colonist == p))
+                    if (!p.IsPrisoner && !AssignManager.links.Exists(x => x.colonist == p))
                     {
-                        //not found so set an outfit and drug
+                        //not found so set an outfit and drug and food
                         p.outfits.CurrentOutfit = AssignManager.DefaultOutfit;
                         p.drugs.CurrentPolicy = AssignManager.DefaultDrugPolicy;
                         p.foodRestriction.CurrentFoodRestriction = AssignManager.DefaultFoodPolicy;
                     }
 
-                    if (p.IsColonist && AssignManager.Prisoners.Exists(x => x == p.GetUniqueLoadID()))
+                    if (!p.IsPrisoner && AssignManager.Prisoners.Exists(x => x == p.GetUniqueLoadID()))
                     {
                         //found but was prisioner
                         AssignManager.Prisoners.Remove(p.GetUniqueLoadID());
+                        
+                        //and is was a colonist so set back default food 
+                        if (AssignManager.links.Exists(x => x.colonist == p))
+                        {
+                            p.foodRestriction.CurrentFoodRestriction = AssignManager.DefaultFoodPolicy;
+                        }                        
                     }
                     
                     if (p.IsPrisoner && !AssignManager.Prisoners.Exists(x => x == p.GetUniqueLoadID())) 

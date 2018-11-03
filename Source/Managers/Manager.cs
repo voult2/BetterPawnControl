@@ -17,6 +17,19 @@ namespace BetterPawnControl
             policies.Add(defaultPolicy);
             activePolicies.Add(new MapActivePolicy(0, defaultPolicy));
         }
+
+        internal static void ForceInit()
+        {
+            policies = new List<Policy>();
+            activePolicies = new List<MapActivePolicy>();
+            links = new List<T>();
+
+            Policy defaultPolicy = new Policy(
+                policies.Count, "BPC.Auto".Translate());
+            policies.Add(defaultPolicy);
+            activePolicies.Add(new MapActivePolicy(0, defaultPolicy));
+        }
+
         internal static void InstantiateLinks()
         {
             links = new List<T>();

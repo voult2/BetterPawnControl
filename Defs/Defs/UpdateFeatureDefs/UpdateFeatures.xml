@@ -10,7 +10,7 @@
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
 		<defName>BetterPawnControl_1_9_0</defName>
 		<assemblyVersion>1.9.0</assemblyVersion>
-		<content>Bulk assignment of animals or Colonists to areas, outfits, drugs, masters in one single action. Setup different policies and switch at will.| 
+		<content>Bulk assignment of colonists and animals to outfits, areas, drugs, food, work in one single action. Setup different policies and switch at will.| 
 &lt;b&gt;HOW TO USE&lt;/b&gt;
 1. Create a policy either for animals or for colonists by clicking the cog icon
 2. Select and activate a new created policy by clicking on the button next to the cog icon
@@ -20,10 +20,10 @@ You can also setup a default outfit, food and drug when a new colonist joins you
 	</HugsLib.UpdateFeatureDef>
 
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>BetterPawnControl_1_9_3</defName>
-		<assemblyVersion>1.9.3</assemblyVersion>
-		<content>Added Prisioner Default Food
-Fixed Food Restrictions not being saved in save file</content>
+		<defName>BetterPawnControl_1_9_4</defName>
+		<assemblyVersion>1.9.4</assemblyVersion>
+		<content>Added Work Tab policies!
+Fixed imprisoned colonist perpetual default food (Thanks Liveme!) </content>
 	</HugsLib.UpdateFeatureDef>
 
 

@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Base\AnimalLink.cs" />
     <Compile Include="Base\AssignLink.cs" />
+    <Compile Include="Base\WorkLink.cs" />
     <Compile Include="Base\RestrictLink.cs" />
     <Compile Include="Base\MapActivePolicy.cs" />
     <Compile Include="Base\Policy.cs" />
@@ -62,11 +63,13 @@
     <Compile Include="Helpers\Widget_CSL.cs" />
     <Compile Include="Helpers\Widget_AnimalTab.cs" />
     <Compile Include="Helpers\Widget_CombatExtended.cs" />
+    <Compile Include="MainTabs\MainTabWindow_Work_Policies.cs" />
     <Compile Include="MainTabs\MainTabWindow_Restrict_Policies.cs" />
     <Compile Include="MainTabs\MainTabWindow_Animals_Policies.cs" />
     <Compile Include="MainTabs\MainTabWindow_Assign_Policies.cs" />
     <Compile Include="Managers\AnimalManager.cs" />
     <Compile Include="Managers\AssignManager.cs" />
+    <Compile Include="Managers\WorkManager.cs" />
     <Compile Include="Managers\RestrictManager.cs" />
     <Compile Include="Managers\Manager.cs" />
     <Compile Include="Managers\DefaultOutfitAndFoodAndDrug.cs" />

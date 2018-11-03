@@ -18,4 +18,11 @@
       <tabWindowClass>BetterPawnControl.MainTabWindow_Animals_Policies</tabWindowClass>
     </value>
   </Operation>
+    <Operation Class="PatchOperationReplace">
+    <xpath>*/MainButtonDef[defName="Work"]/tabWindowClass</xpath>
+    <value>
+      <tabWindowClass>BetterPawnControl.MainTabWindow_Work_Policies</tabWindowClass>
+    </value>
+  </Operation>
+
 </Patch>

@@ -16,7 +16,7 @@ namespace BetterPawnControl
         /// </summary>
 		private static Regex validNameRegex = new Regex("^[a-zA-Z0-9 '\\-]*$");
         private const int MAX_POLICIES = 15;
-        enum PawnType {Colonist, Prisioner};
+        enum PawnType {Colonist, Prisoner};
         
         /// <summary>
         /// Copy paste from vanilla
@@ -25,7 +25,7 @@ namespace BetterPawnControl
         {
             get
             {
-                return new Vector2(1000f, 700f);
+                return new Vector2(1300f, 700f);
             }
         }
 
@@ -56,15 +56,20 @@ namespace BetterPawnControl
             Rect rect = listing_Standard.GetRect(60f);
             DoHeaderRow(rect);
 
-            int rows = 
+            int rows =
                 MaxNumber(
                     MaxNumber(
-                        AnimalManager.policies.Count, 
-                        AssignManager.policies.Count), 
-                    RestrictManager.policies.Count);
+                        MaxNumber(
+                            AnimalManager.policies.Count,
+                            AssignManager.policies.Count),
+                        RestrictManager.policies.Count),
+                    WorkManager.policies.Count);
 
             for (int i = 0; i < rows; i++)
             {
+
+                Policy workP = (i < WorkManager.policies.Count) ?
+                    WorkManager.policies[i] : null;
                 Policy restrictP = (i < RestrictManager.policies.Count) ? 
                     RestrictManager.policies[i] : null;
                 Policy assignP = (i < AssignManager.policies.Count) ? 
@@ -73,7 +78,7 @@ namespace BetterPawnControl
                     AnimalManager.policies[i] : null;
 
                 Rect rect2 = listing_Standard.GetRect(24f);
-                DoRow(rect2, restrictP, assignP, animalP);
+                DoRow(rect2, workP, restrictP, assignP, animalP);
                 listing_Standard.Gap(6f);
             }
 
@@ -89,8 +94,8 @@ namespace BetterPawnControl
             DoDefaultsRow(rect5);
             listing_Standard.Gap(12f);
 
-            Rect rect6 = listing_Standard.GetRect(24f);
-            DoPrisionerDefaultsRow(rect6);
+            //Rect rect6 = listing_Standard.GetRect(24f);
+            //DoPrisionerDefaultsRow(rect6);
 
             listing_Standard.End();
         }
@@ -100,22 +105,27 @@ namespace BetterPawnControl
         /// button
         /// </summary>
         private static void DoRow(
-            Rect rect, Policy restrictP, Policy assignP, Policy animalP)
+            Rect rect, Policy workP, Policy restrictP, Policy assignP, Policy animalP)
         {
 
-            float one = rect.width / 3f;
+            float one = rect.width / 4f;
             float two = one * 2f;
+            float three = one * 3f;
             float width = one - 4f;
 
             //Restrict column
+
             Rect rect1 = new Rect(rect.x, rect.y, one, rect.height);
-            DoColumn(rect1, restrictP, Resources.Type.restrict);
+            DoColumn(rect1, workP, Resources.Type.work);
 
             Rect rect2 = new Rect(one, rect.y, one, rect.height);
-            DoColumn(rect2, assignP, Resources.Type.assign);
+            DoColumn(rect2, restrictP, Resources.Type.restrict);
 
             Rect rect3 = new Rect(two, rect.y, one, rect.height);
-            DoColumn(rect3, animalP, Resources.Type.animal);
+            DoColumn(rect3, assignP, Resources.Type.assign);
+
+            Rect rect4 = new Rect(three, rect.y, one, rect.height);
+            DoColumn(rect4, animalP, Resources.Type.animal);
         }
 
         private static void DoColumn(
@@ -149,6 +159,9 @@ namespace BetterPawnControl
                         case Resources.Type.restrict:
                             RestrictManager.DeletePolicy(policy);
                             break;
+                        case Resources.Type.work:
+                            WorkManager.DeletePolicy(policy);
+                            break;
                     }
                 }
             }
@@ -157,33 +170,35 @@ namespace BetterPawnControl
 
         private static void DoHeaderRow(Rect rect)
         {
-            float one = rect.width / 3f;
+            float one = rect.width / 4f;
             float two = one * 2f;
+            float three = one * 3f;
             float width = one - 4f;
             float offset = 0f;
 
             Rect rect1 = new Rect(offset, rect.y, width, rect.height + 6f);
             Rect rect2 = new Rect(one, rect.y, width, rect.height + 6f);
             Rect rect3 = new Rect(two + offset, rect.y, width, rect.height + 6f);
+            Rect rect4 = new Rect(three + offset, rect.y, width, rect.height + 6f);
 
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
-            Widgets.Label(rect1, "BPC.RestrictTab".Translate());
-            Widgets.Label(rect2, "BPC.AssignTab".Translate());
-            Widgets.Label(rect3, "BPC.AnimalTab".Translate());
+            Widgets.Label(rect1, "BPC.WorkTab".Translate());
+            Widgets.Label(rect2, "BPC.RestrictTab".Translate());
+            Widgets.Label(rect3, "BPC.AssignTab".Translate());
+            Widgets.Label(rect4, "BPC.AnimalTab".Translate());
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.UpperLeft;
         }
 
         private static void DoNewPoliciesRow(Rect rect)
         {
-
-            float one = rect.width / 3f;
+            float one = rect.width / 4f;
             float two = one * 2f;
+            float three = one * 3f;
             float buttonWidth = (one / 4f) * 3f;
 
             float offset = 0f;
-            //float offset = one / 2f - buttonWidth / 2f;
 
             Rect rect1 = 
                 new Rect(offset, rect.y, buttonWidth, rect.height + 6f);
@@ -191,10 +206,25 @@ namespace BetterPawnControl
                 new Rect(offset + one, rect.y, buttonWidth, rect.height + 6f);
             Rect rect3 =
                 new Rect(offset + two, rect.y, buttonWidth, rect.height + 6f);
+            Rect rect4 =
+                new Rect(offset + three, rect.y, buttonWidth, rect.height + 6f);
+
+            if (WorkManager.policies.Count < MAX_POLICIES &&
+                Widgets.ButtonText(
+                    rect1, "BPC.NewWorkPolicy".Translate(),
+                    true, false, true))
+            {
+                int lastItem = WorkManager.policies.Count - 1;
+                int label_id = WorkManager.policies[lastItem].id;
+                label_id++;
+                WorkManager.policies.Add(
+                    new Policy(
+                        label_id, "BPC.WorkPolicy".Translate() + label_id));
+            }
 
             if (RestrictManager.policies.Count < MAX_POLICIES && 
                 Widgets.ButtonText(
-                    rect1, "BPC.NewRestrictPolicy".Translate(), 
+                    rect2, "BPC.NewRestrictPolicy".Translate(), 
                     true, false, true))
             {
                 int lastItem = RestrictManager.policies.Count - 1;
@@ -208,7 +238,7 @@ namespace BetterPawnControl
 
             if (AssignManager.policies.Count < MAX_POLICIES && 
                 Widgets.ButtonText(
-                    rect2, 
+                    rect3, 
                     "BPC.NewAssignPolicy".Translate(), true, false, true))
             {
                 int lastItem = AssignManager.policies.Count - 1;
@@ -217,22 +247,11 @@ namespace BetterPawnControl
                 AssignManager.policies.Add(
                     new Policy(label_id, 
                     "BPC.AssignPolicy".Translate() + label_id));
-
-                Rect rect4 = 
-                    new Rect(
-                        offset, rect2.height + 6f, 
-                        buttonWidth, rect.height + 6f);
-                if (Widgets.ButtonText(
-                    rect2, 
-                    "BPC.DefaultOutfit".Translate(), true, false, true))
-                {
-                    OpenOutfitSelectMenu();
-                }
             }
 
             if (AnimalManager.policies.Count < MAX_POLICIES && 
                 Widgets.ButtonText(
-                    rect3, "BPC.NewAnimalPolicy".Translate(), 
+                    rect4, "BPC.NewAnimalPolicy".Translate(), 
                     true, false, true))
             {
                 int lastItem = AnimalManager.policies.Count - 1;
@@ -246,11 +265,13 @@ namespace BetterPawnControl
 
         private static void DoDefaultsRow(Rect rect)
         {
-            float one = rect.width / 6f;
+            float one = rect.width / 8f;
             float two = one * 2f;
             float three = one * 3f;
             float four = one * 4f;
             float five = one * 5f;
+            float six = one * 6f;
+            float seven = one * 7f;
             float buttonWidth = 4f * one / 5f;
 
             Rect labelDefaultOutfit = 
@@ -268,6 +289,11 @@ namespace BetterPawnControl
             Rect buttonDefaultDrug =
                 new Rect(five, rect.y, buttonWidth, rect.height + 6f);
 
+            Rect labelPrisionerDefaultFood =
+                new Rect(six, rect.y, one, rect.height + 6f);
+            Rect buttonPrisionerDefaultFood =
+                new Rect(seven, rect.y, buttonWidth, rect.height + 6f);
+
             Text.Anchor = TextAnchor.MiddleCenter;
             Widgets.Label(
                 labelDefaultOutfit, "BPC.SelectedDefaultOutfit".Translate());
@@ -281,6 +307,11 @@ namespace BetterPawnControl
             Text.Anchor = TextAnchor.MiddleCenter;
             Widgets.Label(
                 labelDefaultDrug, "BPC.SelectedDefaultDrug".Translate());
+            Text.Anchor = TextAnchor.UpperLeft;
+
+            Text.Anchor = TextAnchor.MiddleCenter;
+            Widgets.Label(
+                labelPrisionerDefaultFood, "BPC.SelectedPrisionerDefaultFood".Translate());
             Text.Anchor = TextAnchor.UpperLeft;
 
             if (Widgets.ButtonText(
@@ -304,6 +335,12 @@ namespace BetterPawnControl
                 OpenDrugSelectMenu();
             }
 
+            if (Widgets.ButtonText(
+                buttonPrisionerDefaultFood,
+                AssignManager.DefaultPrisonerFoodPolicy.label, true, false, true))
+            {
+                OpenFoodSelectMenu(PawnType.Prisoner);
+            }
         }
 
         private static void DoPrisionerDefaultsRow(Rect rect)
@@ -329,9 +366,8 @@ namespace BetterPawnControl
                 buttonPrisionerDefaultFood,
                 AssignManager.DefaultPrisonerFoodPolicy.label, true, false, true))
             {
-                OpenFoodSelectMenu(PawnType.Prisioner);
+                OpenFoodSelectMenu(PawnType.Prisoner);
             }
-
         }
 
         private static int MaxNumber(int first, int second)

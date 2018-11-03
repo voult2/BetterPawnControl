@@ -85,7 +85,7 @@ namespace BetterPawnControl
                     if (AnimalManager.links == null)
                     {
                         //this is only required if the save file contains
-                        //empty links
+                        //empty links. Not sure how this can happen though :(
                         AnimalManager.InstantiateLinks();
                     }
 
@@ -104,13 +104,29 @@ namespace BetterPawnControl
                     if (RestrictManager.links == null)
                     {
                         //this is only required if the save file contains
-                        //empty links
+                        //empty links. Not sure how this can happen though :(
                         RestrictManager.InstantiateLinks();
                     }
 
+                    Scribe_Collections.Look<Policy>(
+                        ref WorkManager.policies,
+                        "WorkPolicies", LookMode.Deep);
+
+                    Scribe_Collections.Look<WorkLink>(
+                        ref WorkManager.links,
+                        "WorkLinks", LookMode.Deep);
+
                     Scribe_Collections.Look<MapActivePolicy>(
-                        ref RestrictManager.activePolicies,
-                        "RestrictActivePolicies", LookMode.Deep);
+                        ref WorkManager.activePolicies,
+                        "WorkActivePolicies", LookMode.Deep);
+
+                    if (Scribe.mode == LoadSaveMode.LoadingVars && 
+                        WorkManager.activePolicies == null)
+                    {
+                        //this only happens with existing saves. New saves have
+                        //no WorkPolicy data so let's initialize!
+                        WorkManager.ForceInit();
+                    }
                 }
 
                 if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs)
