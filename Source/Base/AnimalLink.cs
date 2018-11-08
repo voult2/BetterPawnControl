@@ -2,15 +2,15 @@
 
 namespace BetterPawnControl
 {
-    public class AnimalLink : IExposable
+    public class AnimalLink : Link, IExposable
     {
-        internal int zone = 0; 
+        //internal int zone = 0; 
         internal Pawn animal = null;
         internal Pawn master = null;
         internal Area area = null;
         internal bool followDrafted = true;
         internal bool followFieldwork = true;
-        internal int mapId = 0;
+        //internal int mapId = 0;
 
         public AnimalLink() { }
 

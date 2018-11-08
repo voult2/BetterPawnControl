@@ -5,14 +5,22 @@ using Verse;
 
 namespace BetterPawnControl
 {
-    public class WorkLink : IExposable
+    public class WorkLink : Link, IExposable
     {
-        internal int zone = 0;
+        //internal int zone = 0;
         internal Pawn colonist = null;
         internal Dictionary<WorkTypeDef, int> settings =  null;
-        internal int mapId = 0;
+        //internal int mapId = 0;
 
         public WorkLink() { }
+
+        public WorkLink(WorkLink link)
+        {
+            this.zone = link.zone;
+            this.colonist = link.colonist;
+            this.settings = new Dictionary<WorkTypeDef, int>(link.settings);
+            this.mapId = link.mapId;
+        }
 
         public WorkLink(
             int zone, Pawn colonist, Dictionary<WorkTypeDef, int> settings, int mapId)
@@ -28,7 +36,7 @@ namespace BetterPawnControl
             return
                 "Policy:" + zone +
                 "  Pawn: " + colonist +
-                "  WorkSettings: " + settings +
+                //"  WorkSettings: " + settings +
                 "  MapID: " + mapId;
         }
 

@@ -2,49 +2,48 @@
 using RimWorld;
 using UnityEngine;
 using Verse;
+using Verse.Sound;
 using System.Linq;
 
 namespace BetterPawnControl
 {
     class MainTabWindow_Work_Policies : MainTabWindow_Work
     {
+        bool showPaste = false;
 
         public override void PreOpen()
         {
             base.PreOpen();
 
-            UpdateState(
+            WorkManager.LoadState(
                 WorkManager.links, this.Pawns.ToList(),
                 WorkManager.GetActivePolicy());
 
-            LoadState(
-                WorkManager.links, this.Pawns.ToList(),
-                WorkManager.GetActivePolicy());
+            WorkManager.CleanDeadMaps();
 
-            CleanDeadMaps();
-
-            CleanDeadColonists(this.Pawns.ToList());
+            WorkManager.CleanDeadColonists(this.Pawns.ToList());
         }
 
         public override void PreClose()
         {
             base.PreClose();
-            CleanDeadMaps();
-            CleanDeadColonists(this.Pawns.ToList());
-            SaveCurrentState(this.Pawns.ToList());
+            WorkManager.CleanDeadMaps();
+            WorkManager.CleanDeadColonists(this.Pawns.ToList());
+            WorkManager.SaveCurrentState(this.Pawns.ToList());
+            showPaste = false;
         }
 
         public override void DoWindowContents(Rect fillRect)
         {
             if (WorkManager.DirtyPolicy)
             {
-                LoadState(
+                WorkManager.LoadState(
                     WorkManager.links, this.Pawns.ToList(),
                     WorkManager.GetActivePolicy());
                 WorkManager.DirtyPolicy = false;
             }
 
-            float offsetX = 200f;
+            float offsetX = 160f;
             base.DoWindowContents(fillRect);
             Rect position = new Rect(0f, 0f, fillRect.width, 65f);
 
@@ -66,8 +65,7 @@ namespace BetterPawnControl
                 rect2, WorkManager.GetActivePolicy().label,
                 true, false, true))
             {
-                //CleanDeadColonists(this.pawns);
-                SaveCurrentState(this.Pawns.ToList());
+                WorkManager.SaveCurrentState(this.Pawns.ToList());
                 OpenWorkPolicySelectMenu(
                     WorkManager.links, this.Pawns.ToList());
             }
@@ -82,121 +80,31 @@ namespace BetterPawnControl
             Rect rect4 = new Rect(offsetX + 3f, rect3.height / 4f, 14f, 14f);
             GUI.DrawTexture(rect4, Resources.Settings);
             TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
-        }
 
-        private static void SaveCurrentState(List<Pawn> pawns)
-        {
-            int currentMap = Find.CurrentMap.uniqueID;
-            //Save current state
-            foreach (Pawn p in pawns)
+            offsetX += rect3.width;
+            Rect rect5 = new Rect(offsetX + 3f, rect3.height / 4f - 6f, 21f, 28f);
+            if (Widgets.ButtonImage(rect5, ContentFinder<Texture2D>.Get("UI/Buttons/Copy", true)))
             {
-                //find colonist on the current zone in the current map
-                WorkLink link = WorkManager.links.Find(
-                    x => x.colonist.Equals(p) &&
-                    x.zone == WorkManager.GetActivePolicy().id &&
-                    x.mapId == currentMap);
+                WorkManager.CopyToClipboard();
+                SoundDefOf.Tick_High.PlayOneShotOnCamera(null);
+                showPaste = true;
+            }
+            TooltipHandler.TipRegion(rect5, "BPC.Copy".Translate());
 
-                if (link != null)
+            if (showPaste)
+            {
+                offsetX += rect3.width;
+                Rect rect6 = new Rect(offsetX + 3f, rect3.height / 4f - 6f, 21f, 28f);
+                if (Widgets.ButtonImage(rect6, ContentFinder<Texture2D>.Get("UI/Buttons/Paste", true)))
                 {
-                    //colonist found! save                    
-                    WorkManager.SavePawnPriorities(p, link);
+                    WorkManager.PasteToActivePolicy();
+                    SoundDefOf.Tick_Low.PlayOneShotOnCamera(null);
                 }
-                else
-                {
-                    //colonist not found. So add it to the WorkLink list
-                    link = new WorkLink(
-                        WorkManager.GetActivePolicy().id,
-                        p,
-                        new Dictionary<WorkTypeDef, int>(),
-                        currentMap);
-                    WorkManager.links.Add(link);
-                    WorkManager.SavePawnPriorities(p, link);
-
-                }
+                TooltipHandler.TipRegion(rect6, "BPC.Paste".Translate());
             }
         }
 
-        private static void CleanDeadColonists(List<Pawn> pawns)
-        {
-            for (int i = 0; i < WorkManager.links.Count; i++)
-            {
-                WorkLink pawn = WorkManager.links[i];
-                if (!pawns.Contains(pawn.colonist))
-                {
-                    if (pawn.colonist == null || pawn.colonist.Dead)
-                    {
-                        WorkManager.links.Remove(pawn);
-                    }
-                }
-            }
-        }
-
-        private static void CleanDeadMaps()
-        {
-            for (int i = 0; i < WorkManager.activePolicies.Count; i++)
-            {
-                MapActivePolicy map = WorkManager.activePolicies[i];
-                if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
-                {
-                    WorkManager.DeleteLinksInMap(map.mapId);
-                    WorkManager.DeleteMap(map);
-                }
-            }
-        }
-
-        private static void UpdateState(
-            List<WorkLink> links, List<Pawn> pawns, Policy policy)
-        {
-            List<WorkLink> mapLinks = null;
-            List<WorkLink> zoneLinks = null;
-            int currentMap = Find.CurrentMap.uniqueID;
-
-            //get all links from the current map
-            mapLinks = links.FindAll(x => x.mapId == currentMap);
-            //get all links from the selected zone
-            zoneLinks = mapLinks.FindAll(x => x.zone == policy.id);
-
-            foreach (Pawn p in pawns)
-            {
-                foreach (WorkLink l in zoneLinks)
-                {
-                    if (l.colonist != null && l.colonist.Equals(p))
-                    {                        
-                        WorkManager.LoadPawnPriorities(p, l);
-                    }
-                }
-            }
-
-            WorkManager.SetActivePolicy(policy);
-        }
-
-        private static void LoadState(
-            List<WorkLink> links, List<Pawn> pawns, Policy policy)
-        {
-            List<WorkLink> mapLinks = null;
-            List<WorkLink> zoneLinks = null;
-            int currentMap = Find.CurrentMap.uniqueID;
-
-            //get all links from the current map
-            mapLinks = links.FindAll(x => x.mapId == currentMap);
-            //get all links from the selected zone
-            zoneLinks = mapLinks.FindAll(x => x.zone == policy.id);
-
-            foreach (Pawn p in pawns)
-            {
-                foreach (WorkLink l in zoneLinks)
-                {
-                    if (l.colonist != null && l.colonist.Equals(p))
-                    {
-                        WorkManager.LoadPawnPriorities(p, l);
-                    }
-                }
-            }
-
-            WorkManager.SetActivePolicy(policy);
-        }
-
-        private static void OpenWorkPolicySelectMenu(
+        internal static void OpenWorkPolicySelectMenu(
             List<WorkLink> links, List<Pawn> pawns)
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
@@ -208,7 +116,7 @@ namespace BetterPawnControl
                         workPolicy.label,
                         delegate
                         {
-                            LoadState(
+                            WorkManager.LoadState(
                                 links,
                                 pawns,
                                 workPolicy);
@@ -216,33 +124,6 @@ namespace BetterPawnControl
                         MenuOptionPriority.Default, null, null, 0f, null));
             }
             Find.WindowStack.Add(new FloatMenu(list));
-        }
-
-        private static void PrintAllWorkPolicies()
-        {
-            Log.Message("[BPC] === List Work Policies START [" +
-                WorkManager.policies.Count +
-                "] ===");
-            foreach (Policy p in WorkManager.policies)
-            {
-                Log.Message("[BPC]\t" + p.ToString());
-            }
-
-            Log.Message("[BPC] === List Work ActivePolices START [" +
-                WorkManager.activePolicies.Count +
-                "] ===");
-            foreach (MapActivePolicy m in WorkManager.activePolicies)
-            {
-                Log.Message("[BPC]\t" + m.ToString());
-            }
-
-            Log.Message("[BPC] === List Work links START [" +
-                WorkManager.links.Count +
-                "] ===");
-            foreach (WorkLink WorkLink in WorkManager.links)
-            {
-                Log.Message("[BPC]\t" + WorkLink.ToString());
-            }
         }
     }
 }

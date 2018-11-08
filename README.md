@@ -13,7 +13,6 @@ Allows to set a default outfit, food, drug when a colonist joins and also defaul
 4. Done.
 
 Repeat this process for other policies and THEN change between them in one click. WIN!
-
 You can also setup a default outfit, food and drug when a new colonist joins your colony</content>
 
 ## Notes
@@ -22,21 +21,12 @@ This mod was first released on Rimword Alpha 15 and is essencially a productive 
 
 ## Credits
 Fluffy for all the help with Animal Tab integration!
-
 Skyarkhangel for all the support with Combat Realism integration. Kudos for you! 
-
 Marnador for the logo [font](https://ludeon.com/forums/index.php?topic=11022.0)
-
 Lauri7x3 for german translation
-
 Coldmoon for korean translation
-
 debugzxcv for the patches optimisation
-
 boundir for french translation
-
 Proxyer for japanese translation
-
 53N4 for spanish translation
-
 Dango998 for chinese simplified translation

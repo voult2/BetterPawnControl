@@ -3,9 +3,9 @@ using Verse;
 
 namespace BetterPawnControl
 {
-    public class AssignLink : IExposable
+    public class AssignLink : Link, IExposable
     {
-        internal int zone = 0;
+        //internal int zone = 0;
         internal Pawn colonist = null;
         internal Outfit outfit = null;
         internal FoodRestriction foodPolicy = null;
@@ -13,7 +13,7 @@ namespace BetterPawnControl
         internal HostilityResponseMode hostilityResponse =
             HostilityResponseMode.Flee;
         internal int loadoutId = 1;
-        internal int mapId = 0;
+        //internal int mapId = 0;
 
         public AssignLink() { }
 

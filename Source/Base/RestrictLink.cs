@@ -2,12 +2,12 @@
 
 namespace BetterPawnControl
 {
-    public class RestrictLink : IExposable
+    public class RestrictLink : Link, IExposable
     {
-        internal int zone = 0;
+        //internal int zone = 0;
         internal Pawn colonist = null;
         internal Area area = null;
-        internal int mapId = 0;
+        //internal int mapId = 0;
 
         public RestrictLink() { }
 

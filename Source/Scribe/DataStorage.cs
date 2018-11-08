@@ -121,7 +121,7 @@ namespace BetterPawnControl
                         "WorkActivePolicies", LookMode.Deep);
 
                     if (Scribe.mode == LoadSaveMode.LoadingVars && 
-                        WorkManager.activePolicies == null)
+                        WorkManager.links == null)
                     {
                         //this only happens with existing saves. New saves have
                         //no WorkPolicy data so let's initialize!

@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Base\AnimalLink.cs" />
     <Compile Include="Base\AssignLink.cs" />
+    <Compile Include="Base\Link.cs" />
     <Compile Include="Base\WorkLink.cs" />
     <Compile Include="Base\RestrictLink.cs" />
     <Compile Include="Base\MapActivePolicy.cs" />

@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using Verse;
+using RimWorld;
+using System;
 
 namespace BetterPawnControl
 {
     abstract class Manager<T>
     {
         internal static List<Policy> policies = new List<Policy>();
-        internal static List<MapActivePolicy> activePolicies = 
+        internal static List<MapActivePolicy> activePolicies =
             new List<MapActivePolicy>();
         internal static List<T> links = new List<T>();
 

@@ -20,10 +20,10 @@ You can also setup a default outfit, food and drug when a new colonist joins you
 	</HugsLib.UpdateFeatureDef>
 
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>BetterPawnControl_1_9_4</defName>
-		<assemblyVersion>1.9.4</assemblyVersion>
-		<content>Added Work Tab policies!
-Fixed imprisoned colonist perpetual default food (Thanks Liveme!) </content>
+		<defName>BetterPawnControl_1_9_5</defName>
+		<assemblyVersion>1.9.5</assemblyVersion>
+		<content>Now you can copy and paste policies on the Work Tab!
+</content>
 	</HugsLib.UpdateFeatureDef>
 
 

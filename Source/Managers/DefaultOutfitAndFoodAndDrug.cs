@@ -34,7 +34,7 @@ namespace BetterPawnControl
                         //found but was prisioner
                         AssignManager.Prisoners.Remove(p.GetUniqueLoadID());
                         
-                        //and is was a colonist so set back default food 
+                        //and is a colonist so set back default food 
                         if (AssignManager.links.Exists(x => x.colonist == p))
                         {
                             p.foodRestriction.CurrentFoodRestriction = AssignManager.DefaultFoodPolicy;

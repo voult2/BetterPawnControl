@@ -1,4 +1,6 @@
 ﻿using Verse;
+using RimWorld;
+using System.Collections.Generic;
 
 namespace BetterPawnControl
 {
@@ -32,6 +34,171 @@ namespace BetterPawnControl
         internal static void DeleteMap(MapActivePolicy map)
         {
             activePolicies.Remove(map);
+        }
+
+        internal static void SaveCurrentState(List<Pawn> pawns)
+        {
+            int currentMap = Find.CurrentMap.uniqueID;
+            //Save current state
+            foreach (Pawn p in pawns)
+            {
+                //find animal on the current zone
+                AnimalLink animalLink =
+                    AnimalManager.links.Find(
+                        x => x.animal.Equals(p) &&
+                        x.zone == AnimalManager.GetActivePolicy().id &&
+                        x.mapId == currentMap);
+
+                if (animalLink != null)
+                {
+                    //animal found! save master and area
+                    animalLink.master =
+                        p.playerSettings.Master;
+                    animalLink.area =
+                        p.playerSettings.AreaRestriction;
+                    animalLink.followDrafted =
+                        p.playerSettings.followDrafted;
+                    animalLink.followFieldwork =
+                        p.playerSettings.followFieldwork;
+                }
+                else
+                {
+                    //animal not found. So add it to the AnimalLink list
+                    AnimalManager.links.Add(new AnimalLink(
+                        AnimalManager.GetActivePolicy().id,
+                        p,
+                        p.playerSettings.Master,
+                        p.playerSettings.AreaRestriction,
+                        p.playerSettings.followDrafted,
+                        p.playerSettings.followFieldwork,
+                        currentMap));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Clean all animal related links if animal is dead
+        /// </summary>
+        internal static void CleanDeadAnimals(List<Pawn> pawns)
+        {
+            for (int i = 0; i < AnimalManager.links.Count; i++)
+            {
+                AnimalLink pawn = AnimalManager.links[i];
+                if (!pawns.Contains(pawn.animal))
+                {
+                    if (pawn.animal == null || pawn.animal.Dead)
+                    {
+                        AnimalManager.links.Remove(pawn);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get and set all links from an AnimalPolicy 
+        /// </summary>
+        internal static void LoadState(
+            List<AnimalLink> links, List<Pawn> pawns, Policy policy)
+        {
+            List<AnimalLink> mapLinks = null;
+            List<AnimalLink> zoneLinks = null;
+            int currentMap = Find.CurrentMap.uniqueID;
+
+            //get all links from the current map
+            mapLinks = links.FindAll(x => x.mapId == currentMap);
+            //get all links from the selected zone
+            zoneLinks = mapLinks.FindAll(x => x.zone == policy.id);
+
+            foreach (Pawn p in pawns)
+            {
+                foreach (AnimalLink l in zoneLinks)
+                {
+                    if (l.animal != null && l.animal.Equals(p))
+                    {
+                        //found animal in zone. Update master if alive
+                        p.playerSettings.Master =
+                            (l.master != null && l.master.Dead) ?
+                                null : l.master;
+                        p.playerSettings.AreaRestriction = l.area;
+                        p.playerSettings.followDrafted = l.followDrafted;
+                        p.playerSettings.followFieldwork = l.followFieldwork;
+                    }
+                }
+            }
+            AnimalManager.SetActivePolicy(policy);
+        }
+
+        /// <summary>
+        /// Updates pawn area and master in case it was changed via inspector
+        /// window
+        /// </summary>
+        internal static void UpdateState(
+            List<AnimalLink> links, List<Pawn> pawns, Policy policy)
+        {
+            List<AnimalLink> mapLinks = null;
+            List<AnimalLink> zoneLinks = null;
+            int currentMap = Find.CurrentMap.uniqueID;
+
+            //get all links from the current map
+            mapLinks = links.FindAll(x => x.mapId == currentMap);
+            //get all links from the selected zone
+            zoneLinks = mapLinks.FindAll(x => x.zone == policy.id);
+
+            foreach (Pawn p in pawns)
+            {
+                foreach (AnimalLink l in zoneLinks)
+                {
+                    if (l.animal != null && l.animal.Equals(p))
+                    {
+                        l.master = p.playerSettings.Master;
+                        l.area = p.playerSettings.AreaRestriction;
+                    }
+                }
+            }
+            AnimalManager.SetActivePolicy(policy);
+        }
+
+        internal static void CleanDeadMaps()
+        {
+            for (int i = 0; i < AnimalManager.activePolicies.Count; i++)
+            {
+                MapActivePolicy map = AnimalManager.activePolicies[i];
+                if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
+                {
+                    AnimalManager.DeleteLinksInMap(map.mapId);
+                    AnimalManager.DeleteMap(map);
+                }
+            }
+        }
+
+        internal static void PrintAllAnimalPolicies(string spacer = "\n")
+        {
+            Log.Message(
+                "[BPC] ### List Animal Policies [" +
+                AnimalManager.policies.Count +
+                "] ###");
+            foreach (Policy p in AnimalManager.policies)
+            {
+                Log.Message("[BPC]\t" + p.ToString());
+            }
+
+            Log.Message("[BPC] ### Animal ActivePolices START ["
+                + AnimalManager.activePolicies.Count +
+                "] ===");
+            foreach (MapActivePolicy m in AnimalManager.activePolicies)
+            {
+                Log.Message("[BPC]\t" + m.ToString());
+            }
+
+            Log.Message("[BPC] ### List Animal links ["
+                + AnimalManager.links.Count
+                + "] ###");
+            foreach (AnimalLink l in AnimalManager.links)
+            {
+                Log.Message("[BPC]\t" + l.ToString());
+            }
+
+            Log.Message(spacer);
         }
 
     }
