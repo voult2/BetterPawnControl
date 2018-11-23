@@ -91,6 +91,32 @@ namespace BetterPawnControl
                 activePolicies.Add(new MapActivePolicy(mapId, policy));
             }
         }
+
+        internal static void MoveLinksToMap(int dstMap)
+        {
+            foreach (T link in links)
+            {
+                if (link.GetType() == typeof(WorkLink))
+                {
+                    link.ChangeType<WorkLink>().mapId = dstMap;
+                }
+
+                if (link.GetType() == typeof(RestrictLink))
+                {
+                    link.ChangeType<RestrictLink>().mapId = dstMap;
+                }
+
+                if (link.GetType() == typeof(AssignLink))
+                {
+                    link.ChangeType<AssignLink>().mapId = dstMap;
+                }
+
+                if (link.GetType() == typeof(AnimalLink))
+                {
+                    link.ChangeType<AnimalLink>().mapId = dstMap;
+                }
+            }
+        }
     }
 }
 

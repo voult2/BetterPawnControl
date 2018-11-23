@@ -20,10 +20,9 @@ You can also setup a default outfit, food and drug when a new colonist joins you
 	</HugsLib.UpdateFeatureDef>
 
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>BetterPawnControl_1_9_5</defName>
+		<defName>BetterPawnControl_1_9_6</defName>
 		<assemblyVersion>1.9.5</assemblyVersion>
-		<content>Now you can copy and paste policies on the Work Tab!
-</content>
+		<content>Now, if you move an entire colony to a new settlement, the polices are transfered. This only works if you abandoned the old settlement before settling the new one!</content>
 	</HugsLib.UpdateFeatureDef>
 
 

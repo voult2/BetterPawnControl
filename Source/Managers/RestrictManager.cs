@@ -88,8 +88,20 @@ namespace BetterPawnControl
                 MapActivePolicy map = RestrictManager.activePolicies[i];
                 if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
                 {
-                    RestrictManager.DeleteLinksInMap(map.mapId);
-                    RestrictManager.DeleteMap(map);
+                    if (Find.Maps.Count == 1)
+                    {
+                        //this means the player was on the move without any base
+                        //and just re-settled. So, let's move the settings to
+                        //the new map
+                        int mapid = Find.CurrentMap.uniqueID;
+                        RestrictManager.MoveLinksToMap(mapid);
+                        map.mapId = mapid;
+                    }
+                    else
+                    {
+                        RestrictManager.DeleteLinksInMap(map.mapId);
+                        RestrictManager.DeleteMap(map);
+                    }
                 }
             }
         }
