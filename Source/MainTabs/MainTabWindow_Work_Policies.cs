@@ -14,12 +14,11 @@ namespace BetterPawnControl
         public override void PreOpen()
         {
             base.PreOpen();
-
+            WorkManager.CleanDeadMaps();
+      
             WorkManager.LoadState(
                 WorkManager.links, this.Pawns.ToList(),
                 WorkManager.GetActivePolicy());
-
-            WorkManager.CleanDeadMaps();
 
             WorkManager.CleanDeadColonists(this.Pawns.ToList());
         }

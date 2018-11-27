@@ -158,6 +158,20 @@ namespace BetterPawnControl
             AnimalManager.SetActivePolicy(policy);
         }
 
+        internal static bool ActivePoliciesContainsValidMap()
+        {
+            bool containsValidMap = false;
+            foreach (Map map in Find.Maps)
+            {
+                if (AnimalManager.activePolicies.Any(x => x.mapId == map.uniqueID))
+                {
+                    containsValidMap = true;
+                    break;
+                }
+            }
+            return containsValidMap;
+        }
+
         internal static void CleanDeadMaps()
         {
             for (int i = 0; i < AnimalManager.activePolicies.Count; i++)
@@ -167,7 +181,7 @@ namespace BetterPawnControl
                 {
                     if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
                     {
-                        if (Find.Maps.Count == 1)
+                        if (Find.Maps.Count == 1 && !AnimalManager.ActivePoliciesContainsValidMap())
                         {
                             //this means the player was on the move without any base
                             //and just re-settled. So, let's move the settings to

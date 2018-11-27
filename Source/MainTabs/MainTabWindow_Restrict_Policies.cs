@@ -11,7 +11,8 @@ namespace BetterPawnControl
         public override void PreOpen()
         {
             base.PreOpen();
-            //PrintAllAssignPolicies();
+
+            RestrictManager.CleanDeadMaps();
 
             RestrictManager.UpdateState(
                 RestrictManager.links, this.Pawns.ToList(),
@@ -21,16 +22,14 @@ namespace BetterPawnControl
                 RestrictManager.links, this.Pawns.ToList(), 
                 RestrictManager.GetActivePolicy());
 
-            RestrictManager.CleanDeadMaps();
-
             RestrictManager.CleanDeadColonists(this.Pawns.ToList());
         }
 
         public override void PreClose()
         {
             base.PreClose();
-            RestrictManager.CleanDeadColonists(this.Pawns.ToList());
             RestrictManager.CleanDeadMaps();
+            RestrictManager.CleanDeadColonists(this.Pawns.ToList());
             RestrictManager.SaveCurrentState(this.Pawns.ToList());
         }
 

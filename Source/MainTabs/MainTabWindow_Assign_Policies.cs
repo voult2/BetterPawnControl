@@ -13,6 +13,8 @@ namespace BetterPawnControl
         {
             base.PreOpen();
 
+            AssignManager.CleanDeadMaps();
+
             AssignManager.UpdateState(
                 AssignManager.links, this.Pawns.ToList(),
                 AssignManager.GetActivePolicy());
@@ -20,9 +22,7 @@ namespace BetterPawnControl
             AssignManager.LoadState(
                 AssignManager.links, this.Pawns.ToList(),
                 AssignManager.GetActivePolicy());
-
-            AssignManager.CleanDeadMaps();
-
+                     
             AssignManager.CleanDeadColonists(this.Pawns.ToList());
         }
 

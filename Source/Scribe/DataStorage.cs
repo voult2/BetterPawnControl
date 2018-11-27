@@ -120,13 +120,20 @@ namespace BetterPawnControl
                         ref WorkManager.activePolicies,
                         "WorkActivePolicies", LookMode.Deep);
 
-                    if (Scribe.mode == LoadSaveMode.LoadingVars && 
-                        WorkManager.links == null)
+                    if (WorkManager.links == null)
                     {
-                        //this only happens with existing saves. New saves have
-                        //no WorkPolicy data so let's initialize!
-                        WorkManager.ForceInit();
+                        //this is only required if the save file contains
+                        //empty links. Not sure how this can happen though :(
+                        WorkManager.InstantiateLinks();
                     }
+
+                    //if (Scribe.mode == LoadSaveMode.LoadingVars && 
+                    //    WorkManager.activePolicies == null)
+                    //{
+                    //    //this only happens with existing saves prior. Existing saves 
+                    //    //have no WorkPolicy data so let's initialize!
+                    //    WorkManager.ForceInit();
+                    //}
                 }
 
                 if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs)

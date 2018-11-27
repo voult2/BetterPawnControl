@@ -36,6 +36,8 @@ namespace BetterPawnControl
         {
             base.PreOpen();
 
+            AnimalManager.CleanDeadMaps();
+
             AnimalManager.UpdateState(
                 AnimalManager.links, this.Pawns.ToList(),
                 AnimalManager.GetActivePolicy());
@@ -43,8 +45,6 @@ namespace BetterPawnControl
             AnimalManager.LoadState(
                 AnimalManager.links, this.Pawns.ToList(), 
                 AnimalManager.GetActivePolicy());
-
-            AnimalManager.CleanDeadMaps();
 
             AnimalManager.CleanDeadAnimals(this.Pawns.ToList());
         }
