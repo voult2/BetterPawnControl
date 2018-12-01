@@ -45,7 +45,7 @@ namespace BetterPawnControl
             //Save current state
             foreach (Pawn p in pawns)
             {
-                //find colonist on the current zone in the current map
+                //find colonist in the current zone in the current map
                 WorkLink link = WorkManager.links.Find(
                     x => x.colonist.Equals(p) &&
                     x.zone == WorkManager.GetActivePolicy().id &&
@@ -212,7 +212,5 @@ namespace BetterPawnControl
                 WorkManager.LoadState(links, Find.CurrentMap.mapPawns.FreeColonists.ToList(), policy);
             }            
         }
-
-
     }
 }

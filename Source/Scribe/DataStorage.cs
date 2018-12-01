@@ -127,13 +127,13 @@ namespace BetterPawnControl
                         WorkManager.InstantiateLinks();
                     }
 
-                    //if (Scribe.mode == LoadSaveMode.LoadingVars && 
-                    //    WorkManager.activePolicies == null)
-                    //{
-                    //    //this only happens with existing saves prior. Existing saves 
-                    //    //have no WorkPolicy data so let's initialize!
-                    //    WorkManager.ForceInit();
-                    //}
+                    if (Scribe.mode == LoadSaveMode.LoadingVars &&
+                        WorkManager.activePolicies == null)
+                    {
+                        //this only happens with existing saves prior. Existing saves 
+                        //have no WorkPolicy data so let's initialize!
+                        WorkManager.ForceInit();
+                    }
                 }
 
                 if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs)

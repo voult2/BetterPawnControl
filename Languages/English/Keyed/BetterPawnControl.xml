@@ -33,4 +33,7 @@
 	<BPC.Copy>Copy Policy</BPC.Copy>
 	<BPC.Paste>Paste Policy</BPC.Paste>
 	
+	<BPC.CopySchedule>Copy Schedule</BPC.CopySchedule>
+	<BPC.PasteSchedule>Paste Schedule</BPC.PasteSchedule>
+	
 </LanguageData>

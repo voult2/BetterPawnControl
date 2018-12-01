@@ -2,12 +2,15 @@
 using RimWorld;
 using UnityEngine;
 using Verse;
+using Verse.Sound;
 using System.Linq;
 
 namespace BetterPawnControl
 {
     class MainTabWindow_Restrict_Policies : MainTabWindow_Restrict
     {
+        bool showPaste = false;
+
         public override void PreOpen()
         {
             base.PreOpen();
@@ -65,11 +68,11 @@ namespace BetterPawnControl
             Rect rect2 = new Rect(
                 offsetX, Mathf.Round(position.height / 4f) - 4f, 
                 rect1.width, Mathf.Round(position.height / 4f) + 4f);
+
             if (Widgets.ButtonText(
                 rect2, RestrictManager.GetActivePolicy().label, 
                 true, false, true))
             {
-                //CleanDeadColonists(this.pawns);
                 RestrictManager.SaveCurrentState(this.Pawns.ToList());
                 OpenRestrictPolicySelectMenu(
                     RestrictManager.links, this.Pawns.ToList());
@@ -85,6 +88,28 @@ namespace BetterPawnControl
             Rect rect4 = new Rect(offsetX + 3f, rect3.height / 4f, 14f, 14f);
             GUI.DrawTexture(rect4, Resources.Settings);
             TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
+
+            offsetX += rect3.width;
+            Rect rect5 = new Rect(offsetX + 3f, rect3.height / 4f - 6f, 21f, 28f);
+            if (Widgets.ButtonImage(rect5, ContentFinder<Texture2D>.Get("UI/Buttons/Copy", true)))
+            {
+                RestrictManager.CopyToClipboard();
+                SoundDefOf.Tick_High.PlayOneShotOnCamera(null);
+                showPaste = true;
+            }
+            TooltipHandler.TipRegion(rect5, "BPC.CopySchedule".Translate());
+
+            if (showPaste)
+            {
+                offsetX += rect3.width;
+                Rect rect6 = new Rect(offsetX + 3f, rect3.height / 4f - 6f, 21f, 28f);
+                if (Widgets.ButtonImage(rect6, ContentFinder<Texture2D>.Get("UI/Buttons/Paste", true)))
+                {
+                    RestrictManager.PasteToActivePolicy();
+                    SoundDefOf.Tick_Low.PlayOneShotOnCamera(null);
+                }
+                TooltipHandler.TipRegion(rect6, "BPC.PasteSchedule".Translate());
+            }
         }
 
 

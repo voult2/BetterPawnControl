@@ -20,9 +20,9 @@ You can also setup a default outfit, food and drug when a new colonist joins you
 	</HugsLib.UpdateFeatureDef>
 
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>BetterPawnControl_1_9_7</defName>
-		<assemblyVersion>1.9.7</assemblyVersion>
-		<content>Now,(hopefully) withoug bugs, if you move an entire colony to a new settlement, the polices are transfered. This only works if you abandoned the old settlement before settling the new one!</content>
+		<defName>BetterPawnControl_1_9_8</defName>
+		<assemblyVersion>1.9.8</assemblyVersion>
+		<content>Restrict policy also includes the pawns time schedule!</content>
 	</HugsLib.UpdateFeatureDef>
 
 

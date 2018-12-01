@@ -66,7 +66,6 @@ namespace BetterPawnControl
                 rect2, AssignManager.GetActivePolicy().label,
                 true, false, true))
             {
-                //CleanDeadColonists(this.pawns);
                 AssignManager.SaveCurrentState(this.Pawns.ToList());
                 OpenAssignPolicySelectMenu(
                     AssignManager.links, this.Pawns.ToList());

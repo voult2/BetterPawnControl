@@ -1,12 +1,16 @@
 ﻿using Verse;
 using RimWorld;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace BetterPawnControl
 {
     [StaticConstructorOnStartup]
     class RestrictManager : Manager<RestrictLink>
     {
+        internal static List<RestrictLink> clipboard = new List<RestrictLink>();
+
         internal static void DeletePolicy(Policy policy)
         {
             //delete if not default AssignPolicy
@@ -39,31 +43,42 @@ namespace BetterPawnControl
         internal static void SaveCurrentState(List<Pawn> pawns)
         {
             int currentMap = Find.CurrentMap.uniqueID;
+            int activePolicyId = RestrictManager.GetActivePolicy().id;
             //Save current state
             foreach (Pawn p in pawns)
             {
-                //find colonist on the current zone in the current map
+                //find colonist in the current zone in the current map
                 RestrictLink link = RestrictManager.links.Find(
                     x => x.colonist.Equals(p) &&
-                    x.zone == RestrictManager.GetActivePolicy().id &&
+                    x.zone == activePolicyId &&
                     x.mapId == currentMap);
 
                 if (link != null)
                 {
                     //colonist found! save 
                     link.area = p.playerSettings.AreaRestriction;
+                    RestrictManager.CopySchedule(p.timetable.times, link.schedule);
                 }
                 else
                 {
                     //colonist not found. So add it to the RestrictLink list
                     RestrictManager.links.Add(
                         new RestrictLink(
-                            RestrictManager.GetActivePolicy().id,
+                            activePolicyId,
                             p,
                             p.playerSettings.AreaRestriction,
+                            p.timetable.times, 
                             currentMap));
                 }
             }
+        }
+
+        internal static void CopySchedule(
+                                List<TimeAssignmentDef> src, 
+                                List<TimeAssignmentDef> dst)
+        {
+            dst.Clear();
+            dst.AddRange(src);
         }
 
         internal static void CleanDeadColonists(List<Pawn> pawns)
@@ -165,6 +180,7 @@ namespace BetterPawnControl
                     if (l.colonist != null && l.colonist.Equals(p))
                     {
                         p.playerSettings.AreaRestriction = l.area;
+                        RestrictManager.CopySchedule(l.schedule, p.timetable.times);
                     }
                 }
             }
@@ -196,6 +212,38 @@ namespace BetterPawnControl
             foreach (RestrictLink RestrictLink in RestrictManager.links)
             {
                 Log.Message("[BPC]\t" + RestrictLink.ToString());
+            }
+        }
+
+        internal static void CopyToClipboard()
+        {
+            Policy policy = GetActivePolicy();
+            if (clipboard != null)
+            {
+                RestrictManager.clipboard.Clear();
+                foreach (RestrictLink link in RestrictManager.links)
+                {
+                    if (link.zone == policy.id)
+                    {
+                        RestrictManager.clipboard.Add(new RestrictLink(link));
+                    }
+                }
+            }
+        }
+
+        internal static void PasteToActivePolicy()
+        {
+            Policy policy = GetActivePolicy();
+            if (!clipboard.NullOrEmpty() && clipboard[0].zone != policy.id)
+            {
+                RestrictManager.links.RemoveAll(x => x.zone == policy.id);
+                foreach (RestrictLink copiedLink in RestrictManager.clipboard)
+                {
+
+                    copiedLink.zone = policy.id;
+                    RestrictManager.links.Add(new RestrictLink(copiedLink));
+                }
+                RestrictManager.LoadState(links, Find.CurrentMap.mapPawns.FreeColonists.ToList(), policy);
             }
         }
     }
