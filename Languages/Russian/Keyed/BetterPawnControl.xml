@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+	<BPC.Auto>Авто</BPC.Auto>
+	<BPC.Rename>Переименовать</BPC.Rename>
+	<BPC.Settings>Настройки политик</BPC.Settings>
+
+	<BPC.NewAnimalPolicy>Новая политика питомцев</BPC.NewAnimalPolicy>
+	<BPC.AnimalPolicy>Политика </BPC.AnimalPolicy>
+	<BPC.CurrentAnimalPolicy>Текущая политика</BPC.CurrentAnimalPolicy>
+	
+	<BPC.NewAssignPolicy>Новая политика назначений</BPC.NewAssignPolicy>
+	<BPC.AssignPolicy>Политика </BPC.AssignPolicy>
+	<BPC.CurrentAssignPolicy>Текущая политика</BPC.CurrentAssignPolicy>
+	
+	<BPC.NewRestrictPolicy>Новая политика ограничений</BPC.NewRestrictPolicy>
+	<BPC.RestrictPolicy>Политика </BPC.RestrictPolicy>
+	<BPC.CurrentRestrictPolicy>Текущая политика</BPC.CurrentRestrictPolicy>
+	
+	<BPC.NewWorkPolicy>Новая политика работ</BPC.NewWorkPolicy>
+	<BPC.WorkPolicy>Политика </BPC.WorkPolicy>
+	<BPC.CurrentWorkPolicy>Текущая политика</BPC.CurrentWorkPolicy>
+	
+	<BPC.WorkTab>Работа</BPC.WorkTab>
+	<BPC.RestrictTab>Ограничения</BPC.RestrictTab>
+	<BPC.AssignTab>Назначения</BPC.AssignTab>
+	<BPC.AnimalTab>Питомцы</BPC.AnimalTab>
+	
+	<BPC.SelectedDefaultOutfit>Снаряжение</BPC.SelectedDefaultOutfit>	
+	<BPC.SelectedDefaultDrug>Наркотики</BPC.SelectedDefaultDrug>
+	<BPC.SelectedDefaultFood>Еда колонистов</BPC.SelectedDefaultFood>
+	<BPC.SelectedPrisionerDefaultFood>Еда заключенных</BPC.SelectedPrisionerDefaultFood>
+	
+	<BPC.Copy>Копировать политику</BPC.Copy>
+	<BPC.Paste>Вставить политику</BPC.Paste>
+	
+	<BPC.CopySchedule>Копировать расписание</BPC.CopySchedule>
+	<BPC.PasteSchedule>Вставить расписание</BPC.PasteSchedule>
+	
+</LanguageData>
