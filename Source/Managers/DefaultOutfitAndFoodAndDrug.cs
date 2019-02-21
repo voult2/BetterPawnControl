@@ -56,5 +56,12 @@ namespace BetterPawnControl
                 }
             }
         }
+
+        //public override void FinalizeInit()
+        //{
+        //    base.FinalizeInit();
+        //    Log.Message("Forcing Init");
+        //    //WorkManager.ForceInit();
+        //}
     }
 }

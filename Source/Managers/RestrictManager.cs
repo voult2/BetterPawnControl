@@ -1,7 +1,6 @@
 ﻿using Verse;
 using RimWorld;
 using System.Collections.Generic;
-using System;
 using System.Linq;
 
 namespace BetterPawnControl
@@ -67,14 +66,14 @@ namespace BetterPawnControl
                             activePolicyId,
                             p,
                             p.playerSettings.AreaRestriction,
-                            p.timetable.times, 
+                            p.timetable.times,
                             currentMap));
                 }
             }
         }
 
         internal static void CopySchedule(
-                                List<TimeAssignmentDef> src, 
+                                List<TimeAssignmentDef> src,
                                 List<TimeAssignmentDef> dst)
         {
             dst.Clear();
@@ -218,15 +217,17 @@ namespace BetterPawnControl
         internal static void CopyToClipboard()
         {
             Policy policy = GetActivePolicy();
-            if (clipboard != null)
+            if (RestrictManager.clipboard != null)
             {
-                RestrictManager.clipboard.Clear();
-                foreach (RestrictLink link in RestrictManager.links)
+                RestrictManager.clipboard = new List<RestrictLink>();
+            }
+
+            RestrictManager.clipboard.Clear();
+            foreach (RestrictLink link in RestrictManager.links)
+            {
+                if (link.zone == policy.id)
                 {
-                    if (link.zone == policy.id)
-                    {
-                        RestrictManager.clipboard.Add(new RestrictLink(link));
-                    }
+                    RestrictManager.clipboard.Add(link);
                 }
             }
         }
@@ -234,16 +235,25 @@ namespace BetterPawnControl
         internal static void PasteToActivePolicy()
         {
             Policy policy = GetActivePolicy();
-            if (!clipboard.NullOrEmpty() && clipboard[0].zone != policy.id)
+            if (!RestrictManager.clipboard.NullOrEmpty() && RestrictManager.clipboard[0].zone != policy.id)
             {
-                RestrictManager.links.RemoveAll(x => x.zone == policy.id);
+                //RestrictManager.links.RemoveAll(x => x.zone == policy.id);
                 foreach (RestrictLink copiedLink in RestrictManager.clipboard)
                 {
-
-                    copiedLink.zone = policy.id;
-                    RestrictManager.links.Add(new RestrictLink(copiedLink));
+                    foreach (RestrictLink link in RestrictManager.links)
+                    {
+                        if (link.colonist == copiedLink.colonist && link.zone == policy.id)
+                        {
+                            RestrictManager.CopySchedule(copiedLink.schedule, link.schedule);
+                            Log.Message("Copied Schedule");
+                        }
+                    }
                 }
-                RestrictManager.LoadState(links, Find.CurrentMap.mapPawns.FreeColonists.ToList(), policy);
+
+                RestrictManager.LoadState(
+                                links,
+                                Find.CurrentMap.mapPawns.FreeColonists.ToList(),
+                                policy);
             }
         }
     }

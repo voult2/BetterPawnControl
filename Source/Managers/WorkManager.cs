@@ -2,6 +2,7 @@
 using Verse;
 using RimWorld;
 using System.Linq;
+using System;
 
 namespace BetterPawnControl
 {
@@ -41,21 +42,21 @@ namespace BetterPawnControl
 
         internal static void SaveCurrentState(List<Pawn> pawns)
         {
-            int currentMap = Find.CurrentMap.uniqueID;
+			int currentMap = Find.CurrentMap.uniqueID;
             //Save current state
             foreach (Pawn p in pawns)
-            {
+            {	
                 //find colonist in the current zone in the current map
                 WorkLink link = WorkManager.links.Find(
-                    x => x.colonist.Equals(p) &&
-                    x.zone == WorkManager.GetActivePolicy().id &&
-                    x.mapId == currentMap);
+					x => x.colonist.Equals(p) &&
+					x.zone == WorkManager.GetActivePolicy().id &&
+					x.mapId == currentMap);
 
-                if (link != null)
+				if (link != null)
                 {
-                    //colonist found! save                    
-                    WorkManager.SavePawnPriorities(p, link);
-                }
+					//colonist found! save  
+					WorkManager.SavePawnPriorities(p, link);
+				}
                 else
                 {
                     //colonist not found. So add it to the WorkLink list
@@ -66,9 +67,8 @@ namespace BetterPawnControl
                         currentMap);
                     WorkManager.links.Add(link);
                     WorkManager.SavePawnPriorities(p, link);
-
                 }
-            }
+			}
         }
 
         internal static void CleanDeadColonists(List<Pawn> pawns)
@@ -184,28 +184,30 @@ namespace BetterPawnControl
         internal static void CopyToClipboard()
         {
             Policy policy = GetActivePolicy();
-            if (clipboard != null)
+            if (WorkManager.clipboard != null)
             {
-                WorkManager.clipboard.Clear();
-                foreach (WorkLink link in WorkManager.links)
-                {
-                    if (link.zone == policy.id)
-                    {
-                        WorkManager.clipboard.Add(new WorkLink(link));
-                    }
-                }               
+                clipboard = new List<WorkLink>();
             }
+
+            WorkManager.clipboard.Clear();
+            foreach (WorkLink link in WorkManager.links)
+            {
+                if (link.zone == policy.id)
+                {
+                    WorkManager.clipboard.Add(link);
+                }
+            }               
+            
         }
 
         internal static void PasteToActivePolicy()
         {
             Policy policy = GetActivePolicy();
-            if (!clipboard.NullOrEmpty() && clipboard[0].zone != policy.id)
+            if (!WorkManager.clipboard.NullOrEmpty() && WorkManager.clipboard[0].zone != policy.id)
             {            
                 WorkManager.links.RemoveAll( x => x.zone == policy.id);
                 foreach (WorkLink copiedLink in WorkManager.clipboard)
                 {
-
                     copiedLink.zone = policy.id;
                     WorkManager.links.Add(new WorkLink(copiedLink));
                 }

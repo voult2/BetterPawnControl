@@ -38,7 +38,7 @@ namespace BetterPawnControl
 
         internal static void SaveCurrentState(List<Pawn> pawns)
         {
-            int currentMap = Find.CurrentMap.uniqueID;
+			int currentMap = Find.CurrentMap.uniqueID;
             //Save current state
             foreach (Pawn p in pawns)
             {

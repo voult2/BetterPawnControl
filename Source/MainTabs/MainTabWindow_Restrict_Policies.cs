@@ -34,6 +34,7 @@ namespace BetterPawnControl
             RestrictManager.CleanDeadMaps();
             RestrictManager.CleanDeadColonists(this.Pawns.ToList());
             RestrictManager.SaveCurrentState(this.Pawns.ToList());
+            showPaste = false;
         }
 
         public override void DoWindowContents(Rect fillRect)
@@ -111,7 +112,6 @@ namespace BetterPawnControl
                 TooltipHandler.TipRegion(rect6, "BPC.PasteSchedule".Translate());
             }
         }
-
 
         private static void OpenRestrictPolicySelectMenu(
             List<RestrictLink> links, List<Pawn> pawns)
