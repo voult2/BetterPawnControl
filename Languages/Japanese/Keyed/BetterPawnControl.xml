@@ -16,13 +16,24 @@
   <BPC.RestrictPolicy>方針: </BPC.RestrictPolicy>
   <BPC.CurrentRestrictPolicy>有効な制約の方針</BPC.CurrentRestrictPolicy>
 
-  <BPC.RestrictTab>制約</BPC.RestrictTab>
+  <BPC.NewWorkPolicy>新しい方針</BPC.NewWorkPolicy>
+  <BPC.WorkPolicy>方針</BPC.WorkPolicy>
+  <BPC.CurrentWorkPolicy>実行中の方針</BPC.CurrentWorkPolicy>
+
+  <BPC.WorkTab>優先順位</BPC.WorkTab>
+  <BPC.RestrictTab>制限</BPC.RestrictTab>
   <BPC.AssignTab>服装・任命</BPC.AssignTab>
-  <BPC.AnimalTab>動物</BPC.AnimalTab>
+  <BPC.AnimalTab>家畜</BPC.AnimalTab>
 
   <BPC.SelectedDefaultOutfit>初期設定:服装</BPC.SelectedDefaultOutfit>
   <BPC.SelectedDefaultDrug>初期設定:ドラッグ</BPC.SelectedDefaultDrug>
   <BPC.SelectedDefaultFood>デフォルトフード</BPC.SelectedDefaultFood>
   <BPC.SelectedPrisionerDefaultFood>>標準捕虜食</BPC.SelectedPrisionerDefaultFood>
+
+  <BPC.Copy>方針をコピー</BPC.Copy>
+  <BPC.Paste>方針を貼付け</BPC.Paste>
+
+  <BPC.CopySchedule>スケジュールをコピー</BPC.CopySchedule>
+  <BPC.PasteSchedule>スケジュールを貼付け</BPC.PasteSchedule>
 
 </LanguageData>
