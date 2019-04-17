@@ -28,7 +28,7 @@ You can also setup a default outfit, food and drug when a new colonist joins you
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
 		<defName>BetterPawnControl_2_0_0</defName>
 		<assemblyVersion>2.0.0</assemblyVersion>
-		<content>Again, possible fix for data creep game from one save to another save</content>
+		<content>Again, possible fix for data creep between different saves during the same game session</content>
 	</HugsLib.UpdateFeatureDef>
 
 

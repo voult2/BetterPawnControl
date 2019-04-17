@@ -127,14 +127,18 @@ namespace BetterPawnControl
 						ref RestrictManager.links,
 						"RestrictLinks", LookMode.Deep);
 
-					//if (RestrictManager.links == null)
-					//{
-					//	//this is only required if the save file contains
-					//	//empty links. Not sure how this can happen though :(
-					//	RestrictManager.InstantiateLinks();
-					//}
+                    Scribe_Collections.Look<MapActivePolicy>(
+                        ref RestrictManager.activePolicies,
+                        "RestrictActivePolicies", LookMode.Deep);
 
-					Scribe_Collections.Look<Policy>(
+                    //if (RestrictManager.links == null)
+                    //{
+                    //	//this is only required if the save file contains
+                    //	//empty links. Not sure how this can happen though :(
+                    //	RestrictManager.InstantiateLinks();
+                    //}
+
+                    Scribe_Collections.Look<Policy>(
 						ref WorkManager.policies,
 						"WorkPolicies", LookMode.Deep);
 
@@ -160,7 +164,15 @@ namespace BetterPawnControl
 						//have no WorkPolicy data so let's initialize!
 						WorkManager.ForceInit();
 					}
-				}
+
+
+                    if (Scribe.mode == LoadSaveMode.LoadingVars &&
+                        RestrictManager.activePolicies == null)
+                    {
+                        //temporary code to be removed on the next version. To fix saves games without activePolicies
+                        RestrictManager.FixActivePolicies();
+                    }
+                }
 
 				if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs)
 				{

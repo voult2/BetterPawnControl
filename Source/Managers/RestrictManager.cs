@@ -10,6 +10,13 @@ namespace BetterPawnControl
     {
         internal static List<RestrictLink> clipboard = new List<RestrictLink>();
 
+        internal static void FixActivePolicies()
+        {
+            activePolicies = new List<MapActivePolicy>();
+            activePolicies.Add(new MapActivePolicy(0, new Policy(0, "BPC.Auto".Translate())));
+        }
+
+
         internal static void DeletePolicy(Policy policy)
         {
             //delete if not default AssignPolicy
