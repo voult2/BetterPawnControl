@@ -24,6 +24,12 @@ You can also setup a default outfit, food and drug when a new colonist joins you
 		<assemblyVersion>1.9.8</assemblyVersion>
 		<content>Restrict policy also includes the pawns time schedule!</content>
 	</HugsLib.UpdateFeatureDef>
+	
+	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
+		<defName>BetterPawnControl_2_0_0</defName>
+		<assemblyVersion>2.0.0</assemblyVersion>
+		<content>Again, possible fix for data creep game from one save to another save</content>
+	</HugsLib.UpdateFeatureDef>
 
 
 </Defs>

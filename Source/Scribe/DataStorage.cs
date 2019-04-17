@@ -30,20 +30,24 @@ namespace BetterPawnControl
                     //Let's make sure all static variables are cleaned.
                     //This shows there's a fundamental problem with this code
                     //A code refractor is require to remove the Static Managers 
-                    //and replace it by GameComponents
+                    //and replace it with GameComponents
                     AssignManager.Prisoners = null;
                     AssignManager.links = null;                    
                     AssignManager.policies = null;
                     AssignManager.activePolicies = null;
+                    AssignManager.DefaultDrugPolicy = null;
+                    AssignManager.DefaultFoodPolicy = null;
+                    AssignManager.DefaultOutfit = null;
+                    AssignManager.DefaultPrisonerFoodPolicy = null;
                     AnimalManager.links = null;
                     AnimalManager.policies = null;
                     AnimalManager.activePolicies = null;
-                    AssignManager.links = null;
-                    AssignManager.policies = null;
-                    AssignManager.activePolicies = null;
                     WorkManager.links = null;
                     WorkManager.policies = null;
                     WorkManager.activePolicies = null;
+                    RestrictManager.links = null;
+                    RestrictManager.policies = null;
+                    RestrictManager.activePolicies = null;
                     System.GC.Collect();
                 }
 
