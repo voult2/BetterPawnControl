@@ -55,7 +55,7 @@ namespace BetterPawnControl
             {
                 //find colonist in the current zone in the current map
                 RestrictLink link = RestrictManager.links.Find(
-                    x => x.colonist.Equals(p) &&
+                    x => p.Equals(x.colonist) &&
                     x.zone == activePolicyId &&
                     x.mapId == currentMap);
 

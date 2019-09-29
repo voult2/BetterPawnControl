@@ -48,7 +48,7 @@ namespace BetterPawnControl
             {	
                 //find colonist in the current zone in the current map
                 WorkLink link = WorkManager.links.Find(
-					x => x.colonist.Equals(p) &&
+					x => p.Equals(x.colonist) &&
 					x.zone == WorkManager.GetActivePolicy().id &&
 					x.mapId == currentMap);
 

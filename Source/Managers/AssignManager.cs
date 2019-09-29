@@ -128,7 +128,7 @@ namespace BetterPawnControl
             {
                 //find colonist on the current zone in the current map
                 AssignLink link = AssignManager.links.Find(
-                    x => x.colonist.Equals(p) &&
+                    x => p.Equals(x.colonist) &&
                     x.zone == AssignManager.GetActivePolicy().id &&
                     x.mapId == currentMap);
 
