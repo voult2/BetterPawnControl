@@ -18,14 +18,4 @@
 4. Done.|Repeat this process for other policies and THEN change between them in one click. WIN!
 You can also setup a default outfit, food and drug when a new colonist joins your colony</content>
 	</HugsLib.UpdateFeatureDef>
-
-	
-	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>BetterPawnControl_2_0_2</defName>
-		<assemblyVersion>2.0.2</assemblyVersion>
-		<content>Fixed possible crash in rare occasions
-Updated translations</content>
-	</HugsLib.UpdateFeatureDef>
-
-
 </Defs>
