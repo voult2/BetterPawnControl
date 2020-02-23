@@ -21,9 +21,10 @@ You can also setup a default outfit, food and drug when a new colonist joins you
 
 	
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>BetterPawnControl_2_0_1</defName>
-		<assemblyVersion>2.0.1</assemblyVersion>
-		<content>Fixed possible crash in rare occasions</content>
+		<defName>BetterPawnControl_2_0_2</defName>
+		<assemblyVersion>2.0.2</assemblyVersion>
+		<content>Fixed possible crash in rare occasions
+Updated translations</content>
 	</HugsLib.UpdateFeatureDef>
 
 
