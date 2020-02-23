@@ -51,3 +51,10 @@ Temporary Items
 /Source/.vs/
 /.vs/
 /About/PublishedFileId.txt
+/Assemblies/UnityEngine.TextRenderingModule.dll
+/Assemblies/UnityEngine.IMGUIModule.dll
+/Assemblies/UnityEngine.CoreModule.dll
+/Assemblies/HugsLib.xml
+/Assemblies/HugsLib.dll
+/Assemblies/0Harmony.dll
+/Assemblies/BetterPawnControl.pdb
