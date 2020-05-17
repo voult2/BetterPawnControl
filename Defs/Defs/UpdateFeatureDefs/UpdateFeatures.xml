@@ -9,7 +9,7 @@
 
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
 		<defName>BetterPawnControl_2_0_3</defName>
-		<assemblyVersion>2.0.3</assemblyVersion>
+		<assemblyVersion>1.9.2</assemblyVersion>
 		<content>Bulk assignment of colonists and animals to outfits, areas, drugs, food, work in one single action. Setup different policies and switch at will.| 
 &lt;b&gt;HOW TO USE&lt;/b&gt;
 1. Create a policy either for animals or for colonists by clicking the cog icon

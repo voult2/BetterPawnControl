@@ -101,6 +101,6 @@
     <VisualStudio AllowExistingFolder="true" />
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>xcopy "E:\BetterPawnControl\Assemblies\BetterPawnControl.dll" "D:\Steam\SteamApps\common\RimWorld\Mods\BetterPawnControl\Assemblies" /y</PostBuildEvent>
+    <PostBuildEvent>xcopy "E:\BetterPawnControl\Assemblies\BetterPawnControl.dll" "D:\Steam\SteamApps\common\RimWorld\Mods\BetterPawnControl\v1.1\Assemblies" /y</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -47,7 +47,7 @@ namespace BetterPawnControl
                 RestrictManager.DirtyPolicy = false;
             }
 
-            float offsetX = 200f;
+            float offsetX = 300f;
             if (Widget_CSL.CLSAvailable)
             {
                 offsetX = offsetX + 87f;
