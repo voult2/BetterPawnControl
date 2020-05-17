@@ -4,36 +4,36 @@
   <BPC.Rename>名前の変更</BPC.Rename>
   <BPC.Settings>方針の設定</BPC.Settings>
 
-  <BPC.NewAnimalPolicy>新規家畜設定</BPC.NewAnimalPolicy>
+  <BPC.NewAnimalPolicy>新規動物方針</BPC.NewAnimalPolicy>
   <BPC.AnimalPolicy>方針: </BPC.AnimalPolicy>
-  <BPC.CurrentAnimalPolicy>有効な家畜の方針</BPC.CurrentAnimalPolicy>
+  <BPC.CurrentAnimalPolicy>有効な動物の方針</BPC.CurrentAnimalPolicy>
 
   <BPC.NewAssignPolicy>新規服装・任命方針</BPC.NewAssignPolicy>
   <BPC.AssignPolicy>方針: </BPC.AssignPolicy>
   <BPC.CurrentAssignPolicy>有効な服装・任命の方針</BPC.CurrentAssignPolicy>
 
-  <BPC.NewRestrictPolicy>新規制限方針</BPC.NewRestrictPolicy>
+  <BPC.NewRestrictPolicy>新規制約方針</BPC.NewRestrictPolicy>
   <BPC.RestrictPolicy>方針: </BPC.RestrictPolicy>
-  <BPC.CurrentRestrictPolicy>有効な制限の方針</BPC.CurrentRestrictPolicy>
+  <BPC.CurrentRestrictPolicy>有効な制約の方針</BPC.CurrentRestrictPolicy>
 
-  <BPC.NewWorkPolicy>新規優先順位</BPC.NewWorkPolicy>
-  <BPC.WorkPolicy>方針：</BPC.WorkPolicy>
-  <BPC.CurrentWorkPolicy>有効な優先順位の方針</BPC.CurrentWorkPolicy>
+  <BPC.NewWorkPolicy>新規仕事方針</BPC.NewWorkPolicy>
+  <BPC.WorkPolicy>方針:</BPC.WorkPolicy>
+  <BPC.CurrentWorkPolicy>現在の方針</BPC.CurrentWorkPolicy>
 
-  <BPC.WorkTab>優先順位</BPC.WorkTab>
-  <BPC.RestrictTab>制限</BPC.RestrictTab>
+  <BPC.WorkTab>仕事</BPC.WorkTab>
+  <BPC.RestrictTab>制約</BPC.RestrictTab>
   <BPC.AssignTab>服装・任命</BPC.AssignTab>
-  <BPC.AnimalTab>家畜</BPC.AnimalTab>
+  <BPC.AnimalTab>動物</BPC.AnimalTab>
 
   <BPC.SelectedDefaultOutfit>初期設定:服装</BPC.SelectedDefaultOutfit>
   <BPC.SelectedDefaultDrug>初期設定:ドラッグ</BPC.SelectedDefaultDrug>
   <BPC.SelectedDefaultFood>デフォルトフード</BPC.SelectedDefaultFood>
-  <BPC.SelectedPrisionerDefaultFood>>標準捕虜食</BPC.SelectedPrisionerDefaultFood>
+  <BPC.SelectedPrisionerDefaultFood>&gt;標準捕虜食</BPC.SelectedPrisionerDefaultFood>
 
   <BPC.Copy>方針をコピー</BPC.Copy>
-  <BPC.Paste>方針を貼付</BPC.Paste>
+  <BPC.Paste>方針を貼付け</BPC.Paste>
 
-  <BPC.CopySchedule>スケジュールをコピー</BPC.CopySchedule>
-  <BPC.PasteSchedule>スケジュールを貼付</BPC.PasteSchedule>
+  <BPC.CopySchedule>時間割をコピー</BPC.CopySchedule>
+  <BPC.PasteSchedule>時間割を貼付け</BPC.PasteSchedule>
 
 </LanguageData>
