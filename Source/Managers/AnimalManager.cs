@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using System;
+using Verse;
 using RimWorld;
 using System.Collections.Generic;
 
@@ -45,7 +46,7 @@ namespace BetterPawnControl
                 //find animal on the current zone
                 AnimalLink animalLink =
                     AnimalManager.links.Find(
-                        x => p.Equals(x.animal) &&
+                        x => x != null && p.Equals(x.animal) &&
                         x.zone == AnimalManager.GetActivePolicy().id &&
                         x.mapId == currentMap);
 
@@ -81,6 +82,7 @@ namespace BetterPawnControl
         /// </summary>
         internal static void CleanDeadAnimals(List<Pawn> pawns)
         {
+            AnimalManager.links.RemoveAll(l => l == null);
             for (int i = 0; i < AnimalManager.links.Count; i++)
             {
                 AnimalLink pawn = AnimalManager.links[i];
@@ -105,9 +107,9 @@ namespace BetterPawnControl
             int currentMap = Find.CurrentMap.uniqueID;
 
             //get all links from the current map
-            mapLinks = links.FindAll(x => x.mapId == currentMap);
+            mapLinks = links.FindAll(x => x != null && x.mapId == currentMap);
             //get all links from the selected zone
-            zoneLinks = mapLinks.FindAll(x => x.zone == policy.id);
+            zoneLinks = mapLinks.FindAll(x => x != null &&  x.zone == policy.id);
 
             foreach (Pawn p in pawns)
             {
@@ -138,11 +140,15 @@ namespace BetterPawnControl
             List<AnimalLink> mapLinks = null;
             List<AnimalLink> zoneLinks = null;
             int currentMap = Find.CurrentMap.uniqueID;
+            if (links == null) throw new ArgumentNullException(nameof(links));
+            if (policy == null) throw new ArgumentNullException(nameof(policy));
 
             //get all links from the current map
-            mapLinks = links.FindAll(x => x.mapId == currentMap);
+            mapLinks = links.FindAll(l => l != null && l.mapId == currentMap);
             //get all links from the selected zone
-            zoneLinks = mapLinks.FindAll(x => x.zone == policy.id);
+            zoneLinks = mapLinks.FindAll(ml => ml != null && ml.zone == policy.id);
+            var brokenLinks = links.FindAll(x => x == null).CountAllowNull();
+            if (brokenLinks > 0) Log.Warning("[BPC] AnimalManager.UpdateState was given " + brokenLinks + " dead links");
 
             foreach (Pawn p in pawns)
             {
@@ -224,7 +230,7 @@ namespace BetterPawnControl
                 + "] ###");
             foreach (AnimalLink l in AnimalManager.links)
             {
-                Log.Message("[BPC]\t" + l.ToString());
+                Log.Message("[BPC]\t" + l);
             }
 
             Log.Message(spacer);
