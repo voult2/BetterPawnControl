@@ -5,6 +5,7 @@
 	<supportedVersions>
 		<li>1.0</li>
 		<li>1.1</li>
+		<li>1.2</li>
 	</supportedVersions>
 	<packageId>VouLT.BetterPawnControl</packageId>
 	<description>Bulk assignment of colonists and animals to outfits, areas, drugs, food, work in one single action. Setup different policies and switch at will. 
@@ -18,7 +19,7 @@ Enjoy :-)
 Official forum thread: 
 https://ludeon.com/forums/index.php?topic=26618.0
 
-v2.0.3
+v2.0.4
 
 </description>
 </ModMetaData>
