@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <BPC.Auto>自動</BPC.Auto>
   <BPC.Rename>名前の変更</BPC.Rename>
   <BPC.Settings>方針の設定</BPC.Settings>
 
-  <BPC.NewAnimalPolicy>新規動物方針</BPC.NewAnimalPolicy>
+  <BPC.NewAnimalPolicy>新規動物設定</BPC.NewAnimalPolicy>
   <BPC.AnimalPolicy>方針: </BPC.AnimalPolicy>
   <BPC.CurrentAnimalPolicy>有効な動物の方針</BPC.CurrentAnimalPolicy>
 
@@ -17,8 +17,8 @@
   <BPC.CurrentRestrictPolicy>有効な制約の方針</BPC.CurrentRestrictPolicy>
 
   <BPC.NewWorkPolicy>新規仕事方針</BPC.NewWorkPolicy>
-  <BPC.WorkPolicy>方針:</BPC.WorkPolicy>
-  <BPC.CurrentWorkPolicy>現在の方針</BPC.CurrentWorkPolicy>
+  <BPC.WorkPolicy>方針: </BPC.WorkPolicy>
+  <BPC.CurrentWorkPolicy>有効な仕事の方針</BPC.CurrentWorkPolicy>
 
   <BPC.WorkTab>仕事</BPC.WorkTab>
   <BPC.RestrictTab>制約</BPC.RestrictTab>
@@ -28,7 +28,7 @@
   <BPC.SelectedDefaultOutfit>初期設定:服装</BPC.SelectedDefaultOutfit>
   <BPC.SelectedDefaultDrug>初期設定:ドラッグ</BPC.SelectedDefaultDrug>
   <BPC.SelectedDefaultFood>デフォルトフード</BPC.SelectedDefaultFood>
-  <BPC.SelectedPrisionerDefaultFood>&gt;標準捕虜食</BPC.SelectedPrisionerDefaultFood>
+  <BPC.SelectedPrisionerDefaultFood>>標準捕虜食</BPC.SelectedPrisionerDefaultFood>
 
   <BPC.Copy>方針をコピー</BPC.Copy>
   <BPC.Paste>方針を貼付け</BPC.Paste>
