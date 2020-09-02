@@ -19,9 +19,9 @@ namespace BetterPawnControl
 
                 //Log.Message("[BPC] Tick! 1800");
                 //check if a new pawn has joined the player colony
-                IEnumerable<Pawn> Pawns = 
+                IEnumerable<Pawn> pawns = 
                     Find.CurrentMap.mapPawns.FreeColonistsAndPrisoners;
-                foreach (Pawn p in Pawns)
+                foreach (Pawn p in pawns)
                 {
                     if (!p.IsPrisoner && !AssignManager.links.Exists(x => x.colonist == p))
                     {
@@ -56,12 +56,5 @@ namespace BetterPawnControl
                 }
             }
         }
-
-        //public override void FinalizeInit()
-        //{
-        //    base.FinalizeInit();
-        //    Log.Message("Forcing Init");
-        //    //WorkManager.ForceInit();
-        //}
     }
 }

@@ -35,6 +35,10 @@
     <RootNamespace>BetterPawnControl</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Downloads\Harmony\Current\Assemblies\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp, Version=0.19.6814.14576, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
@@ -43,7 +47,7 @@
     </Reference>
     <Reference Include="HugsLib">
       <HintPath>D:\Steam\steamapps\common\RimWorld\Mods\HugsLib\Assemblies\HugsLib.dll</HintPath>
-      <HintPath  Condition="Exists('$(Home)\Library')">$(Home)\Library\Application Support\Steam\steamapps\common\RimWorld\RimWorldMac.app\Mods\818773962\Assemblies\HugsLib.dll</HintPath>
+      <HintPath Condition="Exists('$(Home)\Library')">$(Home)\Library\Application Support\Steam\steamapps\common\RimWorld\RimWorldMac.app\Mods\818773962\Assemblies\HugsLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -73,6 +77,8 @@
   <ItemGroup>
     <Compile Include="Base\AnimalLink.cs" />
     <Compile Include="Base\AssignLink.cs" />
+    <Compile Include="Managers\AlertManager.cs" />
+    <Compile Include="Base\AlertLevel.cs" />
     <Compile Include="Base\Link.cs" />
     <Compile Include="Base\WorkLink.cs" />
     <Compile Include="Base\RestrictLink.cs" />
@@ -93,6 +99,7 @@
     <Compile Include="Managers\RestrictManager.cs" />
     <Compile Include="Managers\Manager.cs" />
     <Compile Include="Managers\DefaultOutfitAndFoodAndDrug.cs" />
+    <Compile Include="Patch\RimWorld_PlaySettings_DoPlaySettingsGlobalControls.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scribe\DataStorage.cs" />
     <Compile Include="Textures\Resources.cs" />
@@ -110,5 +117,8 @@
   <PropertyGroup>
     <PostBuildEvent Condition=" '$(OS)' == 'Windows_NT' ">xcopy "E:\BetterPawnControl\Assemblies\BetterPawnControl.dll" "D:\Steam\SteamApps\common\RimWorld\Mods\BetterPawnControl\v1.1\Assemblies" /y</PostBuildEvent>
     <PostBuildEvent Condition="Exists('$(Home)\Library')">cp -f "$(Home)\Library\Application Support\Steam\steamapps\common\RimWorld\RimWorldMac.app\Mods\BetterPawnControl\Assemblies\BetterPawnControl.dll" "$(Home)\Library\Application Support\Steam\steamapps\common\RimWorld\RimWorldMac.app\Mods\BetterPawnControl\v1.1\Assemblies\"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "E:\BetterPawnControl\Assemblies\BetterPawnControl.dll" "D:\Steam\SteamApps\common\RimWorld\Mods\BetterPawnControl\v1.2\Assemblies" /y</PostBuildEvent>
   </PropertyGroup>
 </Project>

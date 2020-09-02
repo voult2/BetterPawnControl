@@ -2,6 +2,7 @@
 using Verse;
 using RimWorld;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BetterPawnControl
 {
@@ -128,6 +129,16 @@ namespace BetterPawnControl
                 }
             }
             AnimalManager.SetActivePolicy(policy);
+        }
+
+        internal static void LoadState(Policy policy)
+        {
+            IEnumerable<Pawn> pawns = 
+                from p in Find.CurrentMap.mapPawns.PawnsInFaction(Faction.OfPlayer)
+                where p.RaceProps.Animal
+                select p;
+
+            LoadState(AnimalManager.links, pawns.ToList(), policy);
         }
 
         /// <summary>

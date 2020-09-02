@@ -42,21 +42,20 @@ namespace BetterPawnControl
 
         internal static void SaveCurrentState(List<Pawn> pawns)
         {
-			int currentMap = Find.CurrentMap.uniqueID;
+            int currentMap = Find.CurrentMap.uniqueID;
             //Save current state
             foreach (Pawn p in pawns)
-            {	
+            {
                 //find colonist in the current zone in the current map
                 WorkLink link = WorkManager.links.Find(
-					x => p.Equals(x.colonist) &&
-					x.zone == WorkManager.GetActivePolicy().id &&
-					x.mapId == currentMap);
-
-				if (link != null)
+                    x => p.Equals(x.colonist) &&
+                    x.zone == WorkManager.GetActivePolicy().id &&
+                    x.mapId == currentMap);
+                if (link != null)
                 {
-					//colonist found! save  
-					WorkManager.SavePawnPriorities(p, link);
-				}
+                    //colonist found! save  
+                    WorkManager.SavePawnPriorities(p, link);
+                }
                 else
                 {
                     //colonist not found. So add it to the WorkLink list
@@ -68,7 +67,7 @@ namespace BetterPawnControl
                     WorkManager.links.Add(link);
                     WorkManager.SavePawnPriorities(p, link);
                 }
-			}
+            }
         }
 
         internal static void CleanDeadColonists(List<Pawn> pawns)
@@ -151,6 +150,11 @@ namespace BetterPawnControl
             WorkManager.SetActivePolicy(policy);
         }
 
+        internal static void LoadState(Policy policy)
+        {
+            List<Pawn> pawns = Find.CurrentMap.mapPawns.FreeColonists;
+            LoadState(WorkManager.links, pawns, policy);
+        }
 
         internal static void SavePawnPriorities(Pawn p, WorkLink link)
         {
@@ -158,14 +162,7 @@ namespace BetterPawnControl
             {
                 foreach (var worktype in DefDatabase<WorkTypeDef>.AllDefsListForReading)
                 {
-                    if (link.settings.ContainsKey(worktype))
-                    {
-                        link.settings[worktype] = p.workSettings.GetPriority(worktype);
-                    }
-                    else
-                    {
-                        link.settings.Add(worktype, p.workSettings.GetPriority(worktype));
-                    }
+                    link.settings.SetOrAdd(worktype, p.workSettings.GetPriority(worktype));
                 }
             }
         }
@@ -194,25 +191,25 @@ namespace BetterPawnControl
             {
                 if (link.zone == policy.id)
                 {
-                    WorkManager.clipboard.Add(link);
+                    WorkManager.clipboard.Add(new WorkLink(link));
                 }
-            }               
-            
+            }
+
         }
 
         internal static void PasteToActivePolicy()
         {
             Policy policy = GetActivePolicy();
             if (!WorkManager.clipboard.NullOrEmpty() && WorkManager.clipboard[0].zone != policy.id)
-            {            
-                WorkManager.links.RemoveAll( x => x.zone == policy.id);
+            {
+                WorkManager.links.RemoveAll(x => x.zone == policy.id);
                 foreach (WorkLink copiedLink in WorkManager.clipboard)
                 {
                     copiedLink.zone = policy.id;
-                    WorkManager.links.Add(new WorkLink(copiedLink));
+                    WorkManager.links.Add(copiedLink);
                 }
                 WorkManager.LoadState(links, Find.CurrentMap.mapPawns.FreeColonists.ToList(), policy);
-            }            
+            }
         }
     }
 }

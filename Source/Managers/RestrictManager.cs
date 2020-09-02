@@ -187,11 +187,18 @@ namespace BetterPawnControl
                     {
                         p.playerSettings.AreaRestriction = l.area;
                         RestrictManager.CopySchedule(l.schedule, p.timetable.times);
+                        p.Tick();
                     }
                 }
             }
 
             RestrictManager.SetActivePolicy(policy);
+        }
+
+        internal static void LoadState(Policy policy)
+        {
+            List<Pawn> pawns = Find.CurrentMap.mapPawns.FreeColonists;
+            LoadState(RestrictManager.links, pawns, policy);
         }
 
         internal static void PrintAllAssignPolicies()
@@ -234,33 +241,22 @@ namespace BetterPawnControl
             {
                 if (link.zone == policy.id)
                 {
-                    RestrictManager.clipboard.Add(link);
+                    RestrictManager.clipboard.Add(new RestrictLink(link));
                 }
             }
         }
-
         internal static void PasteToActivePolicy()
         {
             Policy policy = GetActivePolicy();
             if (!RestrictManager.clipboard.NullOrEmpty() && RestrictManager.clipboard[0].zone != policy.id)
             {
-                //RestrictManager.links.RemoveAll(x => x.zone == policy.id);
+                RestrictManager.links.RemoveAll(x => x.zone == policy.id);
                 foreach (RestrictLink copiedLink in RestrictManager.clipboard)
                 {
-                    foreach (RestrictLink link in RestrictManager.links)
-                    {
-                        if (link.colonist == copiedLink.colonist && link.zone == policy.id)
-                        {
-                            RestrictManager.CopySchedule(copiedLink.schedule, link.schedule);
-                            Log.Message("Copied Schedule");
-                        }
-                    }
+                    copiedLink.zone = policy.id;
+                    RestrictManager.links.Add(copiedLink);
                 }
-
-                RestrictManager.LoadState(
-                                links,
-                                Find.CurrentMap.mapPawns.FreeColonists.ToList(),
-                                policy);
+                RestrictManager.LoadState(links, Find.CurrentMap.mapPawns.FreeColonists.ToList(), policy);
             }
         }
     }

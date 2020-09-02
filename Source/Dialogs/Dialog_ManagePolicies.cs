@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using Verse;
 using RimWorld;
-
+using System;
 
 namespace BetterPawnControl
 {
@@ -16,8 +16,8 @@ namespace BetterPawnControl
         /// </summary>
 		private static Regex validNameRegex = new Regex("^[a-zA-Z0-9 '\\-]*$");
         private const int MAX_POLICIES = 15;
-        enum PawnType {Colonist, Prisoner};
-        
+        enum PawnType { Colonist, Prisoner };
+
         /// <summary>
         /// Copy paste from vanilla
         /// </summary>
@@ -25,7 +25,7 @@ namespace BetterPawnControl
         {
             get
             {
-                return new Vector2(1300f, 700f);
+                return new Vector2(1300f, 840f);
             }
         }
 
@@ -53,8 +53,12 @@ namespace BetterPawnControl
             listing_Standard.ColumnWidth = inRect.width;
             listing_Standard.Begin(inRect);
 
-            Rect rect = listing_Standard.GetRect(60f);
-            DoHeaderRow(rect);
+            Rect lineWithTextPolicies = listing_Standard.GetRect(24f);
+            DrawHorizontalLineWithTextCentered(inRect, lineWithTextPolicies, 0f, "BPC.PoliciesConfigText");
+            listing_Standard.Gap(6f);
+
+            Rect policiesHeader = listing_Standard.GetRect(38f);
+            DoHeaderRow(policiesHeader);
 
             int rows =
                 MaxNumber(
@@ -70,34 +74,71 @@ namespace BetterPawnControl
 
                 Policy workP = (i < WorkManager.policies.Count) ?
                     WorkManager.policies[i] : null;
-                Policy restrictP = (i < RestrictManager.policies.Count) ? 
+                Policy restrictP = (i < RestrictManager.policies.Count) ?
                     RestrictManager.policies[i] : null;
-                Policy assignP = (i < AssignManager.policies.Count) ? 
+                Policy assignP = (i < AssignManager.policies.Count) ?
                     AssignManager.policies[i] : null;
-                Policy animalP = (i < AnimalManager.policies.Count) ? 
+                Policy animalP = (i < AnimalManager.policies.Count) ?
                     AnimalManager.policies[i] : null;
 
-                Rect rect2 = listing_Standard.GetRect(24f);
-                DoRow(rect2, workP, restrictP, assignP, animalP);
+                Rect policiesRow = listing_Standard.GetRect(24f);
+                DoRow(policiesRow, workP, restrictP, assignP, animalP);
                 listing_Standard.Gap(6f);
             }
 
-            Rect rect3 = listing_Standard.GetRect(24f);
-            DoNewPoliciesRow(rect3);
+            Rect newPolicyRow = listing_Standard.GetRect(24f);
+            DoNewPoliciesRow(newPolicyRow);
+            listing_Standard.Gap(24f);
+
+            Rect lineWithTextDefaults = listing_Standard.GetRect(24f);
+            DrawHorizontalLineWithTextCentered(inRect, lineWithTextDefaults, 50f,"BPC.DefaultsConfigText");
             listing_Standard.Gap(6f);
 
-            Rect rect4 = listing_Standard.GetRect(24f);
-            Widgets.DrawLineHorizontal(rect4.x, rect4.y + 12f, inRect.width);
+            Rect defaultsRow = listing_Standard.GetRect(24f);
+            DoDefaultsRow(defaultsRow);
+            listing_Standard.Gap(24f);
+
+            Rect lineWithTextAlertRow = listing_Standard.GetRect(24f);
+            DrawHorizontalLineWithTextCentered(inRect, lineWithTextAlertRow, 50f, "BPC.AlertConfigText", true);
             listing_Standard.Gap(6f);
 
-            Rect rect5 = listing_Standard.GetRect(24f);
-            DoDefaultsRow(rect5);
+            Rect alertRow = listing_Standard.GetRect(24f);
+            DoAlertRow(alertRow);
             listing_Standard.Gap(12f);
 
-            //Rect rect6 = listing_Standard.GetRect(24f);
-            //DoPrisionerDefaultsRow(rect6);
+            Rect AutomaticInterruptPawnsRow = listing_Standard.GetRect(24f);
+            DrawAutomaticInterruptPawnsRow(AutomaticInterruptPawnsRow);
+            listing_Standard.Gap(12f);
 
             listing_Standard.End();
+        }
+        private void DrawAutomaticInterruptPawnsRow(Rect rect)
+        {
+            rect.width = rect.width / 2;
+            //rect.x = rect.width;
+            Text.Font = GameFont.Small;
+            Text.Anchor = TextAnchor.MiddleCenter;
+            Widgets.CheckboxLabeled(rect, "BPC.AutomaticPawnsInterruptSetting".Translate(), ref AlertManager._automaticPawnsInterrupt, false, null, null, true);
+            Text.Font = GameFont.Small;
+            Text.Anchor = TextAnchor.UpperLeft;
+        }
+
+        private static void DrawHorizontalLineWithTextCentered(Rect inRect, Rect rect, float offset, string text, bool icon = false)
+        {
+            Widgets.DrawLineHorizontal(rect.x + inRect.width / 8, rect.y + 12f, inRect.width / 6);
+            GUI.BeginGroup(rect);
+            Text.Font = GameFont.Tiny;
+            Text.Anchor = TextAnchor.MiddleCenter;
+            WidgetRow widgetRow = new WidgetRow(inRect.width / 3 + offset, 0);
+            widgetRow.Label(text.Translate());
+            if (icon) 
+            {
+                widgetRow.Icon(Resources.EmergencyOn, null);
+            }
+            GUI.EndGroup();
+            Widgets.DrawLineHorizontal(rect.x + (inRect.width / 6 * 4) + (inRect.width / 6 / 2), rect.y + 12f, inRect.width / 6);
+            Text.Font = GameFont.Small;
+            Text.Anchor = TextAnchor.UpperLeft;
         }
 
         /// <summary>
@@ -111,9 +152,7 @@ namespace BetterPawnControl
             float one = rect.width / 4f;
             float two = one * 2f;
             float three = one * 3f;
-            float width = one - 4f;
 
-            //Restrict column
 
             Rect rect1 = new Rect(rect.x, rect.y, one, rect.height);
             DoColumn(rect1, workP, Resources.Type.work);
@@ -132,7 +171,7 @@ namespace BetterPawnControl
             Rect rect, Policy policy, Resources.Type type)
         {
             GUI.BeginGroup(rect);
-            WidgetRow widgetRow = 
+            WidgetRow widgetRow =
                 new WidgetRow(0f, 0f, UIDirection.RightThenUp, 99999f, 4f);
             widgetRow.Gap(4f);
             if (policy != null)
@@ -143,7 +182,7 @@ namespace BetterPawnControl
                 {
                     Find.WindowStack.Add(new Dialog_RenamePolicy(policy, type));
                 }
-                if (policy.id > 0 && 
+                if (policy.id > 0 &&
                     widgetRow.ButtonIcon(
                         ContentFinder<Texture2D>.Get(
                             "UI/Buttons/Delete", true), null))
@@ -176,10 +215,10 @@ namespace BetterPawnControl
             float width = one - 4f;
             float offset = 0f;
 
-            Rect rect1 = new Rect(offset, rect.y, width, rect.height + 6f);
-            Rect rect2 = new Rect(one, rect.y, width, rect.height + 6f);
-            Rect rect3 = new Rect(two + offset, rect.y, width, rect.height + 6f);
-            Rect rect4 = new Rect(three + offset, rect.y, width, rect.height + 6f);
+            Rect rect1 = new Rect(offset, rect.y, width, rect.height);
+            Rect rect2 = new Rect(one, rect.y, width, rect.height);
+            Rect rect3 = new Rect(two + offset, rect.y, width, rect.height);
+            Rect rect4 = new Rect(three + offset, rect.y, width, rect.height);
 
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
@@ -200,9 +239,9 @@ namespace BetterPawnControl
 
             float offset = 0f;
 
-            Rect rect1 = 
+            Rect rect1 =
                 new Rect(offset, rect.y, buttonWidth, rect.height + 6f);
-            Rect rect2 = 
+            Rect rect2 =
                 new Rect(offset + one, rect.y, buttonWidth, rect.height + 6f);
             Rect rect3 =
                 new Rect(offset + two, rect.y, buttonWidth, rect.height + 6f);
@@ -222,9 +261,9 @@ namespace BetterPawnControl
                         label_id, "BPC.WorkPolicy".Translate() + label_id));
             }
 
-            if (RestrictManager.policies.Count < MAX_POLICIES && 
+            if (RestrictManager.policies.Count < MAX_POLICIES &&
                 Widgets.ButtonText(
-                    rect2, "BPC.NewRestrictPolicy".Translate(), 
+                    rect2, "BPC.NewRestrictPolicy".Translate(),
                     true, false, true))
             {
                 int lastItem = RestrictManager.policies.Count - 1;
@@ -232,26 +271,26 @@ namespace BetterPawnControl
                 label_id++;
                 RestrictManager.policies.Add(
                     new Policy(
-                        label_id, 
+                        label_id,
                         "BPC.RestrictPolicy".Translate() + label_id));
             }
 
-            if (AssignManager.policies.Count < MAX_POLICIES && 
+            if (AssignManager.policies.Count < MAX_POLICIES &&
                 Widgets.ButtonText(
-                    rect3, 
+                    rect3,
                     "BPC.NewAssignPolicy".Translate(), true, false, true))
             {
                 int lastItem = AssignManager.policies.Count - 1;
                 int label_id = AssignManager.policies[lastItem].id;
                 label_id++;
                 AssignManager.policies.Add(
-                    new Policy(label_id, 
+                    new Policy(label_id,
                     "BPC.AssignPolicy".Translate() + label_id));
             }
 
-            if (AnimalManager.policies.Count < MAX_POLICIES && 
+            if (AnimalManager.policies.Count < MAX_POLICIES &&
                 Widgets.ButtonText(
-                    rect4, "BPC.NewAnimalPolicy".Translate(), 
+                    rect4, "BPC.NewAnimalPolicy".Translate(),
                     true, false, true))
             {
                 int lastItem = AnimalManager.policies.Count - 1;
@@ -274,9 +313,9 @@ namespace BetterPawnControl
             float seven = one * 7f;
             float buttonWidth = 4f * one / 5f;
 
-            Rect labelDefaultOutfit = 
+            Rect labelDefaultOutfit =
                 new Rect(0, rect.y, one, rect.height + 6f);
-            Rect buttonDefaultOutfit = 
+            Rect buttonDefaultOutfit =
                 new Rect(one, rect.y, buttonWidth, rect.height + 6f);
 
             Rect labelDefaultFood =
@@ -297,25 +336,19 @@ namespace BetterPawnControl
             Text.Anchor = TextAnchor.MiddleCenter;
             Widgets.Label(
                 labelDefaultOutfit, "BPC.SelectedDefaultOutfit".Translate());
-            Text.Anchor = TextAnchor.UpperLeft;
 
-            Text.Anchor = TextAnchor.MiddleCenter;
             Widgets.Label(
                 labelDefaultFood, "BPC.SelectedDefaultFood".Translate());
-            Text.Anchor = TextAnchor.UpperLeft;
 
-            Text.Anchor = TextAnchor.MiddleCenter;
             Widgets.Label(
                 labelDefaultDrug, "BPC.SelectedDefaultDrug".Translate());
-            Text.Anchor = TextAnchor.UpperLeft;
 
-            Text.Anchor = TextAnchor.MiddleCenter;
             Widgets.Label(
                 labelPrisionerDefaultFood, "BPC.SelectedPrisionerDefaultFood".Translate());
-            Text.Anchor = TextAnchor.UpperLeft;
+  
 
             if (Widgets.ButtonText(
-                buttonDefaultOutfit, 
+                buttonDefaultOutfit,
                 AssignManager.DefaultOutfit.label, true, false, true))
             {
                 OpenOutfitSelectMenu();
@@ -341,33 +374,7 @@ namespace BetterPawnControl
             {
                 OpenFoodSelectMenu(PawnType.Prisoner);
             }
-        }
-
-        private static void DoPrisionerDefaultsRow(Rect rect)
-        {
-            float one = rect.width / 6f;
-            float two = one * 2f;
-            float three = one * 3f;
-            float four = one * 4f;
-            float five = one * 5f;
-            float buttonWidth = 4f * one / 5f;
-
-            Rect labelPrisionerDefaultFood =
-                new Rect(two, rect.y, one, rect.height + 6f);
-            Rect buttonPrisionerDefaultFood =
-                new Rect(three, rect.y, buttonWidth, rect.height + 6f);
-
-            Text.Anchor = TextAnchor.MiddleCenter;
-            Widgets.Label(
-                labelPrisionerDefaultFood, "BPC.SelectedPrisionerDefaultFood".Translate());
             Text.Anchor = TextAnchor.UpperLeft;
-
-            if (Widgets.ButtonText(
-                buttonPrisionerDefaultFood,
-                AssignManager.DefaultPrisonerFoodPolicy.label, true, false, true))
-            {
-                OpenFoodSelectMenu(PawnType.Prisoner);
-            }
         }
 
         private static int MaxNumber(int first, int second)
@@ -383,11 +390,11 @@ namespace BetterPawnControl
             {
                 list.Add(
                     new FloatMenuOption(
-                        outfit.label, 
-                        delegate 
+                        outfit.label,
+                        delegate
                         {
                             AssignManager.DefaultOutfit = outfit;
-                        }, 
+                        },
                         MenuOptionPriority.Default, null, null, 0f, null));
             }
             Find.WindowStack.Add(new FloatMenu(list));
@@ -429,11 +436,119 @@ namespace BetterPawnControl
                             else
                             {
                                 AssignManager.DefaultPrisonerFoodPolicy = foodPolicy;
-                            }                            
+                            }
                         },
                         MenuOptionPriority.Default, null, null, 0f, null));
             }
             Find.WindowStack.Add(new FloatMenu(list));
+        }
+
+        private static void DoAlertRow(Rect rect)
+        {
+            float one = rect.width / 8f;
+            float two = one * 2f;
+            float three = one * 3f;
+            float four = one * 4f;
+            float five = one * 5f;
+            float six = one * 6f;
+            float seven = one * 7f;
+            float buttonWidth = 4f * one / 5f;
+            int alertLevel = 1;
+
+            Rect labelWork =
+                new Rect(0, rect.y, one, rect.height + 6f);
+            Rect buttonWorkAlert =
+                new Rect(one, rect.y, buttonWidth, rect.height + 6f);
+
+            Rect labelRestrict =
+                new Rect(two, rect.y, one, rect.height + 6f);
+            Rect buttonRestrictAlert =
+                new Rect(three, rect.y, buttonWidth, rect.height + 6f);
+
+            Rect labelAssign =
+                new Rect(four, rect.y, one, rect.height + 6f);
+            Rect buttonAssignAlert =
+                new Rect(five, rect.y, buttonWidth, rect.height + 6f);
+
+            Rect labelAnimal =
+                new Rect(six, rect.y, one, rect.height + 6f);
+            Rect buttonAnimalAlert =
+                new Rect(seven, rect.y, buttonWidth, rect.height + 6f);
+
+            Text.Font = GameFont.Small;
+            Text.Anchor = TextAnchor.MiddleCenter;
+            Widgets.Label(labelWork, "BPC.WorkTab".Translate());
+            Widgets.Label(labelRestrict, "BPC.RestrictTab".Translate());
+            Widgets.Label(labelAssign, "BPC.AssignTab".Translate());
+            Widgets.Label(labelAnimal, "BPC.AnimalTab".Translate());
+
+
+            DrawAlertButton(alertLevel, buttonWorkAlert, Resources.Type.work);
+            DrawAlertButton(alertLevel, buttonRestrictAlert, Resources.Type.restrict);
+            DrawAlertButton(alertLevel, buttonAssignAlert, Resources.Type.assign);
+            DrawAlertButton(alertLevel, buttonAnimalAlert, Resources.Type.animal);
+            Text.Anchor = TextAnchor.UpperLeft;
+        }
+
+        private static void DrawAlertButton(int alertLevel, Rect buttonWorkAlert, Resources.Type type)
+        {
+            if (Widgets.ButtonText(
+                buttonWorkAlert,
+                AlertManager.GetAlertPolicy(alertLevel, type).label, true, false, true))
+            {
+                OpenPolicySelectMenu(type, alertLevel);
+            }
+        }
+
+        private static void OpenPolicySelectMenu(Resources.Type type, int alertLevel)
+        {
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
+
+            switch(type)
+            {
+                case Resources.Type.work:
+                    foreach (Policy policy in WorkManager.policies)
+                    {
+                        FillMenu(type, alertLevel, list, policy);
+                    }
+                    break;
+                
+                case Resources.Type.restrict:
+                    foreach (Policy policy in RestrictManager.policies)
+                    {
+                        FillMenu(type, alertLevel, list, policy);
+                    }
+                    break;
+
+                case Resources.Type.assign:
+                    foreach (Policy policy in AssignManager.policies)
+                    {
+                        FillMenu(type, alertLevel, list, policy);
+                    }
+                    break;
+
+                case Resources.Type.animal:
+                    foreach (Policy policy in AnimalManager.policies)
+                    {
+                        FillMenu(type, alertLevel, list, policy);
+                    }
+                    break;
+            }
+            Find.WindowStack.Add(new FloatMenu(list));
+        }
+
+        private static void FillMenu(Resources.Type type, int alertLevel, List<FloatMenuOption> list, Policy policy)
+        {
+            list.Add(
+                new FloatMenuOption(
+                    policy.label,
+                    delegate
+                    {
+                        AlertManager.SaveState(
+                            alertLevel, type, policy);
+
+                    },
+                    MenuOptionPriority.Default, null, null, 0f, null));
         }
     }
 }

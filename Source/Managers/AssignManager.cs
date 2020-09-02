@@ -309,6 +309,12 @@ namespace BetterPawnControl
             AssignManager.SetActivePolicy(policy);
         }
 
+        internal static void LoadState(Policy policy)
+        {
+            List<Pawn> pawns = Find.CurrentMap.mapPawns.FreeColonists;
+            LoadState(AssignManager.links, pawns, policy);
+        }
+
         internal static bool OutfitExits(Outfit outfit)
         {
             foreach (Outfit current in Current.Game.outfitDatabase.AllOutfits)

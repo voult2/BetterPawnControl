@@ -3,24 +3,32 @@ using HugsLib.Utils;
 using Verse;
 using RimWorld;
 using System.Collections.Generic;
+using RimWorld.Planet;
 
 namespace BetterPawnControl
 {
-    public class DataStorage : ModBase
-    {
-        public override string ModIdentifier
-        {
-            get { return "BetterPawnControl"; }
-        }
+	public class DataStorage : ModBase
+	{
+		public override string ModIdentifier
+		{
+			get { return "BetterPawnControl"; }
+		}
 
-        public override void WorldLoaded()
-        {
-            var obj = 
-                UtilityWorldObjectManager.GetUtilityWorldObject<WorldDataStore>();
-        }
+		public override void WorldLoaded()
+		{
+			var obj =
+				UtilityWorldObjectManager.GetUtilityWorldObject<WorldDataStore>();
+		}
 
-        private class WorldDataStore : UtilityWorldObject
-        {
+		private class WorldDataStore : UtilityWorldObject
+		{
+
+			//public class DataStorage : WorldComponent
+			//{
+			//	public DataStorage(World world) : base(world)
+			//	{
+			//	}
+
 			public override void ExposeData()
 			{
 				base.ExposeData();
@@ -48,7 +56,8 @@ namespace BetterPawnControl
                     RestrictManager.links = null;
                     RestrictManager.policies = null;
                     RestrictManager.activePolicies = null;
-                    System.GC.Collect();
+					AlertManager.alertLevelsList = null;
+					System.GC.Collect();
                 }
 
                 if (Scribe.mode == LoadSaveMode.LoadingVars ||
@@ -78,13 +87,6 @@ namespace BetterPawnControl
 						ref AssignManager.links,
 						"AssignLinks", LookMode.Deep);
 
-					//if (AssignManager.links == null)
-					//{
-					//	//this is only required if the save file contains
-					//	//empty links
-					//	AssignManager.InstantiateLinks();
-					//}
-
 					Scribe_Collections.Look<string>(
 						ref AssignManager.Prisoners,
 						"Prisoners", LookMode.Value);
@@ -108,13 +110,6 @@ namespace BetterPawnControl
 						ref AnimalManager.links,
 						"AnimalLinks", LookMode.Deep);
 
-					//if (AnimalManager.links == null)
-					//{
-					//	//this is only required if the save file contains
-					//	//empty links. Not sure how this can happen though :(
-					//	AnimalManager.InstantiateLinks();
-					//}
-
 					Scribe_Collections.Look<MapActivePolicy>(
 						ref AnimalManager.activePolicies,
 						"AnimalActivePolicies", LookMode.Deep);
@@ -131,13 +126,6 @@ namespace BetterPawnControl
                         ref RestrictManager.activePolicies,
                         "RestrictActivePolicies", LookMode.Deep);
 
-                    //if (RestrictManager.links == null)
-                    //{
-                    //	//this is only required if the save file contains
-                    //	//empty links. Not sure how this can happen though :(
-                    //	RestrictManager.InstantiateLinks();
-                    //}
-
                     Scribe_Collections.Look<Policy>(
 						ref WorkManager.policies,
 						"WorkPolicies", LookMode.Deep);
@@ -150,21 +138,24 @@ namespace BetterPawnControl
 						ref WorkManager.activePolicies,
 						"WorkActivePolicies", LookMode.Deep);
 
-					//if (WorkManager.links == null)
-					//{
-					//	//this is only required if the save file contains
-					//	//empty links. Not sure how this can happen though :(
-					//	WorkManager.InstantiateLinks();
-					//}
+					Scribe_Values.Look<int>(
+						ref AlertManager._alertLevel,"ActiveLevel", 0, true);
+
+					Scribe_Values.Look<bool>(
+						ref AlertManager._automaticPawnsInterrupt, "AutomaticPawnsInterrupt", true, true);
+
+					Scribe_Collections.Look<AlertLevel>(
+						ref AlertManager.alertLevelsList,
+						"AlertLevelsList", LookMode.Deep);
+
 
 					if (Scribe.mode == LoadSaveMode.LoadingVars &&
 						WorkManager.activePolicies == null)
 					{
-						//this only happens with existing saves prior. Existing saves 
+						//this only happens with existing saves. Existing saves 
 						//have no WorkPolicy data so let's initialize!
 						WorkManager.ForceInit();
 					}
-
 
                     if (Scribe.mode == LoadSaveMode.LoadingVars &&
                         RestrictManager.activePolicies == null)
@@ -172,7 +163,7 @@ namespace BetterPawnControl
                         //temporary code to be removed on the next version. To fix saves games without activePolicies
                         RestrictManager.FixActivePolicies();
                     }
-                }
+				}
 
 				if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs)
 				{
