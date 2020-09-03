@@ -1,13 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
-  <!-- <BetterPawnControl_1_9_0.modNameReadable>Better Pawn Control</BetterPawnControl_1_9_0.modNameReadable> -->
-  <!-- <BetterPawnControl_1_9_0.content>入植者や家畜や服装や制限エリアやドラッグ、食事などの大量な割り当てを、1回の操作で変更できます。 さまざまな方針を設定して、自由に切り替えることが可能です。| &lt;b&gt;使用方法&lt;/b&gt;\n1.歯車アイコンをクリックして、家畜用か入植者用のどちらかの方針を作成します。\n2.歯車アイコンの横にあるボタンをクリックして、新しく作成した方針を選択して有効にします。\n3.制限ゾーン、衣服、ドラッグなどもそれぞれ設定してから方針を設定します。\n|完了します。|他の方針についてもこの手順を繰り返します。 完璧！\n新しい入植者があなたのコロニーに参加する時に、あなたは初期設定の服装や食事、ドラッグの方針を設定しておくことも可能です</BetterPawnControl_1_9_0.content> -->
+  <BetterPawnControl_2_0_0.modNameReadable>Better Pawn Control</BetterPawnControl_2_0_0.modNameReadable>
+  <BetterPawnControl_2_0_0.content>一回の動作で、入植者や家畜や衣服やゾーンやドラッグ、食事、仕事などを一括で割り当てられます。異なるポリシーを設定して、自由に切り替えることもできます。| &lt;b&gt;使用方法&lt;/b&gt;\n1．歯車アイコンをクリックして、動物用または入植者用のポリシーを作成します。\n2．歯車アイコンの横にあるボタンをクリックして、新規作成したポリシーを選択して有効化します。\n3．普段通りエリア、衣服、ドラッグなどを設定して新規ポリシーを設定する\n4．完成|この作業を他のポリシーでも繰り返して、ワンクリックで変更してください。やったね!\nまた、新しい入植者がコロニーに参加した時のデフォルトの衣服や食事、ドラッグなどのポリシーを設定することができます。</BetterPawnControl_2_0_0.content>
 
-  <!-- <BetterPawnControl_2_0_2.modNameReadable>Better Pawn Control</BetterPawnControl_2_0_2.modNameReadable> -->
-  <!-- <BetterPawnControl_2_0_2.content>ごくまれにクラッシュする可能性を修正しました。\n翻訳を更新しました。</BetterPawnControl_2_0_2.content> -->
-
-  <BetterPawnControl_2_0_3.modNameReadable>Better Pawn Control</BetterPawnControl_2_0_3.modNameReadable>
-  <BetterPawnControl_2_0_3.content>一回の動作で、入植者や家畜や衣服やゾーンやドラッグ、食事、仕事などを一括で割り当てられます。異なるポリシーを設定して、自由に切り替えることもできます。| &lt;b&gt;使用方法&lt;/b&gt;\n1．歯車アイコンをクリックして、動物用または入植者用のポリシーを作成します。\n2．歯車アイコンの横にあるボタンをクリックして、新規作成したポリシーを選択して有効化します。\n3．普段通りエリア、衣服、ドラッグなどを設定して新規ポリシーを設定する\n4．完成|この作業を他のポリシーでも繰り返して、ワンクリックで変更してください。やったね!\nまた、新しい入植者がコロニーに参加した時のデフォルトの衣服や食事、ドラッグなどのポリシーを設定することができます。</BetterPawnControl_2_0_3.content>
+  <BetterPawnControl_2_1_0.modNameReadable>Better Pawn Control</BetterPawnControl_2_1_0.modNameReadable>
+  <BetterPawnControl_2_1_0.content>&lt;b&gt;新しい機能&lt;/b&gt;　　&lt;size=12&gt;各タブの4つの方針プリセットを一度に設定を変更する緊急事態切替を追加&lt;/size&gt;|&lt;b&gt;新しい機能&lt;/b&gt;　　&lt;size=12&gt;緊急事態をオンにするとポーンが現在実行中の行動を自動的に中断します。\n　　　　　　　　これはMod設定の歯車で無効化可能です&lt;/size&gt;|&lt;b&gt;修正&lt;/b&gt;　　&lt;size=12&gt;コピーや貼り付け機能が意図したとおりに機能しない問題を修正&lt;/size&gt;| </BetterPawnControl_2_1_0.content>
 
 </LanguageData>
