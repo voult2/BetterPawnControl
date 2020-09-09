@@ -1,49 +1,28 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <BPC.Auto>自動</BPC.Auto>
   <BPC.Rename>名前の変更</BPC.Rename>
   <BPC.Settings>方針の設定</BPC.Settings>
 
-  <BPC.NewAnimalPolicy>新規家畜設定</BPC.NewAnimalPolicy>
+  <BPC.NewAnimalPolicy>新規動物設定</BPC.NewAnimalPolicy>
   <BPC.AnimalPolicy>方針: </BPC.AnimalPolicy>
-  <BPC.CurrentAnimalPolicy>有効な家畜の方針</BPC.CurrentAnimalPolicy>
+  <BPC.CurrentAnimalPolicy>有効な動物の方針</BPC.CurrentAnimalPolicy>
 
   <BPC.NewAssignPolicy>新規服装・任命方針</BPC.NewAssignPolicy>
   <BPC.AssignPolicy>方針: </BPC.AssignPolicy>
   <BPC.CurrentAssignPolicy>有効な服装・任命の方針</BPC.CurrentAssignPolicy>
 
-  <BPC.NewRestrictPolicy>新規時間割方針</BPC.NewRestrictPolicy>
+  <BPC.NewRestrictPolicy>新規制約方針</BPC.NewRestrictPolicy>
   <BPC.RestrictPolicy>方針: </BPC.RestrictPolicy>
-  <BPC.CurrentRestrictPolicy>有効な時間割の方針</BPC.CurrentRestrictPolicy>
+  <BPC.CurrentRestrictPolicy>有効な制約の方針</BPC.CurrentRestrictPolicy>
 
-  <BPC.NewWorkPolicy>新規優先順位方針</BPC.NewWorkPolicy>
-  <BPC.WorkPolicy>方針: </BPC.WorkPolicy>
-  <BPC.CurrentWorkPolicy>有効な優先順位の方針</BPC.CurrentWorkPolicy>
-
-  <BPC.WorkTab>優先順位</BPC.WorkTab>
-  <BPC.RestrictTab>時間割</BPC.RestrictTab>
+  <BPC.RestrictTab>制約</BPC.RestrictTab>
   <BPC.AssignTab>服装・任命</BPC.AssignTab>
-  <BPC.AnimalTab>家畜</BPC.AnimalTab>
+  <BPC.AnimalTab>動物</BPC.AnimalTab>
 
-  <BPC.PoliciesConfigText>方針プリセットの作成と削除と名前変更。変更後、各タブでそれらを設定することをお忘れずに</BPC.PoliciesConfigText>
-
-  <BPC.DefaultsConfigText>新規ポーンがコロニーに参加した際に初期設定する方針を設定</BPC.DefaultsConfigText>
-  <BPC.SelectedDefaultOutfit>初期設定：服装</BPC.SelectedDefaultOutfit>
-  <BPC.SelectedDefaultDrug>初期設定：ドラッグ</BPC.SelectedDefaultDrug>
-  <BPC.SelectedDefaultFood>初期設定：食事</BPC.SelectedDefaultFood>
-  <BPC.SelectedPrisionerDefaultFood>初期設定：捕虜の食事</BPC.SelectedPrisionerDefaultFood>
-
-  <BPC.Copy>方針をコピー</BPC.Copy>
-  <BPC.Paste>方針を貼付け</BPC.Paste>
-
-  <BPC.CopySchedule>時間割をコピー</BPC.CopySchedule>
-  <BPC.PasteSchedule>時間割を貼付け</BPC.PasteSchedule>
-
-  <BPC.ToggleEmergencyOn>緊急事態をオフに切替え.方針は緊急事態以前の設定に戻されます</BPC.ToggleEmergencyOn>
-  <BPC.ToggleEmergencyOff>緊急事態をオンに切り替え.このModの設定ダイアログ画面ですべてのタブに対して有効にする方針を設定します.</BPC.ToggleEmergencyOff>
-  <BPC.AlertConfigText>緊急事態がオンの時に有効化する方針を設定</BPC.AlertConfigText>
-
-  <BPC.BetterPawnControlSettingsName>Better Pawn Control</BPC.BetterPawnControlSettingsName>
-  <BPC.AutomaticPawnsInterruptSetting>緊急事態をオンにすると、ポーンが実行している何かを自動的に中断しますか?</BPC.AutomaticPawnsInterruptSetting>
+  <BPC.SelectedDefaultOutfit>初期設定:服装</BPC.SelectedDefaultOutfit>
+  <BPC.SelectedDefaultDrug>初期設定:ドラッグ</BPC.SelectedDefaultDrug>
+  <BPC.SelectedDefaultFood>デフォルトフード</BPC.SelectedDefaultFood>
+  <BPC.SelectedPrisionerDefaultFood>>標準捕虜食</BPC.SelectedPrisionerDefaultFood>
 
 </LanguageData>

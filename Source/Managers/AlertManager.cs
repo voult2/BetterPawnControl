@@ -23,14 +23,14 @@ namespace BetterPawnControl
             }
             set
             {
-                _alertLevel = value == true ?  1 :  0;
+                _alertLevel = value == true ? 1 : 0;
             }
         }
 
-        internal static bool AutomaticPawnsInterrupt 
-        { 
-            get => _automaticPawnsInterrupt; 
-            set => _automaticPawnsInterrupt = value; 
+        internal static bool AutomaticPawnsInterrupt
+        {
+            get => _automaticPawnsInterrupt;
+            set => _automaticPawnsInterrupt = value;
         }
 
         internal static void ForceInit ()
@@ -87,10 +87,18 @@ namespace BetterPawnControl
 
         internal static void SaveState(int level)
         {
-            alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.work, WorkManager.GetActivePolicy());
-            alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.restrict, RestrictManager.GetActivePolicy());
-            alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.assign, AssignManager.GetActivePolicy());
-            alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.animal, AnimalManager.GetActivePolicy());
+            try
+            {
+                alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.work, WorkManager.GetActivePolicy());
+                alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.restrict, RestrictManager.GetActivePolicy());
+                alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.assign, AssignManager.GetActivePolicy());
+                alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.animal, AnimalManager.GetActivePolicy());
+            } 
+            catch (NullReferenceException)
+            {
+                //Only if player clicks the emergency button without opening the 
+                //BPC dialog windows
+            }
         }
 
         internal static void LoadState(int level)
@@ -103,19 +111,15 @@ namespace BetterPawnControl
                     switch(entry.Key)
                     {
                         case Resources.Type.work:
-                            //WorkManager.SetActivePolicy(entry.Value);
                             WorkManager.LoadState(entry.Value);
                             break;
                         case Resources.Type.restrict:
-                            //RestrictManager.SetActivePolicy(entry.Value);
                             RestrictManager.LoadState(entry.Value);
                             break;
                         case Resources.Type.assign:
-                            //AssignManager.SetActivePolicy(entry.Value);
                             AssignManager.LoadState(entry.Value);
                             break;
                         case Resources.Type.animal:
-                            //AnimalManager.SetActivePolicy(entry.Value);
                             AnimalManager.LoadState(entry.Value);
                             break;
                     }

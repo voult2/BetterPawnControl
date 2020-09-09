@@ -12,16 +12,16 @@
 	<BPC.AssignPolicy>Policy </BPC.AssignPolicy>
 	<BPC.CurrentAssignPolicy>Active assign policy</BPC.CurrentAssignPolicy>
 	
-	<BPC.NewRestrictPolicy>New restrict policy</BPC.NewRestrictPolicy>
+	<BPC.NewRestrictPolicy>New schedule policy</BPC.NewRestrictPolicy>
 	<BPC.RestrictPolicy>Policy </BPC.RestrictPolicy>
-	<BPC.CurrentRestrictPolicy>Active restrict policy</BPC.CurrentRestrictPolicy>
+	<BPC.CurrentRestrictPolicy>Active schedule policy</BPC.CurrentRestrictPolicy>
 	
 	<BPC.NewWorkPolicy>New work policy</BPC.NewWorkPolicy>
 	<BPC.WorkPolicy>Policy </BPC.WorkPolicy>
 	<BPC.CurrentWorkPolicy>Active work policy</BPC.CurrentWorkPolicy>
 	
 	<BPC.WorkTab>Work</BPC.WorkTab>
-	<BPC.RestrictTab>Restrict</BPC.RestrictTab>
+	<BPC.RestrictTab>Schedule</BPC.RestrictTab>
 	<BPC.AssignTab>Assign</BPC.AssignTab>
 	<BPC.AnimalTab>Animals</BPC.AnimalTab>
 	
@@ -42,8 +42,9 @@
 	<BPC.ToggleEmergencyOn>Toggle Emergency OFF. Policies will be set to the previous settings before the emergency</BPC.ToggleEmergencyOn>
 	<BPC.ToggleEmergencyOff>Toggle Emergency ON. Configure which policies should be activated for all Tabs in the Better Pawn Control configuration cog</BPC.ToggleEmergencyOff>
 	<BPC.AlertConfigText>Configure which policies to activate when Alert is ON</BPC.AlertConfigText>
+	<BPC.EmergencyLocationTooltip>The Emergency button is in the lower right side of the game window, next to the toogle buttons</BPC.EmergencyLocationTooltip>
 	
 	<BPC.BetterPawnControlSettingsName>Better Pawn Control</BPC.BetterPawnControlSettingsName>
-	<BPC.AutomaticPawnsInterruptSetting>Automatic interrupt whatever pawns are doing when toggling emergency on</BPC.AutomaticPawnsInterruptSetting>
+	<BPC.AutomaticPawnsInterruptSetting>Automatically interrupted whatever pawns are doing when toggling emergency ON?</BPC.AutomaticPawnsInterruptSetting>
 	
 </LanguageData>

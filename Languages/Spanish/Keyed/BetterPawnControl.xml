@@ -12,28 +12,17 @@
 	<BPC.AssignPolicy>Política </BPC.AssignPolicy>
 	<BPC.CurrentAssignPolicy>Política de asignación activa</BPC.CurrentAssignPolicy>
 	
-	<BPC.NewRestrictPolicy>Nueva política de restricción</BPC.NewRestrictPolicy>
+	<BPC.NewRestrictPolicy>Nueva política de restriccion</BPC.NewRestrictPolicy>
 	<BPC.RestrictPolicy>Política </BPC.RestrictPolicy>
 	<BPC.CurrentRestrictPolicy>Política de restricción activa</BPC.CurrentRestrictPolicy>
-
-	<BPC.NewWorkPolicy>Nueva política de trabajo</BPC.NewWorkPolicy>
-	<BPC.WorkPolicy>Política </BPC.WorkPolicy>
-	<BPC.CurrentWorkPolicy>Política de trabajo activa</BPC.CurrentWorkPolicy>
 	
-	<BPC.WorkTab>Trabajo</BPC.WorkTab>
-	<BPC.RestrictTab>Restricción</BPC.RestrictTab>
-	<BPC.AssignTab>Asignación</BPC.AssignTab>
-	<BPC.AnimalTab>Animales</BPC.AnimalTab>
+	<BPC.RestrictTab>restriccion</BPC.RestrictTab>
+	<BPC.AssignTab>asignación</BPC.AssignTab>
+	<BPC.AnimalTab>animal</BPC.AnimalTab>
 	
 	<BPC.SelectedDefaultOutfit>Vestimentas por defecto</BPC.SelectedDefaultOutfit>
 	<BPC.SelectedDefaultDrug>Drogas por defecto</BPC.SelectedDefaultDrug>
 	<BPC.SelectedDefaultFood>Comida por defecto</BPC.SelectedDefaultFood>	
 	<BPC.SelectedPrisionerDefaultFood>Comida por defecto de prisioneros</BPC.SelectedPrisionerDefaultFood>
-	
-	<BPC.Copy>Copiar política</BPC.Copy>
-	<BPC.Paste>Pegar política</BPC.Paste>
-	
-	<BPC.CopySchedule>Copiar horario</BPC.CopySchedule>
-	<BPC.PasteSchedule>Pegar horario</BPC.PasteSchedule>
 	
 </LanguageData>
