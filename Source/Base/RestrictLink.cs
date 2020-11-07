@@ -19,7 +19,10 @@ namespace BetterPawnControl
             this.zone = link.zone;
             this.colonist = link.colonist;
             this.area = link.area;
-            this.schedule = new List<TimeAssignmentDef>(link.schedule);
+            if (link.schedule != null)
+            {
+                this.schedule = new List<TimeAssignmentDef>(link.schedule);
+            }
             this.mapId = link.mapId;
         }
 
@@ -28,7 +31,10 @@ namespace BetterPawnControl
             this.zone = zone;
             this.colonist = colonist;
             this.area = area;
-            this.schedule = new List<TimeAssignmentDef>(times);
+            if (times != null)
+            {
+                this.schedule = new List<TimeAssignmentDef>(times);
+            }
             this.mapId = mapId;
         }
 
@@ -52,7 +58,7 @@ namespace BetterPawnControl
             Scribe_References.Look<Pawn>(ref colonist, "colonist");
             Scribe_References.Look<Area>(ref area, "area");
             Scribe_Collections.Look(ref schedule, "schedule", LookMode.Def);
-            if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs && schedule == null)
+            if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs && schedule == null && colonist.timetable != null)
             {
                 //this means the current save does not contain schedule data. So let's start new
                 this.schedule = new List<TimeAssignmentDef>(colonist.timetable.times);
