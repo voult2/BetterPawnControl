@@ -30,3 +30,4 @@ This mod was first released on Rimword Alpha 15 and is essencially a productive 
 - Proxyer for japanese translation
 - 53N4 for spanish translation
 - Dango998 for chinese simplified translation
+- muggenhor for AutoCleaner integration

@@ -31,10 +31,9 @@ Use the Emergency toggle to set the 4 policy presets for each tab all at once!
 	</HugsLib.UpdateFeatureDef>
 	
 	<HugsLib.UpdateFeatureDef ParentName="UpdateFeatureBase">
-		<defName>BetterPawnControl_2_1_1</defName>
-		<assemblyVersion>2.1.1</assemblyVersion>
-		<content>* Fixed a crash when toggling the emergency button before opening the configuration dialog |
-* Improved some texts|
+		<defName>BetterPawnControl_2_1_2</defName>
+		<assemblyVersion>2.1.2</assemblyVersion>
+		<content>* Now compatible with AutoCleaner (Thanks @muggenhor ^^) 
  </content>
 	</HugsLib.UpdateFeatureDef>
 	
