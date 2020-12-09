@@ -45,17 +45,27 @@ namespace BetterPawnControl
                 try
                 {
                     // get the assembly
-                    var PF_assembly = LoadedModManager
-                                        .RunningMods.First(mod => mod.Name == PF_MOD_NAME)
-                                        .assemblies.loadedAssemblies.Last();
+                    //var PF_assembly = LoadedModManager
+                    //                    .RunningMods.First(mod => mod.Name == PF_MOD_NAME)
+                    //                    .assemblies.loadedAssemblies.Last();
 
-                    if (PF_assembly == null)
-                    {
-                        throw new Exception("[BPC] Animal Tab assembly not found.");
-                    }
+                    //if (PF_assembly == null)
+                    //{
+                    //    throw new Exception("[BPC] Animal Tab assembly not found.");
+                    //}
 
                     // get the Utils type
-                    var PF_UtilsType = PF_assembly.GetType(PF_TYPE_UTILS);
+                    Type PF_UtilsType = null;
+
+                    try
+                    {
+                        ((Action)(() =>
+                        {
+                            PF_UtilsType = typeof(AnimalTab.MainTabWindow_Animals);
+                        }))();
+                    }
+                    catch (TypeLoadException) { }
+
                     if (PF_UtilsType == null)
                         throw new Exception("[BPC] Animal Tab type not found.");
 
