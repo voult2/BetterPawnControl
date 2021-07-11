@@ -66,7 +66,7 @@ namespace BetterPawnControl
                         MaxNumber(
                             AnimalManager.policies.Count,
                             AssignManager.policies.Count),
-                        RestrictManager.policies.Count),
+                        ScheduleManager.policies.Count),
                     WorkManager.policies.Count);
 
             for (int i = 0; i < rows; i++)
@@ -74,8 +74,8 @@ namespace BetterPawnControl
 
                 Policy workP = (i < WorkManager.policies.Count) ?
                     WorkManager.policies[i] : null;
-                Policy restrictP = (i < RestrictManager.policies.Count) ?
-                    RestrictManager.policies[i] : null;
+                Policy restrictP = (i < ScheduleManager.policies.Count) ?
+                    ScheduleManager.policies[i] : null;
                 Policy assignP = (i < AssignManager.policies.Count) ?
                     AssignManager.policies[i] : null;
                 Policy animalP = (i < AnimalManager.policies.Count) ?
@@ -196,7 +196,7 @@ namespace BetterPawnControl
                             AnimalManager.DeletePolicy(policy);
                             break;
                         case Resources.Type.restrict:
-                            RestrictManager.DeletePolicy(policy);
+                            ScheduleManager.DeletePolicy(policy);
                             break;
                         case Resources.Type.work:
                             WorkManager.DeletePolicy(policy);
@@ -261,15 +261,15 @@ namespace BetterPawnControl
                         label_id, "BPC.WorkPolicy".Translate() + label_id));
             }
 
-            if (RestrictManager.policies.Count < MAX_POLICIES &&
+            if (ScheduleManager.policies.Count < MAX_POLICIES &&
                 Widgets.ButtonText(
                     rect2, "BPC.NewRestrictPolicy".Translate(),
                     true, false, true))
             {
-                int lastItem = RestrictManager.policies.Count - 1;
-                int label_id = RestrictManager.policies[lastItem].id;
+                int lastItem = ScheduleManager.policies.Count - 1;
+                int label_id = ScheduleManager.policies[lastItem].id;
                 label_id++;
-                RestrictManager.policies.Add(
+                ScheduleManager.policies.Add(
                     new Policy(
                         label_id,
                         "BPC.RestrictPolicy".Translate() + label_id));
@@ -514,7 +514,7 @@ namespace BetterPawnControl
                     break;
                 
                 case Resources.Type.restrict:
-                    foreach (Policy policy in RestrictManager.policies)
+                    foreach (Policy policy in ScheduleManager.policies)
                     {
                         FillMenu(type, alertLevel, list, policy);
                     }

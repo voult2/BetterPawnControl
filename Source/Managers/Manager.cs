@@ -2,6 +2,7 @@
 using Verse;
 using RimWorld;
 using System;
+using System.Linq;
 
 namespace BetterPawnControl
 {
@@ -31,7 +32,15 @@ namespace BetterPawnControl
             activePolicies.Add(new MapActivePolicy(0, defaultPolicy));
         }
 
-        private static bool _dirtyPolicy = false;
+		internal static IEnumerable<Pawn> Colonists()
+		{
+
+			return from p in Find.CurrentMap.mapPawns.PawnsInFaction(Faction.OfPlayer)
+				   where p.IsColonist
+				   select p;
+		}
+
+		private static bool _dirtyPolicy = false;
 		public static bool DirtyPolicy
 		{
 			get
@@ -95,9 +104,9 @@ namespace BetterPawnControl
 					link.ChangeType<WorkLink>().mapId = dstMap;
 				}
 
-				if (link.GetType() == typeof(RestrictLink))
+				if (link.GetType() == typeof(ScheduleLink))
 				{
-					link.ChangeType<RestrictLink>().mapId = dstMap;
+					link.ChangeType<ScheduleLink>().mapId = dstMap;
 				}
 
 				if (link.GetType() == typeof(AssignLink))

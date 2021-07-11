@@ -6,9 +6,9 @@ using System.Linq;
 namespace BetterPawnControl
 {
     [StaticConstructorOnStartup]
-    class RestrictManager : Manager<RestrictLink>
+    class ScheduleManager : Manager<ScheduleLink>
     {
-        internal static List<RestrictLink> clipboard = new List<RestrictLink>();
+        internal static List<ScheduleLink> clipboard = new List<ScheduleLink>();
 
         internal static void FixActivePolicies()
         {
@@ -49,12 +49,12 @@ namespace BetterPawnControl
         internal static void SaveCurrentState(List<Pawn> pawns)
         {
             int currentMap = Find.CurrentMap.uniqueID;
-            int activePolicyId = RestrictManager.GetActivePolicy().id;
+            int activePolicyId = ScheduleManager.GetActivePolicy().id;
             //Save current state
             foreach (Pawn p in pawns)
             {
                 //find colonist in the current zone in the current map
-                RestrictLink link = RestrictManager.links.Find(
+                ScheduleLink link = ScheduleManager.links.Find(
                     x => p.Equals(x.colonist) &&
                     x.zone == activePolicyId &&
                     x.mapId == currentMap);
@@ -65,14 +65,14 @@ namespace BetterPawnControl
                     link.area = p.playerSettings.AreaRestriction;
                     if (p.timetable != null)
                     {
-                        RestrictManager.CopySchedule(p.timetable.times, link.schedule);
+                        ScheduleManager.CopySchedule(p.timetable.times, link.schedule);
                     }
                 }
                 else
                 {
-                    //colonist not found. So add it to the RestrictLink list
-                    RestrictManager.links.Add(
-                        new RestrictLink(
+                    //colonist not found. So add it to the ScheduleLink list
+                    ScheduleManager.links.Add(
+                        new ScheduleLink(
                             activePolicyId,
                             p,
                             p.playerSettings.AreaRestriction,
@@ -90,19 +90,9 @@ namespace BetterPawnControl
             dst.AddRange(src);
         }
 
-        internal static void CleanDeadColonists(List<Pawn> pawns)
+        internal static void CleanDeadColonists(Pawn pawn)
         {
-            for (int i = 0; i < RestrictManager.links.Count; i++)
-            {
-                RestrictLink pawn = RestrictManager.links[i];
-                if (!pawns.Contains(pawn.colonist))
-                {
-                    if (pawn.colonist == null || pawn.colonist.Dead)
-                    {
-                        RestrictManager.links.Remove(pawn);
-                    }
-                }
-            }
+            ScheduleManager.links.RemoveAll(x => x.colonist == pawn);
         }
 
         internal static bool ActivePoliciesContainsValidMap()
@@ -110,7 +100,7 @@ namespace BetterPawnControl
             bool containsValidMap = false;
             foreach (Map map in Find.Maps)
             {
-                if (RestrictManager.activePolicies.Any(x => x.mapId == map.uniqueID))
+                if (ScheduleManager.activePolicies.Any(x => x.mapId == map.uniqueID))
                 {
                     containsValidMap = true;
                     break;
@@ -119,36 +109,36 @@ namespace BetterPawnControl
             return containsValidMap;
         }
 
-        internal static void CleanDeadMaps()
+        internal static void CleanRemovedMaps()
         {
-            for (int i = 0; i < RestrictManager.activePolicies.Count; i++)
+            for (int i = 0; i < ScheduleManager.activePolicies.Count; i++)
             {
-                MapActivePolicy map = RestrictManager.activePolicies[i];
+                MapActivePolicy map = ScheduleManager.activePolicies[i];
                 if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
                 {
-                    if (Find.Maps.Count == 1 && !RestrictManager.ActivePoliciesContainsValidMap())
+                    if (Find.Maps.Count == 1 && !ScheduleManager.ActivePoliciesContainsValidMap())
                     {
                         //this means the player was on the move without any base
                         //and just re-settled. So, let's move the settings to
                         //the new map
                         int mapid = Find.CurrentMap.uniqueID;
-                        RestrictManager.MoveLinksToMap(mapid);
+                        ScheduleManager.MoveLinksToMap(mapid);
                         map.mapId = mapid;
                     }
                     else
                     {
-                        RestrictManager.DeleteLinksInMap(map.mapId);
-                        RestrictManager.DeleteMap(map);
+                        ScheduleManager.DeleteLinksInMap(map.mapId);
+                        ScheduleManager.DeleteMap(map);
                     }
                 }
             }
         }
 
         internal static void UpdateState(
-            List<RestrictLink> links, List<Pawn> pawns, Policy policy)
+            List<ScheduleLink> links, List<Pawn> pawns, Policy policy)
         {
-            List<RestrictLink> mapLinks = null;
-            List<RestrictLink> zoneLinks = null;
+            List<ScheduleLink> mapLinks = null;
+            List<ScheduleLink> zoneLinks = null;
             int currentMap = Find.CurrentMap.uniqueID;
 
             //get all links from the current map
@@ -158,7 +148,7 @@ namespace BetterPawnControl
 
             foreach (Pawn p in pawns)
             {
-                foreach (RestrictLink l in zoneLinks)
+                foreach (ScheduleLink l in zoneLinks)
                 {
                     if (l.colonist != null && l.colonist.Equals(p))
                     {
@@ -167,14 +157,14 @@ namespace BetterPawnControl
                 }
             }
 
-            RestrictManager.SetActivePolicy(policy);
+            ScheduleManager.SetActivePolicy(policy);
         }
 
         internal static void LoadState(
-            List<RestrictLink> links, List<Pawn> pawns, Policy policy)
+            List<ScheduleLink> links, List<Pawn> pawns, Policy policy)
         {
-            List<RestrictLink> mapLinks = null;
-            List<RestrictLink> zoneLinks = null;
+            List<ScheduleLink> mapLinks = null;
+            List<ScheduleLink> zoneLinks = null;
             int currentMap = Find.CurrentMap.uniqueID;
 
             //get all links from the current map
@@ -184,85 +174,85 @@ namespace BetterPawnControl
 
             foreach (Pawn p in pawns)
             {
-                foreach (RestrictLink l in zoneLinks)
+                foreach (ScheduleLink l in zoneLinks)
                 {
                     if (l.colonist != null && l.colonist.Equals(p))
                     {
                         p.playerSettings.AreaRestriction = l.area;
                         if (l.schedule != null && p.timetable != null)
                         {
-                            RestrictManager.CopySchedule(l.schedule, p.timetable.times);
+                            ScheduleManager.CopySchedule(l.schedule, p.timetable.times);
                         }
                         p.Tick();
                     }
                 }
             }
 
-            RestrictManager.SetActivePolicy(policy);
+            ScheduleManager.SetActivePolicy(policy);
         }
 
         internal static void LoadState(Policy policy)
         {
             List<Pawn> pawns = Find.CurrentMap.mapPawns.FreeColonists;
-            LoadState(RestrictManager.links, pawns, policy);
+            LoadState(ScheduleManager.links, pawns, policy);
         }
 
         internal static void PrintAllAssignPolicies()
         {
             Log.Message("[BPC] === List Policies START [" +
-                RestrictManager.policies.Count +
+                ScheduleManager.policies.Count +
                 "] ===");
-            foreach (Policy p in RestrictManager.policies)
+            foreach (Policy p in ScheduleManager.policies)
             {
                 Log.Message("[BPC]\t" + p.ToString());
             }
 
             Log.Message("[BPC] === List ActivePolices START [" +
-                RestrictManager.activePolicies.Count +
+                ScheduleManager.activePolicies.Count +
                 "] ===");
-            foreach (MapActivePolicy m in RestrictManager.activePolicies)
+            foreach (MapActivePolicy m in ScheduleManager.activePolicies)
             {
                 Log.Message("[BPC]\t" + m.ToString());
             }
 
             Log.Message("[BPC] === List links START [" +
-                RestrictManager.links.Count +
+                ScheduleManager.links.Count +
                 "] ===");
-            foreach (RestrictLink RestrictLink in RestrictManager.links)
+            foreach (ScheduleLink ScheduleLink in ScheduleManager.links)
             {
-                Log.Message("[BPC]\t" + RestrictLink.ToString());
+                Log.Message("[BPC]\t" + ScheduleLink.ToString());
             }
         }
 
         internal static void CopyToClipboard()
         {
             Policy policy = GetActivePolicy();
-            if (RestrictManager.clipboard != null)
+            if (ScheduleManager.clipboard != null)
             {
-                RestrictManager.clipboard = new List<RestrictLink>();
+                ScheduleManager.clipboard = new List<ScheduleLink>();
             }
 
-            RestrictManager.clipboard.Clear();
-            foreach (RestrictLink link in RestrictManager.links)
+            ScheduleManager.clipboard.Clear();
+            foreach (ScheduleLink link in ScheduleManager.links)
             {
                 if (link.zone == policy.id)
                 {
-                    RestrictManager.clipboard.Add(new RestrictLink(link));
+                    ScheduleManager.clipboard.Add(new ScheduleLink(link));
                 }
             }
         }
         internal static void PasteToActivePolicy()
         {
             Policy policy = GetActivePolicy();
-            if (!RestrictManager.clipboard.NullOrEmpty() && RestrictManager.clipboard[0].zone != policy.id)
+            if (!ScheduleManager.clipboard.NullOrEmpty() && ScheduleManager.clipboard[0].zone != policy.id)
             {
-                RestrictManager.links.RemoveAll(x => x.zone == policy.id);
-                foreach (RestrictLink copiedLink in RestrictManager.clipboard)
+                ScheduleManager.links.RemoveAll(x => x.zone == policy.id);
+                foreach (ScheduleLink copiedLink in ScheduleManager.clipboard)
                 {
                     copiedLink.zone = policy.id;
-                    RestrictManager.links.Add(copiedLink);
+                    ScheduleManager.links.Add(copiedLink);
                 }
-                RestrictManager.LoadState(links, Find.CurrentMap.mapPawns.FreeColonists.ToList(), policy);
+                ScheduleManager.LoadState(links, Find.CurrentMap.mapPawns.FreeColonists.ToList(), policy);
             }
         }
     }

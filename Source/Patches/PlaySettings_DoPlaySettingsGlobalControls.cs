@@ -6,7 +6,7 @@ using Verse.Sound;
 namespace BetterPawnControl.Patch
 {
     [HarmonyPatch(typeof(PlaySettings), "DoPlaySettingsGlobalControls")]
-    internal static class RimWorld_PlaySettings_DoPlaySettingsGlobalControls
+    internal static class PlaySettings_DoPlaySettingsGlobalControls
     {
         private static void Postfix(WidgetRow row, bool worldView)
         {
@@ -14,7 +14,7 @@ namespace BetterPawnControl.Patch
 
             if (AlertManager.OnAlert)
             {
-                if (row.ButtonIcon(Resources.EmergencyOn, "BPC.ToggleEmergencyOn".Translate(), UnityEngine.Color.red, true))
+                if (row.ButtonIcon(Resources.EmergencyOn, "BPC.ToggleEmergencyOn".Translate(), UnityEngine.Color.red, null, null, true))
                 {
                     AlertManager.OnAlert = false;
                     SoundDefOf.Tick_High.PlayOneShotOnCamera(null);
@@ -24,7 +24,7 @@ namespace BetterPawnControl.Patch
 
             if (!AlertManager.OnAlert)
             {
-                if (row.ButtonIcon(Resources.EmergencyOff, "BPC.ToggleEmergencyOff".Translate(), UnityEngine.Color.gray, true))
+                if (row.ButtonIcon(Resources.EmergencyOff, "BPC.ToggleEmergencyOff".Translate(), UnityEngine.Color.gray, null, null, true))
                 {
                     AlertManager.OnAlert = true;
                     SoundDefOf.Tick_Low.PlayOneShotOnCamera(null);

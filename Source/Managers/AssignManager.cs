@@ -89,7 +89,6 @@ namespace BetterPawnControl
             }
         }
 
-
         internal static void DeletePolicy(Policy policy)
         {
             //delete if not default AssignPolicy
@@ -137,9 +136,9 @@ namespace BetterPawnControl
                     //colonist found! save 
                     link.outfit = p.outfits.CurrentOutfit;
                     link.drugPolicy = p.drugs.CurrentPolicy;
-                    link.hostilityResponse =
-                        p.playerSettings.hostilityResponse;
+                    link.hostilityResponse = p.playerSettings.hostilityResponse;
                     link.foodPolicy = p.foodRestriction.CurrentFoodRestriction;
+                    AssignManager.SavePawnInventoryStock(p, link);
                     if (Widget_CombatExtended.CombatExtendedAvailable)
                     {
                         link.loadoutId = Widget_CombatExtended.GetLoadoutId(p);
@@ -175,8 +174,7 @@ namespace BetterPawnControl
                         food = AssignManager.DefaultFoodPolicy;
                     }
 
-                    AssignManager.links.Add(
-                        new AssignLink(
+                    link = new AssignLink(
                             AssignManager.GetActivePolicy().id,
                             p,
                             outfit,
@@ -184,24 +182,44 @@ namespace BetterPawnControl
                             drug,
                             p.playerSettings.hostilityResponse,
                             loadoutId,
-                            currentMap));
+                            currentMap);
+                    AssignManager.links.Add(link);
+                    SavePawnInventoryStock(p, link);
                 }
             }
         }
 
-        internal static void CleanDeadColonists(List<Pawn> pawns)
+        internal static void SavePawnInventoryStock(Pawn p, AssignLink link)
         {
-            for (int i = 0; i < AssignManager.links.Count; i++)
+            if (link.stockEntries != null)
             {
-                AssignLink pawn = AssignManager.links[i];
-                if (!pawns.Contains(pawn.colonist))
+                foreach (var key in p.inventoryStock.stockEntries.Keys)
                 {
-                    if (pawn.colonist == null || pawn.colonist.Dead)
+                    InventoryStockEntry test = new InventoryStockEntry
                     {
-                        AssignManager.links.Remove(pawn);
-                    }
+                        thingDef = p.inventoryStock.stockEntries.TryGetValue(key).thingDef,
+                        count = p.inventoryStock.stockEntries.TryGetValue(key).count
+                    };
+                    link.stockEntries.SetOrAdd(key, test);
                 }
             }
+        }
+
+        internal static void LoadPawnInventoryStock(Pawn p, AssignLink link)
+        {
+            if (link.stockEntries != null)
+            {
+                foreach (var key in link.stockEntries.Keys)
+                {
+                    p.inventoryStock.stockEntries.SetOrAdd(key, link.stockEntries.TryGetValue(key));
+                }
+            }
+        }
+        
+        internal static void CleanDeadColonists(Pawn pawn)
+        {
+            AssignManager.links.RemoveAll(x => x.colonist == pawn);
+
         }
 
         internal static bool ActivePoliciesContainsValidMap()
@@ -218,7 +236,7 @@ namespace BetterPawnControl
             return containsValidMap;
         }
 
-        internal static void CleanDeadMaps()
+        internal static void CleanRemovedMaps()
         {
             for (int i = 0; i < AssignManager.activePolicies.Count; i++)
             {
@@ -297,6 +315,10 @@ namespace BetterPawnControl
                             l.foodPolicy : null;
                         p.playerSettings.hostilityResponse =
                             l.hostilityResponse;
+                        if (!l.stockEntries.NullOrEmpty())
+                        {
+                            LoadPawnInventoryStock(p, l);
+                        } 
                         if (Widget_CombatExtended.CombatExtendedAvailable)
                         {
                             Widget_CombatExtended.SetLoadoutById(

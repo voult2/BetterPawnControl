@@ -81,20 +81,9 @@ namespace BetterPawnControl
         /// <summary>
         /// Clean all animal related links if animal is dead
         /// </summary>
-        internal static void CleanDeadAnimals(List<Pawn> pawns)
+        internal static void CleanDeadAnimals(Pawn pawn)
         {
-            AnimalManager.links.RemoveAll(l => l == null);
-            for (int i = 0; i < AnimalManager.links.Count; i++)
-            {
-                AnimalLink pawn = AnimalManager.links[i];
-                if (!pawns.Contains(pawn.animal))
-                {
-                    if (pawn.animal == null || pawn.animal.Dead)
-                    {
-                        AnimalManager.links.Remove(pawn);
-                    }
-                }
-            }
+            AnimalManager.links.RemoveAll(x => x.animal == pawn);
         }
 
         /// <summary>
@@ -189,7 +178,7 @@ namespace BetterPawnControl
             return containsValidMap;
         }
 
-        internal static void CleanDeadMaps()
+        internal static void CleanRemovedMaps()
         {
             for (int i = 0; i < AnimalManager.activePolicies.Count; i++)
             {
@@ -216,6 +205,15 @@ namespace BetterPawnControl
                 }
             }
         }
+
+        internal static IEnumerable<Pawn> Animals()
+        {
+
+            return from p in Find.CurrentMap.mapPawns.PawnsInFaction(Faction.OfPlayer)
+                   where p.RaceProps.Animal
+                   select p;
+        }
+
 
         internal static void PrintAllAnimalPolicies(string spacer = "\n")
         {

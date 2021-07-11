@@ -14,7 +14,7 @@ namespace BetterPawnControl
         public override void MapComponentTick()
         {
             if (Current.Game.tickManager.TicksGame % 1800 == 0 &&
-                !Find.WindowStack.IsOpen<MainTabWindow_Assign_Policies>())
+                !Find.WindowStack.IsOpen<MainTabWindow_Assign>())
             {
 
                 //Log.Message("[BPC] Tick! 1800");

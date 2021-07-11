@@ -4,7 +4,7 @@ using Verse;
 
 namespace BetterPawnControl
 {
-    public class RestrictLink : Link, IExposable
+    public class ScheduleLink : Link, IExposable
     {
         //internal int zone = 0;
         internal Pawn colonist = null;
@@ -12,9 +12,9 @@ namespace BetterPawnControl
         internal List<TimeAssignmentDef> schedule;
         //internal int mapId = 0;
 
-        public RestrictLink() { }
+        public ScheduleLink() { }
 
-        public RestrictLink(RestrictLink link)
+        public ScheduleLink(ScheduleLink link)
         {
             this.zone = link.zone;
             this.colonist = link.colonist;
@@ -26,7 +26,7 @@ namespace BetterPawnControl
             this.mapId = link.mapId;
         }
 
-        public RestrictLink(int zone, Pawn colonist, Area area, List<TimeAssignmentDef> times, int mapId)
+        public ScheduleLink(int zone, Pawn colonist, Area area, List<TimeAssignmentDef> times, int mapId)
         {
             this.zone = zone;
             this.colonist = colonist;
@@ -37,8 +37,6 @@ namespace BetterPawnControl
             }
             this.mapId = mapId;
         }
-
-
 
         public override string ToString()
         {

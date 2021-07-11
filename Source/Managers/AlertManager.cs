@@ -40,7 +40,7 @@ namespace BetterPawnControl
                 alertLevelsList = new List<AlertLevel>();
                 Dictionary<Resources.Type, Policy> noAlert = new Dictionary<Resources.Type, Policy>();
                 noAlert.Add(Resources.Type.work, WorkManager.GetActivePolicy());
-                noAlert.Add(Resources.Type.restrict, RestrictManager.GetActivePolicy());
+                noAlert.Add(Resources.Type.restrict, ScheduleManager.GetActivePolicy());
                 noAlert.Add(Resources.Type.assign, AssignManager.GetActivePolicy());
                 noAlert.Add(Resources.Type.animal, AnimalManager.GetActivePolicy());
 
@@ -90,7 +90,7 @@ namespace BetterPawnControl
             try
             {
                 alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.work, WorkManager.GetActivePolicy());
-                alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.restrict, RestrictManager.GetActivePolicy());
+                alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.restrict, ScheduleManager.GetActivePolicy());
                 alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.assign, AssignManager.GetActivePolicy());
                 alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.animal, AnimalManager.GetActivePolicy());
             } 
@@ -114,7 +114,7 @@ namespace BetterPawnControl
                             WorkManager.LoadState(entry.Value);
                             break;
                         case Resources.Type.restrict:
-                            RestrictManager.LoadState(entry.Value);
+                            ScheduleManager.LoadState(entry.Value);
                             break;
                         case Resources.Type.assign:
                             AssignManager.LoadState(entry.Value);

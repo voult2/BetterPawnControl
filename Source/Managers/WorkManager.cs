@@ -70,19 +70,9 @@ namespace BetterPawnControl
             }
         }
 
-        internal static void CleanDeadColonists(List<Pawn> pawns)
+        internal static void CleanDeadColonists(Pawn pawn)
         {
-            for (int i = 0; i < WorkManager.links.Count; i++)
-            {
-                WorkLink pawn = WorkManager.links[i];
-                if (!pawns.Contains(pawn.colonist))
-                {
-                    if (pawn.colonist == null || pawn.colonist.Dead)
-                    {
-                        WorkManager.links.Remove(pawn);
-                    }
-                }
-            }
+            WorkManager.links.RemoveAll(x => x.colonist == pawn);
         }
 
         internal static bool ActivePoliciesContainsValidMap()
@@ -99,7 +89,7 @@ namespace BetterPawnControl
             return containsValidMap;
         }
 
-        internal static void CleanDeadMaps()
+        internal static void CleanRemovedMaps()
         {
             for (int i = 0; i < WorkManager.activePolicies.Count; i++)
             {
@@ -194,7 +184,6 @@ namespace BetterPawnControl
                     WorkManager.clipboard.Add(new WorkLink(link));
                 }
             }
-
         }
 
         internal static void PasteToActivePolicy()

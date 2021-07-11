@@ -1,5 +1,6 @@
 ﻿using RimWorld;
 using Verse;
+using System.Collections.Generic;
 
 namespace BetterPawnControl
 {
@@ -13,6 +14,7 @@ namespace BetterPawnControl
         internal HostilityResponseMode hostilityResponse =
             HostilityResponseMode.Flee;
         internal int loadoutId = 1;
+        internal Dictionary<InventoryStockGroupDef, InventoryStockEntry> stockEntries = null;
         //internal int mapId = 0;
 
         public AssignLink() { }
@@ -37,15 +39,34 @@ namespace BetterPawnControl
             string outifit = outfit?.label;
             string drug = drugPolicy?.label;
             string food = foodPolicy?.label;
-            return 
-                "Policy:" + zone + 
-                "  Pawn: " + colonist + 
-                "  Outfit: " + outifit + 
+            return
+                "Policy:" + zone +
+                "  Pawn: " + colonist +
+                "  Outfit: " + outifit +
                 "  Food: " + food +
-                "  DrugPolicy: " + drug + 
-                "  HostilityResponse: " + hostilityResponse + 
-                "  LoadoutId: " + loadoutId + 
+                "  DrugPolicy: " + drug +
+                "  HostilityResponse: " + hostilityResponse +
+                "  LoadoutId: " + loadoutId +
+                "  InventoryStock: " + StockEntriesToString() +
                 "  MapID: " + mapId;
+        }
+
+        public string StockEntriesToString()
+        {
+            string res = "";
+            if (!stockEntries.NullOrEmpty())
+            {
+                foreach (var stockEntry in stockEntries.Keys)
+                {
+                    res += stockEntries.TryGetValue(stockEntry).thingDef.defName + "Count-" + stockEntries.TryGetValue(stockEntry).count.ToString();
+                }
+            }
+            return res;
+        }
+
+        public void stockEntriesInit()
+        {
+            stockEntries = new Dictionary<InventoryStockGroupDef, InventoryStockEntry>();
         }
 
         /// <summary>
@@ -58,11 +79,14 @@ namespace BetterPawnControl
             Scribe_References.Look<Outfit>(ref outfit, "outfit");
             Scribe_References.Look<FoodRestriction>(ref foodPolicy, "foodPolicy");
             Scribe_References.Look<DrugPolicy>(ref drugPolicy, "drugPolicy");
-            Scribe_Values.Look<HostilityResponseMode>(
-                ref hostilityResponse, 
-                "hostilityResponse", HostilityResponseMode.Flee, true);
+            Scribe_Values.Look<HostilityResponseMode>(ref hostilityResponse, "hostilityResponse", HostilityResponseMode.Flee, true);
             Scribe_Values.Look<int>(ref loadoutId, "loadoutId", 1, true);
             Scribe_Values.Look<int>(ref mapId, "mapId", 0, true);
+            if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs && stockEntries == null )
+            {
+                //this means the current save does not contain stockEntries data. So let's start new
+                this.stockEntries = new Dictionary<InventoryStockGroupDef, InventoryStockEntry>();
+            }
         }
     }
 }
