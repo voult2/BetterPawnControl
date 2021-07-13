@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <BPC.Auto>自動</BPC.Auto>
   <BPC.Rename>名前の変更</BPC.Rename>
@@ -16,13 +16,35 @@
   <BPC.RestrictPolicy>方針: </BPC.RestrictPolicy>
   <BPC.CurrentRestrictPolicy>有効な制約の方針</BPC.CurrentRestrictPolicy>
 
-  <BPC.RestrictTab>制約</BPC.RestrictTab>
-  <BPC.AssignTab>服装・任命</BPC.AssignTab>
-  <BPC.AnimalTab>動物</BPC.AnimalTab>
+  <BPC.NewWorkPolicy>新規優先順位方針</BPC.NewWorkPolicy>
+  <BPC.WorkPolicy>方針 </BPC.WorkPolicy>
+  <BPC.CurrentWorkPolicy>有効 優先順位方針</BPC.CurrentWorkPolicy>
 
+  <BPC.WorkTab>優先順位</BPC.WorkTab>
+  <BPC.RestrictTab>時間割</BPC.RestrictTab>
+  <BPC.AssignTab>服装・任命</BPC.AssignTab>
+  <BPC.AnimalTab>家畜</BPC.AnimalTab>
+
+  <BPC.PoliciesConfigText>方針のプリセットを作成/削除/名前変更をした後で各タブでそれらを再設定することを忘れないでください.</BPC.PoliciesConfigText>
+
+  <BPC.DefaultsConfigText>新人ポーンがコロニーに参加した際に設定される方針セット</BPC.DefaultsConfigText>
   <BPC.SelectedDefaultOutfit>初期設定:服装</BPC.SelectedDefaultOutfit>
   <BPC.SelectedDefaultDrug>初期設定:ドラッグ</BPC.SelectedDefaultDrug>
-  <BPC.SelectedDefaultFood>デフォルトフード</BPC.SelectedDefaultFood>
-  <BPC.SelectedPrisionerDefaultFood>>標準捕虜食</BPC.SelectedPrisionerDefaultFood>
+  <BPC.SelectedDefaultFood>初期設定:フード</BPC.SelectedDefaultFood>
+  <BPC.SelectedPrisionerDefaultFood>初期設定:囚人食</BPC.SelectedPrisionerDefaultFood>
+
+  <BPC.Copy>方針 複製</BPC.Copy>
+  <BPC.Paste>方針 貼り付け</BPC.Paste>
+
+  <BPC.CopySchedule>時間割 複製</BPC.CopySchedule>
+  <BPC.PasteSchedule>時間割 貼り付け</BPC.PasteSchedule>
+
+  <BPC.ToggleEmergencyOn>緊急事態 オフに切替.\n\n緊急事態が発生する以前の方針セットに戻します.</BPC.ToggleEmergencyOn>
+  <BPC.ToggleEmergencyOff>緊急事態 オンに切替.\n\nBetterPawnControlの設定(歯車)を全タブを緊急事態の方針セットに切替えます.</BPC.ToggleEmergencyOff>
+  <BPC.AlertConfigText>緊急事態がオンの際に有効化される方針セット</BPC.AlertConfigText>
+  <BPC.EmergencyLocationTooltip>緊急ボタンは,ゲームウィンドウの右下,切替ボタンの横にあります.</BPC.EmergencyLocationTooltip>
+
+  <BPC.BetterPawnControlSettingsName>Better Pawn Control</BPC.BetterPawnControlSettingsName>
+  <BPC.AutomaticPawnsInterruptSetting>緊急事態をオンにした際に,ポーンの行動を自動的に中断しますか？</BPC.AutomaticPawnsInterruptSetting>
 
 </LanguageData>
