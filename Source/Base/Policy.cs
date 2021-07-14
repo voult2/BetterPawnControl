@@ -20,6 +20,11 @@ namespace BetterPawnControl
             return "Id:" + id + "  Label: " + label;
         }
 
+        public virtual bool Equals(Policy other)
+        {
+            return this.id == other.id && this.label == other.label;
+        }
+
         /// <summary>
         /// Data for saving/loading
         /// </summary>

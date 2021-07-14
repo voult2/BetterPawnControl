@@ -7,6 +7,7 @@
 		<li>1.3</li>
 	</supportedVersions>
 	<packageId>VouLT.BetterPawnControl</packageId>
+	<url>https://github.com/voult2/BetterPawnControl</url>
 	<description>Bulk assignment of colonists and animals to outfits, areas, drugs, food, work in one single action. Setup different policies and switch at will. 
 
 Features:
@@ -14,14 +15,12 @@ Features:
 - Default outfits, food, drugs when colonist or prisoners join colony
 - Emergency' button to toggle your configured policies at once in one click  	
 
-Official forum thread: 
-https://ludeon.com/forums/index.php?topic=26618.0
 
 Mod Integrations List:                     IMPORTANT (For RimWorld v1.3)
 - Combat extended                          - Should now work with AnimalTab and WorkTab
 - Children, school and learning
 
-v2.2
+v2.2.1
 	</description>
 	<modDependencies>
 		<li>

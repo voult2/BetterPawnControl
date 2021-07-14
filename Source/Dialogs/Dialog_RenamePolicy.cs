@@ -45,6 +45,18 @@ namespace BetterPawnControl
                         str = "NameIsInUse".Translate();
                     }
                     break;
+                case Resources.Type.restrict:
+                    if (ScheduleManager.policies.Any((Policy d) => d.label == name))
+                    {
+                        str = "NameIsInUse".Translate();
+                    }
+                    break;
+                case Resources.Type.work:
+                    if (WorkManager.policies.Any((Policy d) => d.label == name))
+                    {
+                        str = "NameIsInUse".Translate();
+                    }
+                    break;
             }
             if (!str.NullOrEmpty())
             {
@@ -58,7 +70,18 @@ namespace BetterPawnControl
         /// </summary>
         protected override void SetName(string name)
         {
+            bool updateAlertPolicyLabel = false;
+            if (AlertManager.GetAlertPolicy(1, this.type).Equals(this.policy))
+            {
+                updateAlertPolicyLabel = true;
+            }
+            
             this.policy.label = this.curName.Length <= maxLength ? this.curName : this.curName.Substring(0, maxLength) + "...";
+
+            if (updateAlertPolicyLabel)
+            {
+                AlertManager.SaveState(1, this.type, this.policy);
+            }           
         }
     }
 }

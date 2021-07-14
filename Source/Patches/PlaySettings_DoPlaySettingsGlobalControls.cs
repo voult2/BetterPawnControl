@@ -14,17 +14,17 @@ namespace BetterPawnControl.Patch
 
             if (AlertManager.OnAlert)
             {
-                if (row.ButtonIcon(Resources.EmergencyOn, "BPC.ToggleEmergencyOn".Translate(), UnityEngine.Color.red, null, null, true))
+                if (row.ButtonIcon(Resources.EmergencyOn, "BPC.ToggleEmergencyOn".Translate(), UnityEngine.Color.red))
                 {
                     AlertManager.OnAlert = false;
-                    SoundDefOf.Tick_High.PlayOneShotOnCamera(null);
+                    SoundDefOf.Tick_High.PlayOneShotOnCamera(null);                    
                     AlertManager.LoadState(0); //OFF
                 }                
             }
 
             if (!AlertManager.OnAlert)
             {
-                if (row.ButtonIcon(Resources.EmergencyOff, "BPC.ToggleEmergencyOff".Translate(), UnityEngine.Color.gray, null, null, true))
+                if (row.ButtonIcon(Resources.EmergencyOff, "BPC.ToggleEmergencyOff".Translate(), UnityEngine.Color.gray))
                 {
                     AlertManager.OnAlert = true;
                     SoundDefOf.Tick_Low.PlayOneShotOnCamera(null);
