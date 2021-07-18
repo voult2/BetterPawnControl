@@ -138,7 +138,7 @@ namespace BetterPawnControl
                     link.drugPolicy = p.drugs.CurrentPolicy;
                     link.hostilityResponse = p.playerSettings.hostilityResponse;
                     link.foodPolicy = p.foodRestriction.CurrentFoodRestriction;
-                    AssignManager.SavePawnInventoryStock(p, link);
+                    //AssignManager.SavePawnInventoryStock(p, link);
                     if (Widget_CombatExtended.CombatExtendedAvailable)
                     {
                         link.loadoutId = Widget_CombatExtended.GetLoadoutId(p);
@@ -184,37 +184,37 @@ namespace BetterPawnControl
                             loadoutId,
                             currentMap);
                     AssignManager.links.Add(link);
-                    SavePawnInventoryStock(p, link);
+                    //SavePawnInventoryStock(p, link);
                 }
             }
         }
 
-        internal static void SavePawnInventoryStock(Pawn p, AssignLink link)
-        {
-            if (link.stockEntries != null)
-            {
-                foreach (var key in p.inventoryStock.stockEntries.Keys)
-                {
-                    InventoryStockEntry test = new InventoryStockEntry
-                    {
-                        thingDef = p.inventoryStock.stockEntries.TryGetValue(key).thingDef,
-                        count = p.inventoryStock.stockEntries.TryGetValue(key).count
-                    };
-                    link.stockEntries.SetOrAdd(key, test);
-                }
-            }
-        }
+        //internal static void SavePawnInventoryStock(Pawn p, AssignLink link)
+        //{
+        //    if (link.stockEntries != null)
+        //    {
+        //        foreach (var key in p.inventoryStock.stockEntries.Keys)
+        //        {
+        //            InventoryStockEntry test = new InventoryStockEntry
+        //            {
+        //                thingDef = p.inventoryStock.stockEntries.TryGetValue(key).thingDef,
+        //                count = p.inventoryStock.stockEntries.TryGetValue(key).count
+        //            };
+        //            link.stockEntries.SetOrAdd(key, test);
+        //        }
+        //    }
+        //}
 
-        internal static void LoadPawnInventoryStock(Pawn p, AssignLink link)
-        {
-            if (link.stockEntries != null)
-            {
-                foreach (var key in link.stockEntries.Keys)
-                {
-                    p.inventoryStock.stockEntries.SetOrAdd(key, link.stockEntries.TryGetValue(key));
-                }
-            }
-        }
+        //internal static void LoadPawnInventoryStock(Pawn p, AssignLink link)
+        //{
+        //    if (link.stockEntries != null)
+        //    {
+        //        foreach (var key in link.stockEntries.Keys)
+        //        {
+        //            p.inventoryStock.stockEntries.SetOrAdd(key, link.stockEntries.TryGetValue(key));
+        //        }
+        //    }
+        //}
         
         internal static void CleanDeadColonists(Pawn pawn)
         {
@@ -315,10 +315,10 @@ namespace BetterPawnControl
                             l.foodPolicy : null;
                         p.playerSettings.hostilityResponse =
                             l.hostilityResponse;
-                        if (!l.stockEntries.NullOrEmpty())
-                        {
-                            LoadPawnInventoryStock(p, l);
-                        } 
+                        //if (!l.stockEntries.NullOrEmpty())
+                        //{
+                        //    LoadPawnInventoryStock(p, l);
+                        //} 
                         if (Widget_CombatExtended.CombatExtendedAvailable)
                         {
                             Widget_CombatExtended.SetLoadoutById(

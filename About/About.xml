@@ -20,7 +20,7 @@ Mod Integrations List:                     IMPORTANT (For RimWorld v1.3)
 - Combat extended                          - Should now work with AnimalTab and WorkTab
 - Children, school and learning
 
-v2.2.1
+v2.2.2
 	</description>
 	<modDependencies>
 		<li>
@@ -33,6 +33,7 @@ v2.2.1
 	<loadAfter>
 		<li>brrainz.harmony</li>
 		<li>Ludeon.RimWorld</li>
+		<li>UnlimitedHugs.HugsLib</li>
 		<li>CETeam.CombatExtended</li>
 	</loadAfter>
 </ModMetaData>

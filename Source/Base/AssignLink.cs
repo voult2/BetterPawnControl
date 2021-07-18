@@ -14,7 +14,7 @@ namespace BetterPawnControl
         internal HostilityResponseMode hostilityResponse =
             HostilityResponseMode.Flee;
         internal int loadoutId = 1;
-        internal Dictionary<InventoryStockGroupDef, InventoryStockEntry> stockEntries = null;
+        //internal Dictionary<InventoryStockGroupDef, InventoryStockEntry> stockEntries = null;
         //internal int mapId = 0;
 
         public AssignLink() { }
@@ -47,27 +47,27 @@ namespace BetterPawnControl
                 "  DrugPolicy: " + drug +
                 "  HostilityResponse: " + hostilityResponse +
                 "  LoadoutId: " + loadoutId +
-                "  InventoryStock: " + StockEntriesToString() +
+         //       "  InventoryStock: " + StockEntriesToString() +
                 "  MapID: " + mapId;
         }
 
-        public string StockEntriesToString()
-        {
-            string res = "";
-            if (!stockEntries.NullOrEmpty())
-            {
-                foreach (var stockEntry in stockEntries.Keys)
-                {
-                    res += stockEntries.TryGetValue(stockEntry).thingDef.defName + "Count-" + stockEntries.TryGetValue(stockEntry).count.ToString();
-                }
-            }
-            return res;
-        }
+        //public string StockEntriesToString()
+        //{
+        //    string res = "";
+        //    if (!stockEntries.NullOrEmpty())
+        //    {
+        //        foreach (var stockEntry in stockEntries.Keys)
+        //        {
+        //            res += stockEntries.TryGetValue(stockEntry).thingDef.defName + "Count-" + stockEntries.TryGetValue(stockEntry).count.ToString();
+        //        }
+        //    }
+        //    return res;
+        //}
 
-        public void stockEntriesInit()
-        {
-            stockEntries = new Dictionary<InventoryStockGroupDef, InventoryStockEntry>();
-        }
+        //public void stockEntriesInit()
+        //{
+        //    stockEntries = new Dictionary<InventoryStockGroupDef, InventoryStockEntry>();
+        //}
 
         /// <summary>
         /// Data for saving/loading
@@ -81,12 +81,17 @@ namespace BetterPawnControl
             Scribe_References.Look<DrugPolicy>(ref drugPolicy, "drugPolicy");
             Scribe_Values.Look<HostilityResponseMode>(ref hostilityResponse, "hostilityResponse", HostilityResponseMode.Flee, true);
             Scribe_Values.Look<int>(ref loadoutId, "loadoutId", 1, true);
-            Scribe_Values.Look<int>(ref mapId, "mapId", 0, true);
-            if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs && stockEntries == null )
+            if (Scribe.mode == LoadSaveMode.LoadingVars && loadoutId == 0)
             {
-                //this means the current save does not contain stockEntries data. So let's start new
-                this.stockEntries = new Dictionary<InventoryStockGroupDef, InventoryStockEntry>();
+                this.loadoutId = 1;                
             }
+            Scribe_Values.Look<int>(ref mapId, "mapId", 0, true);
+            //if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs && stockEntries == null )
+            //{
+            //    //this means the current save does not contain stockEntries data. So let's start new
+            //    this.stockEntries = new Dictionary<InventoryStockGroupDef, InventoryStockEntry>();
+            //}
+
         }
     }
 }
