@@ -28,6 +28,6 @@ This mod was first released on Rimword Alpha 15 and is essencially a productive 
 - debugzxcv for the patches optimisation
 - boundir for french translation
 - Proxyer for japanese translation
-- 53N4 for spanish translation
+- 53N4 and Crusader for spanish translation
 - Dango998 for chinese simplified translation
 - muggenhor for AutoCleaner integration
