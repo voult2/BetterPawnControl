@@ -18,7 +18,7 @@ namespace BetterPawnControl.Patches
 
             if (AlertManager.OnAlert)
             {
-                if (row.ButtonIcon(Resources.Textures.EmergencyOff, "BPC.ToggleEmergencyOff".Translate(), UnityEngine.Color.gray))
+                if (row.ButtonIcon(Resources.Textures.EmergencyOn, "BPC.ToggleEmergencyOn".Translate(), UnityEngine.Color.red))
                 {
                     EmergencyToogleOFF(null);
                 }
@@ -26,7 +26,7 @@ namespace BetterPawnControl.Patches
 
             if (!AlertManager.OnAlert)
             {
-                if (row.ButtonIcon(Resources.Textures.EmergencyOn, "BPC.ToggleEmergencyOn".Translate(), UnityEngine.Color.red)) 
+                if (row.ButtonIcon(Resources.Textures.EmergencyOff, "BPC.ToggleEmergencyOff".Translate(), UnityEngine.Color.gray)) 
                 {
                     EmergencyToogleON(null);
                 }
@@ -55,7 +55,7 @@ namespace BetterPawnControl.Patches
         internal static void EmergencyToogleON(WidgetRow icon)
         {
             AlertManager.OnAlert = true;
-            SoundDefOf.Tick_Low.PlayOneShotOnCamera(null);
+            SoundDefOf.Tick_High.PlayOneShotOnCamera(null);
             AlertManager.SaveState(0);
             AlertManager.LoadState(1); //ON
             
@@ -66,14 +66,14 @@ namespace BetterPawnControl.Patches
             
             if (icon != null)
             {
-                icon.ButtonIcon(Resources.Textures.EmergencyOff, "BPC.ToggleEmergencyOff".Translate(), UnityEngine.Color.red);
+                icon.ButtonIcon(Resources.Textures.EmergencyOn, "BPC.ToggleEmergencyOn".Translate(), UnityEngine.Color.red);
             }
         }
 
         internal static void EmergencyToogleOFF(WidgetRow icon)
         {
             AlertManager.OnAlert = false;
-            SoundDefOf.Tick_High.PlayOneShotOnCamera(null);
+            SoundDefOf.Tick_Low.PlayOneShotOnCamera(null);
             AlertManager.LoadState(0); //OFF
             
             if (icon != null)
