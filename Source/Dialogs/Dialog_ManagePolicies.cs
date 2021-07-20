@@ -133,7 +133,7 @@ namespace BetterPawnControl
             widgetRow.Label(text.Translate());
             if (icon) 
             {
-                widgetRow.Icon(Resources.EmergencyOn, "BPC.EmergencyLocationTooltip".Translate());
+                widgetRow.Icon(Resources.Textures.EmergencyOn, "BPC.EmergencyLocationTooltip".Translate());
             }
             GUI.EndGroup();
             Widgets.DrawLineHorizontal(rect.x + (inRect.width / 6 * 4) + (inRect.width / 6 / 2), rect.y + 12f, inRect.width / 6);

@@ -7,6 +7,7 @@ namespace BetterPawnControl
 {
 	public class DataStorage : WorldComponent
 	{
+
 		public DataStorage(World world) : base(world)
 		{
 		}

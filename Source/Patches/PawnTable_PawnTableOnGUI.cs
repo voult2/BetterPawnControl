@@ -107,7 +107,7 @@ namespace BetterPawnControl.Patches
                 Find.WindowStack.Add(new Dialog_ManagePolicies(Find.CurrentMap));
             }
             Rect rect4 = new Rect(offSet + 3f, rect3.height / 4f, 14f, 14f);
-            GUI.DrawTexture(rect4, Resources.Settings);
+            GUI.DrawTexture(rect4, Resources.Textures.Settings);
             TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
 
             GUI.EndGroup();
@@ -159,7 +159,7 @@ namespace BetterPawnControl.Patches
                 Find.WindowStack.Add(new Dialog_ManagePolicies(Find.CurrentMap));
             }
             Rect rect4 = new Rect(offSetX + 3f, rect3.height / 4f, 14f, 14f);
-            GUI.DrawTexture(rect4, Resources.Settings);
+            GUI.DrawTexture(rect4, Resources.Textures.Settings);
             TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
 
             offSetX += rect3.width;
@@ -235,7 +235,7 @@ namespace BetterPawnControl.Patches
                 Find.WindowStack.Add(new Dialog_ManagePolicies(Find.CurrentMap));
             }
             Rect rect4 = new Rect(offSetX + 3f, rect3.height / 4f, 14f, 14f);
-            GUI.DrawTexture(rect4, Resources.Settings);
+            GUI.DrawTexture(rect4, Resources.Textures.Settings);
             TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
 
             offSetX += rect3.width;
@@ -308,7 +308,7 @@ namespace BetterPawnControl.Patches
                 Find.WindowStack.Add( new Dialog_ManagePolicies(Find.CurrentMap));
             }
             Rect rect4 = new Rect(offSetX + 3f, rect3.height / 4f, 14f, 14f);
-            GUI.DrawTexture(rect4, Resources.Settings);
+            GUI.DrawTexture(rect4, Resources.Textures.Settings);
             TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
 
             GUI.EndGroup();

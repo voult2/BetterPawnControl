@@ -30,7 +30,7 @@ namespace BetterPawnControl.Patches
 
             if (__instance.GetType().Equals(typeof(MainTabWindow_Animals)))
             {
-                AnimalManager.SaveCurrentState(AnimalManager.Colonists().ToList());
+                AnimalManager.SaveCurrentState(AnimalManager.Animals().ToList());
             }
         }
     }

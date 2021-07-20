@@ -90,6 +90,7 @@
     <Compile Include="Managers\ScheduleManager.cs" />
     <Compile Include="Managers\Manager.cs" />
     <Compile Include="Managers\DefaultOutfitAndFoodAndDrug.cs" />
+    <Compile Include="Patches\UIRoot_OnGUI_onKeyPress.cs" />
     <Compile Include="Patches\Window_PreClose.cs" />
     <Compile Include="Patches\Pawn_HealthTracker_OnDead.cs" />
     <Compile Include="Patches\MapComponent_OnRemove.cs" />
