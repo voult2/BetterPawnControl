@@ -15,7 +15,7 @@ namespace BetterPawnControl.Patches
         static bool showSchedulePaste = false;
         static bool showWorkPaste = false;
 
-        static void Postfix(Vector2 position, PawnTableDef ___def)
+        static void Postfix(PawnTable __instance, Vector2 position, PawnTableDef ___def)
         {
             if (___def == PawnTableDefOf.Assign)
             {
@@ -25,7 +25,7 @@ namespace BetterPawnControl.Patches
                     AssignManager.DirtyPolicy = false;
                 }
 
-                DrawBPCButtons_AssignTab(position, 5f, 0f, AssignManager.Colonists().ToList());
+                DrawBPCButtons_AssignTab(position, 5f, __instance.Size.y + 15f, AssignManager.Colonists().ToList());
             }
 
             if (___def == PawnTableDefOf.Restrict)
@@ -41,7 +41,7 @@ namespace BetterPawnControl.Patches
                     position.x = position.x + 87f;
                 }
 
-                DrawBPCButtons_ScheduleTab(position, 300f, 0f, ScheduleManager.Colonists().ToList());
+                DrawBPCButtons_ScheduleTab(position, 5f, __instance.Size.y + 15f, ScheduleManager.Colonists().ToList());
             }
 
             if (___def == PawnTableDefOf.Work)
@@ -57,7 +57,7 @@ namespace BetterPawnControl.Patches
                     position.x = position.x - 160f;
                 }
 
-                DrawBPCButtons_WorkTab(position, 160f, -40f, WorkManager.Colonists().ToList());
+                DrawBPCButtons_WorkTab(position, 5f, __instance.Size.y + 15f, WorkManager.Colonists().ToList());
             }
 
             if (___def == PawnTableDefOf.Animals)
@@ -70,10 +70,11 @@ namespace BetterPawnControl.Patches
 
                 if (Widget_Harmony_ModsAvailable.AnimalTabAvailable)
                 {
-                    position.x = position.x + 100f;
+                    position.x = position.x + 40f;
+                    position.y = position.y + 7f;
                 }
 
-                DrawBPCButtons_AnimalTab(position, 270f, 5f, AnimalManager.Animals().ToList());
+                DrawBPCButtons_AnimalTab(position, 5f, __instance.Size.y + 15f, AnimalManager.Animals().ToList());
             }
         }
 

@@ -1,5 +1,7 @@
 ﻿using HarmonyLib;
+using System;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using Verse;
 
@@ -16,13 +18,13 @@ namespace BetterPawnControl
         static Widget_Harmony_ModsAvailable() 
         {
             var harmony = new Harmony("VouLT.BetterPawnControl");
-            harmony.PatchAll();                       
+            harmony.PatchAll();
         }
 
         public static bool AnimalTabAvailable
         {
             get
-            {                
+            {
                 return LoadedModManager.RunningMods.Any(mod => mod.Name == ANIMALTAB);
             }
         }
@@ -43,6 +45,5 @@ namespace BetterPawnControl
                 return LoadedModManager.RunningMods.Any(mod => mod.Name == CSL);
             }
         }
-
     }
 }

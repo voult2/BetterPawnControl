@@ -22,7 +22,6 @@ namespace BetterPawnControl.Patches
 
             if (__instance.GetType().Equals(typeof(MainTabWindow_Work)) || __instance.GetType().FullName.Equals(WORKTAB_MAINTAB))
             {
-                Log.Message("here");
                 WorkManager.SaveCurrentState(WorkManager.Colonists().ToList());
             }
 

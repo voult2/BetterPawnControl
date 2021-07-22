@@ -20,7 +20,7 @@ You can also setup a default outfit, food and drug when a new colonist joins you
 This mod was first released on Rimword Alpha 15 and is essencially a productive mod to minimise animal areas and colonist outfits and drugs micro-management. 
 
 ## Credits
-- Fluffy for all the help with Animal Tab integration! (However, is not longer integrated :( 
+- Fluffy for all the help with Animal Tab integration!
 - Skyarkhangel for all the support with Combat Realism integration. Kudos for you!
 - Marnador for the logo [font](https://ludeon.com/forums/index.php?topic=11022.0)
 - Lauri7x3 for german translation
