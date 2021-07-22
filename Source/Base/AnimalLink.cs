@@ -1,4 +1,5 @@
 ﻿using Verse;
+using RimWorld;
 
 namespace BetterPawnControl
 {
@@ -10,13 +11,15 @@ namespace BetterPawnControl
         internal Area area = null;
         internal bool followDrafted = true;
         internal bool followFieldwork = true;
+        internal FoodRestriction foodPolicy = null;
         //internal int mapId = 0;
 
         public AnimalLink() { }
 
         public AnimalLink(
             int zone, Pawn animal, Pawn master, Area area, 
-            bool followDrafted, bool followFieldwork, int mapId)
+            bool followDrafted, bool followFieldwork, FoodRestriction foodPolicy, 
+            int mapId)
         {
             this.zone = zone;
             this.animal = animal;
@@ -24,6 +27,7 @@ namespace BetterPawnControl
             this.area = area;
             this.followDrafted = followDrafted;
             this.followFieldwork = followFieldwork;
+            this.foodPolicy = foodPolicy;
             this.mapId = mapId;
         }
 
@@ -53,6 +57,7 @@ namespace BetterPawnControl
             Scribe_Values.Look<bool>(
                 ref followFieldwork, "followFieldwork", true, true);
             Scribe_Values.Look<int>(ref mapId, "mapId", 0, true);
+            Scribe_References.Look<FoodRestriction>(ref foodPolicy, "foodPolicy");
         }
     }
 }

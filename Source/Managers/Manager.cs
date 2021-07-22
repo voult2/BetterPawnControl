@@ -120,6 +120,38 @@ namespace BetterPawnControl
 				}
 			}
 		}
+
+		internal static bool FoodPolicyExits(FoodRestriction foodPolicy)
+		{
+			foreach (FoodRestriction food in
+				Current.Game.foodRestrictionDatabase.AllFoodRestrictions)
+			{
+				if (food.Equals(foodPolicy))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		internal static FoodRestriction _defaultFoodPolicy = null;
+		internal static FoodRestriction DefaultFoodPolicy
+		{
+			get
+			{
+				if (_defaultFoodPolicy == null)
+				{
+					_defaultFoodPolicy = Current.Game.foodRestrictionDatabase.DefaultFoodRestriction();
+				}
+				return _defaultFoodPolicy;
+			}
+
+			set
+			{
+				_defaultFoodPolicy = value;
+			}
+		}
+
 	}
 }
 

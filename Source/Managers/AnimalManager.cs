@@ -62,18 +62,34 @@ namespace BetterPawnControl
                         p.playerSettings.followDrafted;
                     animalLink.followFieldwork =
                         p.playerSettings.followFieldwork;
+                    if (Widget_Harmony_ModsAvailable.AAFAvailable)
+                    {
+                        animalLink.foodPolicy = p.foodRestriction.CurrentFoodRestriction;
+                    }
+
                 }
                 else
                 {
+                    FoodRestriction food = null;
+                    if (Widget_Harmony_ModsAvailable.AAFAvailable)
+                    {
+                        food = p.foodRestriction.CurrentFoodRestriction;
+                        if (food == Current.Game.foodRestrictionDatabase.DefaultFoodRestriction())
+                        {
+                            food = AnimalManager.DefaultFoodPolicy;
+                        }
+                    }
+
                     //animal not found. So add it to the AnimalLink list
                     AnimalManager.links.Add(new AnimalLink(
-                        AnimalManager.GetActivePolicy().id,
-                        p,
-                        p.playerSettings.Master,
-                        p.playerSettings.AreaRestriction,
-                        p.playerSettings.followDrafted,
-                        p.playerSettings.followFieldwork,
-                        currentMap));
+                    AnimalManager.GetActivePolicy().id,
+                    p,
+                    p.playerSettings.Master,
+                    p.playerSettings.AreaRestriction,
+                    p.playerSettings.followDrafted,
+                    p.playerSettings.followFieldwork,
+                    food,
+                    currentMap));
                 }
             }
         }
@@ -114,6 +130,11 @@ namespace BetterPawnControl
                         p.playerSettings.AreaRestriction = l.area;
                         p.playerSettings.followDrafted = l.followDrafted;
                         p.playerSettings.followFieldwork = l.followFieldwork;
+                        if (Widget_Harmony_ModsAvailable.AAFAvailable)
+                        {
+                            p.foodRestriction.CurrentFoodRestriction = FoodPolicyExits(l.foodPolicy) ?
+                                l.foodPolicy : null;
+                        }                            
                     }
                 }
             }
@@ -140,15 +161,11 @@ namespace BetterPawnControl
             List<AnimalLink> mapLinks = null;
             List<AnimalLink> zoneLinks = null;
             int currentMap = Find.CurrentMap.uniqueID;
-            if (links == null) throw new ArgumentNullException(nameof(links));
-            if (policy == null) throw new ArgumentNullException(nameof(policy));
 
             //get all links from the current map
             mapLinks = links.FindAll(l => l != null && l.mapId == currentMap);
             //get all links from the selected zone
             zoneLinks = mapLinks.FindAll(ml => ml != null && ml.zone == policy.id);
-            var brokenLinks = links.FindAll(x => x == null).CountAllowNull();
-            if (brokenLinks > 0) Log.Warning("[BPC] AnimalManager.UpdateState was given " + brokenLinks + " dead links");
 
             foreach (Pawn p in pawns)
             {
@@ -158,6 +175,10 @@ namespace BetterPawnControl
                     {
                         l.master = p.playerSettings.Master;
                         l.area = p.playerSettings.AreaRestriction;
+                        if (Widget_Harmony_ModsAvailable.AAFAvailable)
+                        {
+                            l.foodPolicy = p.foodRestriction.CurrentFoodRestriction;
+                        }
                     }
                 }
             }

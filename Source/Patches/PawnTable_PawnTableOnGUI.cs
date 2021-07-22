@@ -52,10 +52,10 @@ namespace BetterPawnControl.Patches
                     WorkManager.DirtyPolicy = false;
                 }
 
-                if (Widget_Harmony_ModsAvailable.WorkTabAvailable)
-                {
-                    position.x = position.x - 160f;
-                }
+                //if (Widget_Harmony_ModsAvailable.WorkTabAvailable)
+                //{
+                //    position.x = position.x - 160f;
+                //}
 
                 DrawBPCButtons_WorkTab(position, 5f, __instance.Size.y + 15f, WorkManager.Colonists().ToList());
             }

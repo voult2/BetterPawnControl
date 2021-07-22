@@ -14,6 +14,7 @@ namespace BetterPawnControl
         private const string ANIMALTAB= "Animal Tab";
         private const string WORKTAB_UPDATE = "Work Tab 1.3 Update";
         private const string CSL = "Children, school and learning";
+        private const string AAF = "Assign Animal Food";
 
         static Widget_Harmony_ModsAvailable() 
         {
@@ -43,6 +44,14 @@ namespace BetterPawnControl
             get
             {
                 return LoadedModManager.RunningMods.Any(mod => mod.Name == CSL);
+            }
+        }
+
+        public static bool AAFAvailable
+        {
+            get
+            {
+                return LoadedModManager.RunningMods.Any(mod => mod.Name == AAF);
             }
         }
     }
