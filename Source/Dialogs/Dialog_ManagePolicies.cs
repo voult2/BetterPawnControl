@@ -99,7 +99,7 @@ namespace BetterPawnControl
             listing_Standard.Gap(24f);
 
             Rect lineWithTextAlertRow = listing_Standard.GetRect(24f);
-            DrawHorizontalLineWithTextCentered(inRect, lineWithTextAlertRow, 50f, "BPC.AlertConfigText", true);
+            DrawHorizontalLineWithTextCentered(inRect, lineWithTextAlertRow, -30f, "BPC.AlertConfigText", true);
             listing_Standard.Gap(6f);
 
             Rect alertRow = listing_Standard.GetRect(24f);
@@ -110,7 +110,7 @@ namespace BetterPawnControl
             DrawAutomaticInterruptPawnsRow(AutomaticInterruptPawnsRow);
             listing_Standard.Gap(12f);
 
-            listing_Standard.End();
+            listing_Standard.End(); 
         }
         private void DrawAutomaticInterruptPawnsRow(Rect rect)
         {

@@ -11,6 +11,8 @@ namespace BetterPawnControl.Patches
     [HarmonyPatch(typeof(Window), nameof(Window.PreClose))]
     static class Window_PreClose
     {
+        private const string WORKTAB_MAINTAB = "WorkTab.MainTabWindow_Work";
+        private const string ANIMALTAB_MAINTAB = "AnimalTab.MainTabWindow_Animals";
         static void Postfix(Window __instance)
         {
             if (__instance.GetType().Equals(typeof(MainTabWindow_Assign))) 
@@ -18,8 +20,9 @@ namespace BetterPawnControl.Patches
                 AssignManager.SaveCurrentState(AssignManager.Colonists().ToList());
             }
 
-            if (__instance.GetType().Equals(typeof(MainTabWindow_Work)))
+            if (__instance.GetType().Equals(typeof(MainTabWindow_Work)) || __instance.GetType().FullName.Equals(WORKTAB_MAINTAB))
             {
+                Log.Message("here");
                 WorkManager.SaveCurrentState(WorkManager.Colonists().ToList());
             }
 
@@ -28,7 +31,7 @@ namespace BetterPawnControl.Patches
                 ScheduleManager.SaveCurrentState(ScheduleManager.Colonists().ToList());
             }
 
-            if (__instance.GetType().Equals(typeof(MainTabWindow_Animals)))
+            if (__instance.GetType().Equals(typeof(MainTabWindow_Animals)) || __instance.GetType().FullName.Equals(ANIMALTAB_MAINTAB))
             {
                 AnimalManager.SaveCurrentState(AnimalManager.Animals().ToList());
             }
