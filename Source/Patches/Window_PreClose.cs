@@ -11,7 +11,7 @@ namespace BetterPawnControl.Patches
     [HarmonyPatch(typeof(Window), nameof(Window.PreClose))]
     static class Window_PreClose
     {
-        private const string WORKTAB_MAINTAB = "WorkTab.MainTabWindow_Work";
+        private const string WORKTAB_MAINTAB = "WorkTab.MainTabWindow_WorkTab";
         private const string ANIMALTAB_MAINTAB = "AnimalTab.MainTabWindow_Animals";
         static void Postfix(Window __instance)
         {
