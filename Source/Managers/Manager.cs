@@ -151,7 +151,6 @@ namespace BetterPawnControl
 				_defaultFoodPolicy = value;
 			}
 		}
-
 	}
 }
 

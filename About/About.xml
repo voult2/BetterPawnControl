@@ -11,16 +11,20 @@
 	<description>Bulk assignment of colonists and animals to outfits, areas, drugs, food, work in one single action. Setup different policies and switch at will. 
 
 Features:
-- Presets for Work, Schedule, Assign and Animal tabs
+- Policies presets for Work, Schedule, Assign and Animal tabs
 - Default outfits, food, drugs when colonist or prisoners join colony
-- Emergency' button to toggle your configured policies at once in one click  	
+- Emergency' button to toggle your configured policies at once in one click or keyboard shorcut 
 
+v2.2.7 
 
-Mod Integrations List:                     IMPORTANT (For RimWorld v1.3)
-- Combat extended                          - Should now work with AnimalTab and WorkTab
+Mod Integrations List:                       
+- Fluffly's Work Tab (only 1.3+)
+- Fluffly's Animal Tab (only 1.3+)
+- Numbers (only 1.3+)
+- Combat Extended
+- Assign Animal Food
 - Children, school and learning
 
-v2.2.5
 	</description>
 	<modDependencies>
 		<li>

@@ -12,11 +12,13 @@ namespace BetterPawnControl.Patches
     [HarmonyPatch(typeof(PawnTable), nameof(PawnTable.PawnTableOnGUI))]
     static class PawnTable_PawnTableOnGUI
     {
+        private const string NUMBERS_DEFNAME = "Numbers_Animals";
         static bool showSchedulePaste = false;
         static bool showWorkPaste = false;
 
         static void Postfix(PawnTable __instance, Vector2 position, PawnTableDef ___def)
         {
+
             if (___def == PawnTableDefOf.Assign)
             {
                 if (AssignManager.DirtyPolicy)
@@ -60,7 +62,7 @@ namespace BetterPawnControl.Patches
                 DrawBPCButtons_WorkTab(position, 5f, __instance.Size.y + 15f, WorkManager.Colonists().ToList());
             }
 
-            if (___def == PawnTableDefOf.Animals)
+            if (___def == PawnTableDefOf.Animals || ___def.defName == NUMBERS_DEFNAME)
             {
                 if (AnimalManager.DirtyPolicy)
                 {

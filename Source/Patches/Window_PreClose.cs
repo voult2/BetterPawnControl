@@ -13,6 +13,8 @@ namespace BetterPawnControl.Patches
     {
         private const string WORKTAB_MAINTAB = "WorkTab.MainTabWindow_WorkTab";
         private const string ANIMALTAB_MAINTAB = "AnimalTab.MainTabWindow_Animals";
+        private const string NUMBERS_DEFNAME = "Numbers.MainTabWindow_NumbersAnimals";
+
         static void Postfix(Window __instance)
         {
             if (__instance.GetType().Equals(typeof(MainTabWindow_Assign))) 
@@ -30,7 +32,7 @@ namespace BetterPawnControl.Patches
                 ScheduleManager.SaveCurrentState(ScheduleManager.Colonists().ToList());
             }
 
-            if (__instance.GetType().Equals(typeof(MainTabWindow_Animals)) || __instance.GetType().FullName.Equals(ANIMALTAB_MAINTAB))
+            if (__instance.GetType().Equals(typeof(MainTabWindow_Animals)) || __instance.GetType().FullName.Equals(ANIMALTAB_MAINTAB) || __instance.GetType().FullName.Equals(NUMBERS_DEFNAME))
             {
                 AnimalManager.SaveCurrentState(AnimalManager.Animals().ToList());
             }
