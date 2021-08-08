@@ -1,10 +1,6 @@
 ﻿using HarmonyLib;
-using UnityEngine;
 using Verse;
 using RimWorld;
-using System.Linq;
-using System.Collections.Generic;
-using Verse.Sound;
 
 namespace BetterPawnControl.Patches
 {
@@ -13,10 +9,13 @@ namespace BetterPawnControl.Patches
     {
         static void Postfix(Pawn ___pawn)
         {
-            AssignManager.CleanDeadColonists(___pawn);
-            ScheduleManager.CleanDeadColonists(___pawn);
-            WorkManager.CleanDeadColonists(___pawn);
-            AnimalManager.CleanDeadAnimals(___pawn);
+            if (___pawn.IsFreeColonist) 
+            { 
+                AssignManager.CleanDeadColonists(___pawn);
+                ScheduleManager.CleanDeadColonists(___pawn);
+                WorkManager.CleanDeadColonists(___pawn);
+                AnimalManager.CleanDeadAnimals(___pawn);
+            }
         }
     }
 }

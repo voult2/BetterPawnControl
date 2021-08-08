@@ -34,13 +34,25 @@ namespace BetterPawnControl
             this.mapId = mapId;
         }
 
+        public AssignLink(AssignLink link)
+        {
+            this.zone = link.zone;
+            this.colonist = link.colonist;
+            this.outfit = link.outfit;
+            this.foodPolicy = link.foodPolicy;
+            this.drugPolicy = link.drugPolicy;
+            this.hostilityResponse = link.hostilityResponse;
+            this.loadoutId = link.loadoutId;
+            this.mapId = link.mapId;
+        }
+
         public override string ToString()
         {
             string outifit = outfit?.label;
             string drug = drugPolicy?.label;
             string food = foodPolicy?.label;
             return
-                "Policy:" + zone +
+                "PolicyID:" + zone +
                 "  Pawn: " + colonist +
                 "  Outfit: " + outifit +
                 "  Food: " + food +

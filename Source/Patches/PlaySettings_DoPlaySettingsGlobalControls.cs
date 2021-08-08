@@ -58,8 +58,8 @@ namespace BetterPawnControl.Patches
             SoundDefOf.Tick_High.PlayOneShotOnCamera(null);
             AlertManager.SaveState(0);
             AlertManager.LoadState(1); //ON
-            
-            if (AlertManager.AutomaticPawnsInterrupt)
+
+            if (LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().automaticPawnsInterrupt)
             {
                 AlertManager.PawnsInterruptForced();
             }

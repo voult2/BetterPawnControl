@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Base\AnimalLink.cs" />
     <Compile Include="Base\AssignLink.cs" />
+    <Compile Include="Patches\Pawn_OnExitMap.cs" />
     <Compile Include="Helpers\Widget_Harmony_ModsAvailable.cs" />
     <Compile Include="Managers\AlertManager.cs" />
     <Compile Include="Base\AlertLevel.cs" />
@@ -86,10 +87,11 @@
     <Compile Include="Helpers\Widget_CombatExtended.cs" />
     <Compile Include="Managers\AnimalManager.cs" />
     <Compile Include="Managers\AssignManager.cs" />
+    <Compile Include="Core\Settings.cs" />
     <Compile Include="Managers\WorkManager.cs" />
     <Compile Include="Managers\ScheduleManager.cs" />
     <Compile Include="Managers\Manager.cs" />
-    <Compile Include="Managers\DefaultOutfitAndFoodAndDrug.cs" />
+    <Compile Include="Core\DefaultPolicies.cs" />
     <Compile Include="Patches\UIRoot_OnGUI_onKeyPress.cs" />
     <Compile Include="Patches\Window_PreClose.cs" />
     <Compile Include="Patches\Pawn_HealthTracker_OnDead.cs" />
@@ -97,8 +99,8 @@
     <Compile Include="Patches\PawnTable_PawnTableOnGUI.cs" />
     <Compile Include="Patches\PlaySettings_DoPlaySettingsGlobalControls.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scribe\DataStorage.cs" />
-    <Compile Include="Textures\Resources.cs" />
+    <Compile Include="Core\DataStorage.cs" />
+    <Compile Include="Core\Resources.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".vs\" />

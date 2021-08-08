@@ -11,7 +11,6 @@ namespace BetterPawnControl
     {
         internal static List<AlertLevel> alertLevelsList = new List<AlertLevel>();
         internal static int _alertLevel = 0;
-        internal static bool _automaticPawnsInterrupt = true;
         private static bool _initialized = false;
 
         //Only two levels supported for now (ON and OFF)
@@ -25,12 +24,6 @@ namespace BetterPawnControl
             {
                 _alertLevel = value == true ? 1 : 0;
             }
-        }
-
-        internal static bool AutomaticPawnsInterrupt
-        {
-            get => _automaticPawnsInterrupt;
-            set => _automaticPawnsInterrupt = value;
         }
 
         internal static void ForceInit ()
@@ -96,8 +89,7 @@ namespace BetterPawnControl
             } 
             catch (NullReferenceException)
             {
-                //Only if player clicks the emergency button without opening the 
-                //BPC dialog windows
+                //Only if player clicks the emergency button without opening the BPC dialog windows
             }
         }
 

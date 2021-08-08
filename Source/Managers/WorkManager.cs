@@ -197,7 +197,7 @@ namespace BetterPawnControl
                     copiedLink.zone = policy.id;
                     WorkManager.links.Add(copiedLink);
                 }
-                WorkManager.LoadState(links, Find.CurrentMap.mapPawns.FreeColonists.ToList(), policy);
+                WorkManager.LoadState(links, Find.CurrentMap.mapPawns.FreeColonists, policy);
             }
         }
     }

@@ -3,7 +3,6 @@ using HarmonyLib;
 using Verse;
 using UnityEngine;
 
-
 namespace BetterPawnControl.Patches
 {
 	[HarmonyPatch(typeof(UIRoot), nameof(UIRoot.UIRootOnGUI))]

@@ -1,10 +1,8 @@
 ﻿using HarmonyLib;
-using UnityEngine;
 using Verse;
 using RimWorld;
 using System.Linq;
 using System.Collections.Generic;
-using Verse.Sound;
 
 namespace BetterPawnControl.Patches
 {

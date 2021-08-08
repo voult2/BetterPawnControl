@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-	<BPC.Auto>Auto</BPC.Auto>
+	<BPC.BetterPawnControl>Better Pawn Control</BPC.BetterPawnControl>
+
+	<BPC.Auto>Default</BPC.Auto>
 	<BPC.Rename>Rename</BPC.Rename>
 	<BPC.Settings>Policies settings</BPC.Settings>
 
@@ -28,10 +30,22 @@
 	<BPC.PoliciesConfigText>Create/Delete/Rename policies presets. Don't forget to configure them on each tab afterwards</BPC.PoliciesConfigText>
 	
 	<BPC.DefaultsConfigText>Configure which policies to set once a new pawn joins the colony</BPC.DefaultsConfigText>
-	<BPC.SelectedDefaultOutfit>Default Outfit</BPC.SelectedDefaultOutfit>	
-	<BPC.SelectedDefaultDrug>Default Drug</BPC.SelectedDefaultDrug>
-	<BPC.SelectedDefaultFood>Default Colonist Food</BPC.SelectedDefaultFood>
-	<BPC.SelectedPrisionerDefaultFood>Default Prisioner Food</BPC.SelectedPrisionerDefaultFood>
+	<BPC.SelectedDefaultOutfit>Outfit</BPC.SelectedDefaultOutfit>
+	<BPC.SelectedDefaultFood>Food</BPC.SelectedDefaultFood>
+	<BPC.SelectedDefaultDrug>Drug</BPC.SelectedDefaultDrug>
+	<BPC.SelectedDefaultMeds>Medical Care</BPC.SelectedDefaultMeds>
+	
+	<BPC.SelectedPrisionerDefaultFood>Food</BPC.SelectedPrisionerDefaultFood>
+	<BPC.SelectedPrisionerMeds>Medical Care</BPC.SelectedPrisionerMeds>
+	
+	<BPC.SelectedSlaveDefaultOutfit>Outfit</BPC.SelectedSlaveDefaultOutfit>	
+	<BPC.SelectedSlaveDefaultFood>Food</BPC.SelectedSlaveDefaultFood>
+	<BPC.SelectedSlaveDefaultDrugs>Drugs</BPC.SelectedSlaveDefaultDrugs>
+	<BPC.SelectedSlaveDefaultMeds>Medical Care</BPC.SelectedSlaveDefaultMeds>
+	
+	<BPC.ColonistDefaultHeader>Colonist Defaults</BPC.ColonistDefaultHeader>
+	<BPC.PrisionerDefaultHeader>Prisioner Defaults</BPC.PrisionerDefaultHeader>
+	<BPC.SlaveDefaultHeader>Slave Defaults</BPC.SlaveDefaultHeader>
 	
 	<BPC.Copy>Copy Policy</BPC.Copy>
 	<BPC.Paste>Paste Policy</BPC.Paste>
@@ -45,6 +59,7 @@
 	<BPC.EmergencyLocationTooltip>The Emergency button is in the lower right side of the game window, next to the toggle buttons</BPC.EmergencyLocationTooltip>
 	
 	<BPC.BetterPawnControlSettingsName>Better Pawn Control</BPC.BetterPawnControlSettingsName>
-	<BPC.AutomaticPawnsInterruptSetting>Automatically interrupted whatever pawns are doing when toggling emergency ON?</BPC.AutomaticPawnsInterruptSetting>
-	
+	<BPC.AutomaticPawnsInterruptSetting>Automatically interrupted whatever pawns are doing when toggling emergency ON?</BPC.AutomaticPawnsInterruptSetting>	
+	<BPC.DisableBPCOnWorkTabSetting>Disable BPC interation with on WorkTab mod?</BPC.DisableBPCOnWorkTabSetting>
+	<BPC.DisableBPCOnWorkTabTooltip>BPC only partially supports Fluffly's WorkTab mod. If you want to use Work's Tab mod extended priorities then you should enable this setting.</BPC.DisableBPCOnWorkTabTooltip>
 </LanguageData>

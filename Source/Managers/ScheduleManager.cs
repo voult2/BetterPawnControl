@@ -82,9 +82,7 @@ namespace BetterPawnControl
             }
         }
 
-        internal static void CopySchedule(
-                                List<TimeAssignmentDef> src,
-                                List<TimeAssignmentDef> dst)
+        internal static void CopySchedule(List<TimeAssignmentDef> src, List<TimeAssignmentDef> dst)
         {
             dst.Clear();
             dst.AddRange(src);
@@ -134,8 +132,7 @@ namespace BetterPawnControl
             }
         }
 
-        internal static void UpdateState(
-            List<ScheduleLink> links, List<Pawn> pawns, Policy policy)
+        internal static void UpdateState(List<ScheduleLink> links, List<Pawn> pawns, Policy policy)
         {
             List<ScheduleLink> mapLinks = null;
             List<ScheduleLink> zoneLinks = null;
@@ -160,8 +157,7 @@ namespace BetterPawnControl
             ScheduleManager.SetActivePolicy(policy);
         }
 
-        internal static void LoadState(
-            List<ScheduleLink> links, List<Pawn> pawns, Policy policy)
+        internal static void LoadState(List<ScheduleLink> links, List<Pawn> pawns, Policy policy)
         {
             List<ScheduleLink> mapLinks = null;
             List<ScheduleLink> zoneLinks = null;
@@ -199,25 +195,19 @@ namespace BetterPawnControl
 
         internal static void PrintAllAssignPolicies()
         {
-            Log.Message("[BPC] === List Policies START [" +
-                ScheduleManager.policies.Count +
-                "] ===");
+            Log.Message("[BPC] === List Policies START [" + ScheduleManager.policies.Count +  "] ===");
             foreach (Policy p in ScheduleManager.policies)
             {
                 Log.Message("[BPC]\t" + p.ToString());
             }
 
-            Log.Message("[BPC] === List ActivePolices START [" +
-                ScheduleManager.activePolicies.Count +
-                "] ===");
+            Log.Message("[BPC] === List ActivePolices START [" + ScheduleManager.activePolicies.Count + "] ===");
             foreach (MapActivePolicy m in ScheduleManager.activePolicies)
             {
                 Log.Message("[BPC]\t" + m.ToString());
             }
 
-            Log.Message("[BPC] === List links START [" +
-                ScheduleManager.links.Count +
-                "] ===");
+            Log.Message("[BPC] === List links START [" + ScheduleManager.links.Count + "] ===");
             foreach (ScheduleLink ScheduleLink in ScheduleManager.links)
             {
                 Log.Message("[BPC]\t" + ScheduleLink.ToString());

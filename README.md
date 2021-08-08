@@ -4,7 +4,9 @@ A mod for [Rimworld](https://rimworldgame.com/) available on steam [here](https:
 
 Bulk assignment of colonists and animals to outfits, areas, drugs, food, work in one single action.
 
-Allows to set a default outfit, food, drug when a colonist joins and also default prisoner food. 
+Allows to set a default outfit, food, drug when a colonist, prisoner or slave joins the colony. 
+
+Emergency' button to toggle the configured policies at once in one click or keyboard shorcut. 
 
 ## How to use
 1. Create a policy either for animals or for colonists by clicking the cog icon

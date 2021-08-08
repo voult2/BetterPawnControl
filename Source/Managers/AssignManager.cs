@@ -7,13 +7,19 @@ namespace BetterPawnControl
     [StaticConstructorOnStartup]
     class AssignManager : Manager<AssignLink>
     {
-        internal static List<string> Prisoners = new List<string>();
+        internal static List<string> prisoners = new List<string>();
+        internal static List<string> slaves = new List<string>();
+        internal static List<AssignLink> clipboard = new List<AssignLink>();
 
         internal static void InstantiatePrisoners()
         {
-            //this is required if there were no prisoners when loading the 
-            //save file
-            Prisoners = new List<string>();
+            //this is required if there were no prisoners when loading the save file
+            prisoners = new List<string>();
+        }
+
+        internal static void InstantiateSlaves()
+        {
+            slaves = new List<string>();
         }
 
         internal static Outfit _defaultOutfit = null;
@@ -23,7 +29,7 @@ namespace BetterPawnControl
             {
                 if (_defaultOutfit == null)
                 {
-                    
+
                     _defaultOutfit = Current.Game.outfitDatabase.DefaultOutfit();
                 }
                 return _defaultOutfit;
@@ -72,6 +78,103 @@ namespace BetterPawnControl
             }
         }
 
+        internal static MedicalCareCategory _defaultMedCare = MedicalCareCategory.NormalOrWorse;
+        internal static MedicalCareCategory DefaultMedCare 
+        {
+            get
+            {
+                return _defaultMedCare;
+            }
+
+            set
+            {
+                _defaultMedCare = value;
+            }
+        }
+
+        internal static MedicalCareCategory _defaulPrisonerMedCare = MedicalCareCategory.HerbalOrWorse;
+        internal static MedicalCareCategory DefaultPrisonerMedCare
+        {
+            get
+            {
+                return _defaulPrisonerMedCare;
+            }
+
+            set
+            {
+                _defaulPrisonerMedCare = value;
+            }
+        }
+
+        internal static MedicalCareCategory _defaulSlaveMedCare = MedicalCareCategory.HerbalOrWorse;
+        internal static MedicalCareCategory DefaultSlaveMedCare
+        {
+            get
+            {
+                return _defaulSlaveMedCare;
+            }
+
+            set
+            {
+                _defaulSlaveMedCare = value;
+            }
+        }
+
+        internal static Outfit _defaultSlaveOutfit = null;
+        internal static Outfit DefaultSlaveOutfit
+        {
+            get
+            {
+                if (_defaultSlaveOutfit == null)
+                {
+
+                    _defaultSlaveOutfit = Current.Game.outfitDatabase.DefaultOutfit();
+                }
+                return _defaultSlaveOutfit;
+            }
+
+            set
+            {
+                _defaultSlaveOutfit = value;
+            }
+        }
+
+        internal static FoodRestriction _defaultSlaveFoodPolicy = null;
+        internal static FoodRestriction DefaultSlaveFoodPolicy
+        {
+            get
+            {
+                if (_defaultSlaveFoodPolicy == null)
+                {
+                    _defaultSlaveFoodPolicy = DefaultFoodPolicy;
+                }
+                return _defaultSlaveFoodPolicy;
+            }
+
+            set
+            {
+                _defaultSlaveFoodPolicy = value;
+            }
+        }
+
+        internal static DrugPolicy _defaultSlaveDrugPolicy = null;
+        internal static DrugPolicy DefaultSlaveDrugPolicy
+        {
+            get
+            {
+                if (_defaultSlaveDrugPolicy == null)
+                {
+                    _defaultSlaveDrugPolicy = Current.Game.drugPolicyDatabase.DefaultDrugPolicy();
+                }
+                return _defaultSlaveDrugPolicy;
+            }
+
+            set
+            {
+                _defaultSlaveDrugPolicy = value;
+            }
+        }
+
         internal static void DeletePolicy(Policy policy)
         {
             //delete if not default AssignPolicy
@@ -100,7 +203,6 @@ namespace BetterPawnControl
         {
             activePolicies.Remove(map);
         }
-
 
         internal static void SaveCurrentState(List<Pawn> pawns)
         {
@@ -137,22 +239,19 @@ namespace BetterPawnControl
                     }
 
                     Outfit outfit = p.outfits.CurrentOutfit;
-                    if (outfit ==
-                        Current.Game.outfitDatabase.DefaultOutfit())
+                    if (outfit == Current.Game.outfitDatabase.DefaultOutfit())
                     {
                         outfit = AssignManager.DefaultOutfit;
                     }
 
                     DrugPolicy drug = p.drugs.CurrentPolicy;
-                    if (drug ==
-                        Current.Game.drugPolicyDatabase.DefaultDrugPolicy())
+                    if (drug == Current.Game.drugPolicyDatabase.DefaultDrugPolicy())
                     {
                         drug = AssignManager.DefaultDrugPolicy;
                     }
 
                     FoodRestriction food = p.foodRestriction.CurrentFoodRestriction;
-                    if (food ==
-                        Current.Game.foodRestrictionDatabase.DefaultFoodRestriction())
+                    if (food == Current.Game.foodRestrictionDatabase.DefaultFoodRestriction())
                     {
                         food = AssignManager.DefaultFoodPolicy;
                     }
@@ -202,7 +301,11 @@ namespace BetterPawnControl
         internal static void CleanDeadColonists(Pawn pawn)
         {
             AssignManager.links.RemoveAll(x => x.colonist == pawn);
-
+            AssignManager.prisoners.Remove(pawn.GetUniqueLoadID());
+            if( ModsConfig.IdeologyActive)
+            {
+                AssignManager.slaves.Remove(pawn.GetUniqueLoadID());
+            }
         }
 
         internal static bool ActivePoliciesContainsValidMap()
@@ -244,8 +347,7 @@ namespace BetterPawnControl
             }
         }
 
-        internal static void UpdateState(
-            List<AssignLink> links, List<Pawn> pawns, Policy policy)
+        internal static void UpdateState( List<AssignLink> links, List<Pawn> pawns, Policy policy)
         {
             List<AssignLink> mapLinks = null;
             List<AssignLink> zoneLinks = null;
@@ -262,8 +364,7 @@ namespace BetterPawnControl
                 {
                     if (l.colonist != null && l.colonist.Equals(p))
                     {
-                        l.hostilityResponse =
-                            p.playerSettings.hostilityResponse;
+                        l.hostilityResponse = p.playerSettings.hostilityResponse;
                         l.foodPolicy = p.foodRestriction.CurrentFoodRestriction;
                     }
                 }
@@ -290,22 +391,17 @@ namespace BetterPawnControl
                 {
                     if (l.colonist != null && l.colonist.Equals(p))
                     {
-                        p.outfits.CurrentOutfit = OutfitExits(l.outfit) ?
-                            l.outfit : null;
-                        p.drugs.CurrentPolicy = DrugPolicyExits(l.drugPolicy) ?
-                            l.drugPolicy : null;
-                        p.foodRestriction.CurrentFoodRestriction = FoodPolicyExits(l.foodPolicy) ?
-                            l.foodPolicy : null;
-                        p.playerSettings.hostilityResponse =
-                            l.hostilityResponse;
+                        p.outfits.CurrentOutfit = OutfitExits(l.outfit) ? l.outfit : null;
+                        p.drugs.CurrentPolicy = DrugPolicyExits(l.drugPolicy) ? l.drugPolicy : null;
+                        p.foodRestriction.CurrentFoodRestriction = FoodPolicyExits(l.foodPolicy) ? l.foodPolicy : null;
+                        p.playerSettings.hostilityResponse = l.hostilityResponse;
                         //if (!l.stockEntries.NullOrEmpty())
                         //{
                         //    LoadPawnInventoryStock(p, l);
                         //} 
                         if (Widget_CombatExtended.CombatExtendedAvailable)
                         {
-                            Widget_CombatExtended.SetLoadoutById(
-                                p, l.loadoutId);
+                            Widget_CombatExtended.SetLoadoutById(p, l.loadoutId);
                         }
                     }
                 }
@@ -334,8 +430,7 @@ namespace BetterPawnControl
 
         internal static bool DrugPolicyExits(DrugPolicy drugPolicy)
         {
-            foreach (DrugPolicy drug in
-                Current.Game.drugPolicyDatabase.AllPolicies)
+            foreach (DrugPolicy drug in Current.Game.drugPolicyDatabase.AllPolicies)
             {
                 if (drug.Equals(drugPolicy))
                 {
@@ -345,28 +440,55 @@ namespace BetterPawnControl
             return false;
         }
 
+        internal static void CopyToClipboard()
+        {
+            Policy policy = GetActivePolicy();
+            if (AssignManager.clipboard != null)
+            {
+                clipboard = new List<AssignLink>();
+            }
+
+            WorkManager.clipboard.Clear();
+            foreach (AssignLink link in AssignManager.links)
+            {
+                if (link.zone == policy.id)
+                {
+                    AssignManager.clipboard.Add(new AssignLink(link));
+                }
+            }
+        }
+
+        internal static void PasteToActivePolicy()
+        {
+            Policy policy = GetActivePolicy();
+            if (!AssignManager.clipboard.NullOrEmpty() && AssignManager.clipboard[0].zone != policy.id)
+            {
+                WorkManager.links.RemoveAll(x => x.zone == policy.id);
+                foreach (AssignLink copiedLink in AssignManager.clipboard)
+                {
+                    copiedLink.zone = policy.id;
+                    AssignManager.links.Add(copiedLink);
+                }
+                AssignManager.LoadState(links, Find.CurrentMap.mapPawns.FreeColonists, policy);
+            }
+        }
+
 
         internal static void PrintAllAssignPolicies(string spacer = "\n")
         {
-            Log.Message("[BPC] === List Policies START [" +
-                AssignManager.policies.Count +
-                "] ===");
+            Log.Message("[BPC] === List Policies START [" + AssignManager.policies.Count + "] ===");
             foreach (Policy p in AssignManager.policies)
             {
                 Log.Message("[BPC]\t" + p.ToString());
             }
 
-            Log.Message("[BPC] === List ActivePolices START [" +
-                AssignManager.activePolicies.Count +
-                "] ===");
+            Log.Message("[BPC] === List ActivePolices START [" + AssignManager.activePolicies.Count + "] ===");
             foreach (MapActivePolicy m in AssignManager.activePolicies)
             {
                 Log.Message("[BPC]\t" + m.ToString());
             }
 
-            Log.Message("[BPC] === List links START [" +
-                AssignManager.links.Count +
-                "] ===");
+            Log.Message("[BPC] === List links START [" + AssignManager.links.Count + "] ===");
             foreach (AssignLink assignLink in AssignManager.links)
             {
                 Log.Message("[BPC]\t" + assignLink.ToString());
