@@ -366,6 +366,7 @@ namespace BetterPawnControl
                     {
                         l.hostilityResponse = p.playerSettings.hostilityResponse;
                         l.foodPolicy = p.foodRestriction.CurrentFoodRestriction;
+                        l.outfit = p.outfits.CurrentOutfit;                        
                     }
                 }
             }
@@ -373,8 +374,7 @@ namespace BetterPawnControl
             AssignManager.SetActivePolicy(policy);
         }
 
-        internal static void LoadState(
-            List<AssignLink> links, List<Pawn> pawns, Policy policy)
+        internal static void LoadState(List<AssignLink> links, List<Pawn> pawns, Policy policy)
         {
             List<AssignLink> mapLinks = null;
             List<AssignLink> zoneLinks = null;

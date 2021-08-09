@@ -59,12 +59,14 @@ namespace BetterPawnControl
 				Scribe_References.Look<FoodRestriction>(ref AssignManager._defaultPrisonerFoodPolicy, "DefaultPrisonerFoodPolicy");
 				Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaulPrisonerMedCare, "DefaultPrisionerMedCare");
 
+
 				if (ModsConfig.IdeologyActive)
 				{
 					Scribe_References.Look<Outfit>(ref AssignManager._defaultSlaveOutfit, "DefaultSlaveOutfit");
 					Scribe_References.Look<FoodRestriction>(ref AssignManager._defaultSlaveFoodPolicy, "DefaultSlaveFoodPolicy");
 					Scribe_References.Look<DrugPolicy>(ref AssignManager._defaultSlaveDrugPolicy, "DefaultSlaveDrugPolicy");
 					Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaulSlaveMedCare, "DefaultSlaveMedCare");
+					Scribe_Collections.Look<string>(ref AssignManager.slaves, "Slaves", LookMode.Value);
 
 					if (AssignManager.slaves == null)
 					{
@@ -76,7 +78,6 @@ namespace BetterPawnControl
 				Scribe_Collections.Look<Policy>(ref AssignManager.policies,"AssignPolicies", LookMode.Deep);
 				Scribe_Collections.Look<AssignLink>(ref AssignManager.links, "AssignLinks", LookMode.Deep);
 				Scribe_Collections.Look<string>(ref AssignManager.prisoners, "Prisoners", LookMode.Value);
-				Scribe_Collections.Look<string>(ref AssignManager.slaves, "Slaves", LookMode.Value);
 
 				if (AssignManager.prisoners == null)
 				{
@@ -97,7 +98,6 @@ namespace BetterPawnControl
 				Scribe_Collections.Look<MapActivePolicy>(ref WorkManager.activePolicies, "WorkActivePolicies", LookMode.Deep);
 				Scribe_Values.Look<int>(ref AlertManager._alertLevel, "ActiveLevel", 0, true);
 				Scribe_Collections.Look<AlertLevel>(ref AlertManager.alertLevelsList, "AlertLevelsList", LookMode.Deep);
-
 
 				if (Scribe.mode == LoadSaveMode.LoadingVars &&
 					WorkManager.activePolicies == null)

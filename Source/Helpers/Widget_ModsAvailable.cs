@@ -8,7 +8,7 @@ using Verse;
 namespace BetterPawnControl
 {
     [StaticConstructorOnStartup]
-    public static class Widget_Harmony_ModsAvailable
+    public static class Widget_ModsAvailable
     {
         private const string WORKTAB = "Work Tab";
         private const string ANIMALTAB= "Animal Tab";
@@ -16,7 +16,7 @@ namespace BetterPawnControl
         private const string CSL = "Children, school and learning";
         private const string AAF = "Assign Animal Food";
 
-        static Widget_Harmony_ModsAvailable() 
+        static Widget_ModsAvailable() 
         {
             var harmony = new Harmony("VouLT.BetterPawnControl");
             harmony.PatchAll();
@@ -38,6 +38,15 @@ namespace BetterPawnControl
                         LoadedModManager.RunningMods.Any(mod => mod.Name == WORKTAB_UPDATE);
             }
         }
+
+        public static bool DisableBPCOnWorkTab
+        {
+            get
+            {
+                return WorkTabAvailable && LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().disableBPCOnWorkTab;
+            }
+        }
+
 
         public static bool CSLAvailable
         {

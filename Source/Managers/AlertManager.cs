@@ -103,13 +103,16 @@ namespace BetterPawnControl
                     switch(entry.Key)
                     {
                         case Resources.Type.work:
-                            WorkManager.LoadState(entry.Value);
+                            if (!Widget_ModsAvailable.DisableBPCOnWorkTab)
+                            {
+                                WorkManager.LoadState(entry.Value);
+                            }
                             break;
                         case Resources.Type.restrict:
                             ScheduleManager.LoadState(entry.Value);
                             break;
                         case Resources.Type.assign:
-                            AssignManager.LoadState(entry.Value);
+                             AssignManager.LoadState(entry.Value);
                             break;
                         case Resources.Type.animal:
                             AnimalManager.LoadState(entry.Value);

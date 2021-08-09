@@ -12,7 +12,7 @@ namespace BetterPawnControl
 		internal static List<MapActivePolicy> activePolicies =
 			new List<MapActivePolicy>();
 		internal static List<T> links = new List<T>();
-
+		internal static bool showPaste = false;
         static Manager()
         {
             Policy defaultPolicy = new Policy(policies.Count, "BPC.Auto".Translate());
@@ -120,8 +120,7 @@ namespace BetterPawnControl
 
 		internal static bool FoodPolicyExits(FoodRestriction foodPolicy)
 		{
-			foreach (FoodRestriction food in
-				Current.Game.foodRestrictionDatabase.AllFoodRestrictions)
+			foreach (FoodRestriction food in Current.Game.foodRestrictionDatabase.AllFoodRestrictions)
 			{
 				if (food.Equals(foodPolicy))
 				{

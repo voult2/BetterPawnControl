@@ -33,7 +33,6 @@ namespace BetterPawnControl.Patches
             }
         }
 
-
         internal static void EmergencyToogleButton()
         {
             EmergencyToogleButton(emergencyButtonIcon);

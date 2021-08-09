@@ -114,8 +114,7 @@ namespace BetterPawnControl
             }
         }
 
-        internal static void LoadState(
-            List<WorkLink> links, List<Pawn> pawns, Policy policy)
+        internal static void LoadState(List<WorkLink> links, List<Pawn> pawns, Policy policy)
         {
             List<WorkLink> mapLinks = null;
             List<WorkLink> zoneLinks = null;

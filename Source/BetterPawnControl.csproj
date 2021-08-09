@@ -73,8 +73,9 @@
   <ItemGroup>
     <Compile Include="Base\AnimalLink.cs" />
     <Compile Include="Base\AssignLink.cs" />
+    <Compile Include="Patches\MainTabWindow_PawnTable_PostOpen.cs" />
     <Compile Include="Patches\Pawn_OnExitMap.cs" />
-    <Compile Include="Helpers\Widget_Harmony_ModsAvailable.cs" />
+    <Compile Include="Helpers\Widget_ModsAvailable.cs" />
     <Compile Include="Managers\AlertManager.cs" />
     <Compile Include="Base\AlertLevel.cs" />
     <Compile Include="Base\Link.cs" />

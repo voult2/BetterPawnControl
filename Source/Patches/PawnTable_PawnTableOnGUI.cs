@@ -13,9 +13,6 @@ namespace BetterPawnControl.Patches
     static class PawnTable_PawnTableOnGUI
     {
         private const string NUMBERS_DEFNAME = "Numbers_Animals";
-        static bool showSchedulePaste = false;
-        static bool showWorkPaste = false;
-        static bool showAssignPaste = false;
 
         static void Postfix(PawnTable __instance, Vector2 position, PawnTableDef ___def)
         {
@@ -30,7 +27,7 @@ namespace BetterPawnControl.Patches
                 DrawSheduleBPCButtons(__instance, position);
             }
 
-            if (___def == PawnTableDefOf.Work)
+            if (___def == PawnTableDefOf.Work && !Widget_ModsAvailable.DisableBPCOnWorkTab)
             {
                 DrawWorkBPCButtons(__instance, position);
             }
@@ -48,12 +45,7 @@ namespace BetterPawnControl.Patches
                 WorkManager.LoadState(WorkManager.links, WorkManager.Colonists().ToList(), WorkManager.GetActivePolicy());
                 WorkManager.DirtyPolicy = false;
             }
-
-            if (Widget_Harmony_ModsAvailable.WorkTabAvailable && LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().disableBPCOnWorkTab)
-            {
-                return;
-            }
-
+                       
             DrawBPCButtons_WorkTab(position, 5f, __instance.Size.y + 15f, WorkManager.Colonists().ToList());
         }
 
@@ -65,7 +57,7 @@ namespace BetterPawnControl.Patches
                 AnimalManager.DirtyPolicy = false;
             }
 
-            if (Widget_Harmony_ModsAvailable.AnimalTabAvailable)
+            if (Widget_ModsAvailable.AnimalTabAvailable)
             {
                 position.x = position.x + 40f;
                 position.y = position.y + 7f;
@@ -82,7 +74,7 @@ namespace BetterPawnControl.Patches
                 ScheduleManager.DirtyPolicy = false;
             }
 
-            if (Widget_Harmony_ModsAvailable.CSLAvailable)
+            if (Widget_ModsAvailable.CSLAvailable)
             {
                 position.x = position.x + 87f;
             }
@@ -140,11 +132,11 @@ namespace BetterPawnControl.Patches
             {
                 AssignManager.CopyToClipboard();
                 SoundDefOf.Tick_High.PlayOneShotOnCamera(null);
-                showAssignPaste = true;
+                AssignManager.showPaste = true;
             }
             TooltipHandler.TipRegion(rect5, "BPC.Copy".Translate());
 
-            if (showAssignPaste)
+            if (AssignManager.showPaste)
             {
                 offSetX += rect3.width;
                 Rect rect6 = new Rect(offSetX + 3f, rect3.height / 4f - 6f, 21f, 28f);
@@ -214,11 +206,11 @@ namespace BetterPawnControl.Patches
             {
                 ScheduleManager.CopyToClipboard();
                 SoundDefOf.Tick_High.PlayOneShotOnCamera(null);
-                showSchedulePaste = true;
+                ScheduleManager.showPaste = true;
             }
             TooltipHandler.TipRegion(rect5, "BPC.CopySchedule".Translate());
 
-            if (showSchedulePaste)
+            if (ScheduleManager.showPaste)
             {
                 offSetX += rect3.width;
                 Rect rect6 = new Rect(offSetX + 3f, rect3.height / 4f - 6f, 21f, 28f);
@@ -289,11 +281,11 @@ namespace BetterPawnControl.Patches
             {
                 WorkManager.CopyToClipboard();
                 SoundDefOf.Tick_High.PlayOneShotOnCamera(null);
-                showWorkPaste = true;
+                WorkManager.showPaste = true;
             }
             TooltipHandler.TipRegion(rect5, "BPC.Copy".Translate());
 
-            if (showWorkPaste)
+            if (WorkManager.showPaste)
             {
                 offSetX += rect3.width;
                 Rect rect6 = new Rect(offSetX + 3f, rect3.height / 4f - 6f, 21f, 28f);
@@ -375,23 +367,6 @@ namespace BetterPawnControl.Patches
                         MenuOptionPriority.Default, null, null, 0f, null));
             }
             Find.WindowStack.Add(new FloatMenu(list));
-        }
-
-        [HarmonyPatch(typeof(MainTabWindow_PawnTable), nameof(MainTabWindow_PawnTable.PostOpen))]
-        static class MainTabWindow_PawnTable_OnPostOpen
-        {
-            static void Postfix()
-            {
-                AssignManager.UpdateState(AssignManager.links, AssignManager.Colonists().ToList(), AssignManager.GetActivePolicy());
-                AssignManager.LoadState(AssignManager.links, AssignManager.Colonists().ToList(), AssignManager.GetActivePolicy());
-                showAssignPaste = false; ScheduleManager.UpdateState(ScheduleManager.links, ScheduleManager.Colonists().ToList(), ScheduleManager.GetActivePolicy());
-                ScheduleManager.LoadState(ScheduleManager.links, ScheduleManager.Colonists().ToList(), ScheduleManager.GetActivePolicy());
-                showSchedulePaste = false;
-                WorkManager.LoadState(WorkManager.links, WorkManager.Colonists().ToList(), WorkManager.GetActivePolicy());
-                showWorkPaste = false;
-                AnimalManager.UpdateState(AnimalManager.links, AnimalManager.Animals().ToList(), AnimalManager.GetActivePolicy());
-                AnimalManager.LoadState(AnimalManager.links, AnimalManager.Animals().ToList(), AnimalManager.GetActivePolicy());
-            }
         }
     }
 }

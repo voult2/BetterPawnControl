@@ -20,7 +20,7 @@ namespace BetterPawnControl.Patches
                 AssignManager.SaveCurrentState(AssignManager.Colonists().ToList());
             }
 
-            if (__instance.GetType().Equals(typeof(MainTabWindow_Work)) || __instance.GetType().FullName.Equals(WORKTAB_MAINTAB))
+            if ( (__instance.GetType().Equals(typeof(MainTabWindow_Work)) || __instance.GetType().FullName.Equals(WORKTAB_MAINTAB)) &&  !Widget_ModsAvailable.DisableBPCOnWorkTab)
             {
                 WorkManager.SaveCurrentState(WorkManager.Colonists().ToList());
             }

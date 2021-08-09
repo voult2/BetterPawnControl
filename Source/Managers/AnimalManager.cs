@@ -58,7 +58,7 @@ namespace BetterPawnControl
                     animalLink.area = p.playerSettings.AreaRestriction;
                     animalLink.followDrafted = p.playerSettings.followDrafted;
                     animalLink.followFieldwork = p.playerSettings.followFieldwork;
-                    if (Widget_Harmony_ModsAvailable.AAFAvailable)
+                    if (Widget_ModsAvailable.AAFAvailable)
                     {
                         animalLink.foodPolicy = p.foodRestriction.CurrentFoodRestriction;
                     }
@@ -67,7 +67,7 @@ namespace BetterPawnControl
                 else
                 {
                     FoodRestriction food = null;
-                    if (Widget_Harmony_ModsAvailable.AAFAvailable)
+                    if (Widget_ModsAvailable.AAFAvailable)
                     {
                         food = p.foodRestriction.CurrentFoodRestriction;
                         if (food == Current.Game.foodRestrictionDatabase.DefaultFoodRestriction())
@@ -102,8 +102,7 @@ namespace BetterPawnControl
         /// <summary>
         /// Get and set all links from an AnimalPolicy 
         /// </summary>
-        internal static void LoadState(
-            List<AnimalLink> links, List<Pawn> pawns, Policy policy)
+        internal static void LoadState(List<AnimalLink> links, List<Pawn> pawns, Policy policy)
         {
             List<AnimalLink> mapLinks = null;
             List<AnimalLink> zoneLinks = null;
@@ -125,7 +124,7 @@ namespace BetterPawnControl
                         p.playerSettings.AreaRestriction = l.area;
                         p.playerSettings.followDrafted = l.followDrafted;
                         p.playerSettings.followFieldwork = l.followFieldwork;
-                        if (Widget_Harmony_ModsAvailable.AAFAvailable)
+                        if (Widget_ModsAvailable.AAFAvailable)
                         {
                             p.foodRestriction.CurrentFoodRestriction = FoodPolicyExits(l.foodPolicy) ?
                                 l.foodPolicy : null;
@@ -170,7 +169,7 @@ namespace BetterPawnControl
                     {
                         l.master = p.playerSettings.Master;
                         l.area = p.playerSettings.AreaRestriction;
-                        if (Widget_Harmony_ModsAvailable.AAFAvailable)
+                        if (Widget_ModsAvailable.AAFAvailable)
                         {
                             l.foodPolicy = p.foodRestriction.CurrentFoodRestriction;
                         }
