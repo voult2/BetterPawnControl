@@ -9,14 +9,17 @@ namespace BetterPawnControl.Patches
     {
         static void Postfix(Pawn __instance)
         {
-            if( AssignManager.slaves.Exists(x => x == __instance.GetUniqueLoadID())) 
+            if (__instance != null)
             {
-                AssignManager.slaves.Remove(__instance.GetUniqueLoadID());
-            }
+                if (AssignManager.slaves.Exists(x => x == __instance.GetUniqueLoadID()))
+                {
+                    AssignManager.slaves.Remove(__instance.GetUniqueLoadID());
+                }
 
-            if (AssignManager.prisoners.Exists(x => x == __instance.GetUniqueLoadID()))
-            {
-                AssignManager.prisoners.Remove(__instance.GetUniqueLoadID());
+                if (AssignManager.prisoners.Exists(x => x == __instance.GetUniqueLoadID()))
+                {
+                    AssignManager.prisoners.Remove(__instance.GetUniqueLoadID());
+                }
             }
         }
     }
