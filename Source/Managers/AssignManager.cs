@@ -7,20 +7,7 @@ namespace BetterPawnControl
     [StaticConstructorOnStartup]
     class AssignManager : Manager<AssignLink>
     {
-        internal static List<string> prisoners = new List<string>();
-        internal static List<string> slaves = new List<string>();
         internal static List<AssignLink> clipboard = new List<AssignLink>();
-
-        internal static void InstantiatePrisoners()
-        {
-            //this is required if there were no prisoners when loading the save file
-            prisoners = new List<string>();
-        }
-
-        internal static void InstantiateSlaves()
-        {
-            slaves = new List<string>();
-        }
 
         internal static Outfit _defaultOutfit = null;
         internal static Outfit DefaultOutfit
@@ -301,11 +288,6 @@ namespace BetterPawnControl
         internal static void CleanDeadColonists(Pawn pawn)
         {
             AssignManager.links.RemoveAll(x => x.colonist == pawn);
-            AssignManager.prisoners.Remove(pawn.GetUniqueLoadID());
-            if( ModsConfig.IdeologyActive)
-            {
-                AssignManager.slaves.Remove(pawn.GetUniqueLoadID());
-            }
         }
 
         internal static bool ActivePoliciesContainsValidMap()
@@ -471,6 +453,28 @@ namespace BetterPawnControl
                 }
                 AssignManager.LoadState(links, Find.CurrentMap.mapPawns.FreeColonists, policy);
             }
+        }
+
+        internal static void SetDefaultsForFreeColonist(Pawn p)
+        {
+            p.outfits.CurrentOutfit = AssignManager.DefaultOutfit;
+            p.drugs.CurrentPolicy = AssignManager.DefaultDrugPolicy;
+            p.foodRestriction.CurrentFoodRestriction = AssignManager.DefaultFoodPolicy;
+            p.playerSettings.medCare = AssignManager.DefaultMedCare;
+        }
+
+        internal static void SetDefaultsForPrisoner(Pawn p)
+        {
+            p.foodRestriction.CurrentFoodRestriction = AssignManager.DefaultPrisonerFoodPolicy;
+            p.playerSettings.medCare = AssignManager.DefaultPrisonerMedCare;
+        }
+
+        internal static void SetDefaultsForSlave(Pawn p)
+        {
+            p.outfits.CurrentOutfit = AssignManager.DefaultSlaveOutfit;
+            p.drugs.CurrentPolicy = AssignManager.DefaultSlaveDrugPolicy;
+            p.foodRestriction.CurrentFoodRestriction = AssignManager.DefaultSlaveFoodPolicy;
+            p.playerSettings.medCare = AssignManager.DefaultSlaveMedCare;
         }
 
 

@@ -22,7 +22,6 @@ namespace BetterPawnControl
                 //This shows there's a fundamental problem with this code
                 //A code refractor is require to remove the Static Managers 
                 //and replace it with GameComponents
-                AssignManager.prisoners = null;
                 AssignManager.links = null;                    
                 AssignManager.policies = null;
                 AssignManager.activePolicies = null;
@@ -59,33 +58,16 @@ namespace BetterPawnControl
 				Scribe_References.Look<FoodRestriction>(ref AssignManager._defaultPrisonerFoodPolicy, "DefaultPrisonerFoodPolicy");
 				Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaulPrisonerMedCare, "DefaultPrisionerMedCare");
 
-
 				if (ModsConfig.IdeologyActive)
 				{
 					Scribe_References.Look<Outfit>(ref AssignManager._defaultSlaveOutfit, "DefaultSlaveOutfit");
 					Scribe_References.Look<FoodRestriction>(ref AssignManager._defaultSlaveFoodPolicy, "DefaultSlaveFoodPolicy");
 					Scribe_References.Look<DrugPolicy>(ref AssignManager._defaultSlaveDrugPolicy, "DefaultSlaveDrugPolicy");
 					Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaulSlaveMedCare, "DefaultSlaveMedCare");
-					Scribe_Collections.Look<string>(ref AssignManager.slaves, "Slaves", LookMode.Value);
-
-					if (AssignManager.slaves == null)
-					{
-						//this is only required if the save file contains empty slaves
-						AssignManager.InstantiateSlaves();
-					}
 				}
 				
 				Scribe_Collections.Look<Policy>(ref AssignManager.policies,"AssignPolicies", LookMode.Deep);
 				Scribe_Collections.Look<AssignLink>(ref AssignManager.links, "AssignLinks", LookMode.Deep);
-				Scribe_Collections.Look<string>(ref AssignManager.prisoners, "Prisoners", LookMode.Value);
-
-				if (AssignManager.prisoners == null)
-				{
-					//this is only required if the save file contains
-					//empty prisoners
-					AssignManager.InstantiatePrisoners();
-				}
-
 				Scribe_Collections.Look<MapActivePolicy>(ref AssignManager.activePolicies, "AssignActivePolicies", LookMode.Deep);
 				Scribe_Collections.Look<Policy>(ref AnimalManager.policies, "AnimalPolicies", LookMode.Deep);
 				Scribe_Collections.Look<AnimalLink>(ref AnimalManager.links, "AnimalLinks", LookMode.Deep);
@@ -106,13 +88,6 @@ namespace BetterPawnControl
 					//have no WorkPolicy data so let's initialize!
 					WorkManager.ForceInit();
 				}
-
-                //if (Scribe.mode == LoadSaveMode.LoadingVars &&
-                //    ScheduleManager.activePolicies == null)
-                //{
-                //    //temporary code to be removed on the next version. To fix saves games without activePolicies
-                //    ScheduleManager.FixActivePolicies();
-                //}
 			}
 
 			if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs)

@@ -73,8 +73,8 @@
   <ItemGroup>
     <Compile Include="Base\AnimalLink.cs" />
     <Compile Include="Base\AssignLink.cs" />
+    <Compile Include="Patches\Pawn_DefaultPolicies.cs" />
     <Compile Include="Patches\MainTabWindow_PawnTable_PostOpen.cs" />
-    <Compile Include="Patches\Pawn_OnExitMap.cs" />
     <Compile Include="Helpers\Widget_ModsAvailable.cs" />
     <Compile Include="Managers\AlertManager.cs" />
     <Compile Include="Base\AlertLevel.cs" />
@@ -92,7 +92,6 @@
     <Compile Include="Managers\WorkManager.cs" />
     <Compile Include="Managers\ScheduleManager.cs" />
     <Compile Include="Managers\Manager.cs" />
-    <Compile Include="Core\DefaultPolicies.cs" />
     <Compile Include="Patches\UIRoot_OnGUI_onKeyPress.cs" />
     <Compile Include="Patches\Window_PreClose.cs" />
     <Compile Include="Patches\Pawn_HealthTracker_OnDead.cs" />
