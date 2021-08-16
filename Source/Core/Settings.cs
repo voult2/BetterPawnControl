@@ -6,8 +6,8 @@ namespace BetterPawnControl
 {
     public class Settings : ModSettings
     {
-        public bool automaticPawnsInterrupt;
-        public bool disableBPCOnWorkTab;
+        public bool automaticPawnsInterrupt = true;
+        public bool disableBPCOnWorkTab = false;
 
         public override void ExposeData()
         {

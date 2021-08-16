@@ -460,13 +460,13 @@ namespace BetterPawnControl
             p.outfits.CurrentOutfit = AssignManager.DefaultOutfit;
             p.drugs.CurrentPolicy = AssignManager.DefaultDrugPolicy;
             p.foodRestriction.CurrentFoodRestriction = AssignManager.DefaultFoodPolicy;
-            p.playerSettings.medCare = AssignManager.DefaultMedCare;
+            //p.playerSettings.medCare = AssignManager.DefaultMedCare;
         }
 
         internal static void SetDefaultsForPrisoner(Pawn p)
         {
             p.foodRestriction.CurrentFoodRestriction = AssignManager.DefaultPrisonerFoodPolicy;
-            p.playerSettings.medCare = AssignManager.DefaultPrisonerMedCare;
+            //p.playerSettings.medCare = AssignManager.DefaultPrisonerMedCare;
         }
 
         internal static void SetDefaultsForSlave(Pawn p)
@@ -474,7 +474,7 @@ namespace BetterPawnControl
             p.outfits.CurrentOutfit = AssignManager.DefaultSlaveOutfit;
             p.drugs.CurrentPolicy = AssignManager.DefaultSlaveDrugPolicy;
             p.foodRestriction.CurrentFoodRestriction = AssignManager.DefaultSlaveFoodPolicy;
-            p.playerSettings.medCare = AssignManager.DefaultSlaveMedCare;
+            //p.playerSettings.medCare = AssignManager.DefaultSlaveMedCare;
         }
 
 

@@ -13,9 +13,7 @@ namespace BetterPawnControl
         {
             if (___pawn != null)
             {
-                //wait one game tick to ensure the pawn status is updated
-                ___pawn.Tick();
-                if (___pawn.IsFreeColonist)
+                if ( ___pawn.IsFreeColonist)
                 {
                     AssignManager.SetDefaultsForFreeColonist(___pawn);
                 }
@@ -43,19 +41,17 @@ namespace BetterPawnControl
         {
             if (p != null)
             {
-                //wait one game tick to ensure the pawn status is updated
-                p.Tick();
-                if (p.IsFreeColonist)
+                if (p != null && p.IsFreeColonist)
                 {
                     AssignManager.SetDefaultsForFreeColonist(p);
                 }
 
-                if (p.IsPrisoner)
+                if (p != null && p.IsPrisoner)
                 {
                     AssignManager.SetDefaultsForPrisoner(p);
                 }
 
-                if (p.IsSlave) 
+                if (p != null && p.IsSlave) 
                 {
                     AssignManager.SetDefaultsForSlave(p);
                 }

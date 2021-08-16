@@ -366,16 +366,16 @@ namespace BetterPawnControl
             else //if (rowNumber == 2)
             {
                 Rect labelDefaultDrugs = new Rect(0, rect.y, one, buttonHeight);
-                Rect labelDefaultMeds = new Rect(one, rect.y, one, buttonHeight);
-                Rect labelPrisionerMeds = new Rect(two, rect.y, one, buttonHeight);
+                //Rect labelDefaultMeds = new Rect(one, rect.y, one, buttonHeight);
+                //Rect labelPrisionerMeds = new Rect(two, rect.y, one, buttonHeight);
                 Rect labelSlaveDrugs = new Rect(three, rect.y, one, buttonHeight);
-                Rect labelSlaveDefaultMeds = new Rect(four, rect.y, one, buttonHeight);
+                //Rect labelSlaveDefaultMeds = new Rect(four, rect.y, one, buttonHeight);
 
                 Widgets.Label(labelDefaultDrugs, "BPC.SelectedDefaultDrug".Translate());
-                Widgets.Label(labelDefaultMeds, "BPC.SelectedDefaultMeds".Translate());
-                Widgets.Label(labelPrisionerMeds, "BPC.SelectedPrisionerMeds".Translate());
+                //Widgets.Label(labelDefaultMeds, "BPC.SelectedDefaultMeds".Translate());
+                //Widgets.Label(labelPrisionerMeds, "BPC.SelectedPrisionerMeds".Translate());
                 Widgets.Label(labelSlaveDrugs, "BPC.SelectedSlaveDefaultDrugs".Translate());
-                Widgets.Label(labelSlaveDefaultMeds, "BPC.SelectedSlaveDefaultMeds".Translate());
+                //Widgets.Label(labelSlaveDefaultMeds, "BPC.SelectedSlaveDefaultMeds".Translate());
             }
 
             Text.Font = GameFont.Small;
@@ -430,155 +430,63 @@ namespace BetterPawnControl
             }
             else //if (rowNumber == 2)
             {
-                float iconSize = NORMAL_HEIGHT;
-                float iconAlignCenter = 0.5f * one - iconSize / 2f;
+                //float iconSize = NORMAL_HEIGHT;
+                //float iconAlignCenter = 0.5f * one - iconSize / 2f;
                 Rect buttonDefaultDrugs = new Rect(0f + alignCenter, rect.y, buttonWidth, buttonHeight);
-                Rect iconDefaultMeds = new Rect(one + iconAlignCenter, rect.y, iconSize, iconSize);
-                Rect iconPrisionerDefaultMeds = new Rect(two + iconAlignCenter, rect.y, iconSize, iconSize);
+                //Rect iconDefaultMeds = new Rect(one + iconAlignCenter, rect.y, iconSize, iconSize);
+                //Rect iconPrisionerDefaultMeds = new Rect(two + iconAlignCenter, rect.y, iconSize, iconSize);
                 Rect buttonSlaveDefaultDrugs = new Rect(three + alignCenter, rect.y, buttonWidth, buttonHeight);
-                Rect iconSlaveDefaultMeds= new Rect(four + iconAlignCenter, rect.y, iconSize, iconSize);
+                //Rect iconSlaveDefaultMeds= new Rect(four + iconAlignCenter, rect.y, iconSize, iconSize);
 
                 if (Widgets.ButtonText(buttonDefaultDrugs, AssignManager.DefaultDrugPolicy.label, true, false, true))
                 {
                     OpenDrugSelectMenu(PawnType.Colonist);
                 }
 
-                if (Widgets.ButtonImage(iconDefaultMeds, GetMedTexture(AssignManager.DefaultMedCare), false))
-                {
-                    OpenMedsSelectMenu(PawnType.Colonist);
-                }
+                //if (Widgets.ButtonImage(iconDefaultMeds, GetMedTexture(AssignManager.DefaultMedCare), false))
+                //{
+                //    OpenMedsSelectMenu(PawnType.Colonist);
+                //}
 
-                if (Widgets.ButtonImage(iconPrisionerDefaultMeds, GetMedTexture(AssignManager.DefaultPrisonerMedCare), false))
-                {
-                    OpenMedsSelectMenu(PawnType.Prisoner);
-                }
+                //if (Widgets.ButtonImage(iconPrisionerDefaultMeds, GetMedTexture(AssignManager.DefaultPrisonerMedCare), false))
+                //{
+                //    OpenMedsSelectMenu(PawnType.Prisoner);
+                //}
 
                 if (Widgets.ButtonText(buttonSlaveDefaultDrugs, AssignManager.DefaultSlaveDrugPolicy.label, true, false, true))
                 {
                     OpenDrugSelectMenu(PawnType.Slave);
                 }
 
-                if (Widgets.ButtonImage(iconSlaveDefaultMeds, GetMedTexture(AssignManager.DefaultSlaveMedCare), false))
-                {
-                    OpenMedsSelectMenu(PawnType.Slave);
-                }
+                //if (Widgets.ButtonImage(iconSlaveDefaultMeds, GetMedTexture(AssignManager.DefaultSlaveMedCare), false))
+                //{
+                //    OpenMedsSelectMenu(PawnType.Slave);
+                //}
             }
             
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.UpperLeft;
         }
 
-        private static void DoDefaultsRowOneOld(Rect rect)
-        {
-            float one = rect.width / 8f;
-            float two = one * 2f;
-            float three = one * 3f;
-            float four = one * 4f;
-            float five = one * 5f;
-            float six = one * 6f;
-            float seven = one * 7f;
-            float buttonWidth = 4f * one / 5f;
-            float buttonHeight = rect.height;
+        //static Texture2D GetMedTexture(MedicalCareCategory meds)
+        //{
+        //    switch (meds)
+        //    {
+        //        case MedicalCareCategory.NoMeds:
+        //            return ContentFinder<Texture2D>.Get("UI/Icons/Medical/NoMeds", true);
+        //        case MedicalCareCategory.NoCare:
+        //            return ContentFinder<Texture2D>.Get("UI/Icons/Medical/NoCare", true);
+        //        case MedicalCareCategory.HerbalOrWorse:
+        //            return ThingDefOf.MedicineHerbal.uiIcon;
+        //        case MedicalCareCategory.NormalOrWorse:
+        //            return ThingDefOf.MedicineIndustrial.uiIcon;
+        //        case MedicalCareCategory.Best:
+        //            return ThingDefOf.MedicineUltratech.uiIcon;
 
-            Rect labelDefaultOutfit = new Rect(0, rect.y, one, buttonHeight);
-            Rect buttonDefaultOutfit = new Rect(one, rect.y, buttonWidth, buttonHeight);
-
-            Rect labelDefaultFood = new Rect(two, rect.y, one, buttonHeight);
-            Rect buttonDefaultFood = new Rect(three, rect.y, buttonWidth, buttonHeight);
-
-            Rect labelDefaultDrug = new Rect(four, rect.y, one, buttonHeight);
-            Rect buttonDefaultDrug = new Rect(five, rect.y, buttonWidth, buttonHeight);
-
-            Rect labelPrisionerDefaultFood = new Rect(six, rect.y, one, buttonHeight);
-            Rect buttonPrisionerDefaultFood = new Rect(seven, rect.y, buttonWidth, buttonHeight);
-
-            Text.Font = GameFont.Tiny;
-            Text.Anchor = TextAnchor.MiddleCenter;
-            
-            Widgets.Label(labelDefaultOutfit, "BPC.SelectedDefaultOutfit".Translate());
-            Widgets.Label(labelDefaultFood, "BPC.SelectedDefaultFood".Translate());
-            Widgets.Label(labelDefaultDrug, "BPC.SelectedDefaultDrug".Translate());
-            Widgets.Label(labelPrisionerDefaultFood, "BPC.SelectedPrisionerDefaultFood".Translate());
-
-
-            if (Widgets.ButtonText(buttonDefaultOutfit, AssignManager.DefaultOutfit.label, true, false, true))
-            {
-                OpenOutfitSelectMenu(PawnType.Colonist);
-            }
-
-            if (Widgets.ButtonText(buttonDefaultFood, AssignManager.DefaultFoodPolicy.label, true, false, true))
-            {
-                OpenFoodSelectMenu(PawnType.Colonist);
-            }
-
-            if (Widgets.ButtonText(buttonDefaultDrug, AssignManager.DefaultDrugPolicy.label, true, false, true))
-            {
-                OpenDrugSelectMenu(PawnType.Colonist);
-            }
-
-            if (Widgets.ButtonText( buttonPrisionerDefaultFood, AssignManager.DefaultPrisonerFoodPolicy.label, true, false, true))
-            {
-                OpenFoodSelectMenu(PawnType.Prisoner);
-            }
-            Text.Font = GameFont.Small;
-            Text.Anchor = TextAnchor.UpperLeft;
-        }
-
-        private static void DoDefaultsRowTwo(Rect rect)
-        {
-            float one = rect.width / 8f;
-            float two = one * 2f;
-            float three = one * 3f;
-            float four = one * 4f;
-            float five = one * 5f;
-            float six = one * 6f;
-            float seven = one * 7f;
-            float buttonWidth = 4f * one / 5f;
-
-            Rect labelDefaultColonistMed = new Rect(two, rect.y, one, rect.height + 6f);
-            Rect buttonDefaultColonistMed = new Rect(three, rect.y, 28f, 28f);
-
-            Rect labelDefaultPrisionerMed = new Rect(four, rect.y, one, rect.height + 6f);
-            Rect buttonDefaultPrisionerMed = new Rect(five, rect.y, 28f, 28f);
-
-            Text.Font = GameFont.Tiny;
-            Text.Anchor = TextAnchor.MiddleCenter;
-            Widgets.Label(labelDefaultColonistMed, "BPC.SelectedDefaultMeds".Translate());
-            
-            Widgets.Label(labelDefaultPrisionerMed, "BPC.SelectedPrisionerMeds".Translate());  
-
-            if (Widgets.ButtonImage(buttonDefaultColonistMed, GetMedTexture(AssignManager.DefaultMedCare), false))
-            {
-                OpenMedsSelectMenu(PawnType.Colonist);
-            }
-
-            if (Widgets.ButtonImage(buttonDefaultPrisionerMed, GetMedTexture(AssignManager.DefaultPrisonerMedCare), false))
-            {
-                OpenMedsSelectMenu(PawnType.Prisoner);
-            }
-            Text.Font = GameFont.Small;
-            Text.Anchor = TextAnchor.UpperLeft;
-        }
-
-        static Texture2D GetMedTexture(MedicalCareCategory meds)
-        {
-            switch (meds)
-            {
-                case MedicalCareCategory.NoMeds:
-                    return ContentFinder<Texture2D>.Get("UI/Icons/Medical/NoMeds", true);
-                case MedicalCareCategory.NoCare:
-                    return ContentFinder<Texture2D>.Get("UI/Icons/Medical/NoCare", true);
-                case MedicalCareCategory.HerbalOrWorse:
-                    return ThingDefOf.MedicineHerbal.uiIcon;
-                case MedicalCareCategory.NormalOrWorse:
-                    return ThingDefOf.MedicineIndustrial.uiIcon;
-                case MedicalCareCategory.Best:
-                    return ThingDefOf.MedicineUltratech.uiIcon;
-
-            }
-            //default
-            return ThingDefOf.MedicineIndustrial.uiIcon;
-        }
+        //    }
+        //    //default
+        //    return ThingDefOf.MedicineIndustrial.uiIcon;
+        //}
         
         private static int MaxNumber(int first, int second)
         {
@@ -665,42 +573,42 @@ namespace BetterPawnControl
             Find.WindowStack.Add(new FloatMenu(list));
         }
 
-        private static void OpenMedsSelectMenu(PawnType type)
-        {
-            List<FloatMenuOption> list = new List<FloatMenuOption>();
+        //private static void OpenMedsSelectMenu(PawnType type)
+        //{
+        //    List<FloatMenuOption> list = new List<FloatMenuOption>();
 
-            List<MedicalCareCategory> medicalCareCategoryList = new List<MedicalCareCategory> { 
-                MedicalCareCategory.NoCare, 
-                MedicalCareCategory.NoMeds, 
-                MedicalCareCategory.HerbalOrWorse, 
-                MedicalCareCategory.NormalOrWorse, 
-                MedicalCareCategory.Best};
+        //    List<MedicalCareCategory> medicalCareCategoryList = new List<MedicalCareCategory> { 
+        //        MedicalCareCategory.NoCare, 
+        //        MedicalCareCategory.NoMeds, 
+        //        MedicalCareCategory.HerbalOrWorse, 
+        //        MedicalCareCategory.NormalOrWorse, 
+        //        MedicalCareCategory.Best};
 
 
-            foreach (MedicalCareCategory medCare in medicalCareCategoryList)
-            {
-                list.Add(
-                    new FloatMenuOption(
-                        medCare.GetLabel(),
-                        delegate
-                        {
-                            if (type == PawnType.Colonist)
-                            {
-                                AssignManager.DefaultMedCare = medCare;
-                            }
-                            else if (type == PawnType.Prisoner)
-                            {
-                                AssignManager.DefaultPrisonerMedCare = medCare;
-                            }
-                            else //if (type == PawnType.Slave)
-                            {
-                                AssignManager.DefaultSlaveMedCare = medCare;
-                            }
-                        },
-                        MenuOptionPriority.Default, null, null, 0f, null));
-            }
-            Find.WindowStack.Add(new FloatMenu(list));
-        }
+        //    foreach (MedicalCareCategory medCare in medicalCareCategoryList)
+        //    {
+        //        list.Add(
+        //            new FloatMenuOption(
+        //                medCare.GetLabel(),
+        //                delegate
+        //                {
+        //                    if (type == PawnType.Slave)
+        //                    {
+        //                        AssignManager.DefaultSlaveMedCare = medCare;
+        //                    }
+        //                    //else if (type == PawnType.Prisoner)
+        //                    //{
+        //                    //    AssignManager.DefaultPrisonerMedCare = medCare;
+        //                    //}
+        //                    //else //if (type == PawnType.Colonist)
+        //                    //{
+        //                    //    AssignManager.DefaultMedCare = medCare;
+        //                    //}
+        //                },
+        //                MenuOptionPriority.Default, null, null, 0f, null));
+        //    }
+        //    Find.WindowStack.Add(new FloatMenu(list));
+        //}
 
         private static void DoAlertRow(Rect rect)
         {
