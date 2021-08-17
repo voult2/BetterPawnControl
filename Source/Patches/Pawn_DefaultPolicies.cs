@@ -41,17 +41,17 @@ namespace BetterPawnControl
         {
             if (p != null)
             {
-                if (p != null && p.IsFreeColonist)
+                if (p.IsFreeColonist)
                 {
                     AssignManager.SetDefaultsForFreeColonist(p);
                 }
 
-                if (p != null && p.IsPrisoner)
+                if (p.IsPrisoner)
                 {
                     AssignManager.SetDefaultsForPrisoner(p);
                 }
 
-                if (p != null && p.IsSlave) 
+                if (p.IsSlave) 
                 {
                     AssignManager.SetDefaultsForSlave(p);
                 }
