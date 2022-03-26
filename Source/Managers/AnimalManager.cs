@@ -62,7 +62,6 @@ namespace BetterPawnControl
                     {
                         animalLink.foodPolicy = p.foodRestriction.CurrentFoodRestriction;
                     }
-
                 }
                 else
                 {
@@ -97,6 +96,17 @@ namespace BetterPawnControl
         internal static void CleanDeadAnimals(Pawn pawn)
         {
             AnimalManager.links.RemoveAll(x => x.animal == pawn);
+        }
+
+        internal static void LinksCleanUp()
+        {
+            for (int i = AnimalManager.links.Count - 1; i >= 0; i--)
+            {
+                if (AnimalManager.links[i].animal == null || AnimalManager.links[i].animal.Faction == null)
+                {
+                    AnimalManager.links.RemoveAt(i);
+                }
+            }
         }
 
         /// <summary>
@@ -165,7 +175,7 @@ namespace BetterPawnControl
             {
                 foreach (AnimalLink l in zoneLinks)
                 {
-                    if (l.animal != null && l.animal.Equals(p))
+                    if (l.animal != null && l.animal.GetUniqueLoadID().Equals(p.GetUniqueLoadID()))
                     {
                         l.master = p.playerSettings.Master;
                         l.area = p.playerSettings.AreaRestriction;

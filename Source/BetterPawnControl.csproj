@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Base\AnimalLink.cs" />
     <Compile Include="Base\AssignLink.cs" />
+    <Compile Include="Patches\FloatMenu_PostClose.cs" />
     <Compile Include="Patches\Pawn_DefaultPolicies.cs" />
     <Compile Include="Patches\MainTabWindow_PawnTable_PostOpen.cs" />
     <Compile Include="Helpers\Widget_ModsAvailable.cs" />

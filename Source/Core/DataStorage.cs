@@ -108,6 +108,6 @@ namespace BetterPawnControl
 					Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaulSlaveMedCare, "DefaultSlaveMedCare");
 				}
 			}
-        }
+		}
     }
 }

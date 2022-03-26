@@ -193,7 +193,7 @@ namespace BetterPawnControl
 
         internal static void SaveCurrentState(List<Pawn> pawns)
         {
-			int currentMap = Find.CurrentMap.uniqueID;
+            int currentMap = Find.CurrentMap.uniqueID;
             //Save current state
             foreach (Pawn p in pawns)
             {
@@ -290,6 +290,17 @@ namespace BetterPawnControl
             AssignManager.links.RemoveAll(x => x.colonist == pawn);
         }
 
+        internal static void LinksCleanUp()
+        {
+            for (int i = AssignManager.links.Count - 1; i >= 0; i--)
+            {
+                if (AssignManager.links[i].colonist == null || !AssignManager.links[i].colonist.IsColonist)
+                {
+                    AssignManager.links.RemoveAt(i);
+                }
+            }
+        }
+
         internal static bool ActivePoliciesContainsValidMap()
         {
             bool containsValidMap = false;
@@ -328,7 +339,7 @@ namespace BetterPawnControl
                 }
             }
         }
-
+        
         internal static void UpdateState( List<AssignLink> links, List<Pawn> pawns, Policy policy)
         {
             List<AssignLink> mapLinks = null;
@@ -344,11 +355,11 @@ namespace BetterPawnControl
             {
                 foreach (AssignLink l in zoneLinks)
                 {
-                    if (l.colonist != null && l.colonist.Equals(p))
+                    if (l.colonist != null && l.colonist.GetUniqueLoadID().Equals(p.GetUniqueLoadID()))
                     {
                         l.hostilityResponse = p.playerSettings.hostilityResponse;
                         l.foodPolicy = p.foodRestriction.CurrentFoodRestriction;
-                        l.outfit = p.outfits.CurrentOutfit;                        
+                        l.outfit = p.outfits.CurrentOutfit;                 
                     }
                 }
             }
@@ -371,7 +382,7 @@ namespace BetterPawnControl
             {
                 foreach (AssignLink l in zoneLinks)
                 {
-                    if (l.colonist != null && l.colonist.Equals(p))
+                    if (l.colonist != null && l.colonist.GetUniqueLoadID().Equals(p.GetUniqueLoadID()))
                     {
                         p.outfits.CurrentOutfit = OutfitExits(l.outfit) ? l.outfit : null;
                         p.drugs.CurrentPolicy = DrugPolicyExits(l.drugPolicy) ? l.drugPolicy : null;
@@ -485,7 +496,6 @@ namespace BetterPawnControl
                 //p.playerSettings.medCare = AssignManager.DefaultSlaveMedCare;
             }
         }
-
 
         internal static void PrintAllAssignPolicies(string spacer = "\n")
         {

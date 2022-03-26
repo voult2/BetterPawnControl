@@ -220,19 +220,36 @@ namespace BetterPawnControl
                         ContentFinder<Texture2D>.Get(
                             "UI/Buttons/Delete", true), null))
                 {
+
                     switch (type)
                     {
                         case Resources.Type.assign:
                             AssignManager.DeletePolicy(policy);
+                            if (policy == AlertManager.GetAlertPolicy(1, type))
+                            {
+                                AlertManager.SetAlertPolicy(1, type, AssignManager.GetPolicy(0));
+                            }
                             break;
                         case Resources.Type.animal:
                             AnimalManager.DeletePolicy(policy);
+                            if (policy == AlertManager.GetAlertPolicy(1, type))
+                            {
+                                AlertManager.SetAlertPolicy(1, type, AnimalManager.GetPolicy(0));
+                            }
                             break;
                         case Resources.Type.restrict:
                             ScheduleManager.DeletePolicy(policy);
+                            if (policy == AlertManager.GetAlertPolicy(1, type))
+                            {
+                                AlertManager.SetAlertPolicy(1, type, ScheduleManager.GetPolicy(0));
+                            }
                             break;
                         case Resources.Type.work:
                             WorkManager.DeletePolicy(policy);
+                            if (policy == AlertManager.GetAlertPolicy(1, type))
+                            {
+                                AlertManager.SetAlertPolicy(1, type, WorkManager.GetPolicy(0));
+                            }
                             break;
                     }
                 }

@@ -75,6 +75,17 @@ namespace BetterPawnControl
             WorkManager.links.RemoveAll(x => x.colonist == pawn);
         }
 
+        internal static void LinksCleanUp()
+        {
+            for (int i = WorkManager.links.Count - 1; i >= 0; i--)
+            {
+                if (WorkManager.links[i].colonist == null || !WorkManager.links[i].colonist.IsColonist)
+                {
+                    WorkManager.links.RemoveAt(i);
+                }
+            }
+        }
+
         internal static bool ActivePoliciesContainsValidMap()
         {
             bool containsValidMap = false;
@@ -198,6 +209,29 @@ namespace BetterPawnControl
                 }
                 WorkManager.LoadState(links, Find.CurrentMap.mapPawns.FreeColonists, policy);
             }
+        }
+
+        internal static void PrintAllWorkPolicies(string spacer = "\n")
+        {
+            Log.Message("[BPC] === List Policies START [" + WorkManager.policies.Count + "] ===");
+            foreach (Policy p in AssignManager.policies)
+            {
+                Log.Message("[BPC]\t" + p.ToString());
+            }
+
+            Log.Message("[BPC] === List ActivePolices START [" + WorkManager.activePolicies.Count + "] ===");
+            foreach (MapActivePolicy m in WorkManager.activePolicies)
+            {
+                Log.Message("[BPC]\t" + m.ToString());
+            }
+
+            Log.Message("[BPC] === List links START [" + AssignManager.links.Count + "] ===");
+            foreach (WorkLink workLink in WorkManager.links)
+            {
+                Log.Message("[BPC]\t" + workLink.ToString());
+            }
+
+            Log.Message(spacer);
         }
     }
 }

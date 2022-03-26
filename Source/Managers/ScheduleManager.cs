@@ -93,6 +93,17 @@ namespace BetterPawnControl
             ScheduleManager.links.RemoveAll(x => x.colonist == pawn);
         }
 
+        internal static void LinksCleanUp()
+        {
+            for (int i = ScheduleManager.links.Count - 1; i >= 0; i--)
+            {
+                if (ScheduleManager.links[i].colonist == null || !ScheduleManager.links[i].colonist.IsColonist)
+                {
+                    ScheduleManager.links.RemoveAt(i);
+                }
+            }
+        }
+
         internal static bool ActivePoliciesContainsValidMap()
         {
             bool containsValidMap = false;
@@ -147,7 +158,7 @@ namespace BetterPawnControl
             {
                 foreach (ScheduleLink l in zoneLinks)
                 {
-                    if (l.colonist != null && l.colonist.Equals(p))
+                    if (l.colonist != null && l.colonist.GetUniqueLoadID().Equals(p.GetUniqueLoadID()))
                     {
                         l.area = p.playerSettings.AreaRestriction;
                     }
@@ -193,7 +204,7 @@ namespace BetterPawnControl
             LoadState(ScheduleManager.links, pawns, policy);
         }
 
-        internal static void PrintAllAssignPolicies()
+        internal static void PrintAllSchedulePolicies(string spacer = "\n")
         {
             Log.Message("[BPC] === List Policies START [" + ScheduleManager.policies.Count +  "] ===");
             foreach (Policy p in ScheduleManager.policies)
@@ -212,6 +223,8 @@ namespace BetterPawnControl
             {
                 Log.Message("[BPC]\t" + ScheduleLink.ToString());
             }
+
+            Log.Message(spacer);
         }
 
         internal static void CopyToClipboard()

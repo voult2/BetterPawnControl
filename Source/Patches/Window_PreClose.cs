@@ -18,21 +18,25 @@ namespace BetterPawnControl.Patches
             if (__instance.GetType().Equals(typeof(MainTabWindow_Assign))) 
             {
                 AssignManager.SaveCurrentState(AssignManager.Colonists().ToList());
+                AssignManager.LinksCleanUp();
             }
 
             if ( (__instance.GetType().Equals(typeof(MainTabWindow_Work)) || __instance.GetType().FullName.Equals(WORKTAB_MAINTAB)) &&  !Widget_ModsAvailable.DisableBPCOnWorkTab)
             {
                 WorkManager.SaveCurrentState(WorkManager.Colonists().ToList());
+                WorkManager.LinksCleanUp();
             }
 
             if (__instance.GetType().Equals(typeof(MainTabWindow_Schedule)))
             {
                 ScheduleManager.SaveCurrentState(ScheduleManager.Colonists().ToList());
+                ScheduleManager.LinksCleanUp();
             }
 
             if (__instance.GetType().Equals(typeof(MainTabWindow_Animals)) || __instance.GetType().FullName.Equals(ANIMALTAB_MAINTAB) || __instance.GetType().FullName.Equals(NUMBERS_DEFNAME))
             {
                 AnimalManager.SaveCurrentState(AnimalManager.Animals().ToList());
+                AnimalManager.LinksCleanUp();
             }
         }
     }

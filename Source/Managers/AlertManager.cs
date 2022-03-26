@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+
 using System;
 using System.Collections.Generic;
 using Verse;
@@ -73,6 +74,10 @@ namespace BetterPawnControl
             return alertLevelsList.Find(x => x.level == level).settings.TryGetValue(type);
         }
 
+        internal static void SetAlertPolicy(int level, Resources.Type type, Policy policy)
+        {
+            alertLevelsList[level].settings[type] = policy;
+        }
         internal static void SaveState(int level, Resources.Type type, Policy policy)
         {
             alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(type, policy);
