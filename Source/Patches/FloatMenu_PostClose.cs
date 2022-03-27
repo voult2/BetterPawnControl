@@ -13,7 +13,7 @@ namespace BetterPawnControl
     {
         private static void Postfix()
         {
-            if (Current.Game != null)
+            if (Current.ProgramState == ProgramState.Playing)
             {
                 AnimalManager.UpdateState(AnimalManager.links, AnimalManager.Animals().ToList(), AnimalManager.GetActivePolicy());
                 ScheduleManager.UpdateState(ScheduleManager.links, ScheduleManager.Colonists().ToList(), ScheduleManager.GetActivePolicy());
