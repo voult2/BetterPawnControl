@@ -293,7 +293,7 @@ namespace BetterPawnControl
             Rect rect4 = new Rect(OFFSETX + three, rect.y, buttonWidth, rect.height + 6f);
 
             if (WorkManager.policies.Count < MAX_POLICIES &&
-                Widgets.ButtonText(rect1, "BPC.NewWorkPolicy".Translate(), true, false, true))
+                Widgets.ButtonText(rect1, "BPC.NewWorkPolicy".Translate(), true, false, true, null))
             {
                 int lastItem = WorkManager.policies.Count - 1;
                 int label_id = WorkManager.policies[lastItem].id;
@@ -302,7 +302,7 @@ namespace BetterPawnControl
             }
 
             if (ScheduleManager.policies.Count < MAX_POLICIES &&
-                Widgets.ButtonText(rect2, "BPC.NewRestrictPolicy".Translate(), true, false, true))
+                Widgets.ButtonText(rect2, "BPC.NewRestrictPolicy".Translate(), true, false, true, null))
             {
                 int lastItem = ScheduleManager.policies.Count - 1;
                 int label_id = ScheduleManager.policies[lastItem].id;
@@ -311,7 +311,7 @@ namespace BetterPawnControl
             }
 
             if (AssignManager.policies.Count < MAX_POLICIES &&
-                Widgets.ButtonText(rect3, "BPC.NewAssignPolicy".Translate(), true, false, true))
+                Widgets.ButtonText(rect3, "BPC.NewAssignPolicy".Translate(), true, false, true, null))
             {
                 int lastItem = AssignManager.policies.Count - 1;
                 int label_id = AssignManager.policies[lastItem].id;
@@ -320,7 +320,7 @@ namespace BetterPawnControl
             }
 
             if (AnimalManager.policies.Count < MAX_POLICIES &&
-                Widgets.ButtonText(rect4, "BPC.NewAnimalPolicy".Translate(), true, false, true))
+                Widgets.ButtonText(rect4, "BPC.NewAnimalPolicy".Translate(), true, false, true, null))
             {
                 int lastItem = AnimalManager.policies.Count - 1;
                 int label_id = AnimalManager.policies[lastItem].id;
@@ -420,27 +420,27 @@ namespace BetterPawnControl
                 Rect buttonSlaveDefaultOutfit = new Rect(three + alignCenter, rect.y, buttonWidth, buttonHeight);
                 Rect buttonSlaveDefaultFood = new Rect(four + alignCenter, rect.y, buttonWidth, buttonHeight);
 
-                if (Widgets.ButtonText(buttonDefaultOutfit, AssignManager.DefaultOutfit.label, true, false, true))
+                if (Widgets.ButtonText(buttonDefaultOutfit, AssignManager.DefaultOutfit.label, true, false, true, null))
                 {
                     OpenOutfitSelectMenu(PawnType.Colonist);
                 }
 
-                if (Widgets.ButtonText(buttonDefaultFood, AssignManager.DefaultFoodPolicy.label, true, false, true))
+                if (Widgets.ButtonText(buttonDefaultFood, AssignManager.DefaultFoodPolicy.label, true, false, true, null))
                 {
                     OpenFoodSelectMenu(PawnType.Colonist);
                 }
 
-                if (Widgets.ButtonText(buttonPrisionerDefaultFood, AssignManager.DefaultPrisonerFoodPolicy.label, true, false, true))
+                if (Widgets.ButtonText(buttonPrisionerDefaultFood, AssignManager.DefaultPrisonerFoodPolicy.label, true, false, true, null))
                 {
                     OpenFoodSelectMenu(PawnType.Prisoner);
                 }
 
-                if (Widgets.ButtonText(buttonSlaveDefaultOutfit, AssignManager.DefaultSlaveOutfit.label, true, false, true))
+                if (Widgets.ButtonText(buttonSlaveDefaultOutfit, AssignManager.DefaultSlaveOutfit.label, true, false, true, null))
                 {
                     OpenOutfitSelectMenu(PawnType.Slave);
                 }
 
-                if (Widgets.ButtonText(buttonSlaveDefaultFood, AssignManager.DefaultSlaveFoodPolicy.label, true, false, true))
+                if (Widgets.ButtonText(buttonSlaveDefaultFood, AssignManager.DefaultSlaveFoodPolicy.label, true, false, true, null))
                 {
                     OpenFoodSelectMenu(PawnType.Slave);
                 }
@@ -455,7 +455,7 @@ namespace BetterPawnControl
                 Rect buttonSlaveDefaultDrugs = new Rect(three + alignCenter, rect.y, buttonWidth, buttonHeight);
                 //Rect iconSlaveDefaultMeds= new Rect(four + iconAlignCenter, rect.y, iconSize, iconSize);
 
-                if (Widgets.ButtonText(buttonDefaultDrugs, AssignManager.DefaultDrugPolicy.label, true, false, true))
+                if (Widgets.ButtonText(buttonDefaultDrugs, AssignManager.DefaultDrugPolicy.label, true, false, true, null))
                 {
                     OpenDrugSelectMenu(PawnType.Colonist);
                 }
@@ -470,7 +470,7 @@ namespace BetterPawnControl
                 //    OpenMedsSelectMenu(PawnType.Prisoner);
                 //}
 
-                if (Widgets.ButtonText(buttonSlaveDefaultDrugs, AssignManager.DefaultSlaveDrugPolicy.label, true, false, true))
+                if (Widgets.ButtonText(buttonSlaveDefaultDrugs, AssignManager.DefaultSlaveDrugPolicy.label, true, false, true, null))
                 {
                     OpenDrugSelectMenu(PawnType.Slave);
                 }
@@ -678,7 +678,7 @@ namespace BetterPawnControl
         {
             if (Widgets.ButtonText(
                 buttonWorkAlert,
-                AlertManager.GetAlertPolicy(alertLevel, type).label, true, false, true))
+                AlertManager.GetAlertPolicy(alertLevel, type).label, true, false, true, null))
             {
                 OpenPolicySelectMenu(type, alertLevel);
             }

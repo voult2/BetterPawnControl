@@ -110,7 +110,7 @@ namespace BetterPawnControl.Patches
             Text.Anchor = TextAnchor.UpperLeft;
             Rect rect2 = new Rect(offSetX, Mathf.Round(pos.height / 4f) - 4f, rect1.width, Mathf.Round(pos.height / 4f) + 4f);
 
-            if (Widgets.ButtonText(rect2, AssignManager.GetActivePolicy().label, true, false, true))
+            if (Widgets.ButtonText(rect2, AssignManager.GetActivePolicy().label, true, false, true, null))
             {
                 AssignManager.SaveCurrentState(colonists);
                 OpenAssignPolicySelectMenu(AssignManager.links, colonists);
@@ -118,7 +118,7 @@ namespace BetterPawnControl.Patches
 
             offSetX += rect1.width;
             Rect rect3 = new Rect(offSetX, 0f, 20f, Mathf.Round(pos.height / 2f));
-            if (Widgets.ButtonText(rect3, "", true, false, true))
+            if (Widgets.ButtonText(rect3, "", true, false, true, null))
             {
                 Find.WindowStack.Add(new Dialog_ManagePolicies(Find.CurrentMap));
             }
@@ -185,14 +185,14 @@ namespace BetterPawnControl.Patches
             Text.Anchor = TextAnchor.UpperLeft;
             Rect rect2 = new Rect(offSetX, Mathf.Round(pos.height / 4f) - 4f, rect1.width, Mathf.Round(pos.height / 4f) + 4f);
 
-            if (Widgets.ButtonText(rect2, ScheduleManager.GetActivePolicy().label, true, false, true))
+            if (Widgets.ButtonText(rect2, ScheduleManager.GetActivePolicy().label, true, false, true, null))
             {
                 ScheduleManager.SaveCurrentState(colonists);
                 OpenSchedulePolicySelectMenu(ScheduleManager.links, colonists);
             }
             offSetX += rect1.width;
             Rect rect3 = new Rect(offSetX, 0f, 20f, Mathf.Round(pos.height / 2f));
-            if (Widgets.ButtonText(rect3, "", true, false, true))
+            if (Widgets.ButtonText(rect3, "", true, false, true, null))
             {
                 Find.WindowStack.Add(new Dialog_ManagePolicies(Find.CurrentMap));
             }
@@ -260,14 +260,14 @@ namespace BetterPawnControl.Patches
 
             if (Widgets.ButtonText(
                 rect2, WorkManager.GetActivePolicy().label,
-                true, false, true))
+                true, false, true, null))
             {
                 WorkManager.SaveCurrentState(colonists);
                 OpenWorkPolicySelectMenu(WorkManager.links, colonists);
             }
             offSetX += rect1.width;
             Rect rect3 = new Rect(offSetX, 0f, 20f, Mathf.Round(pos.height / 2f));
-            if (Widgets.ButtonText(rect3, "", true, false, true))
+            if (Widgets.ButtonText(rect3, "", true, false, true, null))
             {
                 Find.WindowStack.Add(new Dialog_ManagePolicies(Find.CurrentMap));
             }
@@ -332,7 +332,7 @@ namespace BetterPawnControl.Patches
             Text.Anchor = TextAnchor.UpperLeft;
             Rect rect2 = new Rect(offSetX, Mathf.Round(pos.height / 4f) - 4f, rect1.width, Mathf.Round(pos.height / 4f) + 4f);
 
-            if (Widgets.ButtonText(rect2, AnimalManager.GetActivePolicy().label, true, false, true))
+            if (Widgets.ButtonText(rect2, AnimalManager.GetActivePolicy().label, true, false, true, null))
             {
                 AnimalManager.SaveCurrentState(AnimalManager.Animals().ToList());
                 OpenAnimalPolicySelectMenu(AnimalManager.links, AnimalManager.Animals().ToList());
@@ -340,7 +340,7 @@ namespace BetterPawnControl.Patches
             offSetX += rect1.width;
             Rect rect3 = new Rect(offSetX, 0f, 20f, Mathf.Round(pos.height / 2f));
 
-            if (Widgets.ButtonText(rect3, "", true, false, true))
+            if (Widgets.ButtonText(rect3, "", true, false, true, null))
             {
                 Find.WindowStack.Add( new Dialog_ManagePolicies(Find.CurrentMap));
             }
