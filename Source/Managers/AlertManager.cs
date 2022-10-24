@@ -49,7 +49,7 @@ namespace BetterPawnControl
         internal static void PawnsInterruptForced()
         {
             List<Pawn> Pawns = Find.CurrentMap.mapPawns.FreeColonists;
-            foreach (Pawn pawn in Pawns)
+            foreach (Pawn pawn in Pawns.ToArray())
             {
                 pawn.mindState.priorityWork.ClearPrioritizedWorkAndJobQueue();
                 if (pawn.Spawned && !pawn.Downed && !pawn.InMentalState && !pawn.Drafted)
