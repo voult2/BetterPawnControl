@@ -30,8 +30,8 @@ namespace BetterPawnControl
             base.DoSettingsWindowContents(inRect);
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(inRect);
-            listingStandard.CheckboxLabeled("BPC.AutomaticPawnsInterruptSetting".Translate(), ref settings.automaticPawnsInterrupt);
-            listingStandard.CheckboxLabeled("BPC.DisableBPCOnWorkTabSetting".Translate(), ref settings.disableBPCOnWorkTab, "BPC.DisableBPCOnWorkTabTooltip".Translate());
+            listingStandard.CheckboxLabeled("BPC.AutomaticPawnsInterruptSetting".Translate(), ref settings.automaticPawnsInterrupt,null,0f,1f);
+            listingStandard.CheckboxLabeled("BPC.DisableBPCOnWorkTabSetting".Translate(), ref settings.disableBPCOnWorkTab, "BPC.DisableBPCOnWorkTabTooltip".Translate(),0f,1f);
             listingStandard.End();
         }
 
