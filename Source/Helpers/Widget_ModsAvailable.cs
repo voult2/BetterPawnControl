@@ -12,7 +12,6 @@ namespace BetterPawnControl
     {
         private const string WORKTAB = "Work Tab";
         private const string ANIMALTAB= "Animal Tab";
-        private const string WORKTAB_UPDATE = "Work Tab 1.3 Update";
         private const string CSL = "Children, school and learning";
         private const string AAF = "Assign Animal Food";
 
@@ -34,8 +33,7 @@ namespace BetterPawnControl
         {
             get
             {
-                return  LoadedModManager.RunningMods.Any(mod => mod.Name == WORKTAB) || 
-                        LoadedModManager.RunningMods.Any(mod => mod.Name == WORKTAB_UPDATE);
+                return  LoadedModManager.RunningMods.Any(mod => mod.Name == WORKTAB);
             }
         }
 

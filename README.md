@@ -19,7 +19,7 @@ You can also setup a default outfit, food and drug when a new colonist joins you
 
 ## Notes
 
-This mod was first released on Rimword Alpha 15 and is essencially a productive mod to minimise animal areas and colonist outfits and drugs micro-management. 
+This mod was first released on Rimword Alpha 15 and is essencially a quality of life (QoL) mod to minimise pawns micro-management. 
 
 ## Credits
 - Fluffy for all the help with Animal Tab integration!
@@ -33,3 +33,4 @@ This mod was first released on Rimword Alpha 15 and is essencially a productive 
 - 53N4 and Crusader for spanish translation
 - Dango998 for chinese simplified translation
 - muggenhor for AutoCleaner integration
+- Deno226 for v2.4 contributions

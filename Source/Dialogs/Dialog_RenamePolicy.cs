@@ -8,7 +8,7 @@ namespace BetterPawnControl
     {
 
         private Policy policy = null;
-        private int maxLength = 12;
+        private readonly int maxLength = 12;
         private Resources.Type type = Resources.Type.animal;
 
         public Dialog_RenamePolicy(Policy policy, Resources.Type type)
@@ -53,6 +53,12 @@ namespace BetterPawnControl
                     break;
                 case Resources.Type.work:
                     if (WorkManager.policies.Any((Policy d) => d.label == name))
+                    {
+                        str = "NameIsInUse".Translate();
+                    }
+                    break;
+                case Resources.Type.mech:
+                    if (MechManager.policies.Any((Policy d) => d.label == name))
                     {
                         str = "NameIsInUse".Translate();
                     }

@@ -115,6 +115,11 @@ namespace BetterPawnControl
 				{
 					link.ChangeType<AnimalLink>().mapId = dstMap;
 				}
+
+				if (link.GetType() == typeof(MechLink))
+				{
+					link.ChangeType<MechLink>().mapId = dstMap;
+				}
 			}
 		}
 

@@ -11,7 +11,6 @@ namespace BetterPawnControl
     {
         internal static void DeletePolicy(Policy policy)
         {
-            //delete if not default AssignPolicy
             if (policy != null && policy.id > 0)
             {
                 links.RemoveAll(x => x.zone == policy.id);
@@ -147,12 +146,12 @@ namespace BetterPawnControl
 
         internal static void LoadState(Policy policy)
         {
-            IEnumerable<Pawn> pawns = 
-                from p in Find.CurrentMap.mapPawns.PawnsInFaction(Faction.OfPlayer)
-                where p.RaceProps.Animal
-                select p;
+            //IEnumerable<Pawn> pawns = 
+            //    from p in Find.CurrentMap.mapPawns.PawnsInFaction(Faction.OfPlayer)
+            //    where p.RaceProps.Animal
+            //    select p;
 
-            LoadState(AnimalManager.links, pawns.ToList(), policy);
+            LoadState(AnimalManager.links, Animals().ToList(), policy);
         }
 
         /// <summary>

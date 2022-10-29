@@ -36,6 +36,11 @@ namespace BetterPawnControl.Patches
             {
                 DrawAnimalBPCButtons(__instance, position);
             }
+
+            if (___def == PawnTableDefOf.Mechs )
+            {
+                DrawMechBPCButtons(__instance, position);
+            }
         }
 
         private static void DrawWorkBPCButtons(PawnTable __instance, Vector2 position)
@@ -59,11 +64,11 @@ namespace BetterPawnControl.Patches
 
             if (Widget_ModsAvailable.AnimalTabAvailable)
             {
-                position.x = position.x + 40f;
-                position.y = position.y + 7f;
+                position.x += 40f;
+                position.y += 7f;
             }
 
-            DrawBPCButtons_AnimalTab(position, 5f, __instance.Size.y + 15f, AnimalManager.Animals().ToList());
+            DrawBPCButtons_AnimalTab(position, 5f, __instance.Size.y + 15f);
         }
 
         private static void DrawSheduleBPCButtons(PawnTable __instance, Vector2 position)
@@ -76,7 +81,7 @@ namespace BetterPawnControl.Patches
 
             if (Widget_ModsAvailable.CSLAvailable)
             {
-                position.x = position.x + 87f;
+                position.x += 87f;
             }
 
             DrawBPCButtons_ScheduleTab(position, 5f, __instance.Size.y + 15f, ScheduleManager.Colonists().ToList());
@@ -91,6 +96,17 @@ namespace BetterPawnControl.Patches
             }
 
             DrawBPCButtons_AssignTab(position, 5f, __instance.Size.y + 15f, AssignManager.Colonists().ToList());
+        }
+
+        private static void DrawMechBPCButtons(PawnTable __instance, Vector2 position)
+        {
+            if (MechManager.DirtyPolicy)
+            {
+                MechManager.LoadState(MechManager.links, MechManager.Mechs().ToList(), MechManager.GetActivePolicy());
+                MechManager.DirtyPolicy = false;
+            }
+
+            DrawBPCButtons_MechTab(position, 5f, __instance.Size.y + 15f);
         }
 
         private static void DrawBPCButtons_AssignTab(Vector2 position, float X_ExtraSpace, float Y_ExtraSpace, List<Pawn> colonists)
@@ -317,7 +333,7 @@ namespace BetterPawnControl.Patches
             Find.WindowStack.Add(new FloatMenu(list));
         }
 
-        private static void DrawBPCButtons_AnimalTab(Vector2 position, float X_ExtraSpace, float Y_ExtraSpace, List<Pawn> animals)
+        private static void DrawBPCButtons_AnimalTab(Vector2 position, float X_ExtraSpace, float Y_ExtraSpace)
         {
             Rect pos = new Rect(position.x + X_ExtraSpace, position.y + Y_ExtraSpace, 600f, 65f);
             float offSetX = 0f;
@@ -368,5 +384,58 @@ namespace BetterPawnControl.Patches
             }
             Find.WindowStack.Add(new FloatMenu(list));
         }
+
+        private static void DrawBPCButtons_MechTab(Vector2 position, float X_ExtraSpace, float Y_ExtraSpace)
+        {
+            Rect pos = new Rect(position.x + X_ExtraSpace, position.y + Y_ExtraSpace, 600f, 65f);
+            float offSetX = 0f;
+
+            GUI.BeginGroup(pos);
+            Text.Font = GameFont.Tiny;
+            Text.Anchor = TextAnchor.LowerCenter;
+            Rect rect1 = new Rect(offSetX, -8f, 165f, Mathf.Round(pos.height / 3f));
+            Widgets.Label(rect1, "BPC.CurrentMechPolicy".Translate());
+
+            Text.Font = GameFont.Small;
+            Text.Anchor = TextAnchor.UpperLeft;
+            Rect rect2 = new Rect(offSetX, Mathf.Round(pos.height / 4f) - 4f, rect1.width, Mathf.Round(pos.height / 4f) + 4f);
+
+            if (Widgets.ButtonText(rect2, MechManager.GetActivePolicy().label, true, false, true))
+            {
+                MechManager.SaveCurrentState(MechManager.Mechs().ToList());;
+                OpenMechPolicySelectMenu(MechManager.links, MechManager.Mechs().ToList());
+            }
+            offSetX += rect1.width;
+            Rect rect3 = new Rect(offSetX, 0f, 20f, Mathf.Round(pos.height / 2f));
+
+            if (Widgets.ButtonText(rect3, "", true, false, true))
+            {
+                Find.WindowStack.Add(new Dialog_ManagePolicies(Find.CurrentMap));
+            }
+            Rect rect4 = new Rect(offSetX + 3f, rect3.height / 4f, 14f, 14f);
+            GUI.DrawTexture(rect4, Resources.Textures.Settings);
+            TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
+
+            GUI.EndGroup();
+        }
+
+        private static void OpenMechPolicySelectMenu( List<MechLink> links, List<Pawn> pawns)
+        {
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
+
+            foreach (Policy mechPolicy in MechManager.policies)
+            {
+                list.Add(
+                    new FloatMenuOption(mechPolicy.label,
+                        delegate
+                        {
+                            MechManager.LoadState(links, pawns, mechPolicy);
+                        },
+                        MenuOptionPriority.Default, null, null, 0f, null));
+            }
+            Find.WindowStack.Add(new FloatMenu(list));
+        }
+
+
     }
 }

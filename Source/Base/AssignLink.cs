@@ -1,6 +1,5 @@
 ﻿using RimWorld;
 using Verse;
-using System.Collections.Generic;
 
 namespace BetterPawnControl
 {
@@ -11,10 +10,8 @@ namespace BetterPawnControl
         internal Outfit outfit = null;
         internal FoodRestriction foodPolicy = null;
         internal DrugPolicy drugPolicy = null;
-        internal HostilityResponseMode hostilityResponse =
-            HostilityResponseMode.Flee;
+        internal HostilityResponseMode hostilityResponse = HostilityResponseMode.Flee;
         internal int loadoutId = 1;
-        //internal Dictionary<InventoryStockGroupDef, InventoryStockEntry> stockEntries = null;
         //internal int mapId = 0;
 
         public AssignLink() { }
@@ -59,27 +56,10 @@ namespace BetterPawnControl
                 "  DrugPolicy: " + drug +
                 "  HostilityResponse: " + hostilityResponse +
                 "  LoadoutId: " + loadoutId +
-         //       "  InventoryStock: " + StockEntriesToString() +
                 "  MapID: " + mapId;
         }
 
-        //public string StockEntriesToString()
-        //{
-        //    string res = "";
-        //    if (!stockEntries.NullOrEmpty())
-        //    {
-        //        foreach (var stockEntry in stockEntries.Keys)
-        //        {
-        //            res += stockEntries.TryGetValue(stockEntry).thingDef.defName + "Count-" + stockEntries.TryGetValue(stockEntry).count.ToString();
-        //        }
-        //    }
-        //    return res;
-        //}
 
-        //public void stockEntriesInit()
-        //{
-        //    stockEntries = new Dictionary<InventoryStockGroupDef, InventoryStockEntry>();
-        //}
 
         /// <summary>
         /// Data for saving/loading
@@ -98,12 +78,6 @@ namespace BetterPawnControl
                 this.loadoutId = 1;                
             }
             Scribe_Values.Look<int>(ref mapId, "mapId", 0, true);
-            //if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs && stockEntries == null )
-            //{
-            //    //this means the current save does not contain stockEntries data. So let's start new
-            //    this.stockEntries = new Dictionary<InventoryStockGroupDef, InventoryStockEntry>();
-            //}
-
         }
     }
 }

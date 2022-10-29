@@ -15,9 +15,12 @@ namespace BetterPawnControl
         {
             if (Current.ProgramState == ProgramState.Playing)
             {
+                //Everytime a float opens, BPC is saved regadless if any related pawns settings tracked by BPC are changed.
+                //A better solution could be to Harmonize the exact function where the setting is changed but it is hard to pin-point exactly where it happens. 
                 AnimalManager.UpdateState(AnimalManager.links, AnimalManager.Animals().ToList(), AnimalManager.GetActivePolicy());
                 ScheduleManager.UpdateState(ScheduleManager.links, ScheduleManager.Colonists().ToList(), ScheduleManager.GetActivePolicy());
                 AssignManager.UpdateState(AssignManager.links, AssignManager.Colonists().ToList(), AssignManager.GetActivePolicy());
+                MechManager.UpdateState(MechManager.links, MechManager.Mechs().ToList(), MechManager.GetActivePolicy());
             }           
         }
     }

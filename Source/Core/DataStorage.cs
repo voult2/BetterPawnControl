@@ -22,19 +22,19 @@ namespace BetterPawnControl
                 //This shows there's a fundamental problem with this code
                 //A code refractor is require to remove the Static Managers 
                 //and replace it with GameComponents
-                AssignManager.links = null;                    
+                AssignManager.links = null;
                 AssignManager.policies = null;
                 AssignManager.activePolicies = null;
                 AssignManager.DefaultDrugPolicy = null;
                 AssignManager.DefaultFoodPolicy = null;
                 AssignManager.DefaultOutfit = null;
                 AssignManager.DefaultPrisonerFoodPolicy = null;
-				if (ModsConfig.IdeologyActive)
-				{
-					AssignManager.DefaultSlaveFoodPolicy = null;
-					AssignManager.DefaultSlaveOutfit = null;
-				}
-				AnimalManager.links = null;
+                if (ModsConfig.IdeologyActive)
+                {
+                    AssignManager.DefaultSlaveFoodPolicy = null;
+                    AssignManager.DefaultSlaveOutfit = null;
+                }
+                AnimalManager.links = null;
                 AnimalManager.policies = null;
                 AnimalManager.activePolicies = null;
                 WorkManager.links = null;
@@ -43,12 +43,14 @@ namespace BetterPawnControl
                 ScheduleManager.links = null;
                 ScheduleManager.policies = null;
                 ScheduleManager.activePolicies = null;
-				AlertManager.alertLevelsList = null;
-				System.GC.Collect();
+                MechManager.links = null;
+                MechManager.policies = null;
+                MechManager.activePolicies = null;
+                AlertManager.alertLevelsList = null;
+                System.GC.Collect();
             }
 
-            if (Scribe.mode == LoadSaveMode.LoadingVars ||
-				Scribe.mode == LoadSaveMode.Saving)
+            if (Scribe.mode == LoadSaveMode.LoadingVars || Scribe.mode == LoadSaveMode.Saving)
 			{
 				Scribe_References.Look<Outfit>(ref AssignManager._defaultOutfit,"DefaultOutfit");
 				Scribe_References.Look<FoodRestriction>(ref AssignManager._defaultFoodPolicy, "DefaultFoodPolicy");
@@ -69,26 +71,41 @@ namespace BetterPawnControl
 				Scribe_Collections.Look<Policy>(ref AssignManager.policies,"AssignPolicies", LookMode.Deep);
 				Scribe_Collections.Look<AssignLink>(ref AssignManager.links, "AssignLinks", LookMode.Deep);
 				Scribe_Collections.Look<MapActivePolicy>(ref AssignManager.activePolicies, "AssignActivePolicies", LookMode.Deep);
+				
 				Scribe_Collections.Look<Policy>(ref AnimalManager.policies, "AnimalPolicies", LookMode.Deep);
 				Scribe_Collections.Look<AnimalLink>(ref AnimalManager.links, "AnimalLinks", LookMode.Deep);
 				Scribe_Collections.Look<MapActivePolicy>(ref AnimalManager.activePolicies, "AnimalActivePolicies", LookMode.Deep);
+				
 				Scribe_Collections.Look<Policy>(ref ScheduleManager.policies, "RestrictPolicies", LookMode.Deep);
 				Scribe_Collections.Look<ScheduleLink>(ref ScheduleManager.links, "ScheduleLinks", LookMode.Deep);
                 Scribe_Collections.Look<MapActivePolicy>(ref ScheduleManager.activePolicies, "RestrictActivePolicies", LookMode.Deep);
-                Scribe_Collections.Look<Policy>(ref WorkManager.policies, "WorkPolicies", LookMode.Deep);
+                
+				Scribe_Collections.Look<Policy>(ref WorkManager.policies, "WorkPolicies", LookMode.Deep);
 				Scribe_Collections.Look<WorkLink>(ref WorkManager.links, "WorkLinks", LookMode.Deep);
 				Scribe_Collections.Look<MapActivePolicy>(ref WorkManager.activePolicies, "WorkActivePolicies", LookMode.Deep);
+				
+				Scribe_Collections.Look<Policy>(ref MechManager.policies, "MechPolicies", LookMode.Deep);
+				Scribe_Collections.Look<MechLink>(ref MechManager.links, "MechLinks", LookMode.Deep);
+				Scribe_Collections.Look<MapActivePolicy>(ref MechManager.activePolicies, "MechActivePolicies", LookMode.Deep);
+				
 				Scribe_Values.Look<int>(ref AlertManager._alertLevel, "ActiveLevel", 0, true);
 				Scribe_Collections.Look<AlertLevel>(ref AlertManager.alertLevelsList, "AlertLevelsList", LookMode.Deep);
 
-				if (Scribe.mode == LoadSaveMode.LoadingVars &&
-					WorkManager.activePolicies == null)
+				if (Scribe.mode == LoadSaveMode.LoadingVars && WorkManager.activePolicies == null)
 				{
 					//this only happens with existing saves. Existing saves 
 					//have no WorkPolicy data so let's initialize!
 					WorkManager.ForceInit();
 				}
-			}
+
+                if (Scribe.mode == LoadSaveMode.LoadingVars && MechManager.activePolicies == null)
+                {
+					//this only happens with existing saves (v1.3 -> 1.4) . 
+					// Existing saves have no Mech data so let's initialize!
+					MechManager.ForceInit();
+                }
+
+            }
 
 			if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs)
 			{

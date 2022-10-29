@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Verse;
 using Verse.AI;
 
@@ -19,7 +20,7 @@ namespace BetterPawnControl
         {
             get
             {
-                return _alertLevel > 0 ? true : false;
+                return _alertLevel > 0;
             }
             set
             {
@@ -32,14 +33,16 @@ namespace BetterPawnControl
             if (!_initialized)
             {
                 alertLevelsList = new List<AlertLevel>();
-                Dictionary<Resources.Type, Policy> noAlert = new Dictionary<Resources.Type, Policy>();
-                noAlert.Add(Resources.Type.work, WorkManager.GetActivePolicy());
-                noAlert.Add(Resources.Type.restrict, ScheduleManager.GetActivePolicy());
-                noAlert.Add(Resources.Type.assign, AssignManager.GetActivePolicy());
-                noAlert.Add(Resources.Type.animal, AnimalManager.GetActivePolicy());
+                Dictionary<Resources.Type, Policy> noAlert = new Dictionary<Resources.Type, Policy>
+                {
+                    { Resources.Type.work, WorkManager.GetActivePolicy() },
+                    { Resources.Type.restrict, ScheduleManager.GetActivePolicy() },
+                    { Resources.Type.assign, AssignManager.GetActivePolicy() },
+                    { Resources.Type.animal, AnimalManager.GetActivePolicy() },
+                    { Resources.Type.mech, MechManager.GetActivePolicy() }
+                };
 
                 Dictionary<Resources.Type, Policy> alertOn = new Dictionary<Resources.Type, Policy>(noAlert);
-
                 alertLevelsList.Add(new AlertLevel(0, noAlert));
                 alertLevelsList.Add(new AlertLevel(1, alertOn));
                 _initialized = true;
@@ -48,8 +51,8 @@ namespace BetterPawnControl
 
         internal static void PawnsInterruptForced()
         {
-            List<Pawn> Pawns = Find.CurrentMap.mapPawns.FreeColonists;
-            foreach (Pawn pawn in Pawns)
+            List<Pawn> PawnsList = Find.CurrentMap.mapPawns.FreeColonists.ToList();
+            foreach (Pawn pawn in PawnsList)
             {
                 pawn.mindState.priorityWork.ClearPrioritizedWorkAndJobQueue();
                 if (pawn.Spawned && !pawn.Downed && !pawn.InMentalState && !pawn.Drafted)
@@ -71,7 +74,22 @@ namespace BetterPawnControl
             {
                 ForceInit();
             }
-            return alertLevelsList.Find(x => x.level == level).settings.TryGetValue(type);
+
+            Policy alertPolicy = alertLevelsList.Find(x => x.level == level).settings.TryGetValue(type);
+
+            if (alertPolicy == null) 
+            {
+                //This means the alertLevelsList is missing a default policy.
+                //This can be caused by loading a save from 1.3 on 1.4 (missing the new mech data)
+                if (type == Resources.Type.mech)
+                {
+                    alertLevelsList[0].settings.Add(Resources.Type.mech, MechManager.GetActivePolicy());
+                    alertLevelsList[1].settings.Add(Resources.Type.mech, MechManager.GetActivePolicy());
+                    alertPolicy = MechManager.GetActivePolicy();
+                }
+            }
+
+            return alertPolicy;
         }
 
         internal static void SetAlertPolicy(int level, Resources.Type type, Policy policy)
@@ -91,6 +109,7 @@ namespace BetterPawnControl
                 alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.restrict, ScheduleManager.GetActivePolicy());
                 alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.assign, AssignManager.GetActivePolicy());
                 alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.animal, AnimalManager.GetActivePolicy());
+                alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.mech, MechManager.GetActivePolicy());
             } 
             catch (NullReferenceException)
             {
@@ -121,6 +140,9 @@ namespace BetterPawnControl
                             break;
                         case Resources.Type.animal:
                             AnimalManager.LoadState(entry.Value);
+                            break;
+                        case Resources.Type.mech:
+                            MechManager.LoadState(entry.Value);
                             break;
                     }
                 }

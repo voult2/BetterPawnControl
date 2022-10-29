@@ -13,6 +13,7 @@ namespace BetterPawnControl.Patches
             ScheduleManager.CleanRemovedMaps();
             WorkManager.CleanRemovedMaps();
             AnimalManager.CleanRemovedMaps();
+            MechManager.CleanRemovedMaps();
         }
     }
 }

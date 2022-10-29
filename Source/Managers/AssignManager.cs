@@ -388,10 +388,7 @@ namespace BetterPawnControl
                         p.drugs.CurrentPolicy = DrugPolicyExits(l.drugPolicy) ? l.drugPolicy : null;
                         p.foodRestriction.CurrentFoodRestriction = FoodPolicyExits(l.foodPolicy) ? l.foodPolicy : null;
                         p.playerSettings.hostilityResponse = l.hostilityResponse;
-                        //if (!l.stockEntries.NullOrEmpty())
-                        //{
-                        //    LoadPawnInventoryStock(p, l);
-                        //} 
+
                         if (Widget_CombatExtended.CombatExtendedAvailable)
                         {
                             Widget_CombatExtended.SetLoadoutById(p, l.loadoutId);

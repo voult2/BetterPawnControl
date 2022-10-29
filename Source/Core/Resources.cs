@@ -11,7 +11,7 @@ namespace BetterPawnControl
     [StaticConstructorOnStartup]
     public static class Resources
     {
-        public enum Type { work, restrict, assign, animal };
+        public enum Type { work, restrict, assign, animal, mech };
 
         [DefOf]
         public static class Hotkeys

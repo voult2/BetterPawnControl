@@ -50,7 +50,7 @@ namespace BetterPawnControl
                     //get the assembly
                     var PF_assembly = LoadedModManager
                                         .RunningMods.First(mod => mod.Name == PF_MOD_NAME)
-                                        .assemblies.loadedAssemblies.Last();
+                                        .assemblies.loadedAssemblies.Where(asm => asm.GetName().Name == "CombatExtended").FirstOrDefault(); //thanks to Deno226
 
                     if (PF_assembly == null)
                     {

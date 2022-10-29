@@ -15,6 +15,7 @@ namespace BetterPawnControl.Patches
                 ScheduleManager.CleanDeadColonists(___pawn);
                 WorkManager.CleanDeadColonists(___pawn);
                 AnimalManager.CleanDeadAnimals(___pawn);
+                MechManager.CleanDeadMechs(___pawn);
             }
         }
     }

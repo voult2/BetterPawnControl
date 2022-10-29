@@ -38,6 +38,12 @@ namespace BetterPawnControl.Patches
                 AnimalManager.SaveCurrentState(AnimalManager.Animals().ToList());
                 AnimalManager.LinksCleanUp();
             }
+
+            if (__instance.GetType().Equals(typeof(MainTabWindow_Mechs)))
+            {
+                MechManager.SaveCurrentState(MechManager.Mechs().ToList());
+                MechManager.LinksCleanUp();
+            }
         }
     }
 }

@@ -52,10 +52,8 @@ namespace BetterPawnControl
             Scribe_References.Look<Pawn>(ref animal, "animal");
             Scribe_References.Look<Pawn>(ref master, "master");
             Scribe_References.Look<Area>(ref area, "area");
-            Scribe_Values.Look<bool>(
-                ref followDrafted, "followDrafted", true, true);
-            Scribe_Values.Look<bool>(
-                ref followFieldwork, "followFieldwork", true, true);
+            Scribe_Values.Look<bool>(ref followDrafted, "followDrafted", true, true);
+            Scribe_Values.Look<bool>(ref followFieldwork, "followFieldwork", true, true);
             Scribe_Values.Look<int>(ref mapId, "mapId", 0, true);
             Scribe_References.Look<FoodRestriction>(ref foodPolicy, "foodPolicy");
         }
