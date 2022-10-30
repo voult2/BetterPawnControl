@@ -121,7 +121,6 @@
     <PostBuildEvent Condition="Exists('$(Home)\Library')">cp -f "$(Home)\Library\Application Support\Steam\steamapps\common\RimWorld\RimWorldMac.app\Mods\BetterPawnControl\Assemblies\BetterPawnControl.dll" "$(Home)\Library\Application Support\Steam\steamapps\common\RimWorld\RimWorldMac.app\Mods\BetterPawnControl\v1.1\Assemblies\"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy "E:\BetterPawnControl\Assemblies\BetterPawnControl.dll" "D:\Steam\SteamApps\common\RimWorld\Mods\BetterPawnControl\v1.4\Assemblies" /y
-xcopy "E:\BetterPawnControl\Assemblies\BetterPawnControl.dll" "E:\BetterPawnControl\v1.4\Assemblies\BetterPawnControl.dll" /y</PostBuildEvent>
+    <PostBuildEvent>xcopy "E:\BetterPawnControl\Assemblies\BetterPawnControl.dll" "D:\Steam\SteamApps\common\RimWorld\Mods\BetterPawnControl\v1.4\Assemblies" /y</PostBuildEvent>
   </PropertyGroup>
 </Project>
