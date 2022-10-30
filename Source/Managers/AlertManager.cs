@@ -81,10 +81,9 @@ namespace BetterPawnControl
             {
                 //This means the alertLevelsList is missing a default policy.
                 //This can be caused by loading a save from 1.3 on 1.4 (missing the new mech data)
-                if (type == Resources.Type.mech)
+                if (type == Resources.Type.mech && alertLevelsList[level].settings.TryGetValue(type) == null)
                 {
-                    alertLevelsList[0].settings.Add(Resources.Type.mech, MechManager.GetActivePolicy());
-                    alertLevelsList[1].settings.Add(Resources.Type.mech, MechManager.GetActivePolicy());
+                    alertLevelsList[level].settings.Add(Resources.Type.mech, MechManager.GetActivePolicy());
                     alertPolicy = MechManager.GetActivePolicy();
                 }
             }
