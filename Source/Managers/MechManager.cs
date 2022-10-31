@@ -43,6 +43,11 @@ namespace BetterPawnControl
             //Save current state
             foreach (Pawn p in pawns)
             {
+                if (p.IsGestating())
+                {
+                    continue;
+                }
+
                 //find mech on the current zone
                 MechLink MechLink =
                     MechManager.links.Find(
@@ -53,22 +58,18 @@ namespace BetterPawnControl
                 if (MechLink != null)
                 {
                     //Mech found! save area and settings
-                    //MechLink.draft = p.Drafted;
                     MechLink.autorepair = p.GetComp<CompMechRepairable>().autoRepair;                    
                     MechLink.controlGroupIndex = p.GetMechControlGroup().Index;
                     MechLink.workmode = p.GetMechWorkMode();
                     MechLink.area = p.playerSettings.AreaRestriction;
-
                 }
                 else
                 {
-
                     //Mech not found. So add it to the MechLink list
                     MechManager.links.Add(
                         new MechLink(
                             MechManager.GetActivePolicy().id,
                             p,
-                            //p.Drafted,
                             p.GetComp<CompMechRepairable>().autoRepair,
                             p.GetMechControlGroup().Index,
                             p.GetMechWorkMode(),
