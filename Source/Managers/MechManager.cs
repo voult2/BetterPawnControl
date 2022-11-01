@@ -43,7 +43,8 @@ namespace BetterPawnControl
             //Save current state
             foreach (Pawn p in pawns)
             {
-                if (p.IsGestating())
+
+                if (p.IsGestating() || p.GetOverseer() == null)
                 {
                     continue;
                 }
@@ -55,7 +56,7 @@ namespace BetterPawnControl
                         x.zone == MechManager.GetActivePolicy().id &&
                         x.mapId == currentMap);
 
-                if (MechLink != null)
+                if (MechLink != null )
                 {
                     //Mech found! save area and settings
                     MechLink.autorepair = p.GetComp<CompMechRepairable>().autoRepair;                    
@@ -108,23 +109,26 @@ namespace BetterPawnControl
 
             foreach (Pawn p in pawns)
             {
-                foreach (MechLink l in zoneLinks)
+                if (p.GetOverseer() != null)
                 {
-                    if (l.mech != null && l.mech.Equals(p))
+                    foreach (MechLink l in zoneLinks)
                     {
-                        //found mech in zone. Load state
-                        p.GetComp<CompMechRepairable>().autoRepair = l.autorepair;
-                        foreach (MechanitorControlGroup group in p.GetMechControlGroup().Tracker.controlGroups)
+                        if (l.mech != null && l.mech.Equals(p))
                         {
-                            if (group.Index == l.controlGroupIndex)
+                            //found mech in zone. Load state
+                            p.GetComp<CompMechRepairable>().autoRepair = l.autorepair;
+                            foreach (MechanitorControlGroup group in p.GetMechControlGroup().Tracker.controlGroups)
                             {
-                                group.Assign(p);
-                            }                                 
+                                if (group.Index == l.controlGroupIndex)
+                                {
+                                    group.Assign(p);
+                                }
+                            }
+                            p.GetMechControlGroup().SetWorkMode(l.workmode);
+                            p.playerSettings.AreaRestriction = l.area;
                         }
-                        p.GetMechControlGroup().SetWorkMode(l.workmode);
-                        p.playerSettings.AreaRestriction = l.area;
                     }
-                }
+                }                
             }
             MechManager.SetActivePolicy(policy);
         }
@@ -148,14 +152,17 @@ namespace BetterPawnControl
 
             foreach (Pawn p in pawns)
             {
-                foreach (MechLink l in zoneLinks)
+                if (p.GetOverseer() != null)
                 {
-                    if (l.mech != null && l.mech.GetUniqueLoadID().Equals(p.GetUniqueLoadID()))
-                    {                        
-                        l.autorepair = p.GetComp<CompMechRepairable>().autoRepair;
-                        l.controlGroupIndex = p.GetMechControlGroup().Index;
-                        l.workmode = p.GetMechWorkMode();
-                        l.area = p.playerSettings.AreaRestriction;
+                    foreach (MechLink l in zoneLinks)
+                    {
+                        if (l.mech != null && l.mech.GetUniqueLoadID().Equals(p.GetUniqueLoadID()))
+                        {
+                            l.autorepair = p.GetComp<CompMechRepairable>().autoRepair;
+                            l.controlGroupIndex = p.GetMechControlGroup().Index;
+                            l.workmode = p.GetMechWorkMode();
+                            l.area = p.playerSettings.AreaRestriction;
+                        }
                     }
                 }
             }

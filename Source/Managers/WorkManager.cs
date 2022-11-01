@@ -173,7 +173,14 @@ namespace BetterPawnControl
             {
                 foreach (KeyValuePair<WorkTypeDef, int> entry in link.settings)
                 {
-                    p.workSettings.SetPriority(entry.Key, link.settings.TryGetValue(entry.Key));
+                    try
+                    {
+                        p.workSettings.SetPriority(entry.Key, link.settings.TryGetValue(entry.Key));
+                    }
+                    catch 
+                    {
+                        //ignore the errors when setting priorities that aren't supported (such as art for slaves)
+                    }
                 }
             }
         }
