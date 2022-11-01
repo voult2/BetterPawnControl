@@ -152,7 +152,7 @@ namespace BetterPawnControl
 
         internal static void LoadState(Policy policy)
         {
-            List<Pawn> pawns = Find.CurrentMap.mapPawns.FreeColonists;
+            List<Pawn> pawns = Find.CurrentMap.mapPawns.FreeColonists.ToList();
             LoadState(WorkManager.links, pawns, policy);
         }
 
@@ -214,7 +214,7 @@ namespace BetterPawnControl
                     copiedLink.zone = policy.id;
                     WorkManager.links.Add(copiedLink);
                 }
-                WorkManager.LoadState(links, Find.CurrentMap.mapPawns.FreeColonists, policy);
+                WorkManager.LoadState(links, Find.CurrentMap.mapPawns.FreeColonists.ToList(), policy);
             }
         }
 

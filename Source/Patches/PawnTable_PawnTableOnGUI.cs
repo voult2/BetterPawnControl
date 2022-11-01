@@ -274,9 +274,7 @@ namespace BetterPawnControl.Patches
             Rect rect2 = new Rect( offSetX, Mathf.Round(pos.height / 4f) - 4f,
                 rect1.width, Mathf.Round(pos.height / 4f) + 4f);
 
-            if (Widgets.ButtonText(
-                rect2, WorkManager.GetActivePolicy().label,
-                true, false, true))
+            if (Widgets.ButtonText(rect2, WorkManager.GetActivePolicy().label, true, false, true))
             {
                 WorkManager.SaveCurrentState(colonists);
                 OpenWorkPolicySelectMenu(WorkManager.links, colonists);
@@ -367,8 +365,7 @@ namespace BetterPawnControl.Patches
             GUI.EndGroup();
         }
 
-        private static void OpenAnimalPolicySelectMenu(
-            List<AnimalLink> links, List<Pawn> pawns)
+        private static void OpenAnimalPolicySelectMenu(List<AnimalLink> links, List<Pawn> pawns)
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
 

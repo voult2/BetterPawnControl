@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Verse;
 using RimWorld;
+using System.Linq;
 
 namespace BetterPawnControl
 {
@@ -402,7 +403,7 @@ namespace BetterPawnControl
 
         internal static void LoadState(Policy policy)
         {
-            List<Pawn> pawns = Find.CurrentMap.mapPawns.FreeColonists;
+            List<Pawn> pawns = Find.CurrentMap.mapPawns.FreeColonists.ToList();
             LoadState(AssignManager.links, pawns, policy);
         }
 
