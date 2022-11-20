@@ -119,12 +119,13 @@ namespace BetterPawnControl
                             p.GetComp<CompMechRepairable>().autoRepair = l.autorepair;
                             foreach (MechanitorControlGroup group in p.GetMechControlGroup().Tracker.controlGroups)
                             {
-                                if (group.Index == l.controlGroupIndex)
+                                if (group.Index == l.controlGroupIndex && p.GetMechControlGroup().Index != l.controlGroupIndex)
                                 {
+                                    // Only load assign group if it's actually a different group. This is to avoid the mech to leave recharge task if the same group is assigned
                                     group.Assign(p);
                                 }
                             }
-                            p.GetMechControlGroup().SetWorkMode(l.workmode);
+                            p.GetMechControlGroup().SetWorkMode(l.workmode);  
                             p.playerSettings.AreaRestriction = l.area;
                         }
                     }
@@ -160,7 +161,10 @@ namespace BetterPawnControl
                         {
                             l.autorepair = p.GetComp<CompMechRepairable>().autoRepair;
                             l.controlGroupIndex = p.GetMechControlGroup().Index;
-                            l.workmode = p.GetMechWorkMode();
+                            if (p.GetMechControlGroup().WorkMode != l.workmode)
+                            {
+                                p.GetMechControlGroup().SetWorkMode(l.workmode);
+                            }
                             l.area = p.playerSettings.AreaRestriction;
                         }
                     }
@@ -213,10 +217,15 @@ namespace BetterPawnControl
 
         internal static IEnumerable<Pawn> Mechs()
         {
-
-            return from p in Find.CurrentMap.mapPawns.PawnsInFaction(Faction.OfPlayer)
-                   where p.IsColonyMech
-                   select p;
+            try
+            {
+                return from p in Find.CurrentMap.mapPawns.PawnsInFaction(Faction.OfPlayer) where p.IsColonyMech select p;
+            }                
+            catch (Exception)
+            {
+                //following players reports, if a settlement is abandoned the previous statement fails with a null reference, so lets return an empty list 
+                return new List<Pawn>();
+            }
         }
 
 

@@ -32,11 +32,15 @@ namespace BetterPawnControl
 
 		internal static IEnumerable<Pawn> Colonists()
 		{
-
-			return from p in Find.CurrentMap.mapPawns.PawnsInFaction(Faction.OfPlayer)
-				   where p.IsColonist
-				   select p;
-		}
+			try
+			{
+                return from p in Find.CurrentMap.mapPawns.PawnsInFaction(Faction.OfPlayer) where p.IsColonist select p;
+			}
+			catch (Exception) 
+			{ 
+				return new List<Pawn>(); 
+			}
+        }
 
 		private static bool _dirtyPolicy = false;
 		public static bool DirtyPolicy
@@ -54,7 +58,7 @@ namespace BetterPawnControl
 
 		internal static Policy GetActivePolicy()
 		{
-			return GetActivePolicy(Find.CurrentMap.uniqueID);
+			return GetActivePolicy(Find.CurrentMap.uniqueID);			
 		}
 
 		internal static void SetActivePolicy(Policy policy)

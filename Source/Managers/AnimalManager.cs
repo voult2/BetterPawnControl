@@ -232,10 +232,17 @@ namespace BetterPawnControl
 
         internal static IEnumerable<Pawn> Animals()
         {
-
-            return from p in Find.CurrentMap.mapPawns.PawnsInFaction(Faction.OfPlayer)
-                   where p.RaceProps.Animal
-                   select p;
+            try
+            {
+                return from p in Find.CurrentMap.mapPawns.PawnsInFaction(Faction.OfPlayer)
+                       where p.RaceProps.Animal
+                       select p;
+            }
+            catch (Exception)
+            {
+                //following players reports, if a settlement is abandoned the previous statement fails with a null reference, so lets return an empty list 
+                return new List<Pawn>();
+            }
         }
 
 
