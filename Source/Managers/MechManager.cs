@@ -161,10 +161,11 @@ namespace BetterPawnControl
                         {
                             l.autorepair = p.GetComp<CompMechRepairable>().autoRepair;
                             l.controlGroupIndex = p.GetMechControlGroup().Index;
-                            if (p.GetMechControlGroup().WorkMode != l.workmode)
-                            {
-                                p.GetMechControlGroup().SetWorkMode(l.workmode);
-                            }
+                            //if (p.GetMechControlGroup().WorkMode != l.workmode)
+                            //{
+                            //    p.GetMechControlGroup().SetWorkMode(l.workmode);
+                            //}
+                            l.workmode = p.GetMechControlGroup().WorkMode;
                             l.area = p.playerSettings.AreaRestriction;
                         }
                     }
