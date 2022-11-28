@@ -75,6 +75,7 @@
     <Compile Include="Base\AnimalLink.cs" />
     <Compile Include="Base\AssignLink.cs" />
     <Compile Include="Managers\MechManager.cs" />
+    <Compile Include="Patches\CaravanArrivalAction_Enter_Arrived.cs" />
     <Compile Include="Patches\FloatMenu_PostClose.cs" />
     <Compile Include="Patches\Pawn_DefaultPolicies.cs" />
     <Compile Include="Patches\MainTabWindow_PawnTable_PostOpen.cs" />
@@ -96,7 +97,6 @@
     <Compile Include="Managers\ScheduleManager.cs" />
     <Compile Include="Managers\Manager.cs" />
     <Compile Include="Patches\UIRoot_OnGUI_onKeyPress.cs" />
-    <Compile Include="Patches\BPC_CompMechRepairable.cs" />
     <Compile Include="Patches\Window_PreClose.cs" />
     <Compile Include="Patches\Pawn_HealthTracker_OnDead.cs" />
     <Compile Include="Patches\MapComponent_OnRemove.cs" />

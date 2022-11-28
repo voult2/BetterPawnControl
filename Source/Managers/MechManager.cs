@@ -58,8 +58,7 @@ namespace BetterPawnControl
 
                 if (MechLink != null )
                 {
-                    //Mech found! save area and settings
-                    MechLink.autorepair = p.GetComp<CompMechRepairable>().autoRepair;                    
+                    //Mech found! save area and settings                 
                     MechLink.controlGroupIndex = p.GetMechControlGroup().Index;
                     MechLink.workmode = p.GetMechWorkMode();
                     MechLink.area = p.playerSettings.AreaRestriction;
@@ -71,7 +70,6 @@ namespace BetterPawnControl
                         new MechLink(
                             MechManager.GetActivePolicy().id,
                             p,
-                            p.GetComp<CompMechRepairable>().autoRepair,
                             p.GetMechControlGroup().Index,
                             p.GetMechWorkMode(),
                             p.playerSettings.AreaRestriction,
@@ -116,7 +114,6 @@ namespace BetterPawnControl
                         if (l.mech != null && l.mech.Equals(p))
                         {
                             //found mech in zone. Load state
-                            p.GetComp<CompMechRepairable>().autoRepair = l.autorepair;
                             foreach (MechanitorControlGroup group in p.GetMechControlGroup().Tracker.controlGroups)
                             {
                                 if (group.Index == l.controlGroupIndex && p.GetMechControlGroup().Index != l.controlGroupIndex)
@@ -159,12 +156,7 @@ namespace BetterPawnControl
                     {
                         if (l.mech != null && l.mech.GetUniqueLoadID().Equals(p.GetUniqueLoadID()))
                         {
-                            l.autorepair = p.GetComp<CompMechRepairable>().autoRepair;
                             l.controlGroupIndex = p.GetMechControlGroup().Index;
-                            //if (p.GetMechControlGroup().WorkMode != l.workmode)
-                            //{
-                            //    p.GetMechControlGroup().SetWorkMode(l.workmode);
-                            //}
                             l.workmode = p.GetMechControlGroup().WorkMode;
                             l.area = p.playerSettings.AreaRestriction;
                         }
@@ -224,7 +216,7 @@ namespace BetterPawnControl
             }                
             catch (Exception)
             {
-                //following players reports, if a settlement is abandoned the previous statement fails with a null reference, so lets return an empty list 
+                //following players reports, if a settlement is abandoned, the previous statement fails with a null reference; so lets return an empty list 
                 return new List<Pawn>();
             }
         }

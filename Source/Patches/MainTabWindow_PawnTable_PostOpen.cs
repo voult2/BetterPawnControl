@@ -9,11 +9,9 @@ namespace BetterPawnControl
     {
         static void Postfix()
         {
-            //AssignManager.UpdateState(AssignManager.links, AssignManager.Colonists().ToList(), AssignManager.GetActivePolicy());
             AssignManager.LoadState(AssignManager.links, AssignManager.Colonists().ToList(), AssignManager.GetActivePolicy());
             AssignManager.showPaste = false;
     
-            //ScheduleManager.UpdateState(ScheduleManager.links, ScheduleManager.Colonists().ToList(), ScheduleManager.GetActivePolicy());
             ScheduleManager.LoadState(ScheduleManager.links, ScheduleManager.Colonists().ToList(), ScheduleManager.GetActivePolicy());
             ScheduleManager.showPaste = false;
 
@@ -23,14 +21,8 @@ namespace BetterPawnControl
                 WorkManager.showPaste = false;
             }
 
-            //AnimalManager.UpdateState(AnimalManager.links, AnimalManager.Animals().ToList(), AnimalManager.GetActivePolicy());
             AnimalManager.LoadState(AnimalManager.links, AnimalManager.Animals().ToList(), AnimalManager.GetActivePolicy());
-
-            if (MechManager.DirtyPolicy)
-            {
-                //In case the auto-repair gizmo was opened. It would be great to find a better solution. 
-                MechManager.UpdateState(MechManager.links, MechManager.Mechs().ToList(), MechManager.GetActivePolicy());
-            }                
+              
             MechManager.LoadState(MechManager.links, MechManager.Mechs().ToList(), MechManager.GetActivePolicy());
         }
     }
