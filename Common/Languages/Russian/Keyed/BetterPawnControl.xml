@@ -14,7 +14,7 @@
 	<BPC.AssignPolicy>Политика </BPC.AssignPolicy>
 	<BPC.CurrentAssignPolicy>Текущая политика</BPC.CurrentAssignPolicy>
 	
-	<BPC.NewRestrictPolicy>Новая политика ограничений</BPC.NewRestrictPolicy>
+	<BPC.NewRestrictPolicy>Новая политика режима дня</BPC.NewRestrictPolicy>
 	<BPC.RestrictPolicy>Политика </BPC.RestrictPolicy>
 	<BPC.CurrentRestrictPolicy>Текущая политика</BPC.CurrentRestrictPolicy>
 	
@@ -27,7 +27,7 @@
 	<BPC.CurrentMechPolicy>Текущая политика</BPC.CurrentMechPolicy>
 
 	<BPC.WorkTab>Работа</BPC.WorkTab>
-	<BPC.RestrictTab>Ограничения</BPC.RestrictTab>
+	<BPC.RestrictTab>Режим дня</BPC.RestrictTab>
 	<BPC.AssignTab>Назначения</BPC.AssignTab>
 	<BPC.AnimalTab>Питомцы</BPC.AnimalTab>
 	<BPC.MechTab>Мехи</BPC.MechTab>
