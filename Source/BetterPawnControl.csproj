@@ -74,6 +74,7 @@
     <Compile Include="Base\MechLink.cs" />
     <Compile Include="Base\AnimalLink.cs" />
     <Compile Include="Base\AssignLink.cs" />
+    <Compile Include="Helpers\Widget_WorkTab.cs" />
     <Compile Include="Managers\MechManager.cs" />
     <Compile Include="Patches\CaravanArrivalAction_Enter_Arrived.cs" />
     <Compile Include="Patches\FloatMenu_PostClose.cs" />
