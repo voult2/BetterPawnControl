@@ -23,7 +23,7 @@ namespace BetterPawnControl
         // WorkTab.WorkPriority Priorities property
         private static PropertyInfo priorities;
         // WorkTab.WorkPriority this[ int hour] setter
-        private static MethodInfo setHourForWorkPriority;
+        private static MethodInfo setWorkPriorityByHour;
 
         // WorkTab.PriorityManager
         private static GameComponent priorityManager;
@@ -46,14 +46,14 @@ namespace BetterPawnControl
             if (workPriorityType != null)
             {
                 priorities = AccessTools.Property(workPriorityType, "Priorities");
-                setHourForWorkPriority = AccessTools.Method(workPriorityType, "set_Item");
+                setWorkPriorityByHour = AccessTools.Method(workPriorityType, "set_Item");
             }
 
             init = priorityManagerType != null
                 && getPawnPriorityTracker != null
                 && getWorkPriority != null
                 && priorities != null
-                && setHourForWorkPriority != null;
+                && setWorkPriorityByHour != null;
 
             if (init)
                 Log.Message("[BPC] Work Tab functionality integrated");
@@ -74,7 +74,7 @@ namespace BetterPawnControl
                     sb.AppendLine(" - Type WorkTab.WorkPriority is not found.");
                 if (priorities == null)
                     sb.AppendLine(" - Property WorkTab.WorkPriority.Priorities is not found.");
-                if (setHourForWorkPriority == null)
+                if (setWorkPriorityByHour == null)
                     sb.AppendLine(" - Method WorkTab.WorkPriority:set_Item is not found.");
 
                 Log.Error(sb.ToString());
@@ -143,7 +143,7 @@ namespace BetterPawnControl
 
             for (var hour = 0; hour < priorities.Count; hour++)
             {
-                setHourForWorkPriority.Invoke(workPriority, new object[] { hour, priorities[hour] });
+                setWorkPriorityByHour.Invoke(workPriority, new object[] { hour, priorities[hour] });
             }
         }
     }
