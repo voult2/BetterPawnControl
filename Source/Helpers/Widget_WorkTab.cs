@@ -31,6 +31,10 @@ namespace BetterPawnControl.Helpers
 
         static Widget_WorkTab()
         {
+            var isModActive = LoadedModManager.RunningMods.Any(mod => mod.Name == "Work Tab");
+            if (!isModActive)
+                return;
+
             priorityManagerType = AccessTools.TypeByName("WorkTab.PriorityManager");
             getPawnPriorityTracker = AccessTools.Method("WorkTab.PriorityManager:get_Item");
 
