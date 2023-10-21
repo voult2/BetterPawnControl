@@ -21,8 +21,6 @@ namespace BetterPawnControl.Helpers
         private static MethodInfo getWorkPriority;
         // WorkTab.WorkPriority Priorities property
         private static PropertyInfo priorities;
-        // WorkTab.WorkPriority this[ int hour ] getter
-        private static MethodInfo getWorkPriorityByHour;
         // WorkTab.WorkPriority this[ int hour] setter
         private static MethodInfo setHourForWorkPriority;
 
@@ -41,14 +39,12 @@ namespace BetterPawnControl.Helpers
             getWorkPriority = AccessTools.Method("WorkTab.PriorityTracker:get_Item");
 
             priorities = AccessTools.Property("WorkTab.WorkPriority:Priorities");
-            getWorkPriorityByHour = AccessTools.Method("WorkTab.WorkPriority:get_Item");
             setHourForWorkPriority = AccessTools.Method("WorkTab.WorkPriority:set_Item");
 
             init = priorityManagerType != null
                 && getPawnPriorityTracker != null
                 && getWorkPriority != null
                 && priorities != null
-                && getWorkPriorityByHour != null
                 && setHourForWorkPriority != null;
 
             if (init)
