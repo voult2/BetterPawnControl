@@ -1,13 +1,11 @@
-﻿using Verse;
-using RimWorld;
-using System.Collections.Generic;
+﻿using RimWorld;
 using RimWorld.Planet;
+using Verse;
 
 namespace BetterPawnControl
 {
-	public class DataStorage : WorldComponent
+    public class DataStorage : WorldComponent
 	{
-
 		public DataStorage(World world) : base(world)
 		{
 		}

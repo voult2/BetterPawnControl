@@ -21,7 +21,7 @@ namespace BetterPawnControl
         /// <summary>
         /// Copy paste from vanilla
         /// </summary>
-        protected override AcceptanceReport NameIsValid(string name)
+        public override AcceptanceReport NameIsValid(string name)
         {
             AcceptanceReport result = base.NameIsValid(name);
             if (!result.Accepted)
@@ -74,7 +74,7 @@ namespace BetterPawnControl
         /// <summary>
         /// Sanitize AnimalPolicy label name and set refresh label on (grand)parent window
         /// </summary>
-        protected override void SetName(string name)
+        public override void SetName(string name)
         {
             bool updateAlertPolicyLabel = false;
             if (AlertManager.GetAlertPolicy(1, this.type).Equals(this.policy))

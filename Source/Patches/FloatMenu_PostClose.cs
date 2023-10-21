@@ -1,9 +1,6 @@
 ﻿using System.Linq;
 using HarmonyLib;
 using Verse;
-using RimWorld;
-using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace BetterPawnControl
 {
