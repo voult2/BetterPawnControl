@@ -7,12 +7,12 @@ namespace BetterPawnControl
     public class Settings : ModSettings
     {
         public bool automaticPawnsInterrupt = true;
-        public bool disableBPCOnWorkTab = false;
+        //public bool disableBPCOnWorkTab = false;
 
         public override void ExposeData()
         {
             Scribe_Values.Look<bool>(ref automaticPawnsInterrupt, "AutomaticPawnsInterrupt", true, true);
-            Scribe_Values.Look<bool>(ref disableBPCOnWorkTab, "DisableBPCOnWork", false, true);
+            //Scribe_Values.Look<bool>(ref disableBPCOnWorkTab, "DisableBPCOnWork", false, true);
             base.ExposeData();
         }
     }
@@ -31,7 +31,7 @@ namespace BetterPawnControl
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(inRect);
             listingStandard.CheckboxLabeled("BPC.AutomaticPawnsInterruptSetting".Translate(), ref settings.automaticPawnsInterrupt);
-            listingStandard.CheckboxLabeled("BPC.DisableBPCOnWorkTabSetting".Translate(), ref settings.disableBPCOnWorkTab, "BPC.DisableBPCOnWorkTabTooltip".Translate());
+            //listingStandard.CheckboxLabeled("BPC.DisableBPCOnWorkTabSetting".Translate(), ref settings.disableBPCOnWorkTab, "BPC.DisableBPCOnWorkTabTooltip".Translate());
             listingStandard.End();
         }
 

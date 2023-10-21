@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using RimWorld;
 using Verse;
 
@@ -6,11 +7,10 @@ namespace BetterPawnControl
 {
     public class WorkLink : Link, IExposable
     {
-        //internal int zone = 0;
         internal Pawn colonist = null;
         internal Dictionary<WorkTypeDef, int> settings =  null;
         internal Dictionary<WorkGiverDef, List<int>> settingsInner = null;
-        //internal int mapId = 0;
+        internal Dictionary<WorkGiverDef, List<string>> settingsInnerScribe = null;
 
         public WorkLink() { }
 
@@ -46,6 +46,7 @@ namespace BetterPawnControl
         /// </summary>
         public void ExposeData()
         {
+            
             Scribe_Values.Look<int>(ref zone, "zone", 0, true);
             Scribe_References.Look<Pawn>(ref colonist, "colonist");
             Scribe_Values.Look<int>(ref mapId, "mapId", 0, true);
@@ -53,8 +54,9 @@ namespace BetterPawnControl
             List<WorkTypeDef> keys = new List<WorkTypeDef>();
             List<int> values = new List<int>();
 
+            Dictionary<WorkGiverDef, string> settingsInnerScribe = new Dictionary<WorkGiverDef, string>();
             List<WorkGiverDef> keysInner = new List<WorkGiverDef>();
-            List<List<int>> valuesInner = new List<List<int>>();
+            List <string> valuesInner = new List<string>();
 
             if (Scribe.mode == LoadSaveMode.Saving)
             {
@@ -64,19 +66,43 @@ namespace BetterPawnControl
                     values.Add(entry.Value);
                 }
                 Scribe_Collections.Look(ref settings, "settings", LookMode.Def, LookMode.Value, ref keys, ref values);
-                
-                foreach (KeyValuePair<WorkGiverDef, List<int>> entryInner in settingsInner)
+
+                if (Widget_ModsAvailable.WorkTabAvailable)
                 {
-                    keysInner.Add(entryInner.Key);
-                    valuesInner.Add(entryInner.Value);
+                    foreach (KeyValuePair<WorkGiverDef, List<int>> entryInner in settingsInner)
+                    {
+                        var _priorities = string.Join("", entryInner.Value.Select(i => i.ToString()).ToArray());
+                        keysInner.Add(entryInner.Key);
+                        valuesInner.Add(_priorities);
+                        settingsInnerScribe.Add(entryInner.Key, _priorities);
+                    }
+                    Scribe_Collections.Look(ref settingsInnerScribe, "settingsInnerScribe", LookMode.Def, LookMode.Value, ref keysInner, ref valuesInner);
                 }
-                Scribe_Collections.Look(ref settingsInner, "settingsInner", LookMode.Def, LookMode.Value, ref keysInner, ref valuesInner);
             }
 
             if (Scribe.mode == LoadSaveMode.LoadingVars)
             {
                 Scribe_Collections.Look(ref settings, "settings", LookMode.Def, LookMode.Value, ref keys, ref values);
-                Scribe_Collections.Look(ref settingsInner, "settingsInner", LookMode.Def, LookMode.Value, ref keysInner, ref valuesInner);
+                Scribe_Collections.Look(ref settingsInnerScribe, "settingsInnerScribe", LookMode.Def, LookMode.Value, ref keysInner, ref valuesInner);
+
+                if (Widget_ModsAvailable.WorkTabAvailable)
+                {
+                    if (settingsInner == null)
+                    {
+                        settingsInner = new Dictionary<WorkGiverDef, List<int>>();
+                    }
+
+                    if (settingsInnerScribe == null)
+                    {
+                        //Save file without innert Settings
+                        settingsInnerScribe = new Dictionary<WorkGiverDef, string>();
+                    }
+
+                    foreach (KeyValuePair<WorkGiverDef, string> entryInner in settingsInnerScribe)
+                    {
+                        settingsInner.SetOrAdd(entryInner.Key, entryInner.Value.ToArray().Select(c => int.Parse(c.ToString())).ToList());
+                    }
+                }
             }
         }
     }

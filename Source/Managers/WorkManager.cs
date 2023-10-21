@@ -172,7 +172,9 @@ namespace BetterPawnControl
                     {
                         var priorities = Widget_WorkTab.GetWorkTabPriorities(p, workGiver);
                         if (priorities != null)
+                        {
                             link.settingsInner.SetOrAdd(workGiver, priorities);
+                        }                            
                     }
                 }
             }

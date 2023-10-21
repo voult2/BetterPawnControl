@@ -27,7 +27,7 @@ namespace BetterPawnControl.Patches
                 DrawSheduleBPCButtons(__instance, position);
             }
 
-            if (___def == PawnTableDefOf.Work && !Widget_ModsAvailable.DisableBPCOnWorkTab)
+            if (___def == PawnTableDefOf.Work) // && !Widget_ModsAvailable.DisableBPCOnWorkTab
             {
                 DrawWorkBPCButtons(__instance, position);
             }
