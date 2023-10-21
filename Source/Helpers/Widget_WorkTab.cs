@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using HarmonyLib;
 using RimWorld;
 using Verse;
 
-namespace BetterPawnControl.Helpers
+namespace BetterPawnControl
 {
     [StaticConstructorOnStartup]
     public static class Widget_WorkTab
@@ -34,14 +35,19 @@ namespace BetterPawnControl.Helpers
                 return;
 
             priorityManagerType = AccessTools.TypeByName("WorkTab.PriorityManager");
-            getPawnPriorityTracker = AccessTools.Method("WorkTab.PriorityManager:get_Item");
+            if (priorityManagerType != null)
+                getPawnPriorityTracker = AccessTools.Method(priorityManagerType, "get_Item");
 
-            getWorkPriority = AccessTools.Method("WorkTab.PriorityTracker:get_Item");
+            var priorityTrackerType = AccessTools.TypeByName("WorkTab.PriorityTracker");
+            if (priorityTrackerType != null)
+                getWorkPriority = AccessTools.Method(priorityTrackerType, "get_Item");
 
             var workPriorityType = AccessTools.TypeByName("WorkTab.WorkPriority");
             if (workPriorityType != null)
+            {
                 priorities = AccessTools.Property(workPriorityType, "Priorities");
-            setHourForWorkPriority = AccessTools.Method("WorkTab.WorkPriority:set_Item");
+                setHourForWorkPriority = AccessTools.Method(workPriorityType, "set_Item");
+            }
 
             init = priorityManagerType != null
                 && getPawnPriorityTracker != null
@@ -52,14 +58,34 @@ namespace BetterPawnControl.Helpers
             if (init)
                 Log.Message("[BPC] Work Tab functionality integrated");
             else
-                Log.Message("[BPC] Error in Work Tab integration - functionality disabled");
+            {
+                var sb = new StringBuilder();
+                sb.AppendLine("[BPC] Error in Work Tab integration - functionality disabled:");
+
+                if (priorityManagerType == null)
+                    sb.AppendLine(" - Type WorkTab.PriorityManager is not found.");
+                if (getPawnPriorityTracker == null)
+                    sb.AppendLine(" - Method WorkTab.PriorityManager:get_Item is not found.");
+                if (priorityTrackerType == null)
+                    sb.AppendLine(" - Type WorkTab.PriorityTracker is not found.");
+                if (getWorkPriority == null)
+                    sb.AppendLine(" - Method WorkTab.PriorityTracker:get_Item is not found.");
+                if (workPriorityType == null)
+                    sb.AppendLine(" - Type WorkTab.WorkPriority is not found.");
+                if (priorities == null)
+                    sb.AppendLine(" - Property WorkTab.WorkPriority.Priorities is not found.");
+                if (setHourForWorkPriority == null)
+                    sb.AppendLine(" - Method WorkTab.WorkPriority:set_Item is not found.");
+
+                Log.Message(sb.ToString());
+            }
         }
 
         private static object GetWorkPriority(Pawn pawn, WorkGiverDef workGiver)
         {
             if (Current.Game == null)
                 return null;
-            
+
             if (priorityManager == null)
             {
                 var component = Current.Game.GetComponent(priorityManagerType);
@@ -89,7 +115,7 @@ namespace BetterPawnControl.Helpers
             var workPriority = GetWorkPriority(pawn, workGiver);
             if (workPriority == null)
                 return null;
-            
+
             var array = (int[]) priorities.GetValue(workPriority);
             var result = new List<int>(array);
 
@@ -114,7 +140,7 @@ namespace BetterPawnControl.Helpers
             var workPriority = GetWorkPriority(pawn, workGiver);
             if (workPriority == null)
                 return;
-            
+
             for (var hour = 0; hour < priorities.Count; hour++)
             {
                 setHourForWorkPriority.Invoke(workPriority, new object[] { hour, priorities[hour] });
