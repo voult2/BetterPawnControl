@@ -38,7 +38,9 @@ namespace BetterPawnControl.Helpers
 
             getWorkPriority = AccessTools.Method("WorkTab.PriorityTracker:get_Item");
 
-            priorities = AccessTools.Property("WorkTab.WorkPriority:Priorities");
+            var workPriorityType = AccessTools.TypeByName("WorkTab.WorkPriority");
+            if (workPriorityType != null)
+                priorities = AccessTools.Property(workPriorityType, "Priorities");
             setHourForWorkPriority = AccessTools.Method("WorkTab.WorkPriority:set_Item");
 
             init = priorityManagerType != null
