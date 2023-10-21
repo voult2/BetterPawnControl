@@ -77,7 +77,7 @@ namespace BetterPawnControl
                 if (setHourForWorkPriority == null)
                     sb.AppendLine(" - Method WorkTab.WorkPriority:set_Item is not found.");
 
-                Log.Message(sb.ToString());
+                Log.Error(sb.ToString());
             }
         }
 
