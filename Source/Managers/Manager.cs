@@ -1,19 +1,21 @@
-﻿using System.Collections.Generic;
-using Verse;
-using RimWorld;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using RimWorld;
+using Verse;
 
 namespace BetterPawnControl
 {
-	abstract class Manager<T>
+    abstract class Manager<T>
 	{
 		internal static List<Policy> policies = new List<Policy>();
 		internal static List<MapActivePolicy> activePolicies =
 			new List<MapActivePolicy>();
 		internal static List<T> links = new List<T>();
 		internal static bool showPaste = false;
-        static Manager()
+        internal static Dictionary<WorkTypeDef, List<WorkGiverDef>> workgivers = new Dictionary<WorkTypeDef, List<WorkGiverDef>>();
+        
+		static Manager()
         {
             Policy defaultPolicy = new Policy(policies.Count, "BPC.Auto".Translate());
             policies.Add(defaultPolicy);
@@ -42,7 +44,20 @@ namespace BetterPawnControl
 			}
         }
 
-		private static bool _dirtyPolicy = false;
+        internal static List<WorkGiverDef> GetWorkGivers(WorkTypeDef workType)
+        {
+            if (workgivers.TryGetValue(workType, out var result))
+                return result;
+
+            var list = DefDatabase<WorkGiverDef>.AllDefsListForReading
+                .Where(x => x.workType == workType)
+                .ToList();
+            workgivers.Add(workType, list);
+            
+			return list;
+        }
+
+        private static bool _dirtyPolicy = false;
 		public static bool DirtyPolicy
 		{
 			get

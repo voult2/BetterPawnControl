@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using Verse;
-using RimWorld;
 using System.Linq;
-using System;
+using RimWorld;
+using Verse;
 
 namespace BetterPawnControl
 {
@@ -63,6 +62,7 @@ namespace BetterPawnControl
                         WorkManager.GetActivePolicy().id,
                         p,
                         new Dictionary<WorkTypeDef, int>(),
+                        new Dictionary<WorkGiverDef, List<int>>(),
                         currentMap);
                     WorkManager.links.Add(link);
                     WorkManager.SavePawnPriorities(p, link);
@@ -163,6 +163,17 @@ namespace BetterPawnControl
                 foreach (var worktype in DefDatabase<WorkTypeDef>.AllDefsListForReading)
                 {
                     link.settings.SetOrAdd(worktype, p.workSettings.GetPriority(worktype));
+                    
+                    if (!Widget_ModsAvailable.WorkTabAvailable)
+                        continue;
+
+                    var workGivers = GetWorkGivers(worktype);
+                    foreach (var workGiver in workGivers)
+                    {
+                        var priorities = Widget_WorkTab.GetWorkTabPriorities(p, workGiver);
+                        if (priorities != null)
+                            link.settingsInner.SetOrAdd(workGiver, priorities);
+                    }
                 }
             }
         }
@@ -177,10 +188,18 @@ namespace BetterPawnControl
                     {
                         p.workSettings.SetPriority(entry.Key, link.settings.TryGetValue(entry.Key));
                     }
-                    catch 
+                    catch
                     {
                         //ignore the errors when setting priorities that aren't supported (such as art for slaves)
                     }
+                }
+            }
+
+            if (Widget_ModsAvailable.WorkTabAvailable && link.settingsInner != null)
+            {
+                foreach (var entryInner in link.settingsInner)
+                {
+                    Widget_WorkTab.SetWorkTabPriorities(p, entryInner.Key, entryInner.Value);
                 }
             }
         }

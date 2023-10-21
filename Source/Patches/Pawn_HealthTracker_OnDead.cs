@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using Verse;
-using RimWorld;
 
 namespace BetterPawnControl.Patches
 {

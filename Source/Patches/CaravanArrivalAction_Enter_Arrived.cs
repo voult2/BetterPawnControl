@@ -1,10 +1,5 @@
-﻿using System.Linq;
-using HarmonyLib;
-using Verse;
+﻿using HarmonyLib;
 using RimWorld.Planet;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System;
 
 namespace BetterPawnControl
 {

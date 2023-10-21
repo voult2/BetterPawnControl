@@ -1,11 +1,10 @@
-﻿using System;
-using HarmonyLib;
-using Verse;
+﻿using HarmonyLib;
 using UnityEngine;
+using Verse;
 
 namespace BetterPawnControl.Patches
 {
-	[HarmonyPatch(typeof(UIRoot), nameof(UIRoot.UIRootOnGUI))]
+    [HarmonyPatch(typeof(UIRoot), nameof(UIRoot.UIRootOnGUI))]
 	internal static class UIRoot_OnGUI_onKeyPress
 	{
 		static void Postfix()

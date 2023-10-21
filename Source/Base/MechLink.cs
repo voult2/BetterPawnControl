@@ -1,5 +1,4 @@
 ﻿using Verse;
-using RimWorld;
 
 namespace BetterPawnControl
 {

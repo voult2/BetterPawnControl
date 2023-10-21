@@ -1,9 +1,9 @@
-﻿using HarmonyLib;
+﻿using System.Collections.Generic;
+using System.Linq;
+using HarmonyLib;
+using RimWorld;
 using UnityEngine;
 using Verse;
-using RimWorld;
-using System.Linq;
-using System.Collections.Generic;
 using Verse.Sound;
 
 namespace BetterPawnControl.Patches
