@@ -7,8 +7,10 @@ namespace BetterPawnControl
     [HarmonyPatch(typeof(MainTabWindow_PawnTable), nameof(MainTabWindow_PawnTable.PostOpen))]
     static class MainTabWindow_PawnTable_OnPostOpen
     {
-        static void Postfix()
+        static void Postfix(MainTabWindow_PawnTable __instance)
         {
+            // TODO: Filter __instance by Type to load states that we need right now (instead of loading everything)
+            
             AssignManager.LoadState(AssignManager.links, AssignManager.Colonists().ToList(), AssignManager.GetActivePolicy());
             AssignManager.showPaste = false;
     
