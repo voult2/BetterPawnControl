@@ -14,19 +14,9 @@ namespace BetterPawnControl
     {
         private static bool init = false;
 
-        // WorkTab.PriorityManager
-        private static Type priorityManagerType;
-        // WorkTab.PriorityManager this[ Pawn pawn ] getter
-        private static MethodInfo getPawnPriorityTracker;
-        // WorkTab.PriorityTracker this[ WorkGiverDef workgiver ] getter
-        private static MethodInfo getWorkPriority;
-        // WorkTab.WorkPriority Priorities property
-        private static PropertyInfo priorities;
-        // WorkTab.WorkPriority this[ int hour] setter
-        private static MethodInfo setWorkPriorityByHour;
-
-        // WorkTab.PriorityManager
-        private static GameComponent priorityManager;
+        private static Type pawnExtensions;
+        private static MethodInfo getPriorities;
+        private static MethodInfo setPriority;
 
         static Widget_WorkTab()
         {
@@ -34,26 +24,16 @@ namespace BetterPawnControl
             if (!isModActive)
                 return;
 
-            priorityManagerType = AccessTools.TypeByName("WorkTab.PriorityManager");
-            if (priorityManagerType != null)
-                getPawnPriorityTracker = AccessTools.Method(priorityManagerType, "get_Item");
-
-            var priorityTrackerType = AccessTools.TypeByName("WorkTab.PriorityTracker");
-            if (priorityTrackerType != null)
-                getWorkPriority = AccessTools.Method(priorityTrackerType, "get_Item");
-
-            var workPriorityType = AccessTools.TypeByName("WorkTab.WorkPriority");
-            if (workPriorityType != null)
+            pawnExtensions = AccessTools.TypeByName("WorkTab.Pawn_Extensions");
+            if (pawnExtensions != null)
             {
-                priorities = AccessTools.Property(workPriorityType, "Priorities");
-                setWorkPriorityByHour = AccessTools.Method(workPriorityType, "set_Item");
+                getPriorities = AccessTools.Method(pawnExtensions, "GetPriorities", new Type[] { typeof(Pawn), typeof(WorkGiverDef) });
+                setPriority = AccessTools.Method(pawnExtensions, "SetPriority", new Type[] { typeof(Pawn), typeof(WorkGiverDef), typeof(int), typeof(int), typeof(bool) });
             }
 
-            init = priorityManagerType != null
-                && getPawnPriorityTracker != null
-                && getWorkPriority != null
-                && priorities != null
-                && setWorkPriorityByHour != null;
+            init = pawnExtensions != null
+                && getPriorities != null
+                && setPriority != null;
 
             if (init)
                 Log.Message("[BPC] Work Tab functionality integrated");
@@ -62,44 +42,15 @@ namespace BetterPawnControl
                 var sb = new StringBuilder();
                 sb.AppendLine("[BPC] Error in Work Tab integration - functionality disabled:");
 
-                if (priorityManagerType == null)
-                    sb.AppendLine(" - Type WorkTab.PriorityManager is not found.");
-                if (getPawnPriorityTracker == null)
-                    sb.AppendLine(" - Method WorkTab.PriorityManager:get_Item is not found.");
-                if (priorityTrackerType == null)
-                    sb.AppendLine(" - Type WorkTab.PriorityTracker is not found.");
-                if (getWorkPriority == null)
-                    sb.AppendLine(" - Method WorkTab.PriorityTracker:get_Item is not found.");
-                if (workPriorityType == null)
-                    sb.AppendLine(" - Type WorkTab.WorkPriority is not found.");
-                if (priorities == null)
-                    sb.AppendLine(" - Property WorkTab.WorkPriority.Priorities is not found.");
-                if (setWorkPriorityByHour == null)
-                    sb.AppendLine(" - Method WorkTab.WorkPriority:set_Item is not found.");
-
+                if (pawnExtensions == null)
+                    sb.AppendLine(" - Type WorkTab.Pawn_Extensions is not found.");
+                if (getPriorities == null)
+                    sb.AppendLine(" - Method WorkTab.Pawn_Extensions:GetPriorities(Pawn, WorkGiverDef) is not found.");
+                if (setPriority == null)
+                    sb.AppendLine(" - Method WorkTab.Pawn_Extensions:SetPriority(Pawn, WorkGiverDef, int, int, bool) is not found.");
+                
                 Log.Error(sb.ToString());
             }
-        }
-
-        private static object GetWorkPriority(Pawn pawn, WorkGiverDef workGiver)
-        {
-            if (Current.Game == null)
-                return null;
-
-            if (priorityManager == null)
-            {
-                var component = Current.Game.GetComponent(priorityManagerType);
-
-                if (component == null)
-                    return null;
-
-                priorityManager = component;
-            }
-
-            var pawnPriorityTracker = getPawnPriorityTracker.Invoke(priorityManager, new object[] { pawn });
-            var result = getWorkPriority.Invoke(pawnPriorityTracker, new object[] { workGiver });
-
-            return result;
         }
 
         public static List<int> GetWorkTabPriorities(Pawn pawn, WorkGiverDef workGiver)
@@ -112,38 +63,27 @@ namespace BetterPawnControl
             if (!init)
                 return null;
 
-            var workPriority = GetWorkPriority(pawn, workGiver);
-            if (workPriority == null)
-                return null;
-
-            var array = (int[]) priorities.GetValue(workPriority);
+            var array = (int[]) getPriorities.Invoke(null, new object[] { pawn, workGiver });
             var result = new List<int>(array);
 
             return result;
         }
 
-        public static void SetWorkTabPriorities(Pawn pawn, WorkGiverDef workGiver, List<int> priorities)
+        public static void SetWorkTabPriorities(Pawn pawn, WorkGiverDef workGiver, List<int> hours)
         {
             if (pawn == null)
                 throw new ArgumentNullException(nameof(pawn));
             if (workGiver == null)
                 throw new ArgumentNullException(nameof(workGiver));
-            if (priorities == null)
-                throw new ArgumentNullException(nameof(priorities));
+            if (hours == null)
+                throw new ArgumentNullException(nameof(hours));
 
             if (!init)
                 return;
 
-            if (!priorities.Any())
-                return;
-
-            var workPriority = GetWorkPriority(pawn, workGiver);
-            if (workPriority == null)
-                return;
-
-            for (var hour = 0; hour < priorities.Count; hour++)
+            for (int hour = 0; hour < hours.Count; hour++)
             {
-                setWorkPriorityByHour.Invoke(workPriority, new object[] { hour, priorities[hour] });
+                setPriority.Invoke(null, new object[] { pawn, workGiver, hours[hour], hour, true });
             }
         }
     }

@@ -9,6 +9,7 @@ namespace BetterPawnControl.Patches
     static class Window_PreClose
     {
         private const string WORKTAB_MAINTAB = "WorkTab.MainTabWindow_WorkTab";
+        private const string NUMBERS_MAINTAB = "Numbers.MainTabWindow_Numbers";
         private const string ANIMALTAB_MAINTAB = "AnimalTab.MainTabWindow_Animals";
         private const string NUMBERS_DEFNAME = "Numbers.MainTabWindow_NumbersAnimals";
 
@@ -20,7 +21,7 @@ namespace BetterPawnControl.Patches
                 AssignManager.LinksCleanUp();
             }
 
-            if ( (__instance.GetType().Equals(typeof(MainTabWindow_Work)) || __instance.GetType().FullName.Equals(WORKTAB_MAINTAB))) //&&  !Widget_ModsAvailable.DisableBPCOnWorkTab
+            if (__instance.GetType().Equals(typeof(MainTabWindow_Work)) || (__instance.GetType().FullName.Equals(WORKTAB_MAINTAB) /*&& !Widget_ModsAvailable.DisableBPCOnWorkTab*/) || __instance.GetType().FullName.Equals(NUMBERS_MAINTAB))
             {
                 WorkManager.SaveCurrentState(WorkManager.Colonists().ToList());
                 WorkManager.LinksCleanUp();

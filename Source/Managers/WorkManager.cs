@@ -163,7 +163,7 @@ namespace BetterPawnControl
                 foreach (var worktype in DefDatabase<WorkTypeDef>.AllDefsListForReading)
                 {
                     link.settings.SetOrAdd(worktype, p.workSettings.GetPriority(worktype));
-                    
+
                     if (!Widget_ModsAvailable.WorkTabAvailable)
                         continue;
 
@@ -174,7 +174,7 @@ namespace BetterPawnControl
                         if (priorities != null)
                         {
                             link.settingsInner.SetOrAdd(workGiver, priorities);
-                        }                            
+                        }
                     }
                 }
             }

@@ -8,7 +8,7 @@ namespace BetterPawnControl
     public class WorkLink : Link, IExposable
     {
         internal Pawn colonist = null;
-        internal Dictionary<WorkTypeDef, int> settings =  null;
+        internal Dictionary<WorkTypeDef, int> settings = null;
         internal Dictionary<WorkGiverDef, List<int>> settingsInner = null;
         internal Dictionary<WorkGiverDef, List<string>> settingsInnerScribe = null;
 
@@ -46,7 +46,6 @@ namespace BetterPawnControl
         /// </summary>
         public void ExposeData()
         {
-            
             Scribe_Values.Look<int>(ref zone, "zone", 0, true);
             Scribe_References.Look<Pawn>(ref colonist, "colonist");
             Scribe_Values.Look<int>(ref mapId, "mapId", 0, true);
@@ -56,7 +55,7 @@ namespace BetterPawnControl
 
             Dictionary<WorkGiverDef, string> settingsInnerScribe = new Dictionary<WorkGiverDef, string>();
             List<WorkGiverDef> keysInner = new List<WorkGiverDef>();
-            List <string> valuesInner = new List<string>();
+            List<string> valuesInner = new List<string>();
 
             if (Scribe.mode == LoadSaveMode.Saving)
             {
@@ -69,38 +68,42 @@ namespace BetterPawnControl
 
                 if (Widget_ModsAvailable.WorkTabAvailable)
                 {
-                    foreach (KeyValuePair<WorkGiverDef, List<int>> entryInner in settingsInner)
+                    foreach (KeyValuePair<WorkGiverDef, List<int>> entryInner in this.settingsInner)
                     {
-                        var _priorities = string.Join("", entryInner.Value.Select(i => i.ToString()).ToArray());
+                        var prioritiesStr = string.Join(",", entryInner.Value);
                         keysInner.Add(entryInner.Key);
-                        valuesInner.Add(_priorities);
-                        settingsInnerScribe.Add(entryInner.Key, _priorities);
+                        valuesInner.Add(prioritiesStr);
+                        settingsInnerScribe.Add(entryInner.Key, prioritiesStr);
                     }
-                    Scribe_Collections.Look(ref settingsInnerScribe, "settingsInnerScribe", LookMode.Def, LookMode.Value, ref keysInner, ref valuesInner);
+                    Scribe_Collections.Look(ref settingsInnerScribe, "settingsInner", LookMode.Def, LookMode.Value, ref keysInner, ref valuesInner);
                 }
             }
 
             if (Scribe.mode == LoadSaveMode.LoadingVars)
             {
                 Scribe_Collections.Look(ref settings, "settings", LookMode.Def, LookMode.Value, ref keys, ref values);
-                Scribe_Collections.Look(ref settingsInnerScribe, "settingsInnerScribe", LookMode.Def, LookMode.Value, ref keysInner, ref valuesInner);
+                Scribe_Collections.Look(ref settingsInnerScribe, "settingsInner", LookMode.Def, LookMode.Value, ref keysInner, ref valuesInner);
 
                 if (Widget_ModsAvailable.WorkTabAvailable)
                 {
-                    if (settingsInner == null)
+                    if (this.settingsInner == null)
                     {
-                        settingsInner = new Dictionary<WorkGiverDef, List<int>>();
+                        this.settingsInner = new Dictionary<WorkGiverDef, List<int>>();
                     }
 
                     if (settingsInnerScribe == null)
                     {
-                        //Save file without innert Settings
+                        //Save file without inner Settings
                         settingsInnerScribe = new Dictionary<WorkGiverDef, string>();
                     }
 
                     foreach (KeyValuePair<WorkGiverDef, string> entryInner in settingsInnerScribe)
                     {
-                        settingsInner.SetOrAdd(entryInner.Key, entryInner.Value.ToArray().Select(c => int.Parse(c.ToString())).ToList());
+                        var priorities = entryInner.Value
+                            .Split(',')
+                            .Select((str) => int.TryParse(str, out var i) ? i : 3) // 3 is default priority
+                            .ToList();
+                        this.settingsInner.SetOrAdd(entryInner.Key, priorities);
                     }
                 }
             }
