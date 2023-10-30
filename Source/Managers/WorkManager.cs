@@ -164,7 +164,7 @@ namespace BetterPawnControl
                 {
                     link.settings.SetOrAdd(worktype, p.workSettings.GetPriority(worktype));
 
-                    if (!Widget_ModsAvailable.WorkTabAvailable)
+                    if (!Widget_ModsAvailable.WorkTabAvailable || Widget_ModsAvailable.DisableBPCOnWorkTab || Widget_ModsAvailable.DisableBPCWorkTabInnerPriorities)
                         continue;
 
                     var workGivers = GetWorkGivers(worktype);
@@ -188,7 +188,8 @@ namespace BetterPawnControl
                 {
                     try
                     {
-                        p.workSettings.SetPriority(entry.Key, link.settings.TryGetValue(entry.Key));
+                        //The SetPriority method is very performance intensive but there is nothing I can do it about it 
+                        p.workSettings.SetPriority(entry.Key, link.settings.TryGetValue(entry.Key));                        
                     }
                     catch
                     {
@@ -197,7 +198,7 @@ namespace BetterPawnControl
                 }
             }
 
-            if (Widget_ModsAvailable.WorkTabAvailable && link.settingsInner != null)
+            if (Widget_ModsAvailable.WorkTabAvailable && !Widget_ModsAvailable.DisableBPCOnWorkTab && !Widget_ModsAvailable.DisableBPCWorkTabInnerPriorities && link.settingsInner != null )
             {
                 foreach (var entryInner in link.settingsInner)
                 {

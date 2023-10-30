@@ -34,13 +34,21 @@ namespace BetterPawnControl
             }
         }
 
-        //public static bool DisableBPCOnWorkTab
-        //{
-        //    get
-        //    {
-        //        return WorkTabAvailable && LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().disableBPCOnWorkTab;
-        //    }
-        //}
+        public static bool DisableBPCOnWorkTab
+        {
+            get
+            {
+                return WorkTabAvailable && LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().disableBPCOnWorkTab;
+            }
+        }
+
+        public static bool DisableBPCWorkTabInnerPriorities
+        {
+            get
+            {
+                return WorkTabAvailable && LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().disableBPCWorkTabInnerPriorities;
+            }
+        }
 
 
         public static bool CSLAvailable

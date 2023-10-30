@@ -27,7 +27,7 @@ namespace BetterPawnControl.Patches
                 DrawSheduleBPCButtons(__instance, position);
             }
 
-            if (___def == PawnTableDefOf.Work) // && !Widget_ModsAvailable.DisableBPCOnWorkTab
+            if (___def == PawnTableDefOf.Work && !Widget_ModsAvailable.DisableBPCOnWorkTab)
             {
                 DrawWorkBPCButtons(__instance, position);
             }
@@ -50,7 +50,7 @@ namespace BetterPawnControl.Patches
                 WorkManager.LoadState(WorkManager.links, WorkManager.Colonists().ToList(), WorkManager.GetActivePolicy());
                 WorkManager.DirtyPolicy = false;
             }
-                       
+
             DrawBPCButtons_WorkTab(position, 5f, __instance.Size.y + 15f, WorkManager.Colonists().ToList());
         }
 
