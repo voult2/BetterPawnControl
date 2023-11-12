@@ -15,6 +15,10 @@ namespace BetterPawnControl.Patches
                 WorkManager.CleanDeadColonists(___pawn);
                 AnimalManager.CleanDeadAnimals(___pawn);
                 MechManager.CleanDeadMechs(___pawn);
+                if (Widget_ModsAvailable.WTBAvailable)
+                {
+                    WeaponsManager.CleanDeadColonists(___pawn);
+                }
             }
         }
     }

@@ -37,7 +37,8 @@ namespace BetterPawnControl
                     { Resources.Type.restrict, ScheduleManager.GetActivePolicy() },
                     { Resources.Type.assign, AssignManager.GetActivePolicy() },
                     { Resources.Type.animal, AnimalManager.GetActivePolicy() },
-                    { Resources.Type.mech, MechManager.GetActivePolicy() }
+                    { Resources.Type.mech, MechManager.GetActivePolicy() },
+                    { Resources.Type.weapons, WeaponsManager.GetActivePolicy() }
                 };
 
                 Dictionary<Resources.Type, Policy> alertOn = new Dictionary<Resources.Type, Policy>(noAlert);
@@ -58,8 +59,7 @@ namespace BetterPawnControl
                     pawn.Map.pawnDestinationReservationManager.ReleaseAllClaimedBy(pawn);
                 }
                 pawn.jobs.ClearQueuedJobs();
-                if (pawn.jobs.curJob != null && pawn.jobs.IsCurrentJobPlayerInterruptible() && 
-                    !pawn.Downed && !pawn.InMentalState && !pawn.Drafted)
+                if (pawn.jobs.curJob != null && pawn.jobs.IsCurrentJobPlayerInterruptible() && !pawn.Downed && !pawn.InMentalState && !pawn.Drafted)
                 {
                     pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
                 }
@@ -77,12 +77,23 @@ namespace BetterPawnControl
 
             if (alertPolicy == null) 
             {
-                //This means the alertLevelsList is missing a default policy.
-                //This can be caused by loading a save from 1.3 on 1.4 (missing the new mech data)
-                if (type == Resources.Type.mech && alertLevelsList[level].settings.TryGetValue(type) == null)
+                switch (type)
                 {
-                    alertLevelsList[level].settings.Add(Resources.Type.mech, MechManager.GetActivePolicy());
-                    alertPolicy = MechManager.GetActivePolicy();
+                    //This means the alertLevelsList is missing a default policy
+                    //This can be caused by loading a save from 1.3 on 1.4 (missing the new mech data or other)
+                    case Resources.Type.mech:
+                        alertLevelsList[level].settings.Add(Resources.Type.mech, MechManager.GetActivePolicy());
+                        alertPolicy = MechManager.GetActivePolicy();
+                        break;
+
+                    case Resources.Type.weapons:
+                        alertLevelsList[level].settings.Add(Resources.Type.weapons, WeaponsManager.GetActivePolicy());
+                        alertPolicy = WeaponsManager.GetActivePolicy();
+                        break;
+
+                    default:
+                        Log.Error("[BPC] Missing a default policy for the Emergency feature");
+                        break;
                 }
             }
 
@@ -107,6 +118,7 @@ namespace BetterPawnControl
                 alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.assign, AssignManager.GetActivePolicy());
                 alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.animal, AnimalManager.GetActivePolicy());
                 alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.mech, MechManager.GetActivePolicy());
+                alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.weapons, WeaponsManager.GetActivePolicy());
             } 
             catch (NullReferenceException)
             {
@@ -140,6 +152,12 @@ namespace BetterPawnControl
                             break;
                         case Resources.Type.mech:
                             MechManager.LoadState(entry.Value);
+                            break;
+                        case Resources.Type.weapons:
+                            if (Widget_ModsAvailable.WTBAvailable)
+                            {
+                                WeaponsManager.LoadState(entry.Value);
+                            }
                             break;
                     }
                 }

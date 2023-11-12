@@ -13,6 +13,10 @@ namespace BetterPawnControl.Patches
             WorkManager.CleanRemovedMaps();
             AnimalManager.CleanRemovedMaps();
             MechManager.CleanRemovedMaps();
+            if (Widget_ModsAvailable.WTBAvailable)
+            {
+                WeaponsManager.CleanRemovedMaps();
+            }
         }
     }
 }

@@ -11,6 +11,13 @@ namespace BetterPawnControl
         private const string ANIMALTAB= "Animal Tab";
         private const string CSL = "Children, school and learning";
         private const string AAF = "Assign Animal Food";
+        private const string WTB = "[1001]Weapons Tab Reborn";
+
+        internal const string WORKTAB_MAINTAB = "WorkTab.MainTabWindow_WorkTab";
+        internal const string ANIMALTAB_MAINTAB = "AnimalTab.MainTabWindow_Animals";
+        internal const string NUMBERS_MAINTAB = "Numbers.MainTabWindow_Numbers";
+        internal const string NUMBERS_DEFNAME = "Numbers.MainTabWindow_NumbersAnimals";       
+        internal const string WEAPONSTAB_MAINTAB = "WeaponsTabReborn.MainTabWindow_Weapons";
 
         static Widget_ModsAvailable() 
         {
@@ -50,7 +57,6 @@ namespace BetterPawnControl
             }
         }
 
-
         public static bool CSLAvailable
         {
             get
@@ -64,6 +70,22 @@ namespace BetterPawnControl
             get
             {
                 return LoadedModManager.RunningMods.Any(mod => mod.Name == AAF);
+            }
+        }
+
+        public static bool WTBAvailable
+        {
+            get
+            {
+                return LoadedModManager.RunningMods.Any(mod => mod.Name == WTB);
+            }
+        }
+
+        public static bool CEAvailable
+        {
+            get
+            {
+                return Widget_CombatExtended.CombatExtendedAvailable;
             }
         }
     }

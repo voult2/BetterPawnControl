@@ -7,15 +7,8 @@ namespace BetterPawnControl
     [HarmonyPatch(typeof(MainTabWindow_PawnTable), nameof(MainTabWindow_PawnTable.PostOpen))]
     static class MainTabWindow_PawnTable_OnPostOpen
     {
-
-        private const string WORKTAB_MAINTAB = "WorkTab.MainTabWindow_WorkTab";
-        private const string NUMBERS_MAINTAB = "Numbers.MainTabWindow_Numbers";
-        private const string ANIMALTAB_MAINTAB = "AnimalTab.MainTabWindow_Animals";
-        private const string NUMBERS_DEFNAME = "Numbers.MainTabWindow_NumbersAnimals";
-
         static void Postfix(MainTabWindow_PawnTable __instance)
         {
-
             if (__instance.GetType().Equals(typeof(MainTabWindow_Assign)))
             {
                 AssignManager.LoadState(AssignManager.links, AssignManager.Colonists().ToList(), AssignManager.GetActivePolicy());
@@ -29,7 +22,7 @@ namespace BetterPawnControl
                 ScheduleManager.showPaste = false;
             }
 
-            if (__instance.GetType().Equals(typeof(MainTabWindow_Work)) || __instance.GetType().FullName.Equals(WORKTAB_MAINTAB) || __instance.GetType().FullName.Equals(NUMBERS_MAINTAB))
+            if (__instance.GetType().Equals(typeof(MainTabWindow_Work)) || __instance.GetType().FullName.Equals(Widget_ModsAvailable.WORKTAB_MAINTAB) || __instance.GetType().FullName.Equals(Widget_ModsAvailable.NUMBERS_MAINTAB))
             {
                 if (!Widget_ModsAvailable.DisableBPCOnWorkTab)
                 {
@@ -38,7 +31,7 @@ namespace BetterPawnControl
                 }
             }
 
-            if (__instance.GetType().Equals(typeof(MainTabWindow_Animals)) || __instance.GetType().FullName.Equals(ANIMALTAB_MAINTAB) || __instance.GetType().FullName.Equals(NUMBERS_DEFNAME))
+            if (__instance.GetType().Equals(typeof(MainTabWindow_Animals)) || __instance.GetType().FullName.Equals(Widget_ModsAvailable.ANIMALTAB_MAINTAB) || __instance.GetType().FullName.Equals(Widget_ModsAvailable.NUMBERS_DEFNAME))
             {
                 AnimalManager.LoadState(AnimalManager.links, AnimalManager.Animals().ToList(), AnimalManager.GetActivePolicy());
             }
@@ -46,6 +39,12 @@ namespace BetterPawnControl
             if (__instance.GetType().Equals(typeof(MainTabWindow_Mechs)))
             {
                 MechManager.LoadState(MechManager.links, MechManager.Mechs().ToList(), MechManager.GetActivePolicy());
+            }
+            
+
+            if (__instance.GetType().FullName.Equals(Widget_ModsAvailable.WEAPONSTAB_MAINTAB) && Widget_ModsAvailable.WTBAvailable)
+            {
+                WeaponsManager.LoadState(WeaponsManager.links, WeaponsManager.Colonists().ToList(), WeaponsManager.GetActivePolicy());
             }
         }
     }

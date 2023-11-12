@@ -12,7 +12,15 @@ namespace BetterPawnControl
             if(___mapParent.Map.IsPlayerHome)
             {
                 AssignManager.LoadState(AssignManager.GetActivePolicy());
-            }            
+                ScheduleManager.LoadState(ScheduleManager.GetActivePolicy());   
+                AnimalManager.LoadState(AnimalManager.GetActivePolicy());
+                WorkManager.LoadState(WorkManager.GetActivePolicy());
+                MechManager.LoadState(MechManager.GetActivePolicy());
+                if (Widget_ModsAvailable.WTBAvailable)
+                {
+                    WeaponsManager.LoadState(WeaponsManager.GetActivePolicy());
+                }
+            }
         }
     }
 }   

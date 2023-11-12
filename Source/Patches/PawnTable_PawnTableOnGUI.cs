@@ -13,6 +13,7 @@ namespace BetterPawnControl.Patches
     static class PawnTable_PawnTableOnGUI
     {
         private const string NUMBERS_DEFNAME = "Numbers_Animals";
+        private const string WEAPONSTAB_DEFNAME = "WeaponsTab";
 
         static void Postfix(PawnTable __instance, Vector2 position, PawnTableDef ___def)
         {
@@ -40,6 +41,11 @@ namespace BetterPawnControl.Patches
             if (___def == PawnTableDefOf.Mechs )
             {
                 DrawMechBPCButtons(__instance, position);
+            }
+
+            if (___def.defName == WEAPONSTAB_DEFNAME && Widget_ModsAvailable.WTBAvailable)
+            {
+                DrawWeaponsBPCButtons(__instance, position);
             }
         }
 
@@ -107,6 +113,17 @@ namespace BetterPawnControl.Patches
             }
 
             DrawBPCButtons_MechTab(position, 5f, __instance.Size.y + 15f);
+        }
+
+        private static void DrawWeaponsBPCButtons(PawnTable __instance, Vector2 position)
+        {
+            if (WeaponsManager.DirtyPolicy)
+            {
+                WeaponsManager.LoadState(WeaponsManager.links, WeaponsManager.Colonists().ToList(), WeaponsManager.GetActivePolicy());
+                WeaponsManager.DirtyPolicy = false;
+            }
+
+            DrawBPCButtons_WeaponsTab(position, 5f, __instance.Size.y + 15f, WeaponsManager.Colonists().ToList());
         }
 
         private static void DrawBPCButtons_AssignTab(Vector2 position, float X_ExtraSpace, float Y_ExtraSpace, List<Pawn> colonists)
@@ -433,6 +450,57 @@ namespace BetterPawnControl.Patches
             Find.WindowStack.Add(new FloatMenu(list));
         }
 
+        private static void DrawBPCButtons_WeaponsTab(Vector2 position, float X_ExtraSpace, float Y_ExtraSpace, List<Pawn> colonists)
+        {
+
+            Rect pos = new Rect(position.x + X_ExtraSpace, position.y + Y_ExtraSpace, 600f, 65f);
+            float offSetX = 0f;
+
+            GUI.BeginGroup(pos);
+
+            Text.Font = GameFont.Tiny;
+            Text.Anchor = TextAnchor.LowerCenter;
+            Rect rect1 = new Rect(offSetX, -8f, 165f, Mathf.Round(pos.height / 3f));
+            Widgets.Label(rect1, "BPC.CurrentWeaponsPolicy".Translate());
+
+            Text.Font = GameFont.Small;
+            Text.Anchor = TextAnchor.UpperLeft;
+            Rect rect2 = new Rect(offSetX, Mathf.Round(pos.height / 4f) - 4f, rect1.width, Mathf.Round(pos.height / 4f) + 4f);
+
+            if (Widgets.ButtonText(rect2, WeaponsManager.GetActivePolicy().label, true, false, true))
+            {
+                WeaponsManager.SaveCurrentState(colonists);
+                OpenWeaponsPolicySelectMenu(WeaponsManager.links, colonists);
+            }
+            offSetX += rect1.width;
+            Rect rect3 = new Rect(offSetX, 0f, 20f, Mathf.Round(pos.height / 2f));
+            if (Widgets.ButtonText(rect3, "", true, false, true))
+            {
+                Find.WindowStack.Add(new Dialog_ManagePolicies(Find.CurrentMap));
+            }
+            Rect rect4 = new Rect(offSetX + 3f, rect3.height / 4f, 14f, 14f);
+            GUI.DrawTexture(rect4, Resources.Textures.Settings);
+            TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
+
+            GUI.EndGroup();
+        }
+
+        private static void OpenWeaponsPolicySelectMenu(List<WeaponsLink> links, List<Pawn> pawns)
+        {
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
+
+            foreach (Policy weaponsPolicy in WeaponsManager.policies)
+            {
+                list.Add(
+                    new FloatMenuOption(weaponsPolicy.label,
+                        delegate
+                        {
+                            WeaponsManager.LoadState(links, pawns, weaponsPolicy);
+                        },
+                        MenuOptionPriority.Default, null, null, 0f, null));
+            }
+            Find.WindowStack.Add(new FloatMenu(list));
+        }
 
     }
 }

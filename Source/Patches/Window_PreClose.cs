@@ -7,21 +7,16 @@ namespace BetterPawnControl.Patches
 {
     [HarmonyPatch(typeof(Window), nameof(Window.PreClose))]
     static class Window_PreClose
-    {
-        private const string WORKTAB_MAINTAB = "WorkTab.MainTabWindow_WorkTab";
-        private const string NUMBERS_MAINTAB = "Numbers.MainTabWindow_Numbers";
-        private const string ANIMALTAB_MAINTAB = "AnimalTab.MainTabWindow_Animals";
-        private const string NUMBERS_DEFNAME = "Numbers.MainTabWindow_NumbersAnimals";
-
+    {        
         static void Postfix(Window __instance)
         {
-            if (__instance.GetType().Equals(typeof(MainTabWindow_Assign))) 
+            if (__instance.GetType().Equals(typeof(MainTabWindow_Assign)) || __instance.GetType().FullName.Equals(Widget_ModsAvailable.WEAPONSTAB_MAINTAB)) 
             {
                 AssignManager.SaveCurrentState(AssignManager.Colonists().ToList());
                 AssignManager.LinksCleanUp();
             }
 
-            if (__instance.GetType().Equals(typeof(MainTabWindow_Work)) || (__instance.GetType().FullName.Equals(WORKTAB_MAINTAB) && !Widget_ModsAvailable.DisableBPCOnWorkTab) || __instance.GetType().FullName.Equals(NUMBERS_MAINTAB))
+            if (__instance.GetType().Equals(typeof(MainTabWindow_Work)) || (__instance.GetType().FullName.Equals(Widget_ModsAvailable.WORKTAB_MAINTAB) && !Widget_ModsAvailable.DisableBPCOnWorkTab) || __instance.GetType().FullName.Equals(Widget_ModsAvailable.NUMBERS_MAINTAB))
             {
                 WorkManager.SaveCurrentState(WorkManager.Colonists().ToList());
                 WorkManager.LinksCleanUp();
@@ -33,7 +28,7 @@ namespace BetterPawnControl.Patches
                 ScheduleManager.LinksCleanUp();
             }
 
-            if (__instance.GetType().Equals(typeof(MainTabWindow_Animals)) || __instance.GetType().FullName.Equals(ANIMALTAB_MAINTAB) || __instance.GetType().FullName.Equals(NUMBERS_DEFNAME))
+            if (__instance.GetType().Equals(typeof(MainTabWindow_Animals)) || __instance.GetType().FullName.Equals(Widget_ModsAvailable.ANIMALTAB_MAINTAB) || __instance.GetType().FullName.Equals(Widget_ModsAvailable.NUMBERS_DEFNAME))
             {
                 AnimalManager.SaveCurrentState(AnimalManager.Animals().ToList());
                 AnimalManager.LinksCleanUp();
@@ -43,6 +38,12 @@ namespace BetterPawnControl.Patches
             {
                 MechManager.SaveCurrentState(MechManager.Mechs().ToList());
                 MechManager.LinksCleanUp();
+            }
+
+            if (__instance.GetType().FullName.Equals(Widget_ModsAvailable.WEAPONSTAB_MAINTAB) && Widget_ModsAvailable.WTBAvailable)
+            {
+                WeaponsManager.SaveCurrentState(WeaponsManager.Colonists().ToList());
+                WeaponsManager.LinksCleanUp();
             }
         }
     }

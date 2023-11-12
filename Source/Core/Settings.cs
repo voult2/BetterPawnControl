@@ -9,12 +9,20 @@ namespace BetterPawnControl
         public bool automaticPawnsInterrupt = true;
         public bool disableBPCOnWorkTab = false;
         public bool disableBPCWorkTabInnerPriorities = false;
+        public float settingsWindowPosX = -160f;
+        public float settingsWindowPosY = 84f;
+        public float settingsWindowWidth = 1600f;
+        public float settingsWindowHeight = 855f;
 
         public override void ExposeData()
         {
             Scribe_Values.Look<bool>(ref automaticPawnsInterrupt, "AutomaticPawnsInterrupt", true, true);
             Scribe_Values.Look<bool>(ref disableBPCOnWorkTab, "DisableBPCOnWork", false, true);
             Scribe_Values.Look<bool>(ref disableBPCWorkTabInnerPriorities, "DisableBPCWorkTabInnerPriorities", false, true);
+            Scribe_Values.Look<float>(ref settingsWindowPosX, "SettingsWindowPosX", -160f, true);
+            Scribe_Values.Look<float>(ref settingsWindowPosY, "SettingsWindowPosY", 84f, true);
+            Scribe_Values.Look<float>(ref settingsWindowWidth, "SettingsWindowWidth", 1600f, true);
+            Scribe_Values.Look<float>(ref settingsWindowHeight, "SettingsWindowHeight", 855f, true);
             base.ExposeData();
         }
     }
