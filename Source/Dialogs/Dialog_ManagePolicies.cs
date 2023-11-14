@@ -2,6 +2,7 @@
 using UnityEngine;
 using Verse;
 using RimWorld;
+using System;
 
 namespace BetterPawnControl
 {
@@ -51,10 +52,21 @@ namespace BetterPawnControl
         public override void PostOpen()
         {
             base.PostOpen();
-            windowRect.x = LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().settingsWindowPosX;
-            windowRect.y = LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().settingsWindowPosY;
-            windowRect.width = LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().settingsWindowWidth;
-            windowRect.height = LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().settingsWindowHeight;
+            
+            Nullable<float> number = LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().settingsWindowPosX;
+            windowRect.x = number  ?? ResolutionUtility.NativeResolution.width / 2;
+
+            number = LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().settingsWindowPosY;
+            windowRect.y = number ?? ResolutionUtility.NativeResolution.height / 2;
+
+            number = LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().settingsWindowWidth;
+            windowRect.width = number ?? 1280f;
+
+            number = LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().settingsWindowHeight;
+            windowRect.height = number ?? 870f;
+
+            windowRect.width = windowRect.width < 1280f ? 1280f : windowRect.width;
+            windowRect.height = windowRect.height < 870f ? 870f : windowRect.height;
         }
 
         public override void PreClose()
@@ -71,15 +83,6 @@ namespace BetterPawnControl
         /// </summary>
         public override void DoWindowContents(Rect inRect)
         {
-            if (windowRect.width < 1280f)
-            {
-                windowRect.width = 1280f;
-            }
-
-            if (windowRect.height < 870f)
-            {
-                windowRect.width = 870f;
-            }
 
             Listing_Standard listing_Standard = new Listing_Standard();
             listing_Standard.ColumnWidth = inRect.width;

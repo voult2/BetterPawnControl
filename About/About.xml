@@ -16,7 +16,7 @@ Features:
 - Default outfits, food, drugs when colonist, prisoners or slaves join your colony
 - Emergency' button to toggle your configured policies at once in one click or keyboard shorcut 
 
-v2.6 - Added integration with WeaponsTabReborn mod
+v2.6.1 - Added integration with WeaponsTabReborn mod
 v2.5.3 - Full Integration with 'Work Tab' mod (Thanks to TheLonerD)
 
 Mod Integrations List:                       
@@ -26,6 +26,7 @@ Mod Integrations List:
 - Combat Extended
 - Assign Animal Food
 - Children, school and learning
+- WeaponsTabReborn 
 
 	</description>
 	<modDependencies>

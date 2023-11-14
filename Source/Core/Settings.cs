@@ -16,6 +16,7 @@ namespace BetterPawnControl
 
         public override void ExposeData()
         {
+            base.ExposeData();
             Scribe_Values.Look<bool>(ref automaticPawnsInterrupt, "AutomaticPawnsInterrupt", true, true);
             Scribe_Values.Look<bool>(ref disableBPCOnWorkTab, "DisableBPCOnWork", false, true);
             Scribe_Values.Look<bool>(ref disableBPCWorkTabInnerPriorities, "DisableBPCWorkTabInnerPriorities", false, true);
@@ -23,7 +24,6 @@ namespace BetterPawnControl
             Scribe_Values.Look<float>(ref settingsWindowPosY, "SettingsWindowPosY", 84f, true);
             Scribe_Values.Look<float>(ref settingsWindowWidth, "SettingsWindowWidth", 1600f, true);
             Scribe_Values.Look<float>(ref settingsWindowHeight, "SettingsWindowHeight", 855f, true);
-            base.ExposeData();
         }
     }
 
