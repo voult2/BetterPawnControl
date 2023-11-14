@@ -26,11 +26,16 @@
   <BPC.MechPolicy>メカ方針: </BPC.MechPolicy>
   <BPC.CurrentMechPolicy>有効なメカ方針</BPC.CurrentMechPolicy>
 
+  <BPC.NewWeaponsPolicy>新規武器方針</BPC.NewWeaponsPolicy>
+  <BPC.WeaponsPolicy>武器方針: </BPC.WeaponsPolicy>
+  <BPC.CurrentWeaponsPolicy>有効な武器方針</BPC.CurrentWeaponsPolicy>
+
   <BPC.WorkTab>優先順位</BPC.WorkTab>
   <BPC.RestrictTab>時間割</BPC.RestrictTab>
   <BPC.AssignTab>服装・任命</BPC.AssignTab>
   <BPC.AnimalTab>家畜</BPC.AnimalTab>
   <BPC.MechTab>メカ</BPC.MechTab>
+  <BPC.WeaponsTab>武器</BPC.WeaponsTab>
 
   <BPC.PoliciesConfigText>方針のプリセットを作成/削除/名前変更をした後で各タブでそれらを再設定することを忘れないでください.</BPC.PoliciesConfigText>
 
@@ -39,6 +44,7 @@
   <BPC.SelectedDefaultFood>初期設定:食事</BPC.SelectedDefaultFood>
   <BPC.SelectedDefaultDrug>初期設定:ドラッグ</BPC.SelectedDefaultDrug>
   <BPC.SelectedDefaultMeds>初期設定:治療</BPC.SelectedDefaultMeds>
+  <BPC.SelectedDefaultWeapons>初期設定:武器</BPC.SelectedDefaultWeapons>
 
   <BPC.SelectedPrisionerDefaultFood>初期設定:囚人食</BPC.SelectedPrisionerDefaultFood>
   <BPC.SelectedPrisionerMeds>初期設定：囚人治療</BPC.SelectedPrisionerMeds>
@@ -65,6 +71,8 @@
 
   <BPC.BetterPawnControlSettingsName>Better Pawn Control</BPC.BetterPawnControlSettingsName>
   <BPC.AutomaticPawnsInterruptSetting>緊急事態をオンにした際に,ポーンの行動を自動的に中断しますか？</BPC.AutomaticPawnsInterruptSetting>
-  <BPC.DisableBPCOnWorkTabSetting>WorkTabとBPCの統合を無効にしますか？</BPC.DisableBPCOnWorkTabSetting>
-  <BPC.DisableBPCOnWorkTabTooltip>このModは,FlufflyのWorkTabを一部だけ互換性サポートします.WorkTabの拡張優先度(1-10)を使用する場合は,この設定を有効にして統合を無効にする必要があります.</BPC.DisableBPCOnWorkTabTooltip>
+  <BPC.DisableBPCOnWorkTabSetting>WorkTabとこのModの互換性を完全に無効化しますか？</BPC.DisableBPCOnWorkTabSetting>
+  <BPC.DisableBPCOnWorkTabTooltip>WorkTabのMod内部(または拡張)の優先順位を含めて完全な互換性を持たせます.</BPC.DisableBPCOnWorkTabTooltip>
+  <BPC.DisableBPCWorkTabInnerPrioritiesSetting>このModとFlufflyのWorkTabとのMOD内部(または拡張)優先順位との互換性を無効化して「通常の」優先順位を維持しますか？</BPC.DisableBPCWorkTabInnerPrioritiesSetting>
+  <BPC.DisableBPCWorkTabInnerPrioritiesTooltip>This will allow to keep using BPC with WorkTab but without saving the inner priorities.</BPC.DisableBPCWorkTabInnerPrioritiesTooltip>	
 </LanguageData>
