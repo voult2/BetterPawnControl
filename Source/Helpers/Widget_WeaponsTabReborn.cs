@@ -21,6 +21,11 @@ namespace BetterPawnControl
         private static MethodInfo getWeaponsLoadoutsDatabase;
         private static MethodInfo getDefaultLoadoutId;
 
+        public static bool Integrated()
+        {
+            return init;
+        }            
+
         static Widget_WeaoponsTabReborn()
         {
             var isModActive = LoadedModManager.RunningMods.Any(mod => mod.Name == "[1001]Weapons Tab Reborn");

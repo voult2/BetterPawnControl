@@ -77,7 +77,7 @@ namespace BetterPawnControl
         {
             get
             {
-                return LoadedModManager.RunningMods.Any(mod => mod.Name == WTB);
+                return LoadedModManager.RunningMods.Any(mod => mod.Name == WTB) && Widget_WeaoponsTabReborn.Integrated(); 
             }
         }
 
