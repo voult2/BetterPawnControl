@@ -14,8 +14,13 @@ namespace BetterPawnControl
                 AssignManager.LoadState(AssignManager.GetActivePolicy());
                 ScheduleManager.LoadState(ScheduleManager.GetActivePolicy());   
                 AnimalManager.LoadState(AnimalManager.GetActivePolicy());
-                WorkManager.LoadState(WorkManager.GetActivePolicy());
                 MechManager.LoadState(MechManager.GetActivePolicy());
+
+                if (!Widget_ModsAvailable.DisableBPCOnWorkTab)
+                {
+                    WorkManager.LoadState(WorkManager.GetActivePolicy());
+                }
+                              
                 if (Widget_ModsAvailable.WTBAvailable)
                 {
                     WeaponsManager.LoadState(WeaponsManager.GetActivePolicy());
