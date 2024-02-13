@@ -20,6 +20,7 @@ namespace BetterPawnControl.Patches
             {
                 WorkManager.SaveCurrentState(WorkManager.Colonists().ToList());
                 WorkManager.LinksCleanUp();
+                Widget_WorkTab.ClearCache();
             }
 
             if (__instance.GetType().Equals(typeof(MainTabWindow_Schedule)))
