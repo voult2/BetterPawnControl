@@ -7,8 +7,8 @@ namespace BetterPawnControl
     {
         //internal int zone = 0;
         internal Pawn colonist = null;
-        internal Outfit outfit = null;
-        internal FoodRestriction foodPolicy = null;
+        internal ApparelPolicy outfit = null;
+        internal FoodPolicy foodPolicy = null;
         internal DrugPolicy drugPolicy = null;
         internal HostilityResponseMode hostilityResponse = HostilityResponseMode.Flee;
         internal int loadoutId = 1;
@@ -17,7 +17,7 @@ namespace BetterPawnControl
         public AssignLink() { }
 
         public AssignLink(
-            int zone, Pawn colonist, Outfit outfit, FoodRestriction foodPolicy,
+            int zone, Pawn colonist, ApparelPolicy outfit, FoodPolicy foodPolicy,
             DrugPolicy drugPolicy, HostilityResponseMode hostilityResponse, 
             int loadoutId, int mapId)
         {
@@ -68,8 +68,8 @@ namespace BetterPawnControl
         {
             Scribe_Values.Look<int>(ref zone, "zone", 0, true);
             Scribe_References.Look<Pawn>(ref colonist, "colonist");
-            Scribe_References.Look<Outfit>(ref outfit, "outfit");
-            Scribe_References.Look<FoodRestriction>(ref foodPolicy, "foodPolicy");
+            Scribe_References.Look<ApparelPolicy>(ref outfit, "outfit");
+            Scribe_References.Look<FoodPolicy>(ref foodPolicy, "foodPolicy");
             Scribe_References.Look<DrugPolicy>(ref drugPolicy, "drugPolicy");
             Scribe_Values.Look<HostilityResponseMode>(ref hostilityResponse, "hostilityResponse", HostilityResponseMode.Flee, true);
             Scribe_Values.Look<int>(ref loadoutId, "loadoutId", 1, true);

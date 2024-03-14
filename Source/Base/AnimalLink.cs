@@ -11,14 +11,14 @@ namespace BetterPawnControl
         internal Area area = null;
         internal bool followDrafted = true;
         internal bool followFieldwork = true;
-        internal FoodRestriction foodPolicy = null;
+        internal FoodPolicy foodPolicy = null;
         //internal int mapId = 0;
 
         public AnimalLink() { }
 
         public AnimalLink(
             int zone, Pawn animal, Pawn master, Area area, 
-            bool followDrafted, bool followFieldwork, FoodRestriction foodPolicy, 
+            bool followDrafted, bool followFieldwork, FoodPolicy foodPolicy, 
             int mapId)
         {
             this.zone = zone;
@@ -55,7 +55,7 @@ namespace BetterPawnControl
             Scribe_Values.Look<bool>(ref followDrafted, "followDrafted", true, true);
             Scribe_Values.Look<bool>(ref followFieldwork, "followFieldwork", true, true);
             Scribe_Values.Look<int>(ref mapId, "mapId", 0, true);
-            Scribe_References.Look<FoodRestriction>(ref foodPolicy, "foodPolicy");
+            Scribe_References.Look<FoodPolicy>(ref foodPolicy, "foodPolicy");
         }
     }
 }
