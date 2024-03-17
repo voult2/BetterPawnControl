@@ -1,14 +1,18 @@
 <loadFolders>
   <v1.2>
-	<li>Common</li>
-	<li>v1.2</li>
+    <li>Common</li>
+    <li>v1.2</li>
   </v1.2>
   <v1.3>
     <li>Common</li>
-	<li>v1.3</li>
+    <li>v1.3</li>
   </v1.3>
   <v1.4>
     <li>Common</li>
-	<li>v1.4</li>
+    <li>v1.4</li>
   </v1.4>
+  <v1.5>
+    <li>Common</li>
+    <li>v1.5</li>
+  </v1.5>
 </loadFolders>

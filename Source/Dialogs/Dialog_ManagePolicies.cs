@@ -3,6 +3,7 @@ using UnityEngine;
 using Verse;
 using RimWorld;
 using System;
+using System.Linq;
 
 namespace BetterPawnControl
 {
@@ -94,16 +95,14 @@ namespace BetterPawnControl
 
             Rect policiesHeader = listing_Standard.GetRect(NORMAL_HEIGHT + 8f);
 
-            int rows =
-                MaxNumber(
-                    MaxNumber(
-                        MaxNumber(
-                            MaxNumber(
-                                MaxNumber(WeaponsManager.policies.Count, MechManager.policies.Count),
-                            AnimalManager.policies.Count),
-                        AssignManager.policies.Count), 
-                    ScheduleManager.policies.Count), 
-                WorkManager.policies.Count);
+            int rows = MaxNumber(
+                WeaponsManager.policies.Count,
+                MechManager.policies.Count,
+                AnimalManager.policies.Count,
+                AssignManager.policies.Count,
+                ScheduleManager.policies.Count,
+                WorkManager.policies.Count
+            );
 
             float border = 3f;
             float columWidth = policiesHeader.width / NTABSCOLUMNS;
@@ -567,29 +566,30 @@ namespace BetterPawnControl
             Text.Anchor = TextAnchor.UpperLeft;
         }
         
-        private static int MaxNumber(int first, int second)
+        private static int MaxNumber(params int[] numbers)
         {
-            return (first > second ? first : second);
+            var max = numbers.Max();
+            return max;
         }
 
         private static void OpenOutfitSelectMenu(PawnType type)
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
 
-            foreach (Outfit outfit in Current.Game.outfitDatabase.AllOutfits)
+            foreach (ApparelPolicy apparelPolicy in Current.Game.outfitDatabase.AllOutfits)
             {
                 list.Add(
                     new FloatMenuOption(
-                        outfit.label,
+                        apparelPolicy.label,
                         delegate
                         {
                             if (type == PawnType.Colonist)
                             {
-                                AssignManager.DefaultOutfit = outfit;
+                                AssignManager.DefaultOutfit = apparelPolicy;
                             }
                             else //if (type == PawnType.Slave)
                             {
-                                AssignManager.DefaultSlaveOutfit = outfit;
+                                AssignManager.DefaultSlaveOutfit = apparelPolicy;
                             }                            
                         },
                         MenuOptionPriority.Default, null, null, 0f, null));
@@ -627,7 +627,7 @@ namespace BetterPawnControl
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
 
-            foreach (FoodRestriction foodPolicy in Current.Game.foodRestrictionDatabase.AllFoodRestrictions)
+            foreach (FoodPolicy foodPolicy in Current.Game.foodRestrictionDatabase.AllFoodRestrictions)
             {
                 list.Add(
                     new FloatMenuOption(

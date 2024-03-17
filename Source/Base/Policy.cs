@@ -2,10 +2,20 @@
 
 namespace BetterPawnControl
 {
-    public class Policy : IExposable
+    public class Policy : IExposable, IRenameable
     {
         internal int id = 0;
         public string label = "BPC.Auto".Translate();
+
+        public string RenamableLabel
+        {
+            get => label;
+            set => label = value;
+        }
+
+        public string BaseLabel => label;
+
+        public string InspectLabel => RenamableLabel;
 
         public Policy() { }
 

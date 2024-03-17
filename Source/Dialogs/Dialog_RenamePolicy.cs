@@ -3,15 +3,13 @@ using Verse;
 
 namespace BetterPawnControl
 {
-
-    public class Dialog_RenamePolicy : Dialog_Rename
+    public class Dialog_RenamePolicy : Dialog_Rename<Policy>
     {
-
         private Policy policy = null;
         private readonly int maxLength = 12;
         private Resources.Type type = Resources.Type.animal;
 
-        public Dialog_RenamePolicy(Policy policy, Resources.Type type)
+        public Dialog_RenamePolicy(Policy policy, Resources.Type type) : base(policy)
         {
             this.policy = policy;
             this.curName = policy.label;
@@ -77,23 +75,22 @@ namespace BetterPawnControl
             return true;
         }
 
-        /// <summary>
-        /// Sanitize AnimalPolicy label name and set refresh label on (grand)parent window
-        /// </summary>
-        protected override void SetName(string name)
+        protected override void OnRenamed(string name)
         {
+            base.OnRenamed(name);
+
             bool updateAlertPolicyLabel = false;
             if (AlertManager.GetAlertPolicy(1, this.type).Equals(this.policy))
             {
                 updateAlertPolicyLabel = true;
             }
-            
+
             this.policy.label = this.curName.Length <= maxLength ? this.curName : this.curName.Substring(0, maxLength) + "...";
 
             if (updateAlertPolicyLabel)
             {
                 AlertManager.SaveState(1, this.type, this.policy);
-            }           
+            }
         }
     }
 }

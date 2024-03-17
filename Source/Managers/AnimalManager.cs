@@ -54,20 +54,20 @@ namespace BetterPawnControl
                 {
                     //animal found! save master and area
                     animalLink.master = p.playerSettings.Master;
-                    animalLink.area = p.playerSettings.AreaRestriction;
+                    animalLink.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
                     animalLink.followDrafted = p.playerSettings.followDrafted;
                     animalLink.followFieldwork = p.playerSettings.followFieldwork;
                     if (Widget_ModsAvailable.AAFAvailable)
                     {
-                        animalLink.foodPolicy = p.foodRestriction.CurrentFoodRestriction;
+                        animalLink.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
                     }
                 }
                 else
                 {
-                    FoodRestriction food = null;
+                    FoodPolicy food = null;
                     if (Widget_ModsAvailable.AAFAvailable)
                     {
-                        food = p.foodRestriction.CurrentFoodRestriction;
+                        food = p.foodRestriction.CurrentFoodPolicy;
                         if (food == Current.Game.foodRestrictionDatabase.DefaultFoodRestriction())
                         {
                             food = AnimalManager.DefaultFoodPolicy;
@@ -80,7 +80,7 @@ namespace BetterPawnControl
                             AnimalManager.GetActivePolicy().id,
                             p,
                             p.playerSettings.Master,
-                            p.playerSettings.AreaRestriction,
+                            p.playerSettings.AreaRestrictionInPawnCurrentMap,
                             p.playerSettings.followDrafted,
                             p.playerSettings.followFieldwork,
                             food,
@@ -130,12 +130,12 @@ namespace BetterPawnControl
                     {
                         //found animal in zone. Update master if alive
                         p.playerSettings.Master = (l.master != null && l.master.Dead) ? null : l.master;
-                        p.playerSettings.AreaRestriction = l.area;
+                        p.playerSettings.AreaRestrictionInPawnCurrentMap = l.area;
                         p.playerSettings.followDrafted = l.followDrafted;
                         p.playerSettings.followFieldwork = l.followFieldwork;
                         if (Widget_ModsAvailable.AAFAvailable)
                         {
-                            p.foodRestriction.CurrentFoodRestriction = FoodPolicyExits(l.foodPolicy) ?
+                            p.foodRestriction.CurrentFoodPolicy = FoodPolicyExits(l.foodPolicy) ?
                                 l.foodPolicy : null;
                         }                            
                     }
@@ -177,10 +177,10 @@ namespace BetterPawnControl
                     if (l.animal != null && l.animal.GetUniqueLoadID().Equals(p.GetUniqueLoadID()))
                     {
                         l.master = p.playerSettings.Master;
-                        l.area = p.playerSettings.AreaRestriction;
+                        l.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
                         if (Widget_ModsAvailable.AAFAvailable)
                         {
-                            l.foodPolicy = p.foodRestriction.CurrentFoodRestriction;
+                            l.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
                         }
                     }
                 }
