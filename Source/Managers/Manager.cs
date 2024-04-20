@@ -170,6 +170,24 @@ namespace BetterPawnControl
 				_defaultFoodPolicy = value;
 			}
 		}
+
+		internal static ReadingPolicy _defaultReadingPolicy = null;
+		internal static ReadingPolicy DefaultReadingPolicy
+		{
+			get
+			{
+				if (_defaultReadingPolicy == null)
+				{
+					_defaultReadingPolicy = Current.Game.readingPolicyDatabase.DefaultReadingPolicy();
+				}
+				return _defaultReadingPolicy;
+			}
+
+			set
+			{
+				_defaultReadingPolicy = value;
+			}
+		}
 	}
 }
 

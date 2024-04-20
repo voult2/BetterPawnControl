@@ -26,11 +26,16 @@
 	<BPC.MechPolicy>Policy </BPC.MechPolicy>
 	<BPC.CurrentMechPolicy>Active mech policy</BPC.CurrentMechPolicy>
 	
+	<BPC.NewWeaponsPolicy>New weapon policy</BPC.NewWeaponsPolicy>
+	<BPC.WeaponsPolicy>Policy </BPC.WeaponsPolicy>
+	<BPC.CurrentWeaponsPolicy>Active weapon policy</BPC.CurrentWeaponsPolicy>
+	
 	<BPC.WorkTab>Work</BPC.WorkTab>
 	<BPC.RestrictTab>Schedule</BPC.RestrictTab>
 	<BPC.AssignTab>Assign</BPC.AssignTab>
 	<BPC.AnimalTab>Animals</BPC.AnimalTab>
 	<BPC.MechTab>Mechs</BPC.MechTab>
+	<BPC.WeaponsTab>Weapons</BPC.WeaponsTab>	
 	
 	<BPC.PoliciesConfigText>Create/Delete/Rename policies presets. Don't forget to configure them on each tab afterwards</BPC.PoliciesConfigText>
 	
@@ -38,7 +43,9 @@
 	<BPC.SelectedDefaultOutfit>Outfit</BPC.SelectedDefaultOutfit>
 	<BPC.SelectedDefaultFood>Food</BPC.SelectedDefaultFood>
 	<BPC.SelectedDefaultDrug>Drug</BPC.SelectedDefaultDrug>
+	<BPC.SelectedDefaultReading>Reading</BPC.SelectedDefaultReading>
 	<BPC.SelectedDefaultMeds>Medical Care</BPC.SelectedDefaultMeds>
+	<BPC.SelectedDefaultWeapons>Weapons</BPC.SelectedDefaultWeapons>
 	
 	<BPC.SelectedPrisionerDefaultFood>Food</BPC.SelectedPrisionerDefaultFood>
 	<BPC.SelectedPrisionerMeds>Medical Care</BPC.SelectedPrisionerMeds>
@@ -46,6 +53,7 @@
 	<BPC.SelectedSlaveDefaultOutfit>Outfit</BPC.SelectedSlaveDefaultOutfit>	
 	<BPC.SelectedSlaveDefaultFood>Food</BPC.SelectedSlaveDefaultFood>
 	<BPC.SelectedSlaveDefaultDrugs>Drugs</BPC.SelectedSlaveDefaultDrugs>
+	<BPC.SelectedSlaveDefaultReading>Reading</BPC.SelectedSlaveDefaultReading>
 	<BPC.SelectedSlaveDefaultMeds>Medical Care</BPC.SelectedSlaveDefaultMeds>
 	
 	<BPC.ColonistDefaultHeader>Colonist Defaults</BPC.ColonistDefaultHeader>

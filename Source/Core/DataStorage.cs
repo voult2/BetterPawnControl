@@ -52,7 +52,8 @@ namespace BetterPawnControl
 			{
 				Scribe_References.Look<ApparelPolicy>(ref AssignManager._defaultOutfit,"DefaultOutfit");
 				Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultFoodPolicy, "DefaultFoodPolicy");
-				Scribe_References.Look<DrugPolicy>(ref AssignManager._defaultDrugPolicy, "DefaultDrugPolicy");				
+				Scribe_References.Look<DrugPolicy>(ref AssignManager._defaultDrugPolicy, "DefaultDrugPolicy");
+				Scribe_References.Look<ReadingPolicy>(ref AssignManager._defaultReadingPolicy, "DefaultReadingPolicy");
 				Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaultMedCare, "DefaultColonistMedCare");
 
 				Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultPrisonerFoodPolicy, "DefaultPrisonerFoodPolicy");
@@ -63,6 +64,7 @@ namespace BetterPawnControl
 					Scribe_References.Look<ApparelPolicy>(ref AssignManager._defaultSlaveOutfit, "DefaultSlaveOutfit");
 					Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultSlaveFoodPolicy, "DefaultSlaveFoodPolicy");
 					Scribe_References.Look<DrugPolicy>(ref AssignManager._defaultSlaveDrugPolicy, "DefaultSlaveDrugPolicy");
+					Scribe_References.Look<ReadingPolicy>(ref AssignManager._defaultSlaveReadingPolicy, "DefaultSlaveReadingPolicy");
 					Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaulSlaveMedCare, "DefaultSlaveMedCare");
 				}
 				
@@ -120,6 +122,7 @@ namespace BetterPawnControl
 				Scribe_References.Look<ApparelPolicy>(ref AssignManager._defaultOutfit, "DefaultOutfit");
 				Scribe_References.Look<DrugPolicy>(ref AssignManager._defaultDrugPolicy, "DefaultDrugPolicy");
 				Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultFoodPolicy, "DefaultFoodPolicy");
+				Scribe_References.Look<ReadingPolicy>(ref AssignManager._defaultReadingPolicy, "DefaultReadingPolicy");
 				Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaultMedCare, "DefaultMedCare");
 
 				Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultPrisonerFoodPolicy, "DefaultPrisonerFoodPolicy");
@@ -130,6 +133,7 @@ namespace BetterPawnControl
 				Scribe_References.Look<ApparelPolicy>(ref AssignManager._defaultSlaveOutfit, "DefaultSlaveOutfit");
 				Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultSlaveFoodPolicy, "DefaultSlaveFoodPolicy");
 				Scribe_References.Look<DrugPolicy>(ref AssignManager._defaultSlaveDrugPolicy, "DefaultSlaveDrugPolicy");
+				Scribe_References.Look<ReadingPolicy>(ref AssignManager._defaultSlaveReadingPolicy, "DefaultSlaveReadingPolicy");
 				Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaulSlaveMedCare, "DefaultSlaveMedCare");
 			}
 		}

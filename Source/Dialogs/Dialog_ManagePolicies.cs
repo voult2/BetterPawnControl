@@ -173,6 +173,12 @@ namespace BetterPawnControl
 
             columWidth = defaultsHeaders.width / 5f;
             columHeight = NORMAL_HEIGHT * 5f - 8f;
+            
+            if (Widget_ModsAvailable.WTBAvailable)
+            {
+                columHeight = NORMAL_HEIGHT * 8f - 8f;
+            }
+                                   
             DoBackground(columWidth * 0f, defaultsHeaders.y, 2f * columWidth, columHeight, border, 0f);
             DoBackground(columWidth * 2f, defaultsHeaders.y, columWidth, columHeight, border, 0f);
             DoBackground(columWidth * 3f, defaultsHeaders.y, 2f * columWidth, columHeight, border, 0f);
@@ -195,6 +201,17 @@ namespace BetterPawnControl
             Rect defaultsRowFour = listing_Standard.GetRect(NORMAL_HEIGHT);
             DoDefaultsRowButtons(defaultsRowFour, 2);
             listing_Standard.Gap(SMALL_HEIGHT);
+
+            if (Widget_ModsAvailable.WTBAvailable)
+            {
+                Rect defaultsRowFive = listing_Standard.GetRect(NORMAL_HEIGHT);
+                DoDefaultsRowLabels(defaultsRowFive, 3);
+                listing_Standard.Gap(-5f);
+
+                Rect defaultsRowSix = listing_Standard.GetRect(NORMAL_HEIGHT);
+                DoDefaultsRowButtons(defaultsRowSix, 3);
+                listing_Standard.Gap(SMALL_HEIGHT);
+            }
 
             listing_Standard.End();
         }
@@ -471,17 +488,23 @@ namespace BetterPawnControl
                 Widgets.Label(labelSlaveDefaultOutfit, "BPC.SelectedSlaveDefaultOutfit".Translate());
                 Widgets.Label(labelSlaveDefaultFood, "BPC.SelectedSlaveDefaultFood".Translate());
             }
-            else
+            else if (rowNumber == 2)
             {
                 Rect labelDefaultDrugs = new Rect(0, rect.y, one, buttonHeight);
+                Rect labelDefaultReading = new Rect(one, rect.y, one, buttonHeight);
                 Rect labelSlaveDrugs = new Rect(three, rect.y, one, buttonHeight);
+                Rect labelSlaveReading = new Rect(four, rect.y, one, buttonHeight);
 
                 Widgets.Label(labelDefaultDrugs, "BPC.SelectedDefaultDrug".Translate());
+                Widgets.Label(labelDefaultReading, "BPC.SelectedDefaultReading".Translate());
                 Widgets.Label(labelSlaveDrugs, "BPC.SelectedSlaveDefaultDrugs".Translate());
-
+                Widgets.Label(labelSlaveReading, "BPC.SelectedSlaveDefaultReading".Translate());
+            }
+            else
+            {
                 if (Widget_ModsAvailable.WTBAvailable)
                 {
-                    Rect labelDefaultWeapons = new Rect(one, rect.y, one, buttonHeight);
+                    Rect labelDefaultWeapons = new Rect(0, rect.y, one, buttonHeight);
                     Widgets.Label(labelDefaultWeapons, "BPC.SelectedDefaultWeapons".Translate());
                 }
             }
@@ -536,15 +559,22 @@ namespace BetterPawnControl
                     OpenFoodSelectMenu(PawnType.Slave);
                 }
             }
-            else 
+            else if (rowNumber == 2)
             {
 
                 Rect buttonDefaultDrugs = new Rect(0f + alignCenter, rect.y, buttonWidth, buttonHeight);
+                Rect buttonDefaultReading = new Rect(one + alignCenter, rect.y, buttonWidth, buttonHeight);
                 Rect buttonSlaveDefaultDrugs = new Rect(three + alignCenter, rect.y, buttonWidth, buttonHeight);
+                Rect buttonSlaveDefaultReading = new Rect(four + alignCenter, rect.y, buttonWidth, buttonHeight);
 
                 if (Widgets.ButtonText(buttonDefaultDrugs, AssignManager.DefaultDrugPolicy.label, true, false, true))
                 {
                     OpenDrugSelectMenu(PawnType.Colonist);
+                }
+
+                if (Widgets.ButtonText(buttonDefaultReading, AssignManager.DefaultReadingPolicy.label, true, false, true))
+                {
+                    OpenReadingSelectMenu(PawnType.Colonist);
                 }
 
                 if (Widgets.ButtonText(buttonSlaveDefaultDrugs, AssignManager.DefaultSlaveDrugPolicy.label, true, false, true))
@@ -552,9 +582,16 @@ namespace BetterPawnControl
                     OpenDrugSelectMenu(PawnType.Slave);
                 }
 
+                if (Widgets.ButtonText(buttonSlaveDefaultReading, AssignManager.DefaultSlaveReadingPolicy.label, true, false, true))
+                {
+                    OpenReadingSelectMenu(PawnType.Slave);
+                }
+            }
+            else
+            {
                 if (Widget_ModsAvailable.WTBAvailable)
                 {
-                    Rect buttonDefaultWeapons = new Rect(one + alignCenter, rect.y, buttonWidth, buttonHeight);
+                    Rect buttonDefaultWeapons = new Rect(0f + alignCenter, rect.y, buttonWidth, buttonHeight);
                     if (Widgets.ButtonText(buttonDefaultWeapons, Widget_WeaoponsTabReborn.GetLoadoutNameById(WeaponsManager.DefaultWeaponsLoadoutById), true, false, true))
                     {
                         OpenWeaponsSelectMenu(PawnType.Colonist);
@@ -672,6 +709,33 @@ namespace BetterPawnControl
                 Find.WindowStack.Add(new FloatMenu(list));
             }            
         }
+
+        private static void OpenReadingSelectMenu(PawnType type)
+        {
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
+
+            foreach (ReadingPolicy readingPolicy in Current.Game.readingPolicyDatabase.AllReadingPolicies)
+            {
+                list.Add(
+                    new FloatMenuOption(
+                        readingPolicy.label,
+                        delegate
+                        {
+                            if (type == PawnType.Colonist)
+                            {
+                                AssignManager.DefaultReadingPolicy = readingPolicy;
+                            }
+                            else //if (type == PawnType.Slave)
+                            {
+                                AssignManager.DefaultSlaveReadingPolicy = readingPolicy;
+                            }
+
+                        },
+                        MenuOptionPriority.Default, null, null, 0f, null));
+            }
+            Find.WindowStack.Add(new FloatMenu(list));
+        }
+
 
         private static void DoAlertRow(Rect rect)
         {

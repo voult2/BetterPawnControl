@@ -163,6 +163,24 @@ namespace BetterPawnControl
             }
         }
 
+        internal static ReadingPolicy _defaultSlaveReadingPolicy = null;
+        internal static ReadingPolicy DefaultSlaveReadingPolicy
+        {
+            get
+            {
+                if (_defaultSlaveReadingPolicy == null)
+                {
+                    _defaultSlaveReadingPolicy = Current.Game.readingPolicyDatabase.DefaultReadingPolicy();
+                }
+                return _defaultSlaveReadingPolicy;
+            }
+
+            set
+            {
+                _defaultSlaveReadingPolicy = value;
+            }
+        }
+
         internal static void DeletePolicy(Policy policy)
         {
             //delete if not default AssignPolicy
@@ -211,6 +229,7 @@ namespace BetterPawnControl
                     link.drugPolicy = p.drugs.CurrentPolicy;
                     link.hostilityResponse = p.playerSettings.hostilityResponse;
                     link.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
+                    link.readingPolicy = p.reading.CurrentPolicy;
                     //AssignManager.SavePawnInventoryStock(p, link);
                     if (Widget_CombatExtended.CombatExtendedAvailable)
                     {
@@ -244,12 +263,19 @@ namespace BetterPawnControl
                         food = AssignManager.DefaultFoodPolicy;
                     }
 
+                    ReadingPolicy reading = p.reading.CurrentPolicy;
+                    if (reading == Current.Game.readingPolicyDatabase.DefaultReadingPolicy())
+                    {
+                        reading = AssignManager.DefaultReadingPolicy;
+                    }
+
                     link = new AssignLink(
                             AssignManager.GetActivePolicy().id,
                             p,
                             outfit,
                             food,
                             drug,
+                            reading,
                             p.playerSettings.hostilityResponse,
                             loadoutId,
                             currentMap);
@@ -388,6 +414,7 @@ namespace BetterPawnControl
                         p.outfits.CurrentApparelPolicy = OutfitExits(l.outfit) ? l.outfit : null;
                         p.drugs.CurrentPolicy = DrugPolicyExits(l.drugPolicy) ? l.drugPolicy : null;
                         p.foodRestriction.CurrentFoodPolicy = FoodPolicyExits(l.foodPolicy) ? l.foodPolicy : null;
+                        p.reading.CurrentPolicy = ReadingPolicyExits(l.readingPolicy) ? l.readingPolicy : null;
                         p.playerSettings.hostilityResponse = l.hostilityResponse;
 
                         if (Widget_CombatExtended.CombatExtendedAvailable)
@@ -430,6 +457,19 @@ namespace BetterPawnControl
             }
             return false;
         }
+
+        internal static bool ReadingPolicyExits(ReadingPolicy readingPolicy)
+        {
+            foreach (ReadingPolicy reading in Current.Game.readingPolicyDatabase.AllReadingPolicies)
+            {
+                if (reading.Equals(readingPolicy))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         internal static void CopyToClipboard()
         {
