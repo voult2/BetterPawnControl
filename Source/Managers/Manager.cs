@@ -9,8 +9,7 @@ namespace BetterPawnControl
     abstract class Manager<T>
 	{
 		internal static List<Policy> policies = new List<Policy>();
-		internal static List<MapActivePolicy> activePolicies =
-			new List<MapActivePolicy>();
+		internal static List<MapActivePolicy> activePolicies = new List<MapActivePolicy>();
 		internal static List<T> links = new List<T>();
 		internal static bool showPaste = false;
         internal static Dictionary<WorkTypeDef, List<WorkGiverDef>> workgivers = new Dictionary<WorkTypeDef, List<WorkGiverDef>>();
@@ -142,9 +141,9 @@ namespace BetterPawnControl
 			}
 		}
 
-		internal static bool FoodPolicyExits(FoodRestriction foodPolicy)
+		internal static bool FoodPolicyExits(FoodPolicy foodPolicy)
 		{
-			foreach (FoodRestriction food in Current.Game.foodRestrictionDatabase.AllFoodRestrictions)
+			foreach (FoodPolicy food in Current.Game.foodRestrictionDatabase.AllFoodRestrictions)
 			{
 				if (food.Equals(foodPolicy))
 				{
@@ -154,8 +153,8 @@ namespace BetterPawnControl
 			return false;
 		}
 
-		internal static FoodRestriction _defaultFoodPolicy = null;
-		internal static FoodRestriction DefaultFoodPolicy
+		internal static FoodPolicy _defaultFoodPolicy = null;
+		internal static FoodPolicy DefaultFoodPolicy
 		{
 			get
 			{
