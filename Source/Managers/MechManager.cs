@@ -56,12 +56,12 @@ namespace BetterPawnControl
                         x.zone == MechManager.GetActivePolicy().id &&
                         x.mapId == currentMap);
 
-                if (MechLink != null )
+                if (MechLink != null)
                 {
                     //Mech found! save area and settings                 
                     MechLink.controlGroupIndex = p.GetMechControlGroup().Index;
                     MechLink.workmode = p.GetMechWorkMode();
-                    MechLink.area = p.playerSettings.AreaRestriction;
+                    MechLink.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
                 }
                 else
                 {
@@ -72,7 +72,7 @@ namespace BetterPawnControl
                             p,
                             p.GetMechControlGroup().Index,
                             p.GetMechWorkMode(),
-                            p.playerSettings.AreaRestriction,
+                            p.playerSettings.AreaRestrictionInPawnCurrentMap,
                             currentMap)); ; ;
                 }
             }
@@ -123,7 +123,7 @@ namespace BetterPawnControl
                                 }
                             }
                             p.GetMechControlGroup().SetWorkMode(l.workmode);  
-                            p.playerSettings.AreaRestriction = l.area;
+                            p.playerSettings.AreaRestrictionInPawnCurrentMap = l.area;
                         }
                     }
                 }                
@@ -158,7 +158,7 @@ namespace BetterPawnControl
                         {
                             l.controlGroupIndex = p.GetMechControlGroup().Index;
                             l.workmode = p.GetMechControlGroup().WorkMode;
-                            l.area = p.playerSettings.AreaRestriction;
+                            l.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
                         }
                     }
                 }

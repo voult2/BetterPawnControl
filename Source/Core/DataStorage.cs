@@ -50,19 +50,21 @@ namespace BetterPawnControl
 
             if (Scribe.mode == LoadSaveMode.LoadingVars || Scribe.mode == LoadSaveMode.Saving)
 			{
-				Scribe_References.Look<Outfit>(ref AssignManager._defaultOutfit,"DefaultOutfit");
-				Scribe_References.Look<FoodRestriction>(ref AssignManager._defaultFoodPolicy, "DefaultFoodPolicy");
-				Scribe_References.Look<DrugPolicy>(ref AssignManager._defaultDrugPolicy, "DefaultDrugPolicy");				
+				Scribe_References.Look<ApparelPolicy>(ref AssignManager._defaultOutfit,"DefaultOutfit");
+				Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultFoodPolicy, "DefaultFoodPolicy");
+				Scribe_References.Look<DrugPolicy>(ref AssignManager._defaultDrugPolicy, "DefaultDrugPolicy");
+				Scribe_References.Look<ReadingPolicy>(ref AssignManager._defaultReadingPolicy, "DefaultReadingPolicy");
 				Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaultMedCare, "DefaultColonistMedCare");
 
-				Scribe_References.Look<FoodRestriction>(ref AssignManager._defaultPrisonerFoodPolicy, "DefaultPrisonerFoodPolicy");
+				Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultPrisonerFoodPolicy, "DefaultPrisonerFoodPolicy");
 				Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaulPrisonerMedCare, "DefaultPrisionerMedCare");
 
 				if (ModsConfig.IdeologyActive)
 				{
-					Scribe_References.Look<Outfit>(ref AssignManager._defaultSlaveOutfit, "DefaultSlaveOutfit");
-					Scribe_References.Look<FoodRestriction>(ref AssignManager._defaultSlaveFoodPolicy, "DefaultSlaveFoodPolicy");
+					Scribe_References.Look<ApparelPolicy>(ref AssignManager._defaultSlaveOutfit, "DefaultSlaveOutfit");
+					Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultSlaveFoodPolicy, "DefaultSlaveFoodPolicy");
 					Scribe_References.Look<DrugPolicy>(ref AssignManager._defaultSlaveDrugPolicy, "DefaultSlaveDrugPolicy");
+					Scribe_References.Look<ReadingPolicy>(ref AssignManager._defaultSlaveReadingPolicy, "DefaultSlaveReadingPolicy");
 					Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaulSlaveMedCare, "DefaultSlaveMedCare");
 				}
 				
@@ -117,19 +119,21 @@ namespace BetterPawnControl
 
 			if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs)
 			{
-				Scribe_References.Look<Outfit>(ref AssignManager._defaultOutfit, "DefaultOutfit");
+				Scribe_References.Look<ApparelPolicy>(ref AssignManager._defaultOutfit, "DefaultOutfit");
 				Scribe_References.Look<DrugPolicy>(ref AssignManager._defaultDrugPolicy, "DefaultDrugPolicy");
-				Scribe_References.Look<FoodRestriction>(ref AssignManager._defaultFoodPolicy, "DefaultFoodPolicy");
+				Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultFoodPolicy, "DefaultFoodPolicy");
+				Scribe_References.Look<ReadingPolicy>(ref AssignManager._defaultReadingPolicy, "DefaultReadingPolicy");
 				Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaultMedCare, "DefaultMedCare");
 
-				Scribe_References.Look<FoodRestriction>(ref AssignManager._defaultPrisonerFoodPolicy, "DefaultPrisonerFoodPolicy");
+				Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultPrisonerFoodPolicy, "DefaultPrisonerFoodPolicy");
 				Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaulPrisonerMedCare, "DefaultPrisonerMedCare");
 
 				Scribe_Values.Look<int>(ref WeaponsManager._defaultLoadoutId, "DefaultWeaponsLoadout");
 
-				Scribe_References.Look<Outfit>(ref AssignManager._defaultSlaveOutfit, "DefaultSlaveOutfit");
-				Scribe_References.Look<FoodRestriction>(ref AssignManager._defaultSlaveFoodPolicy, "DefaultSlaveFoodPolicy");
+				Scribe_References.Look<ApparelPolicy>(ref AssignManager._defaultSlaveOutfit, "DefaultSlaveOutfit");
+				Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultSlaveFoodPolicy, "DefaultSlaveFoodPolicy");
 				Scribe_References.Look<DrugPolicy>(ref AssignManager._defaultSlaveDrugPolicy, "DefaultSlaveDrugPolicy");
+				Scribe_References.Look<ReadingPolicy>(ref AssignManager._defaultSlaveReadingPolicy, "DefaultSlaveReadingPolicy");
 				Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaulSlaveMedCare, "DefaultSlaveMedCare");
 			}
 		}

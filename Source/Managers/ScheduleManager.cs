@@ -62,7 +62,7 @@ namespace BetterPawnControl
                 if (link != null)
                 {
                     //colonist found! save 
-                    link.area = p.playerSettings.AreaRestriction;
+                    link.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
                     if (p.timetable != null)
                     {
                         ScheduleManager.CopySchedule(p.timetable.times, link.schedule);
@@ -75,7 +75,7 @@ namespace BetterPawnControl
                         new ScheduleLink(
                             activePolicyId,
                             p,
-                            p.playerSettings.AreaRestriction,
+                            p.playerSettings.AreaRestrictionInPawnCurrentMap,
                             p.timetable != null ? p.timetable.times : null,
                             currentMap));
                 }
@@ -160,7 +160,7 @@ namespace BetterPawnControl
                 {
                     if (l.colonist != null && l.colonist.GetUniqueLoadID().Equals(p.GetUniqueLoadID()))
                     {
-                        l.area = p.playerSettings.AreaRestriction;
+                        l.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
                     }
                 }
             }
@@ -185,7 +185,7 @@ namespace BetterPawnControl
                 {
                     if (l.colonist != null && l.colonist.Equals(p))
                     {
-                        p.playerSettings.AreaRestriction = l.area;
+                        p.playerSettings.AreaRestrictionInPawnCurrentMap = l.area;
                         if (l.schedule != null && p.timetable != null)
                         {
                             ScheduleManager.CopySchedule(l.schedule, p.timetable.times);

@@ -1,131 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1546CFA0-A290-4A38-AD7C-4A1E6AD8C845}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <NoStandardLibraries>false</NoStandardLibraries>
-    <AssemblyName>BetterPawnControl</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFramework>net472</TargetFramework>
+    <Title>BetterPawnControl</Title>
+    <Description>BetterPawnControl RimWorld Mod</Description>
+    <Copyright>Copyright © 2017</Copyright>
+    <RepositoryUrl>https://github.com/voult2/BetterPawnControl</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Authors>VouLT</Authors>
+    <Version>2.7.0</Version>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath Condition="Exists('..\..\Steam')">..\..\Steam\steamapps\common\RimWorld\Mods\BetterPawnControl\Assemblies\</OutputPath>
-    <OutputPath Condition="Exists('$(Home)\Library')">$(Home)\Library\Application Support\Steam\steamapps\common\RimWorld\RimWorldMac.app\Mods\BetterPawnControl\Assemblies\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\Assemblies\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>3</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <RootNamespace>BetterPawnControl</RootNamespace>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Downloads\Harmony.2.1.0.0\net472\0Harmony.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp, Version=0.19.6814.14576, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
-      <HintPath Condition="Exists('$(Home)\Library')">$(Home)\Library\Application Support\Steam\steamapps\common\RimWorld\RimWorldMac.app\Contents\Resources\Data\Managed\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
-      <HintPath Condition="Exists('$(Home)\Library')">$(Home)\Library\Application Support\Steam\steamapps\common\RimWorld\RimWorldMac.app\Contents\Resources\Data\Managed\UnityEngine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>D:\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-      <HintPath Condition="Exists('$(Home)\Library')">$(Home)\Library\Application Support\Steam\steamapps\common\RimWorld\RimWorldMac.app\Contents\Resources\Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>D:\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
-      <HintPath Condition="Exists('$(Home)\Library')">$(Home)\Library\Application Support\Steam\steamapps\common\RimWorld\RimWorldMac.app\Contents\Resources\Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>D:\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
-      <HintPath Condition="Exists('$(Home)\Library')">$(Home)\Library\Application Support\Steam\steamapps\common\RimWorld\RimWorldMac.app\Contents\Resources\Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
-    </Reference>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Base\WeaponsLink.cs" />
-    <Compile Include="Base\MechLink.cs" />
-    <Compile Include="Base\AnimalLink.cs" />
-    <Compile Include="Base\AssignLink.cs" />
-    <Compile Include="Helpers\Widget_WeaponsTabReborn.cs" />
-    <Compile Include="Helpers\Widget_WorkTab.cs" />
-    <Compile Include="Managers\WeaponsManager.cs" />
-    <Compile Include="Managers\MechManager.cs" />
-    <Compile Include="Patches\CaravanArrivalAction_Enter_Arrived.cs" />
-    <Compile Include="Patches\FloatMenu_PostClose.cs" />
-    <Compile Include="Patches\Pawn_DefaultPolicies.cs" />
-    <Compile Include="Patches\MainTabWindow_PawnTable_PostOpen.cs" />
-    <Compile Include="Helpers\Widget_ModsAvailable.cs" />
-    <Compile Include="Managers\AlertManager.cs" />
-    <Compile Include="Base\AlertLevel.cs" />
-    <Compile Include="Base\Link.cs" />
-    <Compile Include="Base\WorkLink.cs" />
-    <Compile Include="Base\ScheduleLink.cs" />
-    <Compile Include="Base\MapActivePolicy.cs" />
-    <Compile Include="Base\Policy.cs" />
-    <Compile Include="Dialogs\Dialog_ManagePolicies.cs" />
-    <Compile Include="Dialogs\Dialog_RenamePolicy.cs" />
-    <Compile Include="Helpers\Widget_CombatExtended.cs" />
-    <Compile Include="Managers\AnimalManager.cs" />
-    <Compile Include="Managers\AssignManager.cs" />
-    <Compile Include="Core\Settings.cs" />
-    <Compile Include="Managers\WorkManager.cs" />
-    <Compile Include="Managers\ScheduleManager.cs" />
-    <Compile Include="Managers\Manager.cs" />
-    <Compile Include="Patches\UIRoot_OnGUI_onKeyPress.cs" />
-    <Compile Include="Patches\Window_PreClose.cs" />
-    <Compile Include="Patches\Pawn_HealthTracker_OnDead.cs" />
-    <Compile Include="Patches\MapComponent_OnRemove.cs" />
-    <Compile Include="Patches\PawnTable_PawnTableOnGUI.cs" />
-    <Compile Include="Patches\PlaySettings_DoPlaySettingsGlobalControls.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Core\DataStorage.cs" />
-    <Compile Include="Core\Resources.cs" />
+	  <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.4062" GeneratePathProperty="true" />
+	  <PackageReference Include="Lib.Harmony" Version="2.3.3" ExcludeAssets="runtime" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include=".vs\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
-  <ProjectExtensions>
-    <VisualStudio AllowExistingFolder="true" />
-  </ProjectExtensions>
-  <PropertyGroup>
-    <PostBuildEvent Condition=" '$(OS)' == 'Windows_NT' ">xcopy "E:\BetterPawnControl\Assemblies\BetterPawnControl.dll" "D:\Steam\SteamApps\common\RimWorld\Mods\BetterPawnControl\v1.1\Assemblies" /y</PostBuildEvent>
-    <PostBuildEvent Condition="Exists('$(Home)\Library')">cp -f "$(Home)\Library\Application Support\Steam\steamapps\common\RimWorld\RimWorldMac.app\Mods\BetterPawnControl\Assemblies\BetterPawnControl.dll" "$(Home)\Library\Application Support\Steam\steamapps\common\RimWorld\RimWorldMac.app\Mods\BetterPawnControl\v1.1\Assemblies\"</PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>xcopy "E:\BetterPawnControl\Assemblies\BetterPawnControl.dll" "D:\Steam\SteamApps\common\RimWorld\Mods\BetterPawnControl\v1.4\Assemblies" /y
-xcopy "E:\BetterPawnControl\Assemblies\BetterPawnControl.dll" "E:\BetterPawnControl\v1.4\Assemblies\BetterPawnControl.dll" /y</PostBuildEvent>
-  </PropertyGroup>
+
 </Project>

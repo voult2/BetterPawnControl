@@ -19,19 +19,40 @@
   <BPC.NewWorkPolicy>新的工作方案</BPC.NewWorkPolicy>
   <BPC.WorkPolicy>方案 </BPC.WorkPolicy>
   <BPC.CurrentWorkPolicy>激活工作方案</BPC.CurrentWorkPolicy>
+  
+  <BPC.NewMechPolicy>新的机械族方案</BPC.NewMechPolicy>
+  <BPC.MechPolicy>方案 </BPC.MechPolicy>
+  <BPC.CurrentMechPolicy>激活机械族方案</BPC.CurrentMechPolicy>
 
   <BPC.WorkTab>工作</BPC.WorkTab>
   <BPC.RestrictTab>管制</BPC.RestrictTab>
   <BPC.AssignTab>分配</BPC.AssignTab>
   <BPC.AnimalTab>动物</BPC.AnimalTab>
+  <BPC.MechTab>机械族</BPC.MechTab>
   
   <BPC.PoliciesConfigText>创建/删除/重命名方案。不要忘记打开每个选项卡对他们进行设置</BPC.PoliciesConfigText>
 
   <BPC.DefaultsConfigText>设置一个新加入殖民者的默认方案</BPC.DefaultsConfigText>
   <BPC.SelectedDefaultOutfit>默认着装</BPC.SelectedDefaultOutfit>	
-  <BPC.SelectedDefaultDrug>默认用药</BPC.SelectedDefaultDrug>
   <BPC.SelectedDefaultFood>默认殖民者食物</BPC.SelectedDefaultFood>
+  <BPC.SelectedDefaultDrug>默认用药</BPC.SelectedDefaultDrug>
+  <BPC.SelectedDefaultReadings>默认阅读</BPC.SelectedDefaultReadings>
+  <BPC.SelectedDefaultMeds>医疗</BPC.SelectedDefaultMeds>
+  
   <BPC.SelectedPrisionerDefaultFood>默认囚犯食物</BPC.SelectedPrisionerDefaultFood>
+  <BPC.SelectedPrisionerMeds>囚犯医疗</BPC.SelectedPrisionerMeds>
+  
+  <BPC.SelectedSlaveDefaultOutfit>默认奴隶着装</BPC.SelectedSlaveDefaultOutfit>
+  <BPC.SelectedSlaveDefaultFood>默认奴隶食物</BPC.SelectedSlaveDefaultFood>
+  <BPC.SelectedSlaveDefaultDrugs>默认奴隶用药</BPC.SelectedSlaveDefaultDrugs>
+  <BPC.SelectedSlaveDefaultReadings>默认奴隶阅读</BPC.SelectedSlaveDefaultReadings>
+  <BPC.SelectedSlaveDefaultMeds>默认奴隶医疗</BPC.SelectedSlaveDefaultMeds>
+  
+  <BPC.ColonistDefaultHeader>殖民者默认选项</BPC.ColonistDefaultHeader>
+  <BPC.PrisionerDefaultHeader>囚犯默认选项</BPC.PrisionerDefaultHeader>
+  <BPC.SlaveDefaultHeader>奴隶默认选项</BPC.SlaveDefaultHeader>
+  
+  
 
   <BPC.Copy>复制方案</BPC.Copy>
   <BPC.Paste>粘贴方案</BPC.Paste>

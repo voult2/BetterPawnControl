@@ -10,8 +10,8 @@ namespace BetterPawnControl
     {
         internal static List<AssignLink> clipboard = new List<AssignLink>();
 
-        internal static Outfit _defaultOutfit = null;
-        internal static Outfit DefaultOutfit
+        internal static ApparelPolicy _defaultOutfit = null;
+        internal static ApparelPolicy DefaultOutfit
         {
             get
             {
@@ -48,8 +48,8 @@ namespace BetterPawnControl
         }
 
 
-        internal static FoodRestriction _defaultPrisonerFoodPolicy = null;
-        internal static FoodRestriction DefaultPrisonerFoodPolicy
+        internal static FoodPolicy _defaultPrisonerFoodPolicy = null;
+        internal static FoodPolicy DefaultPrisonerFoodPolicy
         {
             get
             {
@@ -108,8 +108,8 @@ namespace BetterPawnControl
             }
         }
 
-        internal static Outfit _defaultSlaveOutfit = null;
-        internal static Outfit DefaultSlaveOutfit
+        internal static ApparelPolicy _defaultSlaveOutfit = null;
+        internal static ApparelPolicy DefaultSlaveOutfit
         {
             get
             {
@@ -127,8 +127,8 @@ namespace BetterPawnControl
             }
         }
 
-        internal static FoodRestriction _defaultSlaveFoodPolicy = null;
-        internal static FoodRestriction DefaultSlaveFoodPolicy
+        internal static FoodPolicy _defaultSlaveFoodPolicy = null;
+        internal static FoodPolicy DefaultSlaveFoodPolicy
         {
             get
             {
@@ -160,6 +160,24 @@ namespace BetterPawnControl
             set
             {
                 _defaultSlaveDrugPolicy = value;
+            }
+        }
+
+        internal static ReadingPolicy _defaultSlaveReadingPolicy = null;
+        internal static ReadingPolicy DefaultSlaveReadingPolicy
+        {
+            get
+            {
+                if (_defaultSlaveReadingPolicy == null)
+                {
+                    _defaultSlaveReadingPolicy = Current.Game.readingPolicyDatabase.DefaultReadingPolicy();
+                }
+                return _defaultSlaveReadingPolicy;
+            }
+
+            set
+            {
+                _defaultSlaveReadingPolicy = value;
             }
         }
 
@@ -207,10 +225,11 @@ namespace BetterPawnControl
                 if (link != null)
                 {
                     //colonist found! save 
-                    link.outfit = p.outfits.CurrentOutfit;
+                    link.outfit = p.outfits.CurrentApparelPolicy;
                     link.drugPolicy = p.drugs.CurrentPolicy;
                     link.hostilityResponse = p.playerSettings.hostilityResponse;
-                    link.foodPolicy = p.foodRestriction.CurrentFoodRestriction;
+                    link.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
+                    link.readingPolicy = p.reading.CurrentPolicy;
                     //AssignManager.SavePawnInventoryStock(p, link);
                     if (Widget_CombatExtended.CombatExtendedAvailable)
                     {
@@ -226,7 +245,7 @@ namespace BetterPawnControl
                         loadoutId = Widget_CombatExtended.GetLoadoutId(p);
                     }
 
-                    Outfit outfit = p.outfits.CurrentOutfit;
+                    ApparelPolicy outfit = p.outfits.CurrentApparelPolicy;
                     if (outfit == Current.Game.outfitDatabase.DefaultOutfit())
                     {
                         outfit = AssignManager.DefaultOutfit;
@@ -238,10 +257,16 @@ namespace BetterPawnControl
                         drug = AssignManager.DefaultDrugPolicy;
                     }
 
-                    FoodRestriction food = p.foodRestriction.CurrentFoodRestriction;
+                    FoodPolicy food = p.foodRestriction.CurrentFoodPolicy;
                     if (food == Current.Game.foodRestrictionDatabase.DefaultFoodRestriction())
                     {
                         food = AssignManager.DefaultFoodPolicy;
+                    }
+
+                    ReadingPolicy reading = p.reading.CurrentPolicy;
+                    if (reading == Current.Game.readingPolicyDatabase.DefaultReadingPolicy())
+                    {
+                        reading = AssignManager.DefaultReadingPolicy;
                     }
 
                     link = new AssignLink(
@@ -250,6 +275,7 @@ namespace BetterPawnControl
                             outfit,
                             food,
                             drug,
+                            reading,
                             p.playerSettings.hostilityResponse,
                             loadoutId,
                             currentMap);
@@ -359,8 +385,8 @@ namespace BetterPawnControl
                     if (l.colonist != null && l.colonist.GetUniqueLoadID().Equals(p.GetUniqueLoadID()))
                     {
                         l.hostilityResponse = p.playerSettings.hostilityResponse;
-                        l.foodPolicy = p.foodRestriction.CurrentFoodRestriction;
-                        l.outfit = p.outfits.CurrentOutfit;                 
+                        l.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
+                        l.outfit = p.outfits.CurrentApparelPolicy;                 
                     }
                 }
             }
@@ -385,9 +411,10 @@ namespace BetterPawnControl
                 {
                     if (l.colonist != null && l.colonist.GetUniqueLoadID().Equals(p.GetUniqueLoadID()))
                     {
-                        p.outfits.CurrentOutfit = OutfitExits(l.outfit) ? l.outfit : null;
+                        p.outfits.CurrentApparelPolicy = OutfitExits(l.outfit) ? l.outfit : null;
                         p.drugs.CurrentPolicy = DrugPolicyExits(l.drugPolicy) ? l.drugPolicy : null;
-                        p.foodRestriction.CurrentFoodRestriction = FoodPolicyExits(l.foodPolicy) ? l.foodPolicy : null;
+                        p.foodRestriction.CurrentFoodPolicy = FoodPolicyExits(l.foodPolicy) ? l.foodPolicy : null;
+                        p.reading.CurrentPolicy = ReadingPolicyExits(l.readingPolicy) ? l.readingPolicy : null;
                         p.playerSettings.hostilityResponse = l.hostilityResponse;
 
                         if (Widget_CombatExtended.CombatExtendedAvailable)
@@ -407,9 +434,9 @@ namespace BetterPawnControl
             LoadState(AssignManager.links, pawns, policy);
         }
 
-        internal static bool OutfitExits(Outfit outfit)
+        internal static bool OutfitExits(ApparelPolicy outfit)
         {
-            foreach (Outfit current in Current.Game.outfitDatabase.AllOutfits)
+            foreach (ApparelPolicy current in Current.Game.outfitDatabase.AllOutfits)
             {
                 if (current.Equals(outfit))
                 {
@@ -430,6 +457,19 @@ namespace BetterPawnControl
             }
             return false;
         }
+
+        internal static bool ReadingPolicyExits(ReadingPolicy readingPolicy)
+        {
+            foreach (ReadingPolicy reading in Current.Game.readingPolicyDatabase.AllReadingPolicies)
+            {
+                if (reading.Equals(readingPolicy))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         internal static void CopyToClipboard()
         {
@@ -468,9 +508,9 @@ namespace BetterPawnControl
         {
             if (p != null && p.outfits != null && p.foodRestriction != null && p.drugs != null)
             {
-                p.outfits.CurrentOutfit = AssignManager.DefaultOutfit;
+                p.outfits.CurrentApparelPolicy = AssignManager.DefaultOutfit;
                 p.drugs.CurrentPolicy = AssignManager.DefaultDrugPolicy;
-                p.foodRestriction.CurrentFoodRestriction = AssignManager.DefaultFoodPolicy;
+                p.foodRestriction.CurrentFoodPolicy = AssignManager.DefaultFoodPolicy;
                 //p.playerSettings.medCare = AssignManager.DefaultMedCare;
             }
         }
@@ -479,7 +519,7 @@ namespace BetterPawnControl
         {
             if (p!= null && p.foodRestriction != null)
             {
-                p.foodRestriction.CurrentFoodRestriction = AssignManager.DefaultPrisonerFoodPolicy;
+                p.foodRestriction.CurrentFoodPolicy = AssignManager.DefaultPrisonerFoodPolicy;
             }
             //p.playerSettings.medCare = AssignManager.DefaultPrisonerMedCare;     
         }
@@ -488,9 +528,9 @@ namespace BetterPawnControl
         {
             if (p != null && p.outfits != null && p.foodRestriction != null &&  p.drugs != null)
             {
-                p.outfits.CurrentOutfit = AssignManager.DefaultSlaveOutfit;
+                p.outfits.CurrentApparelPolicy = AssignManager.DefaultSlaveOutfit;
                 p.drugs.CurrentPolicy = AssignManager.DefaultSlaveDrugPolicy;
-                p.foodRestriction.CurrentFoodRestriction = AssignManager.DefaultSlaveFoodPolicy;
+                p.foodRestriction.CurrentFoodPolicy = AssignManager.DefaultSlaveFoodPolicy;
                 //p.playerSettings.medCare = AssignManager.DefaultSlaveMedCare;
             }
         }
