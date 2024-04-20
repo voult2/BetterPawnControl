@@ -11,6 +11,7 @@ namespace BetterPawnControl
         internal FoodPolicy foodPolicy = null;
         internal DrugPolicy drugPolicy = null;
         internal ReadingPolicy readingPolicy = null;
+        internal MedicalCareCategory medicinePolicy = MedicalCareCategory.NormalOrWorse;
         internal HostilityResponseMode hostilityResponse = HostilityResponseMode.Flee;
         internal int loadoutId = 1;
         //internal int mapId = 0;
@@ -19,7 +20,7 @@ namespace BetterPawnControl
 
         public AssignLink(
             int zone, Pawn colonist, ApparelPolicy outfit, FoodPolicy foodPolicy,
-            DrugPolicy drugPolicy, ReadingPolicy readingPolicy, HostilityResponseMode hostilityResponse, 
+            DrugPolicy drugPolicy, ReadingPolicy readingPolicy, HostilityResponseMode hostilityResponse, MedicalCareCategory medicinePolicy ,
             int loadoutId, int mapId)
         {
             this.zone = zone;
@@ -29,6 +30,7 @@ namespace BetterPawnControl
             this.drugPolicy = drugPolicy;
             this.readingPolicy = readingPolicy;
             this.hostilityResponse = hostilityResponse;
+            this.medicinePolicy = medicinePolicy;
             this.loadoutId = loadoutId;
             this.mapId = mapId;
         }
@@ -42,6 +44,7 @@ namespace BetterPawnControl
             this.drugPolicy = link.drugPolicy;
             this.readingPolicy = link.readingPolicy;
             this.hostilityResponse = link.hostilityResponse;
+            this.medicinePolicy = link.medicinePolicy;
             this.loadoutId = link.loadoutId;
             this.mapId = link.mapId;
         }
@@ -78,6 +81,7 @@ namespace BetterPawnControl
             Scribe_References.Look<DrugPolicy>(ref drugPolicy, "drugPolicy");
             Scribe_References.Look<ReadingPolicy>(ref readingPolicy, "readingPolicy");
             Scribe_Values.Look<HostilityResponseMode>(ref hostilityResponse, "hostilityResponse", HostilityResponseMode.Flee, true);
+            Scribe_Values.Look<MedicalCareCategory>(ref medicinePolicy, "medicinePolicy", MedicalCareCategory.NormalOrWorse, true);
             Scribe_Values.Look<int>(ref loadoutId, "loadoutId", 1, true);
             if (Scribe.mode == LoadSaveMode.LoadingVars && loadoutId == 0)
             {
