@@ -172,11 +172,11 @@ namespace BetterPawnControl
             Rect defaultsHeaders = listing_Standard.GetRect(NORMAL_HEIGHT);
 
             columWidth = defaultsHeaders.width / 5f;
-            columHeight = NORMAL_HEIGHT * 5f - 8f;
+            columHeight = NORMAL_HEIGHT * 5f;
             
             if (Widget_ModsAvailable.WTBAvailable)
             {
-                columHeight = NORMAL_HEIGHT * 8f - 8f;
+                columHeight = NORMAL_HEIGHT * 8f;
             }
                                    
             DoBackground(columWidth * 0f, defaultsHeaders.y, 2f * columWidth, columHeight, border, 0f);
@@ -184,7 +184,8 @@ namespace BetterPawnControl
             DoBackground(columWidth * 3f, defaultsHeaders.y, 2f * columWidth, columHeight, border, 0f);
 
             DoDefaultsRowHeaders(defaultsHeaders);
-            listing_Standard.Gap(-10f);
+            //listing_Standard.Gap(-10f);
+            listing_Standard.Gap(-5f);
 
             Rect defaultsRowOne = listing_Standard.GetRect(NORMAL_HEIGHT);
             DoDefaultsRowLabels(defaultsRowOne, 1);

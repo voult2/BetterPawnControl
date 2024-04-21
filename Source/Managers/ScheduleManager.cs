@@ -229,11 +229,13 @@ namespace BetterPawnControl
 
         internal static void CopyToClipboard()
         {
+            //Save state in case user has made changes to the active policy
+            ScheduleManager.SaveCurrentState(ScheduleManager.Colonists().ToList());
             Policy policy = GetActivePolicy();
-            if (ScheduleManager.clipboard != null)
-            {
-                ScheduleManager.clipboard = new List<ScheduleLink>();
-            }
+            //if (ScheduleManager.clipboard != null)
+            //{
+            //    ScheduleManager.clipboard = new List<ScheduleLink>();
+            //}
 
             ScheduleManager.clipboard.Clear();
             foreach (ScheduleLink link in ScheduleManager.links)

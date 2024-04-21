@@ -209,12 +209,14 @@ namespace BetterPawnControl
 
         internal static void CopyToClipboard()
         {
-            Policy policy = GetActivePolicy();
-            if (WorkManager.clipboard != null)
-            {
-                clipboard = new List<WorkLink>();
-            }
+            //Save state in case user has made changes to the active policy
+            WorkManager.SaveCurrentState(WorkManager.Colonists().ToList());
 
+            Policy policy = GetActivePolicy();
+            //if (WorkManager.clipboard != null)
+            //{
+            //    clipboard = new List<WorkLink>(); 
+            //}
             WorkManager.clipboard.Clear();
             foreach (WorkLink link in WorkManager.links)
             {

@@ -79,6 +79,7 @@ namespace BetterPawnControl.Patches
 
         private static void DrawSheduleBPCButtons(PawnTable __instance, Vector2 position)
         {
+
             if (ScheduleManager.DirtyPolicy)
             {
                 ScheduleManager.LoadState(ScheduleManager.links, ScheduleManager.Colonists().ToList(), ScheduleManager.GetActivePolicy());
@@ -131,12 +132,18 @@ namespace BetterPawnControl.Patches
 
             Rect pos = new Rect(position.x + X_ExtraSpace, position.y + Y_ExtraSpace, 600f, 65f);
             float offSetX = 0f;
+            float offSetY = -8f;
+
+            if (Verse.Prefs.DisableTinyText)
+            {
+                offSetY = -6f;
+            }
 
             GUI.BeginGroup(pos);
 
             Text.Font = GameFont.Tiny;
             Text.Anchor = TextAnchor.LowerCenter;
-            Rect rect1 = new Rect(offSetX, -8f, 165f, Mathf.Round(pos.height / 3f));
+            Rect rect1 = new Rect(offSetX, offSetY, 165f, Mathf.Round(pos.height / 3f));
             Widgets.Label(rect1, "BPC.CurrentAssignPolicy".Translate());
 
             Text.Font = GameFont.Small;
@@ -155,7 +162,7 @@ namespace BetterPawnControl.Patches
             {
                 Find.WindowStack.Add(new Dialog_ManagePolicies(Find.CurrentMap));
             }
-            Rect rect4 = new Rect(offSetX + 3f, rect3.height / 4f, 14f, 14f);
+            Rect rect4 = new Rect(offSetX + 4f, rect3.height / 4f, 14f, 14f);
             GUI.DrawTexture(rect4, Resources.Textures.Settings);
             TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
 
@@ -206,12 +213,18 @@ namespace BetterPawnControl.Patches
 
             Rect pos = new Rect(position.x + X_ExtraSpace, position.y + Y_ExtraSpace, 600f, 65f);
             float offSetX = 0f;
+            float offSetY = -8f;
+
+            if (Verse.Prefs.DisableTinyText)
+            {
+                offSetY = -6f;
+            }
 
             GUI.BeginGroup(pos);
 
             Text.Font = GameFont.Tiny;
             Text.Anchor = TextAnchor.LowerCenter;
-            Rect rect1 = new Rect(offSetX, -8f, 165f, Mathf.Round(pos.height / 3f));
+            Rect rect1 = new Rect(offSetX, offSetY, 165f, Mathf.Round(pos.height / 3f));
             Widgets.Label(rect1, "BPC.CurrentRestrictPolicy".Translate());
 
             Text.Font = GameFont.Small;
@@ -229,7 +242,7 @@ namespace BetterPawnControl.Patches
             {
                 Find.WindowStack.Add(new Dialog_ManagePolicies(Find.CurrentMap));
             }
-            Rect rect4 = new Rect(offSetX + 3f, rect3.height / 4f, 14f, 14f);
+            Rect rect4 = new Rect(offSetX + 4f, rect3.height / 4f, 14f, 14f);
             GUI.DrawTexture(rect4, Resources.Textures.Settings);
             TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
 
@@ -278,12 +291,18 @@ namespace BetterPawnControl.Patches
         {
             Rect pos = new Rect(position.x + X_ExtraSpace, position.y + Y_ExtraSpace, 600f, 65f);
             float offSetX = 0f;
+            float offSetY = -8f;
+
+            if (Verse.Prefs.DisableTinyText)
+            {
+                offSetY = -6f;
+            }
 
             GUI.BeginGroup(pos);
 
             Text.Font = GameFont.Tiny;
             Text.Anchor = TextAnchor.LowerCenter;
-            Rect rect1 = new Rect(offSetX, -8f, 165f, Mathf.Round(pos.height / 3f));
+            Rect rect1 = new Rect(offSetX, offSetY, 165f, Mathf.Round(pos.height / 3f));
             Widgets.Label(rect1, "BPC.CurrentWorkPolicy".Translate());
 
             Text.Font = GameFont.Small;
@@ -302,7 +321,7 @@ namespace BetterPawnControl.Patches
             {
                 Find.WindowStack.Add(new Dialog_ManagePolicies(Find.CurrentMap));
             }
-            Rect rect4 = new Rect(offSetX + 3f, rect3.height / 4f, 14f, 14f);
+            Rect rect4 = new Rect(offSetX + 4f, rect3.height / 4f, 14f, 14f);
             GUI.DrawTexture(rect4, Resources.Textures.Settings);
             TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
 
@@ -352,11 +371,17 @@ namespace BetterPawnControl.Patches
         {
             Rect pos = new Rect(position.x + X_ExtraSpace, position.y + Y_ExtraSpace, 600f, 65f);
             float offSetX = 0f;
+            float offSetY = -8f;
+
+            if (Verse.Prefs.DisableTinyText)
+            {
+                offSetY = -6f;
+            }
 
             GUI.BeginGroup(pos);
             Text.Font = GameFont.Tiny;
             Text.Anchor = TextAnchor.LowerCenter;
-            Rect rect1 = new Rect(offSetX, -8f, 165f, Mathf.Round(pos.height / 3f));
+            Rect rect1 = new Rect(offSetX, offSetY, 165f, Mathf.Round(pos.height / 3f));
             Widgets.Label(rect1, "BPC.CurrentAnimalPolicy".Translate());
 
             Text.Font = GameFont.Small;
@@ -375,7 +400,7 @@ namespace BetterPawnControl.Patches
             {
                 Find.WindowStack.Add( new Dialog_ManagePolicies(Find.CurrentMap));
             }
-            Rect rect4 = new Rect(offSetX + 3f, rect3.height / 4f, 14f, 14f);
+            Rect rect4 = new Rect(offSetX + 4f, rect3.height / 4f, 14f, 14f);
             GUI.DrawTexture(rect4, Resources.Textures.Settings);
             TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
 
@@ -403,11 +428,17 @@ namespace BetterPawnControl.Patches
         {
             Rect pos = new Rect(position.x + X_ExtraSpace, position.y + Y_ExtraSpace, 600f, 65f);
             float offSetX = 0f;
+            float offSetY = -8f;
+
+            if (Verse.Prefs.DisableTinyText)
+            {
+                offSetY = -6f;
+            }
 
             GUI.BeginGroup(pos);
             Text.Font = GameFont.Tiny;
             Text.Anchor = TextAnchor.LowerCenter;
-            Rect rect1 = new Rect(offSetX, -8f, 165f, Mathf.Round(pos.height / 3f));
+            Rect rect1 = new Rect(offSetX, offSetY, 165f, Mathf.Round(pos.height / 3f));
             Widgets.Label(rect1, "BPC.CurrentMechPolicy".Translate());
 
             Text.Font = GameFont.Small;
@@ -426,7 +457,7 @@ namespace BetterPawnControl.Patches
             {
                 Find.WindowStack.Add(new Dialog_ManagePolicies(Find.CurrentMap));
             }
-            Rect rect4 = new Rect(offSetX + 3f, rect3.height / 4f, 14f, 14f);
+            Rect rect4 = new Rect(offSetX + 4f, rect3.height / 4f, 14f, 14f);
             GUI.DrawTexture(rect4, Resources.Textures.Settings);
             TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
 
@@ -455,12 +486,18 @@ namespace BetterPawnControl.Patches
 
             Rect pos = new Rect(position.x + X_ExtraSpace, position.y + Y_ExtraSpace, 600f, 65f);
             float offSetX = 0f;
+            float offSetY = -8f;
 
-            GUI.BeginGroup(pos);
+            if (Verse.Prefs.DisableTinyText)
+            {
+                offSetY = -6f;
+            }
+
+            GUI.BeginGroup(pos);           
 
             Text.Font = GameFont.Tiny;
             Text.Anchor = TextAnchor.LowerCenter;
-            Rect rect1 = new Rect(offSetX, -8f, 165f, Mathf.Round(pos.height / 3f));
+            Rect rect1 = new Rect(offSetX, offSetY, 165f, Mathf.Round(pos.height / 3f));
             Widgets.Label(rect1, "BPC.CurrentWeaponsPolicy".Translate());
 
             Text.Font = GameFont.Small;
@@ -478,7 +515,7 @@ namespace BetterPawnControl.Patches
             {
                 Find.WindowStack.Add(new Dialog_ManagePolicies(Find.CurrentMap));
             }
-            Rect rect4 = new Rect(offSetX + 3f, rect3.height / 4f, 14f, 14f);
+            Rect rect4 = new Rect(offSetX + 4f, rect3.height / 4f, 14f, 14f);
             GUI.DrawTexture(rect4, Resources.Textures.Settings);
             TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
 

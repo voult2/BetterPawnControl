@@ -19,8 +19,11 @@ namespace BetterPawnControl
             this.zone = link.zone;
             this.colonist = link.colonist;
             this.settings = new Dictionary<WorkTypeDef, int>(link.settings);
-            this.settingsInner = new Dictionary<WorkGiverDef, List<int>>(link.settingsInner);
             this.mapId = link.mapId;
+            if (Widget_ModsAvailable.WorkTabAvailable)
+            {
+                this.settingsInner = new Dictionary<WorkGiverDef, List<int>>(link.settingsInner);                
+            }
         }
 
         public WorkLink(int zone, Pawn colonist, Dictionary<WorkTypeDef, int> settings, Dictionary<WorkGiverDef, List<int>> settingsInner, int mapId)

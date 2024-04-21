@@ -148,22 +148,29 @@ namespace BetterPawnControl
             //get all links from the selected zone
             zoneLinks = mapLinks.FindAll(ml => ml != null && ml.zone == policy.id);
 
-            foreach (Pawn p in pawns)
+            try
             {
-                if (p.GetOverseer() != null)
+                foreach (Pawn p in pawns)
                 {
-                    foreach (MechLink l in zoneLinks)
+                    if (p.GetOverseer() != null)
                     {
-                        if (l.mech != null && l.mech.GetUniqueLoadID().Equals(p.GetUniqueLoadID()))
+                        foreach (MechLink l in zoneLinks)
                         {
-                            l.controlGroupIndex = p.GetMechControlGroup().Index;
-                            l.workmode = p.GetMechControlGroup().WorkMode;
-                            l.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
+                            if (l.mech != null && l.mech.GetUniqueLoadID().Equals(p.GetUniqueLoadID()))
+                            {
+                                l.controlGroupIndex = p.GetMechControlGroup().Index;
+                                l.workmode = p.GetMechControlGroup().WorkMode;
+                                l.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
+                            }
                         }
                     }
                 }
+                MechManager.SetActivePolicy(policy);
             }
-            MechManager.SetActivePolicy(policy);
+            catch (Exception ex)
+            {
+                Log.Warning("BPC: UpdateState: could not update state. Details: " + ex.Message + " | " + ex.StackTrace.ToString());
+            }
         }
 
         internal static bool ActivePoliciesContainsValidMap()

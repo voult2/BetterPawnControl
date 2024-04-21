@@ -230,6 +230,7 @@ namespace BetterPawnControl
                     link.hostilityResponse = p.playerSettings.hostilityResponse;
                     link.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
                     link.readingPolicy = p.reading.CurrentPolicy;
+                    link.medicinePolicy = p.playerSettings.medCare;
                     //AssignManager.SavePawnInventoryStock(p, link);
                     if (Widget_CombatExtended.CombatExtendedAvailable)
                     {
@@ -277,6 +278,7 @@ namespace BetterPawnControl
                             drug,
                             reading,
                             p.playerSettings.hostilityResponse,
+                            p.playerSettings.medCare,
                             loadoutId,
                             currentMap);
                     AssignManager.links.Add(link);
@@ -385,6 +387,7 @@ namespace BetterPawnControl
                     if (l.colonist != null && l.colonist.GetUniqueLoadID().Equals(p.GetUniqueLoadID()))
                     {
                         l.hostilityResponse = p.playerSettings.hostilityResponse;
+                        l.medicinePolicy = p.playerSettings.medCare;
                         l.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
                         l.outfit = p.outfits.CurrentApparelPolicy;                 
                     }
@@ -416,6 +419,7 @@ namespace BetterPawnControl
                         p.foodRestriction.CurrentFoodPolicy = FoodPolicyExits(l.foodPolicy) ? l.foodPolicy : null;
                         p.reading.CurrentPolicy = ReadingPolicyExits(l.readingPolicy) ? l.readingPolicy : null;
                         p.playerSettings.hostilityResponse = l.hostilityResponse;
+                        p.playerSettings.medCare = l.medicinePolicy;
 
                         if (Widget_CombatExtended.CombatExtendedAvailable)
                         {
@@ -473,13 +477,16 @@ namespace BetterPawnControl
 
         internal static void CopyToClipboard()
         {
-            Policy policy = GetActivePolicy();
-            if (AssignManager.clipboard != null)
-            {
-                clipboard = new List<AssignLink>();
-            }
+            //Save state in case user has made changes to the active policy
+            AssignManager.SaveCurrentState(AssignManager.Colonists().ToList());
 
-            WorkManager.clipboard.Clear();
+            Policy policy = GetActivePolicy();
+            //if (AssignManager.clipboard != null)
+            //{
+            //    clipboard = new List<AssignLink>();
+            //}
+
+            AssignManager.clipboard.Clear();
             foreach (AssignLink link in AssignManager.links)
             {
                 if (link.zone == policy.id)
