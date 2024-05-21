@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using RimWorld;
 using UnityEngine;
 using Verse;
-using RimWorld;
-using System;
-using System.Linq;
 
 namespace BetterPawnControl
 {
@@ -14,12 +14,13 @@ namespace BetterPawnControl
         /// <summary>
         /// Copy paste from vanilla
         /// </summary>
-		//private static readonly Regex validNameRegex = new Regex("^[a-zA-Z0-9 '\\-]*$");
+        //private static readonly Regex validNameRegex = new Regex("^[a-zA-Z0-9 '\\-]*$");
         private const int MAX_POLICIES = 15;
         private const float NORMAL_HEIGHT = 24f;
         private const float SMALL_HEIGHT = 6f;
         private const float OFFSETX = 20f;       
         private static float NTABSCOLUMNS = 5f;
+        private static List<PolicySection> sections = new List<PolicySection>();
         enum PawnType { Colonist, Prisoner, Slave };
 
         /// <summary>
@@ -44,26 +45,63 @@ namespace BetterPawnControl
             this.absorbInputAroundWindow = true;
             this.resizeable = true;
             this.draggable = true;
+
+            var count = CreateSections();
+            NTABSCOLUMNS = count;
+        }
+
+        private int CreateSections()
+        {
+            var count = 0;
+            sections.Clear();
+
+            sections.Add(PolicySection.Create(Resources.Type.work, ref WorkManager.policies));
+            count++;
+
+            sections.Add(PolicySection.Create(Resources.Type.restrict, ref ScheduleManager.policies));
+            count++;
+
+            sections.Add(PolicySection.Create(Resources.Type.assign, ref AssignManager.policies));
+            count++;
+
+            sections.Add(PolicySection.Create(Resources.Type.animal, ref AnimalManager.policies));
+            count++;
+
+            sections.Add(PolicySection.Create(Resources.Type.mech, ref MechManager.policies));
+            count++;
+
             if (Widget_ModsAvailable.WTBAvailable)
             {
-                NTABSCOLUMNS = 6f;
+                sections.Add(PolicySection.Create(Resources.Type.weapons, ref WeaponsManager.policies));
+                count++;
             }
+
+            if (Widget_ModsAvailable.MiscRobotsAvailable)
+            {
+                sections.Add(PolicySection.Create(Resources.Type.robots, ref RobotManager.policies));
+                count++;
+            }
+
+            return count;
         }
 
         public override void PostOpen()
         {
             base.PostOpen();
-            
-            Nullable<float> number = LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().settingsWindowPosX;
-            windowRect.x = number  ?? ResolutionUtility.NativeResolution.width / 2;
 
-            number = LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().settingsWindowPosY;
+            var settings = LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>();
+
+
+            Nullable<float> number = settings.settingsWindowPosX;
+            windowRect.x = number ?? ResolutionUtility.NativeResolution.width / 2;
+
+            number = settings.settingsWindowPosY;
             windowRect.y = number ?? ResolutionUtility.NativeResolution.height / 2;
 
-            number = LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().settingsWindowWidth;
+            number = settings.settingsWindowWidth;
             windowRect.width = number ?? 1280f;
 
-            number = LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().settingsWindowHeight;
+            number = settings.settingsWindowHeight;
             windowRect.height = number ?? 870f;
 
             windowRect.width = windowRect.width < 1280f ? 1280f : windowRect.width;
@@ -73,10 +111,11 @@ namespace BetterPawnControl
         public override void PreClose()
         {
             base.PreClose();
-            LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().settingsWindowPosX = windowRect.x;
-            LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().settingsWindowPosY = windowRect.y;
-            LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().settingsWindowWidth = windowRect.width;
-            LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().settingsWindowHeight = windowRect.height;
+            var settings = LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>();
+            settings.settingsWindowPosX = windowRect.x;
+            settings.settingsWindowPosY = windowRect.y;
+            settings.settingsWindowWidth = windowRect.width;
+            settings.settingsWindowHeight = windowRect.height;
         }
 
         /// <summary>
@@ -84,7 +123,6 @@ namespace BetterPawnControl
         /// </summary>
         public override void DoWindowContents(Rect inRect)
         {
-
             Listing_Standard listing_Standard = new Listing_Standard();
             listing_Standard.ColumnWidth = inRect.width;
             listing_Standard.Begin(inRect);
@@ -95,48 +133,23 @@ namespace BetterPawnControl
 
             Rect policiesHeader = listing_Standard.GetRect(NORMAL_HEIGHT + 8f);
 
-            int rows = MaxNumber(
-                WeaponsManager.policies.Count,
-                MechManager.policies.Count,
-                AnimalManager.policies.Count,
-                AssignManager.policies.Count,
-                ScheduleManager.policies.Count,
-                WorkManager.policies.Count
-            );
+            int rows = sections.Max(x => x.Policies.Count);
 
             float border = 3f;
             float columWidth = policiesHeader.width / NTABSCOLUMNS;
             float columHeight = (NORMAL_HEIGHT + SMALL_HEIGHT) * rows + 38f + NORMAL_HEIGHT + SMALL_HEIGHT + 8f;
-            DoBackground(columWidth * 0f, policiesHeader.y, columWidth, columHeight, border, 0f);
-            DoBackground(columWidth * 1f, policiesHeader.y, columWidth, columHeight, border, 0f);
-            DoBackground(columWidth * 2f, policiesHeader.y, columWidth, columHeight, border, 0f);
-            DoBackground(columWidth * 3f, policiesHeader.y, columWidth, columHeight, border, 0f);   
-            DoBackground(columWidth * 4f, policiesHeader.y, columWidth, columHeight, border, 0f);
-            
-            if (Widget_ModsAvailable.WTBAvailable)
+
+            for (int num = 0; num < sections.Count; num++)
             {
-                DoBackground(columWidth * 5f, policiesHeader.y, columWidth, columHeight, border, 0f);
+                DoBackground(columWidth * num, policiesHeader.y, columWidth, columHeight, border, 0f);
             }
 
             DoHeaderRow(policiesHeader);
 
-            for (int i = 0; i < rows; i++)
+            for (int rowNum = 0; rowNum < rows; rowNum++)
             {
-                Policy workP = (i < WorkManager.policies.Count) ?
-                    WorkManager.policies[i] : null;
-                Policy restrictP = (i < ScheduleManager.policies.Count) ?
-                    ScheduleManager.policies[i] : null;
-                Policy assignP = (i < AssignManager.policies.Count) ?
-                    AssignManager.policies[i] : null;
-                Policy animalP = (i < AnimalManager.policies.Count) ?
-                    AnimalManager.policies[i] : null;
-                Policy mechP = (i < MechManager.policies.Count) ?
-                    MechManager.policies[i] : null;
-                Policy weaponsP = (i < WeaponsManager.policies.Count) ?
-                    WeaponsManager.policies[i] : null;
-
                 Rect policiesRow = listing_Standard.GetRect(NORMAL_HEIGHT);
-                DoRow(policiesRow, workP, restrictP, assignP, animalP, mechP, weaponsP);
+                DoRow(policiesRow, rowNum);
                 listing_Standard.Gap(6f);
             }
 
@@ -152,14 +165,9 @@ namespace BetterPawnControl
             border = 3f;
             columWidth = alertRow.width / NTABSCOLUMNS;
             columHeight = NORMAL_HEIGHT + 18f;
-            DoBackground(columWidth * 0f, alertRow.y, columWidth, columHeight, border, 0f); // Column 1
-            DoBackground(columWidth * 1f, alertRow.y, columWidth, columHeight, border, 0f); // Column 2
-            DoBackground(columWidth * 2f, alertRow.y, columWidth, columHeight, border, 0f); // Column 3
-            DoBackground(columWidth * 3f, alertRow.y, columWidth, columHeight, border, 0f); // Column 4
-            DoBackground(columWidth * 4f, alertRow.y, columWidth, columHeight, border, 0f); // Column 5
-            if (Widget_ModsAvailable.WTBAvailable)
+            for (int num = 0; num < sections.Count; num++)
             {
-                DoBackground(columWidth * 5f, alertRow.y, columWidth, columHeight, border, 0f); // Column 6 - Weapons
+                DoBackground(columWidth * num, alertRow.y, columWidth, columHeight, border, 0f);
             }
             
             DoAlertRow(alertRow);
@@ -245,34 +253,21 @@ namespace BetterPawnControl
         }
 
         /// <summary>
-        /// Draw table row with AnimalPolicy label, rename button and delete 
-        /// button
+        /// Draw table row with Policy label, rename button and delete button
         /// </summary>
-        private static void DoRow( Rect rect, Policy workP, Policy restrictP, Policy assignP, Policy animalP, Policy mechP, Policy weaponsP)
+        private static void DoRow(Rect rect, int policyNum)
         {
-            float one = rect.width / NTABSCOLUMNS;
-            float two = one * 2f;
-            float three = one * 3f;
-            float four = one * 4f;
-            float five = one * 5f;
+            float columnWidth = rect.width / NTABSCOLUMNS;
 
-            Rect rect1 = new Rect(rect.x + OFFSETX, rect.y, one, rect.height);
-            DoColumn(rect1, workP, Resources.Type.work);
-
-            Rect rect2 = new Rect(one + OFFSETX, rect.y, one, rect.height);
-            DoColumn(rect2, restrictP, Resources.Type.restrict);
-
-            Rect rect3 = new Rect(two + OFFSETX, rect.y, one, rect.height);
-            DoColumn(rect3, assignP, Resources.Type.assign);
-
-            Rect rect4 = new Rect(three + OFFSETX, rect.y, one, rect.height);
-            DoColumn(rect4, animalP, Resources.Type.animal);
-
-            Rect rect5 = new Rect(four + OFFSETX, rect.y, one, rect.height);
-            DoColumn(rect5, mechP, Resources.Type.mech);
-
-            Rect rect6 = new Rect(five + OFFSETX, rect.y, one, rect.height);
-            DoColumn(rect6, weaponsP, Resources.Type.weapons);
+            for (int num = 0; num < sections.Count; num++)
+            {
+                var section = sections[num];
+                var policy = policyNum < section.Policies.Count
+                    ? section.Policies[policyNum]
+                    : null;
+                Rect columnRect = new Rect((columnWidth * num) + OFFSETX, rect.y, columnWidth, rect.height);
+                DoColumn(columnRect, policy, section.Type);
+            }
         }
 
         private static void DoColumn(Rect rect, Policy policy, Resources.Type type)
@@ -334,6 +329,13 @@ namespace BetterPawnControl
                                 AlertManager.SetAlertPolicy(1, type, WeaponsManager.GetPolicy(0));
                             }
                             break;
+                        case Resources.Type.robots:
+                            RobotManager.DeletePolicy(policy);
+                            if (policy == AlertManager.GetAlertPolicy(1, type))
+                            {
+                                AlertManager.SetAlertPolicy(1, type, RobotManager.GetPolicy(0));
+                            }
+                            break;
                     }
                 }
             }
@@ -342,31 +344,18 @@ namespace BetterPawnControl
 
         private static void DoHeaderRow(Rect rect)
         {
-            float one = rect.width / NTABSCOLUMNS;
-            float two = one * 2f;
-            float three = one * 3f;
-            float four = one * 4f;
-            float five = one * 5f;
-            float width = one - 4f;
-            float offset = 0f;
-
-            Rect rect1 = new Rect(offset, rect.y, width, rect.height);
-            Rect rect2 = new Rect(one, rect.y, width, rect.height);
-            Rect rect3 = new Rect(two + offset, rect.y, width, rect.height);
-            Rect rect4 = new Rect(three + offset, rect.y, width, rect.height);
-            Rect rect5 = new Rect(four + offset, rect.y, width, rect.height);
-            Rect rect6 = new Rect(five + offset, rect.y, width, rect.height);
+            float totalColumns = rect.width / NTABSCOLUMNS;
+            float columnWidth = totalColumns - 4f;
 
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
-            Widgets.Label(rect1, "BPC.WorkTab".Translate());
-            Widgets.Label(rect2, "BPC.RestrictTab".Translate());
-            Widgets.Label(rect3, "BPC.AssignTab".Translate());
-            Widgets.Label(rect4, "BPC.AnimalTab".Translate());
-            Widgets.Label(rect5, "BPC.MechTab".Translate());
-            if (Widget_ModsAvailable.WTBAvailable)
+            for (int num = 0; num < sections.Count; num++)
             {
-                Widgets.Label(rect6, "BPC.WeaponsTab".Translate());
+                var section = sections[num];
+                float offset = columnWidth * num;
+                var columnRect = new Rect(offset, rect.y, columnWidth, rect.height);
+
+                Widgets.Label(columnRect, section.HeaderLabelKey.Translate());
             }
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.UpperLeft;
@@ -374,68 +363,19 @@ namespace BetterPawnControl
 
         private static void DoNewPoliciesRow(Rect rect)
         {
-            float one = rect.width / NTABSCOLUMNS;
-            float two = one * 2f;
-            float three = one * 3f;
-            float four = one * 4f;
-            float five = one * 5f;
-            float buttonWidth = (one / 4f) * 3f;
-
-            Rect rect1 = new Rect(OFFSETX, rect.y, buttonWidth, rect.height + 6f);
-            Rect rect2 = new Rect(OFFSETX + one, rect.y, buttonWidth, rect.height + 6f);
-            Rect rect3 = new Rect(OFFSETX + two, rect.y, buttonWidth, rect.height + 6f);
-            Rect rect4 = new Rect(OFFSETX + three, rect.y, buttonWidth, rect.height + 6f);
-            Rect rect5 = new Rect(OFFSETX + four, rect.y, buttonWidth, rect.height + 6f);
-            Rect rect6 = new Rect(OFFSETX + five, rect.y, buttonWidth, rect.height + 6f);
-
-            if (WorkManager.policies.Count < MAX_POLICIES && Widgets.ButtonText(rect1, "BPC.NewWorkPolicy".Translate(), true, false, true))
+            float columnWidth = rect.width / NTABSCOLUMNS;
+            float buttonWidth = (columnWidth / 4f) * 3f;
+            for (int num = 0; num < sections.Count; num++)
             {
-                int lastItem = WorkManager.policies.Count - 1;
-                int label_id = WorkManager.policies[lastItem].id;
-                label_id++;
-                WorkManager.policies.Add(new Policy(label_id, "BPC.WorkPolicy".Translate() + label_id));
+                var section = sections[num];
+                var newPolicyRowRect = new Rect(OFFSETX + (columnWidth * num), rect.y, buttonWidth, rect.height + 6f);
+                var button = Widgets.ButtonText(newPolicyRowRect, section.NewButtonLabelKey.Translate(), true, false, true);
+                if (section.Policies.Count < MAX_POLICIES && button)
+                {
+                    var labelId = section.Policies.Last().id + 1;
+                    section.Policies.Add(new Policy(labelId, section.HeaderLabelKey.Translate() + labelId));
+                }
             }
-
-            if (ScheduleManager.policies.Count < MAX_POLICIES && Widgets.ButtonText(rect2, "BPC.NewRestrictPolicy".Translate(), true, false, true))
-            {
-                int lastItem = ScheduleManager.policies.Count - 1;
-                int label_id = ScheduleManager.policies[lastItem].id;
-                label_id++;
-                ScheduleManager.policies.Add(new Policy(label_id, "BPC.RestrictPolicy".Translate() + label_id));
-            }
-
-            if (AssignManager.policies.Count < MAX_POLICIES && Widgets.ButtonText(rect3, "BPC.NewAssignPolicy".Translate(), true, false, true))
-            {
-                int lastItem = AssignManager.policies.Count - 1;
-                int label_id = AssignManager.policies[lastItem].id;
-                label_id++;
-                AssignManager.policies.Add( new Policy(label_id, "BPC.AssignPolicy".Translate() + label_id));
-            }
-
-            if (AnimalManager.policies.Count < MAX_POLICIES && Widgets.ButtonText(rect4, "BPC.NewAnimalPolicy".Translate(), true, false, true))
-            {
-                int lastItem = AnimalManager.policies.Count - 1;
-                int label_id = AnimalManager.policies[lastItem].id;
-                label_id++;
-                AnimalManager.policies.Add(new Policy(label_id, "BPC.AnimalPolicy".Translate() + label_id));
-            }
-
-            if (MechManager.policies.Count < MAX_POLICIES && Widgets.ButtonText(rect5, "BPC.NewMechPolicy".Translate(), true, false, true))
-            {
-                int lastItem = MechManager.policies.Count - 1;
-                int label_id = MechManager.policies[lastItem].id;
-                label_id++;
-                MechManager.policies.Add(new Policy(label_id, "BPC.MechPolicy".Translate() + label_id));
-            }
-            
-            if (WeaponsManager.policies.Count < MAX_POLICIES && Widgets.ButtonText(rect6, "BPC.NewWeaponsPolicy".Translate(), true, false, true))
-            {
-                int lastItem = WeaponsManager.policies.Count - 1;
-                int label_id = WeaponsManager.policies[lastItem].id;
-                label_id++;
-                WeaponsManager.policies.Add(new Policy(label_id, "BPC.WeaponsPolicy".Translate() + label_id));
-            }
-
         }
 
         private static void DoDefaultsRowHeaders(Rect rect)
@@ -492,14 +432,14 @@ namespace BetterPawnControl
             else if (rowNumber == 2)
             {
                 Rect labelDefaultDrugs = new Rect(0, rect.y, one, buttonHeight);
-                Rect labelDefaultReading = new Rect(one, rect.y, one, buttonHeight);
+                //Rect labelDefaultReading = new Rect(one, rect.y, one, buttonHeight);
                 Rect labelSlaveDrugs = new Rect(three, rect.y, one, buttonHeight);
-                Rect labelSlaveReading = new Rect(four, rect.y, one, buttonHeight);
+                //Rect labelSlaveReading = new Rect(four, rect.y, one, buttonHeight);
 
                 Widgets.Label(labelDefaultDrugs, "BPC.SelectedDefaultDrug".Translate());
-                Widgets.Label(labelDefaultReading, "BPC.SelectedDefaultReading".Translate());
+                //Widgets.Label(labelDefaultReading, "BPC.SelectedDefaultReading".Translate());
                 Widgets.Label(labelSlaveDrugs, "BPC.SelectedSlaveDefaultDrugs".Translate());
-                Widgets.Label(labelSlaveReading, "BPC.SelectedSlaveDefaultReading".Translate());
+                //Widgets.Label(labelSlaveReading, "BPC.SelectedSlaveDefaultReading".Translate());
             }
             else
             {
@@ -564,28 +504,16 @@ namespace BetterPawnControl
             {
 
                 Rect buttonDefaultDrugs = new Rect(0f + alignCenter, rect.y, buttonWidth, buttonHeight);
-                Rect buttonDefaultReading = new Rect(one + alignCenter, rect.y, buttonWidth, buttonHeight);
                 Rect buttonSlaveDefaultDrugs = new Rect(three + alignCenter, rect.y, buttonWidth, buttonHeight);
-                Rect buttonSlaveDefaultReading = new Rect(four + alignCenter, rect.y, buttonWidth, buttonHeight);
 
                 if (Widgets.ButtonText(buttonDefaultDrugs, AssignManager.DefaultDrugPolicy.label, true, false, true))
                 {
                     OpenDrugSelectMenu(PawnType.Colonist);
                 }
 
-                if (Widgets.ButtonText(buttonDefaultReading, AssignManager.DefaultReadingPolicy.label, true, false, true))
-                {
-                    OpenReadingSelectMenu(PawnType.Colonist);
-                }
-
                 if (Widgets.ButtonText(buttonSlaveDefaultDrugs, AssignManager.DefaultSlaveDrugPolicy.label, true, false, true))
                 {
                     OpenDrugSelectMenu(PawnType.Slave);
-                }
-
-                if (Widgets.ButtonText(buttonSlaveDefaultReading, AssignManager.DefaultSlaveReadingPolicy.label, true, false, true))
-                {
-                    OpenReadingSelectMenu(PawnType.Slave);
                 }
             }
             else
@@ -603,31 +531,25 @@ namespace BetterPawnControl
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.UpperLeft;
         }
-        
-        private static int MaxNumber(params int[] numbers)
-        {
-            var max = numbers.Max();
-            return max;
-        }
 
         private static void OpenOutfitSelectMenu(PawnType type)
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
 
-            foreach (ApparelPolicy apparelPolicy in Current.Game.outfitDatabase.AllOutfits)
+            foreach (ApparelPolicy Outfit in Current.Game.outfitDatabase.AllOutfits)
             {
                 list.Add(
                     new FloatMenuOption(
-                        apparelPolicy.label,
+                        Outfit.label,
                         delegate
                         {
                             if (type == PawnType.Colonist)
                             {
-                                AssignManager.DefaultOutfit = apparelPolicy;
+                                AssignManager.DefaultOutfit = Outfit;
                             }
                             else //if (type == PawnType.Slave)
                             {
-                                AssignManager.DefaultSlaveOutfit = apparelPolicy;
+                                AssignManager.DefaultSlaveOutfit = Outfit;
                             }                            
                         },
                         MenuOptionPriority.Default, null, null, 0f, null));
@@ -665,24 +587,24 @@ namespace BetterPawnControl
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
 
-            foreach (FoodPolicy foodPolicy in Current.Game.foodRestrictionDatabase.AllFoodRestrictions)
+            foreach (FoodPolicy FoodRestriction in Current.Game.foodRestrictionDatabase.AllFoodRestrictions)
             {
                 list.Add(
                     new FloatMenuOption(
-                        foodPolicy.label,
+                        FoodRestriction.label,
                         delegate
                         {
                             if (type == PawnType.Colonist)
                             {
-                                AssignManager.DefaultFoodPolicy = foodPolicy;
+                                AssignManager.DefaultFoodPolicy = FoodRestriction;
                             }
                             else if (type == PawnType.Prisoner)
                             {
-                                AssignManager.DefaultPrisonerFoodPolicy = foodPolicy;
+                                AssignManager.DefaultPrisonerFoodPolicy = FoodRestriction;
                             }
                             else //if (type == PawnType.Slave)
                             {
-                                AssignManager.DefaultSlaveFoodPolicy = foodPolicy;
+                                AssignManager.DefaultSlaveFoodPolicy = FoodRestriction;
                             }
                         },
                         MenuOptionPriority.Default, null, null, 0f, null));
@@ -711,85 +633,27 @@ namespace BetterPawnControl
             }            
         }
 
-        private static void OpenReadingSelectMenu(PawnType type)
-        {
-            List<FloatMenuOption> list = new List<FloatMenuOption>();
-
-            foreach (ReadingPolicy readingPolicy in Current.Game.readingPolicyDatabase.AllReadingPolicies)
-            {
-                list.Add(
-                    new FloatMenuOption(
-                        readingPolicy.label,
-                        delegate
-                        {
-                            if (type == PawnType.Colonist)
-                            {
-                                AssignManager.DefaultReadingPolicy = readingPolicy;
-                            }
-                            else //if (type == PawnType.Slave)
-                            {
-                                AssignManager.DefaultSlaveReadingPolicy = readingPolicy;
-                            }
-
-                        },
-                        MenuOptionPriority.Default, null, null, 0f, null));
-            }
-            Find.WindowStack.Add(new FloatMenu(list));
-        }
-
-
         private static void DoAlertRow(Rect rect)
         {
-            float one = rect.width / (NTABSCOLUMNS * 2);
-            float two = one * 2f;
-            float three = one * 3f;
-            float four = one * 4f;
-            float five = one * 5f;
-            float six = one * 6f;
-            float seven = one * 7f;
-            float eight = one * 8f;
-            float nine = one * 9f;
-            float buttonWidth = 4f * one / 5f;
+            float columnWidth = rect.width / (NTABSCOLUMNS * 2);
+            float buttonWidth = 4f * columnWidth / 5f;
             int alertLevel = 1;
-
-            Rect labelWork = new Rect(0, rect.y, one, rect.height + 6f);
-            Rect buttonWorkAlert = new Rect(one, rect.y, buttonWidth, rect.height + 6f);
-
-            Rect labelRestrict = new Rect(two, rect.y, one, rect.height + 6f);
-            Rect buttonRestrictAlert = new Rect(three, rect.y, buttonWidth, rect.height + 6f);
-
-            Rect labelAssign = new Rect(four, rect.y, one, rect.height + 6f);
-            Rect buttonAssignAlert = new Rect(five, rect.y, buttonWidth, rect.height + 6f);
-
-            Rect labelAnimal = new Rect(six, rect.y, one, rect.height + 6f);
-            Rect buttonAnimalAlert = new Rect(seven, rect.y, buttonWidth, rect.height + 6f);
-
-            Rect labelMech = new Rect(eight, rect.y, one, rect.height + 6f);
-            Rect buttonMechAlert = new Rect(nine, rect.y, buttonWidth, rect.height + 6f);
-
-            Text.Font = GameFont.Small;
-            Text.Anchor = TextAnchor.MiddleCenter;
-            Widgets.Label(labelWork, "BPC.WorkTab".Translate());
-            Widgets.Label(labelRestrict, "BPC.RestrictTab".Translate());
-            Widgets.Label(labelAssign, "BPC.AssignTab".Translate());
-            Widgets.Label(labelAnimal, "BPC.AnimalTab".Translate());
-            Widgets.Label(labelMech, "BPC.MechTab".Translate());
-
-            DrawAlertButton(alertLevel, buttonWorkAlert, Resources.Type.work);
-            DrawAlertButton(alertLevel, buttonRestrictAlert, Resources.Type.restrict);
-            DrawAlertButton(alertLevel, buttonAssignAlert, Resources.Type.assign);
-            DrawAlertButton(alertLevel, buttonAnimalAlert, Resources.Type.animal);
-            DrawAlertButton(alertLevel, buttonMechAlert, Resources.Type.mech);
-
-            if (Widget_ModsAvailable.WTBAvailable)
+            float posX = 0;
+            
+            for (int num = 0; num < sections.Count; num++)
             {
-                float ten = one * 10f;
-                float eleven = one * 11f;
-                Rect labelWeapons = new Rect(ten, rect.y, one, rect.height + 6f);
-                Rect buttonWeaponsAlert = new Rect(eleven, rect.y, buttonWidth, rect.height + 6f);
-                Widgets.Label(labelWeapons, "BPC.WeaponsTab".Translate());
-                DrawAlertButton(alertLevel, buttonWeaponsAlert, Resources.Type.weapons);
+                var section = sections[num];
+                Rect label = new Rect(posX, rect.y, columnWidth, rect.height + 6f);
+                posX += columnWidth;
+                Rect buttonAlert = new Rect(posX, rect.y, buttonWidth, rect.height + 6f);
+                posX += columnWidth;
+
+                Text.Font = GameFont.Small;
+                Text.Anchor = TextAnchor.MiddleCenter;
+                Widgets.Label(label, section.HeaderLabelKey.Translate());
+                DrawAlertButton(alertLevel, buttonAlert, section.Type);
             }
+
             Text.Anchor = TextAnchor.UpperLeft;
         }
 
@@ -846,6 +710,12 @@ namespace BetterPawnControl
                         FillMenu(type, alertLevel, list, policy);
                     }
                     break;
+                case Resources.Type.robots:
+                    foreach (Policy policy in RobotManager.policies)
+                    {
+                        FillMenu(type, alertLevel, list, policy);
+                    }
+                    break;
             }
             Find.WindowStack.Add(new FloatMenu(list));
         }
@@ -861,6 +731,72 @@ namespace BetterPawnControl
 
                     },
                     MenuOptionPriority.Default, null, null, 0f, null));
+        }
+
+        class PolicySection
+        {
+            public Resources.Type Type { get; private set; }
+            public string HeaderLabelKey { get; private set; }
+            public string NewButtonLabelKey { get; private set; }
+            public List<Policy> Policies { get; private set; }
+
+            public static PolicySection Create(Resources.Type type, ref List<Policy> policies)
+            {
+                var newSection = new PolicySection
+                {
+                    Type = type,
+                    HeaderLabelKey = GetHeaderLabelKey(type),
+                    NewButtonLabelKey = GetNewButtonLabelKey(type),
+                    Policies = policies,
+                };
+                return newSection;
+            }
+
+            private static string GetHeaderLabelKey(Resources.Type type)
+            {
+                switch (type)
+                {
+                    case Resources.Type.work:
+                        return "BPC.WorkTab";
+                    case Resources.Type.restrict:
+                        return "BPC.RestrictTab";
+                    case Resources.Type.assign:
+                        return "BPC.AssignTab";
+                    case Resources.Type.animal:
+                        return "BPC.AnimalTab";
+                    case Resources.Type.mech:
+                        return "BPC.MechTab";
+                    case Resources.Type.weapons:
+                        return "BPC.WeaponsTab";
+                    case Resources.Type.robots:
+                        return "BPC.RobotsTab";
+                }
+
+                throw new NotImplementedException($"Type {type} is not supported.");
+            }
+
+            private static string GetNewButtonLabelKey(Resources.Type type)
+            {
+                switch (type)
+                {
+                    case Resources.Type.work:
+                        return "BPC.NewWorkPolicy";
+                    case Resources.Type.restrict:
+                        return "BPC.NewRestrictPolicy";
+                    case Resources.Type.assign:
+                        return "BPC.NewAssignPolicy";
+                    case Resources.Type.animal:
+                        return "BPC.NewAnimalPolicy";
+                    case Resources.Type.mech:
+                        return "BPC.NewMechPolicy";
+                    case Resources.Type.weapons:
+                        return "BPC.NewWeaponsPolicy";
+                    case Resources.Type.robots:
+                        return "BPC.NewRobotsPolicy";
+                }
+
+                throw new NotImplementedException($"Type {type} is not supported.");
+            }
         }
     }
 }

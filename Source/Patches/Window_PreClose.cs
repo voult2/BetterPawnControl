@@ -46,6 +46,12 @@ namespace BetterPawnControl.Patches
                 WeaponsManager.SaveCurrentState(WeaponsManager.Colonists().ToList());
                 WeaponsManager.LinksCleanUp();
             }
+
+            if (__instance.GetType().FullName.Equals(Widget_ModsAvailable.AIROBOTX2_MAINTAB) && Widget_ModsAvailable.MiscRobotsAvailable)
+            {
+                RobotManager.SaveCurrentState(RobotManager.Robots().ToList());
+                RobotManager.LinksCleanUp();
+            }
         }
     }
 }

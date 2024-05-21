@@ -95,6 +95,13 @@ namespace BetterPawnControl
 					Scribe_Collections.Look<MapActivePolicy>(ref WeaponsManager.activePolicies, "WeaponsActivePolicies", LookMode.Deep);
 				}
 
+				if (Widget_ModsAvailable.MiscRobotsAvailable)
+				{
+                    Scribe_Collections.Look<Policy>(ref RobotManager.policies, "RobotsPolicies", LookMode.Deep);
+                    Scribe_Collections.Look<RobotLink>(ref RobotManager.links, "RobotsLinks", LookMode.Deep);
+                    Scribe_Collections.Look<MapActivePolicy>(ref RobotManager.activePolicies, "RobotsActivePolicies", LookMode.Deep);
+                }
+
 				Scribe_Values.Look<int>(ref AlertManager._alertLevel, "ActiveLevel", 0, true);
 				Scribe_Collections.Look<AlertLevel>(ref AlertManager.alertLevelsList, "AlertLevelsList", LookMode.Deep);
 
@@ -115,7 +122,13 @@ namespace BetterPawnControl
 					//this only happens with existing saves. Existing saves have no related data so let's initialize!
 					WeaponsManager.ForceInit();
 				}
-			}
+
+                if (Scribe.mode == LoadSaveMode.LoadingVars && RobotManager.activePolicies == null)
+                {
+                    //this only happens with existing saves. Existing saves have no related data so let's initialize!
+                    RobotManager.ForceInit();
+                }
+            }
 
 			if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs)
 			{

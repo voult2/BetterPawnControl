@@ -72,7 +72,7 @@ namespace BetterPawnControl
 
 		internal static Policy GetActivePolicy()
 		{
-			return GetActivePolicy(Find.CurrentMap.uniqueID);			
+			return GetActivePolicy(Find.CurrentMap.uniqueID);
 		}
 
 		internal static void SetActivePolicy(Policy policy)
@@ -138,7 +138,12 @@ namespace BetterPawnControl
 				{
 					link.ChangeType<MechLink>().mapId = dstMap;
 				}
-			}
+
+                if (link.GetType() == typeof(RobotLink))
+                {
+                    link.ChangeType<RobotLink>().mapId = dstMap;
+                }
+            }
 		}
 
 		internal static bool FoodPolicyExits(FoodPolicy foodPolicy)

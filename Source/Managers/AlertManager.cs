@@ -26,7 +26,7 @@ namespace BetterPawnControl
             }
         }
 
-        internal static void ForceInit ()
+        internal static void ForceInit()
         {
             if (!_initialized)
             {
@@ -38,7 +38,8 @@ namespace BetterPawnControl
                     { Resources.Type.assign, AssignManager.GetActivePolicy() },
                     { Resources.Type.animal, AnimalManager.GetActivePolicy() },
                     { Resources.Type.mech, MechManager.GetActivePolicy() },
-                    { Resources.Type.weapons, WeaponsManager.GetActivePolicy() }
+                    { Resources.Type.weapons, WeaponsManager.GetActivePolicy() },
+                    { Resources.Type.robots, RobotManager.GetActivePolicy() },
                 };
 
                 Dictionary<Resources.Type, Policy> alertOn = new Dictionary<Resources.Type, Policy>(noAlert);
@@ -75,7 +76,7 @@ namespace BetterPawnControl
 
             Policy alertPolicy = alertLevelsList.Find(x => x.level == level).settings.TryGetValue(type);
 
-            if (alertPolicy == null) 
+            if (alertPolicy == null)
             {
                 switch (type)
                 {
@@ -91,8 +92,13 @@ namespace BetterPawnControl
                         alertPolicy = WeaponsManager.GetActivePolicy();
                         break;
 
+                    case Resources.Type.robots:
+                        alertLevelsList[level].settings.Add(Resources.Type.robots, RobotManager.GetActivePolicy());
+                        alertPolicy = RobotManager.GetActivePolicy();
+                        break;
+
                     default:
-                        Log.Error("[BPC] Missing a default policy for the Emergency feature");
+                        Log.Error($"[BPC] Missing a default policy in {type} for the Emergency feature");
                         break;
                 }
             }
@@ -113,13 +119,18 @@ namespace BetterPawnControl
         {
             try
             {
-                alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.work, WorkManager.GetActivePolicy());
-                alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.restrict, ScheduleManager.GetActivePolicy());
-                alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.assign, AssignManager.GetActivePolicy());
-                alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.animal, AnimalManager.GetActivePolicy());
-                alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.mech, MechManager.GetActivePolicy());
-                alertLevelsList.Find(x => x.level == level).settings.SetOrAdd(Resources.Type.weapons, WeaponsManager.GetActivePolicy());
-            } 
+                var alertLevel = alertLevelsList.FirstOrDefault(x => x.level == level);
+                if (alertLevel != null)
+                {
+                    alertLevel.settings.SetOrAdd(Resources.Type.work, WorkManager.GetActivePolicy());
+                    alertLevel.settings.SetOrAdd(Resources.Type.restrict, ScheduleManager.GetActivePolicy());
+                    alertLevel.settings.SetOrAdd(Resources.Type.assign, AssignManager.GetActivePolicy());
+                    alertLevel.settings.SetOrAdd(Resources.Type.animal, AnimalManager.GetActivePolicy());
+                    alertLevel.settings.SetOrAdd(Resources.Type.mech, MechManager.GetActivePolicy());
+                    alertLevel.settings.SetOrAdd(Resources.Type.weapons, WeaponsManager.GetActivePolicy());
+                    alertLevel.settings.SetOrAdd(Resources.Type.robots, RobotManager.GetActivePolicy());
+                }
+            }
             catch (NullReferenceException)
             {
                 //Only if player clicks the emergency button without opening the BPC dialog windows
@@ -127,13 +138,13 @@ namespace BetterPawnControl
         }
 
         internal static void LoadState(int level)
-        {   
+        {
             List<AlertLevel> alertList = alertLevelsList.FindAll(x => x.level == level);
             foreach (AlertLevel alert in alertList)
             {
                 foreach (KeyValuePair<Resources.Type, Policy> entry in alert.settings)
                 {
-                    switch(entry.Key)
+                    switch (entry.Key)
                     {
                         case Resources.Type.work:
                             if (!Widget_ModsAvailable.DisableBPCOnWorkTab)
@@ -145,7 +156,7 @@ namespace BetterPawnControl
                             ScheduleManager.LoadState(entry.Value);
                             break;
                         case Resources.Type.assign:
-                             AssignManager.LoadState(entry.Value);
+                            AssignManager.LoadState(entry.Value);
                             break;
                         case Resources.Type.animal:
                             AnimalManager.LoadState(entry.Value);
@@ -157,6 +168,12 @@ namespace BetterPawnControl
                             if (Widget_ModsAvailable.WTBAvailable)
                             {
                                 WeaponsManager.LoadState(entry.Value);
+                            }
+                            break;
+                        case Resources.Type.robots:
+                            if (Widget_ModsAvailable.MiscRobotsAvailable)
+                            {
+                                RobotManager.LoadState(entry.Value);
                             }
                             break;
                     }

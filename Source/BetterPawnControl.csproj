@@ -9,7 +9,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Authors>VouLT</Authors>
-    <Version>2.7.0</Version>
+    <Version>2.7.4</Version>
   </PropertyGroup>
 
   <ItemGroup>
