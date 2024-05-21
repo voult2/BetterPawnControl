@@ -24,7 +24,7 @@
 	<BPC.MechPolicy>Политика </BPC.MechPolicy>
 	<BPC.CurrentMechPolicy>Текущая политика</BPC.CurrentMechPolicy>
 	
-	<BPC.NewWeaponsPolicy>Новая политика вооружений</BPC.NewWeaponsPolicy>
+	<BPC.NewWeaponsPolicy>Новая политика вооружения</BPC.NewWeaponsPolicy>
 	<BPC.WeaponsPolicy>Политика </BPC.WeaponsPolicy>
 	<BPC.CurrentWeaponsPolicy>Текущая политика</BPC.CurrentWeaponsPolicy>
 	
@@ -37,8 +37,8 @@
 	<BPC.AssignTab>Назначения</BPC.AssignTab>
 	<BPC.AnimalTab>Питомцы</BPC.AnimalTab>
 	<BPC.MechTab>Мехи</BPC.MechTab>
-	<BPC.WeaponsTab>Вооружение</BPC.WeaponsTab>
-	<BPC.RobotsTab>Снаряжение</BPC.RobotsTab>
+	<BPC.WeaponsTab>Оружие</BPC.WeaponsTab>
+	<BPC.RobotsTab>Роботы</BPC.RobotsTab>
 	
 	<BPC.SelectedDefaultOutfit>Снаряжение</BPC.SelectedDefaultOutfit>
 	<BPC.SelectedDefaultDrug>Наркотики</BPC.SelectedDefaultDrug>
