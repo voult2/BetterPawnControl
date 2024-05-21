@@ -30,12 +30,17 @@
 	<BPC.WeaponsPolicy>Policy </BPC.WeaponsPolicy>
 	<BPC.CurrentWeaponsPolicy>Active weapon policy</BPC.CurrentWeaponsPolicy>
 	
+	<BPC.NewRobotsPolicy>New robot policy</BPC.NewRobotsPolicy>
+	<BPC.RobotsPolicy>Policy </BPC.RobotsPolicy>
+	<BPC.CurrentRobotsPolicy>Active robot policy</BPC.CurrentRobotsPolicy>
+	
 	<BPC.WorkTab>Work</BPC.WorkTab>
 	<BPC.RestrictTab>Schedule</BPC.RestrictTab>
 	<BPC.AssignTab>Assign</BPC.AssignTab>
 	<BPC.AnimalTab>Animals</BPC.AnimalTab>
 	<BPC.MechTab>Mechs</BPC.MechTab>
-	<BPC.WeaponsTab>Weapons</BPC.WeaponsTab>	
+	<BPC.WeaponsTab>Weapons</BPC.WeaponsTab>
+	<BPC.RobotsTab>Robots</BPC.RobotsTab>
 	
 	<BPC.PoliciesConfigText>Create/Delete/Rename policies presets. Don't forget to configure them on each tab afterwards</BPC.PoliciesConfigText>
 	

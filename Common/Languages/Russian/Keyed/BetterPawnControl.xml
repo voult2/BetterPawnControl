@@ -20,12 +20,27 @@
 	<BPC.WorkPolicy>Политика </BPC.WorkPolicy>
 	<BPC.CurrentWorkPolicy>Текущая политика</BPC.CurrentWorkPolicy>
 	
+	<BPC.NewMechPolicy>Новая политика мехов</BPC.NewMechPolicy>
+	<BPC.MechPolicy>Политика </BPC.MechPolicy>
+	<BPC.CurrentMechPolicy>Текущая политика</BPC.CurrentMechPolicy>
+	
+	<BPC.NewWeaponsPolicy>Новая политика вооружений</BPC.NewWeaponsPolicy>
+	<BPC.WeaponsPolicy>Политика </BPC.WeaponsPolicy>
+	<BPC.CurrentWeaponsPolicy>Текущая политика</BPC.CurrentWeaponsPolicy>
+	
+	<BPC.NewRobotsPolicy>Новая политика роботов</BPC.NewRobotsPolicy>
+	<BPC.RobotsPolicy>Политика </BPC.RobotsPolicy>
+	<BPC.CurrentRobotsPolicy>Текущая политика</BPC.CurrentRobotsPolicy>
+	
 	<BPC.WorkTab>Работа</BPC.WorkTab>
 	<BPC.RestrictTab>Ограничения</BPC.RestrictTab>
 	<BPC.AssignTab>Назначения</BPC.AssignTab>
 	<BPC.AnimalTab>Питомцы</BPC.AnimalTab>
+	<BPC.MechTab>Мехи</BPC.MechTab>
+	<BPC.WeaponsTab>Вооружение</BPC.WeaponsTab>
+	<BPC.RobotsTab>Снаряжение</BPC.RobotsTab>
 	
-	<BPC.SelectedDefaultOutfit>Снаряжение</BPC.SelectedDefaultOutfit>	
+	<BPC.SelectedDefaultOutfit>Снаряжение</BPC.SelectedDefaultOutfit>
 	<BPC.SelectedDefaultDrug>Наркотики</BPC.SelectedDefaultDrug>
 	<BPC.SelectedDefaultFood>Еда колонистов</BPC.SelectedDefaultFood>
 	<BPC.SelectedPrisionerDefaultFood>Еда заключенных</BPC.SelectedPrisionerDefaultFood>
