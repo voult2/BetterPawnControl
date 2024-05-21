@@ -47,8 +47,8 @@
 	<BPC.SelectedDefaultMeds>Opieka Medyczna</BPC.SelectedDefaultMeds>
 	<BPC.SelectedDefaultWeapons>Bronie</BPC.SelectedDefaultWeapons>
 	
-	<BPC.SelectedPrisionerDefaultFood>Dieta</BPC.SelectedPrisionerDefaultFood>
-	<BPC.SelectedPrisionerMeds>Opieka Medyczna</BPC.SelectedPrisionerMeds>
+	<BPC.SelectedPrisonerDefaultFood>Dieta</BPC.SelectedPrisonerDefaultFood>
+	<BPC.SelectedPrisonerMeds>Opieka Medyczna</BPC.SelectedPrisonerMeds>
 	
 	<BPC.SelectedSlaveDefaultOutfit>Obecny Strój</BPC.SelectedSlaveDefaultOutfit>	
 	<BPC.SelectedSlaveDefaultFood>Dieta</BPC.SelectedSlaveDefaultFood>
@@ -57,7 +57,7 @@
 	<BPC.SelectedSlaveDefaultMeds>Opieka Medyczna</BPC.SelectedSlaveDefaultMeds>
 	
 	<BPC.ColonistDefaultHeader>Domyślne dla kolonisty</BPC.ColonistDefaultHeader>
-	<BPC.PrisionerDefaultHeader>Domyślne dla więźnia</BPC.PrisionerDefaultHeader>
+	<BPC.PrisonerDefaultHeader>Domyślne dla więźnia</BPC.PrisonerDefaultHeader>
 	<BPC.SlaveDefaultHeader>Domyślne dla niewolnika</BPC.SlaveDefaultHeader>
 	
 	<BPC.Copy>Kopiuj Politykę</BPC.Copy>

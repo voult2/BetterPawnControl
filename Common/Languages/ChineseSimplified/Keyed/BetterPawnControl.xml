@@ -39,8 +39,8 @@
   <BPC.SelectedDefaultReadings>默认阅读</BPC.SelectedDefaultReadings>
   <BPC.SelectedDefaultMeds>医疗</BPC.SelectedDefaultMeds>
   
-  <BPC.SelectedPrisionerDefaultFood>默认囚犯食物</BPC.SelectedPrisionerDefaultFood>
-  <BPC.SelectedPrisionerMeds>囚犯医疗</BPC.SelectedPrisionerMeds>
+  <BPC.SelectedPrisonerDefaultFood>默认囚犯食物</BPC.SelectedPrisonerDefaultFood>
+  <BPC.SelectedPrisonerMeds>囚犯医疗</BPC.SelectedPrisonerMeds>
   
   <BPC.SelectedSlaveDefaultOutfit>默认奴隶着装</BPC.SelectedSlaveDefaultOutfit>
   <BPC.SelectedSlaveDefaultFood>默认奴隶食物</BPC.SelectedSlaveDefaultFood>
@@ -49,7 +49,7 @@
   <BPC.SelectedSlaveDefaultMeds>默认奴隶医疗</BPC.SelectedSlaveDefaultMeds>
   
   <BPC.ColonistDefaultHeader>殖民者默认选项</BPC.ColonistDefaultHeader>
-  <BPC.PrisionerDefaultHeader>囚犯默认选项</BPC.PrisionerDefaultHeader>
+  <BPC.PrisonerDefaultHeader>囚犯默认选项</BPC.PrisonerDefaultHeader>
   <BPC.SlaveDefaultHeader>奴隶默认选项</BPC.SlaveDefaultHeader>
   
   

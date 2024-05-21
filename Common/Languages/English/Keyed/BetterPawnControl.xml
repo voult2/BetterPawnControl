@@ -47,8 +47,8 @@
 	<BPC.SelectedDefaultMeds>Medical Care</BPC.SelectedDefaultMeds>
 	<BPC.SelectedDefaultWeapons>Weapons</BPC.SelectedDefaultWeapons>
 	
-	<BPC.SelectedPrisionerDefaultFood>Food</BPC.SelectedPrisionerDefaultFood>
-	<BPC.SelectedPrisionerMeds>Medical Care</BPC.SelectedPrisionerMeds>
+	<BPC.SelectedPrisonerDefaultFood>Food</BPC.SelectedPrisonerDefaultFood>
+	<BPC.SelectedPrisonerMeds>Medical Care</BPC.SelectedPrisonerMeds>
 	
 	<BPC.SelectedSlaveDefaultOutfit>Outfit</BPC.SelectedSlaveDefaultOutfit>	
 	<BPC.SelectedSlaveDefaultFood>Food</BPC.SelectedSlaveDefaultFood>
@@ -57,7 +57,7 @@
 	<BPC.SelectedSlaveDefaultMeds>Medical Care</BPC.SelectedSlaveDefaultMeds>
 	
 	<BPC.ColonistDefaultHeader>Colonist Defaults</BPC.ColonistDefaultHeader>
-	<BPC.PrisionerDefaultHeader>Prisioner Defaults</BPC.PrisionerDefaultHeader>
+	<BPC.PrisonerDefaultHeader>Prisoner Defaults</BPC.PrisonerDefaultHeader>
 	<BPC.SlaveDefaultHeader>Slave Defaults</BPC.SlaveDefaultHeader>
 	
 	<BPC.Copy>Copy Policy</BPC.Copy>
