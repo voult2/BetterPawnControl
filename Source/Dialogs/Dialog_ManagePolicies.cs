@@ -489,18 +489,29 @@ namespace BetterPawnControl
             }
             else if (rowNumber == 2)
             {
-
                 Rect buttonDefaultDrugs = new Rect(0f + alignCenter, rect.y, buttonWidth, buttonHeight);
+                Rect buttonDefaultReading = new Rect(one + alignCenter, rect.y, buttonWidth, buttonHeight);
                 Rect buttonSlaveDefaultDrugs = new Rect(three + alignCenter, rect.y, buttonWidth, buttonHeight);
+                Rect buttonSlaveDefaultReading = new Rect(four + alignCenter, rect.y, buttonWidth, buttonHeight);
 
                 if (Widgets.ButtonText(buttonDefaultDrugs, AssignManager.DefaultDrugPolicy.label, true, false, true))
                 {
                     OpenDrugSelectMenu(PawnType.Colonist);
                 }
 
+                if (Widgets.ButtonText(buttonDefaultReading, AssignManager.DefaultReadingPolicy.label, true, false, true))
+                {
+                    OpenReadingSelectMenu(PawnType.Colonist);
+                }
+
                 if (Widgets.ButtonText(buttonSlaveDefaultDrugs, AssignManager.DefaultSlaveDrugPolicy.label, true, false, true))
                 {
                     OpenDrugSelectMenu(PawnType.Slave);
+                }
+
+                if (Widgets.ButtonText(buttonSlaveDefaultReading, AssignManager.DefaultSlaveReadingPolicy.label, true, false, true))
+                {
+                    OpenReadingSelectMenu(PawnType.Slave);
                 }
             }
             else
@@ -570,6 +581,53 @@ namespace BetterPawnControl
             Find.WindowStack.Add(new FloatMenu(list));
         }
 
+        private static void OpenReadingSelectMenu(PawnType type)
+        {
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
+
+            foreach (ReadingPolicy readingPolicy in Current.Game.readingPolicyDatabase.AllReadingPolicies)
+            {
+                list.Add(
+                    new FloatMenuOption(
+                        readingPolicy.label,
+                        delegate
+                        {
+                            if (type == PawnType.Colonist)
+                            {
+                                AssignManager.DefaultReadingPolicy = readingPolicy;
+                            }
+                            else //if (type == PawnType.Slave)
+                            {
+                                AssignManager.DefaultSlaveReadingPolicy = readingPolicy;
+                            }
+
+                        },
+                        MenuOptionPriority.Default, null, null, 0f, null));
+            }
+            Find.WindowStack.Add(new FloatMenu(list));
+        }
+
+        private static void OpenWeaponsSelectMenu(PawnType type)
+        {
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
+            Dictionary<string, int> weaponsLoadoutDatabase = Widget_WeaoponsTabReborn.GetWeaponsLoadoutsDatabase();
+            if (weaponsLoadoutDatabase != null)
+            {
+                foreach (var weaponLoadout in weaponsLoadoutDatabase)
+                {
+                    list.Add(
+                        new FloatMenuOption(
+                            weaponLoadout.Key,
+                            delegate
+                            {
+                                WeaponsManager.DefaultWeaponsLoadoutById = weaponLoadout.Value;
+                            },
+                            MenuOptionPriority.Default, null, null, 0f, null));
+                }
+                Find.WindowStack.Add(new FloatMenu(list));
+            }            
+        }
+
         private static void OpenFoodSelectMenu(PawnType type)
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
@@ -597,27 +655,6 @@ namespace BetterPawnControl
                         MenuOptionPriority.Default, null, null, 0f, null));
             }
             Find.WindowStack.Add(new FloatMenu(list));
-        }
-
-        private static void OpenWeaponsSelectMenu(PawnType type)
-        {
-            List<FloatMenuOption> list = new List<FloatMenuOption>();
-            Dictionary<string, int> weaponsLoadoutDatabase = Widget_WeaoponsTabReborn.GetWeaponsLoadoutsDatabase();
-            if (weaponsLoadoutDatabase != null)
-            {
-                foreach (var weaponLoadout in weaponsLoadoutDatabase)
-                {
-                    list.Add(
-                        new FloatMenuOption(
-                            weaponLoadout.Key,
-                            delegate
-                            {
-                                WeaponsManager.DefaultWeaponsLoadoutById = weaponLoadout.Value;
-                            },
-                            MenuOptionPriority.Default, null, null, 0f, null));
-                }
-                Find.WindowStack.Add(new FloatMenu(list));
-            }            
         }
 
         private static void DoAlertRow(Rect rect)
