@@ -43,16 +43,16 @@
   <BPC.SelectedDefaultOutfit>初期設定:服装</BPC.SelectedDefaultOutfit>
   <BPC.SelectedDefaultFood>初期設定:食事</BPC.SelectedDefaultFood>
   <BPC.SelectedDefaultDrug>初期設定:ドラッグ</BPC.SelectedDefaultDrug>
-  <BPC.SelectedDefaultMeds>初期設定:治療</BPC.SelectedDefaultMeds>
+  <BPC.SelectedDefaultMedicine>初期設定:治療</BPC.SelectedDefaultMedicine>
   <BPC.SelectedDefaultWeapons>初期設定:武器</BPC.SelectedDefaultWeapons>
 
   <BPC.SelectedPrisonerDefaultFood>初期設定:囚人食</BPC.SelectedPrisonerDefaultFood>
-  <BPC.SelectedPrisonerMeds>初期設定：囚人治療</BPC.SelectedPrisonerMeds>
+  <BPC.SelectedPrisonerDefaultMedicine>初期設定：囚人治療</BPC.SelectedPrisonerDefaultMedicine>
 
   <BPC.SelectedSlaveDefaultOutfit>初期設定:服装</BPC.SelectedSlaveDefaultOutfit>
   <BPC.SelectedSlaveDefaultFood>初期設定:食事</BPC.SelectedSlaveDefaultFood>
   <BPC.SelectedSlaveDefaultDrugs>初期設定:ドラッグ</BPC.SelectedSlaveDefaultDrugs>
-  <BPC.SelectedSlaveDefaultMeds>初期設定:治療</BPC.SelectedSlaveDefaultMeds>
+  <BPC.SelectedSlaveDefaultMedicine>初期設定:治療</BPC.SelectedSlaveDefaultMedicine>
 
   <BPC.ColonistDefaultHeader>初期設定:入植者</BPC.ColonistDefaultHeader>
   <BPC.PrisonerDefaultHeader>初期設定:囚人</BPC.PrisonerDefaultHeader>

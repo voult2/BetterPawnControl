@@ -44,17 +44,17 @@
 	<BPC.SelectedDefaultFood>Dieta</BPC.SelectedDefaultFood>
 	<BPC.SelectedDefaultDrug>Polityka używek</BPC.SelectedDefaultDrug>
 	<BPC.SelectedDefaultReading>Polityka czytania</BPC.SelectedDefaultReading>
-	<BPC.SelectedDefaultMeds>Opieka Medyczna</BPC.SelectedDefaultMeds>
+	<BPC.SelectedDefaultMedicine>Opieka Medyczna</BPC.SelectedDefaultMedicine>
 	<BPC.SelectedDefaultWeapons>Bronie</BPC.SelectedDefaultWeapons>
 	
 	<BPC.SelectedPrisonerDefaultFood>Dieta</BPC.SelectedPrisonerDefaultFood>
-	<BPC.SelectedPrisonerMeds>Opieka Medyczna</BPC.SelectedPrisonerMeds>
+	<BPC.SelectedPrisonerDefaultMedicine>Opieka Medyczna</BPC.SelectedPrisonerDefaultMedicine>
 	
 	<BPC.SelectedSlaveDefaultOutfit>Obecny Strój</BPC.SelectedSlaveDefaultOutfit>	
 	<BPC.SelectedSlaveDefaultFood>Dieta</BPC.SelectedSlaveDefaultFood>
 	<BPC.SelectedSlaveDefaultDrugs>Polityka używek</BPC.SelectedSlaveDefaultDrugs>
 	<BPC.SelectedSlaveDefaultReading>Polityka czytania</BPC.SelectedSlaveDefaultReading>
-	<BPC.SelectedSlaveDefaultMeds>Opieka Medyczna</BPC.SelectedSlaveDefaultMeds>
+	<BPC.SelectedSlaveDefaultMedicine>Opieka Medyczna</BPC.SelectedSlaveDefaultMedicine>
 	
 	<BPC.ColonistDefaultHeader>Domyślne dla kolonisty</BPC.ColonistDefaultHeader>
 	<BPC.PrisonerDefaultHeader>Domyślne dla więźnia</BPC.PrisonerDefaultHeader>

@@ -37,16 +37,16 @@
   <BPC.SelectedDefaultFood>默认殖民者食物</BPC.SelectedDefaultFood>
   <BPC.SelectedDefaultDrug>默认用药</BPC.SelectedDefaultDrug>
   <BPC.SelectedDefaultReadings>默认阅读</BPC.SelectedDefaultReadings>
-  <BPC.SelectedDefaultMeds>医疗</BPC.SelectedDefaultMeds>
+  <BPC.SelectedDefaultMedicine>医疗</BPC.SelectedDefaultMedicine>
   
   <BPC.SelectedPrisonerDefaultFood>默认囚犯食物</BPC.SelectedPrisonerDefaultFood>
-  <BPC.SelectedPrisonerMeds>囚犯医疗</BPC.SelectedPrisonerMeds>
+  <BPC.SelectedPrisonerDefaultMedicine>囚犯医疗</BPC.SelectedPrisonerDefaultMedicine>
   
   <BPC.SelectedSlaveDefaultOutfit>默认奴隶着装</BPC.SelectedSlaveDefaultOutfit>
   <BPC.SelectedSlaveDefaultFood>默认奴隶食物</BPC.SelectedSlaveDefaultFood>
   <BPC.SelectedSlaveDefaultDrugs>默认奴隶用药</BPC.SelectedSlaveDefaultDrugs>
   <BPC.SelectedSlaveDefaultReadings>默认奴隶阅读</BPC.SelectedSlaveDefaultReadings>
-  <BPC.SelectedSlaveDefaultMeds>默认奴隶医疗</BPC.SelectedSlaveDefaultMeds>
+  <BPC.SelectedSlaveDefaultMedicine>默认奴隶医疗</BPC.SelectedSlaveDefaultMedicine>
   
   <BPC.ColonistDefaultHeader>殖民者默认选项</BPC.ColonistDefaultHeader>
   <BPC.PrisonerDefaultHeader>囚犯默认选项</BPC.PrisonerDefaultHeader>
@@ -67,5 +67,7 @@
   
   <BPC.BetterPawnControlSettingsName>Better Pawn Control - 更好的殖民者控制</BPC.BetterPawnControlSettingsName>
   <BPC.AutomaticPawnsInterruptSetting>当开启紧急情况时，自动打断正在进行任何工作的殖民者</BPC.AutomaticPawnsInterruptSetting>
+
+
 
 </LanguageData>
