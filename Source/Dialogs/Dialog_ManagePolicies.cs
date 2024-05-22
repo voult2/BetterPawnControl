@@ -638,72 +638,30 @@ namespace BetterPawnControl
                 Text.Font = GameFont.Small;
                 Text.Anchor = TextAnchor.MiddleCenter;
                 Widgets.Label(label, section.HeaderLabelKey.Translate());
-                DrawAlertButton(alertLevel, buttonAlert, section.Type);
+                DrawAlertButton(alertLevel, buttonAlert, section);
             }
 
             Text.Anchor = TextAnchor.UpperLeft;
         }
 
-        private static void DrawAlertButton(int alertLevel, Rect buttonWorkAlert, Resources.Type type)
+        private static void DrawAlertButton(int alertLevel, Rect buttonWorkAlert, PolicySection section)
         {
+            var type = section.Type;
             if (Widgets.ButtonText(buttonWorkAlert, AlertManager.GetAlertPolicy(alertLevel, type).label, true, false, true))
             {
-                OpenPolicySelectMenu(type, alertLevel);
+                OpenPolicySelectMenu(alertLevel, section);
             }
         }
 
-        private static void OpenPolicySelectMenu(Resources.Type type, int alertLevel)
+        private static void OpenPolicySelectMenu(int alertLevel, PolicySection section)
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
 
-            switch(type)
+            foreach (var policy in section.Policies)
             {
-                case Resources.Type.work:
-                    foreach (Policy policy in WorkManager.policies)
-                    {
-                        FillMenu(type, alertLevel, list, policy);
-                    }
-                    break;
-                
-                case Resources.Type.restrict:
-                    foreach (Policy policy in ScheduleManager.policies)
-                    {
-                        FillMenu(type, alertLevel, list, policy);
-                    }
-                    break;
-
-                case Resources.Type.assign:
-                    foreach (Policy policy in AssignManager.policies)
-                    {
-                        FillMenu(type, alertLevel, list, policy);
-                    }
-                    break;
-
-                case Resources.Type.animal:
-                    foreach (Policy policy in AnimalManager.policies)
-                    {
-                        FillMenu(type, alertLevel, list, policy);
-                    }
-                    break;
-                case Resources.Type.mech:
-                    foreach (Policy policy in MechManager.policies)
-                    {
-                        FillMenu(type, alertLevel, list, policy);
-                    }
-                    break;
-                case Resources.Type.weapons:
-                    foreach (Policy policy in WeaponsManager.policies)
-                    {
-                        FillMenu(type, alertLevel, list, policy);
-                    }
-                    break;
-                case Resources.Type.robots:
-                    foreach (Policy policy in RobotManager.policies)
-                    {
-                        FillMenu(type, alertLevel, list, policy);
-                    }
-                    break;
+                FillMenu(section.Type, alertLevel, list, policy);
             }
+            
             Find.WindowStack.Add(new FloatMenu(list));
         }
 
@@ -715,7 +673,6 @@ namespace BetterPawnControl
                     delegate
                     {
                         AlertManager.SaveState(alertLevel, type, policy);
-
                     },
                     MenuOptionPriority.Default, null, null, 0f, null));
         }
