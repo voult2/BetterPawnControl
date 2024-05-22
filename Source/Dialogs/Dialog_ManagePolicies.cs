@@ -52,37 +52,25 @@ namespace BetterPawnControl
 
         private int CreateSections()
         {
-            var count = 0;
             sections.Clear();
 
             sections.Add(PolicySection.Create(Resources.Type.work, ref WorkManager.policies));
-            count++;
-
             sections.Add(PolicySection.Create(Resources.Type.restrict, ref ScheduleManager.policies));
-            count++;
-
             sections.Add(PolicySection.Create(Resources.Type.assign, ref AssignManager.policies));
-            count++;
-
             sections.Add(PolicySection.Create(Resources.Type.animal, ref AnimalManager.policies));
-            count++;
-
             sections.Add(PolicySection.Create(Resources.Type.mech, ref MechManager.policies));
-            count++;
 
             if (Widget_ModsAvailable.WTBAvailable)
             {
                 sections.Add(PolicySection.Create(Resources.Type.weapons, ref WeaponsManager.policies));
-                count++;
             }
 
             if (Widget_ModsAvailable.MiscRobotsAvailable)
             {
                 sections.Add(PolicySection.Create(Resources.Type.robots, ref RobotManager.policies));
-                count++;
             }
 
-            return count;
+            return sections.Count;
         }
 
         public override void PostOpen()
@@ -90,7 +78,6 @@ namespace BetterPawnControl
             base.PostOpen();
 
             var settings = LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>();
-
 
             Nullable<float> number = settings.settingsWindowPosX;
             windowRect.x = number ?? ResolutionUtility.NativeResolution.width / 2;
@@ -432,14 +419,14 @@ namespace BetterPawnControl
             else if (rowNumber == 2)
             {
                 Rect labelDefaultDrugs = new Rect(0, rect.y, one, buttonHeight);
-                //Rect labelDefaultReading = new Rect(one, rect.y, one, buttonHeight);
+                Rect labelDefaultReading = new Rect(one, rect.y, one, buttonHeight);
                 Rect labelSlaveDrugs = new Rect(three, rect.y, one, buttonHeight);
-                //Rect labelSlaveReading = new Rect(four, rect.y, one, buttonHeight);
+                Rect labelSlaveReading = new Rect(four, rect.y, one, buttonHeight);
 
                 Widgets.Label(labelDefaultDrugs, "BPC.SelectedDefaultDrug".Translate());
-                //Widgets.Label(labelDefaultReading, "BPC.SelectedDefaultReading".Translate());
+                Widgets.Label(labelDefaultReading, "BPC.SelectedDefaultReading".Translate());
                 Widgets.Label(labelSlaveDrugs, "BPC.SelectedSlaveDefaultDrugs".Translate());
-                //Widgets.Label(labelSlaveReading, "BPC.SelectedSlaveDefaultReading".Translate());
+                Widgets.Label(labelSlaveReading, "BPC.SelectedSlaveDefaultReading".Translate());
             }
             else
             {
