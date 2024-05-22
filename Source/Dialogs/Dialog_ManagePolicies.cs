@@ -534,20 +534,20 @@ namespace BetterPawnControl
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
 
-            foreach (ApparelPolicy Outfit in Current.Game.outfitDatabase.AllOutfits)
+            foreach (var apparelPolicy in Current.Game.outfitDatabase.AllOutfits)
             {
                 list.Add(
                     new FloatMenuOption(
-                        Outfit.label,
+                        apparelPolicy.label,
                         delegate
                         {
                             if (type == PawnType.Colonist)
                             {
-                                AssignManager.DefaultOutfit = Outfit;
+                                AssignManager.DefaultOutfit = apparelPolicy;
                             }
                             else //if (type == PawnType.Slave)
                             {
-                                AssignManager.DefaultSlaveOutfit = Outfit;
+                                AssignManager.DefaultSlaveOutfit = apparelPolicy;
                             }                            
                         },
                         MenuOptionPriority.Default, null, null, 0f, null));
@@ -559,7 +559,7 @@ namespace BetterPawnControl
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
 
-            foreach (DrugPolicy drugPolicy in Current.Game.drugPolicyDatabase.AllPolicies)
+            foreach (var drugPolicy in Current.Game.drugPolicyDatabase.AllPolicies)
             {
                 list.Add(
                     new FloatMenuOption(
@@ -585,7 +585,7 @@ namespace BetterPawnControl
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
 
-            foreach (ReadingPolicy readingPolicy in Current.Game.readingPolicyDatabase.AllReadingPolicies)
+            foreach (var readingPolicy in Current.Game.readingPolicyDatabase.AllReadingPolicies)
             {
                 list.Add(
                     new FloatMenuOption(
@@ -632,24 +632,24 @@ namespace BetterPawnControl
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
 
-            foreach (FoodPolicy FoodRestriction in Current.Game.foodRestrictionDatabase.AllFoodRestrictions)
+            foreach (var foodPolicy in Current.Game.foodRestrictionDatabase.AllFoodRestrictions)
             {
                 list.Add(
                     new FloatMenuOption(
-                        FoodRestriction.label,
+                        foodPolicy.label,
                         delegate
                         {
                             if (type == PawnType.Colonist)
                             {
-                                AssignManager.DefaultFoodPolicy = FoodRestriction;
+                                AssignManager.DefaultFoodPolicy = foodPolicy;
                             }
                             else if (type == PawnType.Prisoner)
                             {
-                                AssignManager.DefaultPrisonerFoodPolicy = FoodRestriction;
+                                AssignManager.DefaultPrisonerFoodPolicy = foodPolicy;
                             }
                             else //if (type == PawnType.Slave)
                             {
-                                AssignManager.DefaultSlaveFoodPolicy = FoodRestriction;
+                                AssignManager.DefaultSlaveFoodPolicy = foodPolicy;
                             }
                         },
                         MenuOptionPriority.Default, null, null, 0f, null));
