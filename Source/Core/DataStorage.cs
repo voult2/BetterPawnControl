@@ -14,21 +14,27 @@ namespace BetterPawnControl
 		{
 			base.ExposeData();
 
-            if (Scribe.mode == LoadSaveMode.LoadingVars)
-            {
-                //Let's make sure all static variables are cleaned.
-                //This shows there's a fundamental problem with this code
-                //A code refractor is require to remove the Static Managers 
-                //and replace it with GameComponents
-                AssignManager.links = null;
-                AssignManager.policies = null;
-                AssignManager.activePolicies = null;
-                AssignManager.DefaultDrugPolicy = null;
-                AssignManager.DefaultFoodPolicy = null;
-                AssignManager.DefaultOutfit = null;
+			if (Scribe.mode == LoadSaveMode.LoadingVars)
+			{
+				//Let's make sure all static variables are cleaned.
+				//This shows there's a fundamental problem with this code
+				//A code refractor is require to remove the Static Managers 
+				//and replace it with GameComponents
+				AssignManager.links = null;
+				AssignManager.policies = null;
+				AssignManager.activePolicies = null;
+				AssignManager.DefaultDrugPolicy = null;
+				AssignManager.DefaultFoodPolicy = null;
+				AssignManager.DefaultOutfit = null;
+                AssignManager.DefaultReadingPolicy = null;
                 AssignManager.DefaultPrisonerFoodPolicy = null;
-                AssignManager.DefaultSlaveFoodPolicy = null;
-                AssignManager.DefaultSlaveOutfit = null;
+				if (ModsConfig.IdeologyActive)
+				{
+                    AssignManager.DefaultSlaveFoodPolicy = null;
+                    AssignManager.DefaultSlaveOutfit = null;
+                    AssignManager.DefaultSlaveDrugPolicy = null;
+					AssignManager.DefaultSlaveReadingPolicy = null;
+				}
                 AnimalManager.links = null;
                 AnimalManager.policies = null;
                 AnimalManager.activePolicies = null;
@@ -54,18 +60,15 @@ namespace BetterPawnControl
 				Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultFoodPolicy, "DefaultFoodPolicy");
 				Scribe_References.Look<DrugPolicy>(ref AssignManager._defaultDrugPolicy, "DefaultDrugPolicy");
 				Scribe_References.Look<ReadingPolicy>(ref AssignManager._defaultReadingPolicy, "DefaultReadingPolicy");
-				Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaultMedCare, "DefaultColonistMedCare");
 
 				Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultPrisonerFoodPolicy, "DefaultPrisonerFoodPolicy");
-				Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaulPrisonerMedCare, "DefaultPrisionerMedCare");
 
-				if (ModsConfig.IdeologyActive)
+                if (ModsConfig.IdeologyActive)
 				{
 					Scribe_References.Look<ApparelPolicy>(ref AssignManager._defaultSlaveOutfit, "DefaultSlaveOutfit");
 					Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultSlaveFoodPolicy, "DefaultSlaveFoodPolicy");
 					Scribe_References.Look<DrugPolicy>(ref AssignManager._defaultSlaveDrugPolicy, "DefaultSlaveDrugPolicy");
 					Scribe_References.Look<ReadingPolicy>(ref AssignManager._defaultSlaveReadingPolicy, "DefaultSlaveReadingPolicy");
-					Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaulSlaveMedCare, "DefaultSlaveMedCare");
 				}
 				
 				Scribe_Collections.Look<Policy>(ref AssignManager.policies,"AssignPolicies", LookMode.Deep);
@@ -123,18 +126,18 @@ namespace BetterPawnControl
 				Scribe_References.Look<DrugPolicy>(ref AssignManager._defaultDrugPolicy, "DefaultDrugPolicy");
 				Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultFoodPolicy, "DefaultFoodPolicy");
 				Scribe_References.Look<ReadingPolicy>(ref AssignManager._defaultReadingPolicy, "DefaultReadingPolicy");
-				Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaultMedCare, "DefaultMedCare");
 
 				Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultPrisonerFoodPolicy, "DefaultPrisonerFoodPolicy");
-				Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaulPrisonerMedCare, "DefaultPrisonerMedCare");
 
-				Scribe_Values.Look<int>(ref WeaponsManager._defaultLoadoutId, "DefaultWeaponsLoadout");
-
-				Scribe_References.Look<ApparelPolicy>(ref AssignManager._defaultSlaveOutfit, "DefaultSlaveOutfit");
-				Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultSlaveFoodPolicy, "DefaultSlaveFoodPolicy");
-				Scribe_References.Look<DrugPolicy>(ref AssignManager._defaultSlaveDrugPolicy, "DefaultSlaveDrugPolicy");
-				Scribe_References.Look<ReadingPolicy>(ref AssignManager._defaultSlaveReadingPolicy, "DefaultSlaveReadingPolicy");
-				Scribe_Values.Look<MedicalCareCategory>(ref AssignManager._defaulSlaveMedCare, "DefaultSlaveMedCare");
+                Scribe_Values.Look<int>(ref WeaponsManager._defaultLoadoutId, "DefaultWeaponsLoadout");
+				
+				if (ModsConfig.IdeologyActive)
+				{
+					Scribe_References.Look<ApparelPolicy>(ref AssignManager._defaultSlaveOutfit, "DefaultSlaveOutfit");
+					Scribe_References.Look<FoodPolicy>(ref AssignManager._defaultSlaveFoodPolicy, "DefaultSlaveFoodPolicy");
+					Scribe_References.Look<DrugPolicy>(ref AssignManager._defaultSlaveDrugPolicy, "DefaultSlaveDrugPolicy");
+					Scribe_References.Look<ReadingPolicy>(ref AssignManager._defaultSlaveReadingPolicy, "DefaultSlaveReadingPolicy");
+				}
 			}
 		}
     }

@@ -172,11 +172,11 @@ namespace BetterPawnControl
             Rect defaultsHeaders = listing_Standard.GetRect(NORMAL_HEIGHT);
 
             columWidth = defaultsHeaders.width / 5f;
-            columHeight = NORMAL_HEIGHT * 5f;
-            
+            columHeight = NORMAL_HEIGHT * 8f;
+
             if (Widget_ModsAvailable.WTBAvailable)
             {
-                columHeight = NORMAL_HEIGHT * 8f;
+                columHeight = NORMAL_HEIGHT * 11f;
             }
                                    
             DoBackground(columWidth * 0f, defaultsHeaders.y, 2f * columWidth, columHeight, border, 0f);
@@ -203,14 +203,22 @@ namespace BetterPawnControl
             DoDefaultsRowButtons(defaultsRowFour, 2);
             listing_Standard.Gap(SMALL_HEIGHT);
 
+            Rect defaultsRowFive = listing_Standard.GetRect(NORMAL_HEIGHT);
+            DoDefaultsRowLabels(defaultsRowFive, 3);
+            listing_Standard.Gap(-5f);
+
+            Rect defaultsRowSix = listing_Standard.GetRect(NORMAL_HEIGHT);
+            DoDefaultsRowButtons(defaultsRowSix, 3);
+            listing_Standard.Gap(SMALL_HEIGHT);
+
             if (Widget_ModsAvailable.WTBAvailable)
             {
-                Rect defaultsRowFive = listing_Standard.GetRect(NORMAL_HEIGHT);
-                DoDefaultsRowLabels(defaultsRowFive, 3);
+                Rect defaultsRowSeven = listing_Standard.GetRect(NORMAL_HEIGHT);
+                DoDefaultsRowLabels(defaultsRowSeven, 4);
                 listing_Standard.Gap(-5f);
 
-                Rect defaultsRowSix = listing_Standard.GetRect(NORMAL_HEIGHT);
-                DoDefaultsRowButtons(defaultsRowSix, 3);
+                Rect defaultsRowEight = listing_Standard.GetRect(NORMAL_HEIGHT);
+                DoDefaultsRowButtons(defaultsRowEight, 4);
                 listing_Standard.Gap(SMALL_HEIGHT);
             }
 
@@ -455,9 +463,10 @@ namespace BetterPawnControl
             Text.Anchor = TextAnchor.MiddleCenter;
 
             Widgets.Label(rect1, "BPC.ColonistDefaultHeader".Translate());
-            Widgets.Label(rect2, "BPC.PrisionerDefaultHeader".Translate());
+            Widgets.Label(rect2, "BPC.PrisonerDefaultHeader".Translate());
+            if (ModsConfig.IdeologyActive) {
             Widgets.Label(rect3, "BPC.SlaveDefaultHeader".Translate());
-
+            }
             GUI.color = Color.white;
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.UpperLeft;
@@ -479,27 +488,47 @@ namespace BetterPawnControl
             {
                 Rect labelDefaultOutfit = new Rect(0, rect.y, one, buttonHeight);
                 Rect labelDefaultFood = new Rect(one, rect.y, one, buttonHeight);
-                Rect labelPrisionerDefaultFood = new Rect(two, rect.y, one, buttonHeight);
+                Rect labelPrisonerDefaultFood = new Rect(two, rect.y, one, buttonHeight);
                 Rect labelSlaveDefaultOutfit = new Rect(three, rect.y, one, buttonHeight);
                 Rect labelSlaveDefaultFood = new Rect(four, rect.y, one, buttonHeight);
                 
                 Widgets.Label(labelDefaultOutfit, "BPC.SelectedDefaultOutfit".Translate());
                 Widgets.Label(labelDefaultFood, "BPC.SelectedDefaultFood".Translate());
-                Widgets.Label(labelPrisionerDefaultFood, "BPC.SelectedPrisionerDefaultFood".Translate());
-                Widgets.Label(labelSlaveDefaultOutfit, "BPC.SelectedSlaveDefaultOutfit".Translate());
-                Widgets.Label(labelSlaveDefaultFood, "BPC.SelectedSlaveDefaultFood".Translate());
+                Widgets.Label(labelPrisonerDefaultFood, "BPC.SelectedPrisonerDefaultFood".Translate());
+
+                if (ModsConfig.IdeologyActive)
+                {
+                    Widgets.Label(labelSlaveDefaultOutfit, "BPC.SelectedSlaveDefaultOutfit".Translate());
+                    Widgets.Label(labelSlaveDefaultFood, "BPC.SelectedSlaveDefaultFood".Translate());
+                }
             }
             else if (rowNumber == 2)
             {
                 Rect labelDefaultDrugs = new Rect(0, rect.y, one, buttonHeight);
                 Rect labelDefaultReading = new Rect(one, rect.y, one, buttonHeight);
+                Rect labelPrisonerDefaultMed = new Rect(two, rect.y, one, buttonHeight);
                 Rect labelSlaveDrugs = new Rect(three, rect.y, one, buttonHeight);
                 Rect labelSlaveReading = new Rect(four, rect.y, one, buttonHeight);
 
                 Widgets.Label(labelDefaultDrugs, "BPC.SelectedDefaultDrug".Translate());
                 Widgets.Label(labelDefaultReading, "BPC.SelectedDefaultReading".Translate());
-                Widgets.Label(labelSlaveDrugs, "BPC.SelectedSlaveDefaultDrugs".Translate());
-                Widgets.Label(labelSlaveReading, "BPC.SelectedSlaveDefaultReading".Translate());
+                Widgets.Label(labelPrisonerDefaultMed, "BPC.SelectedPrisonerDefaultMedicine".Translate());
+                if (ModsConfig.IdeologyActive)
+                {
+                    Widgets.Label(labelSlaveDrugs, "BPC.SelectedSlaveDefaultDrugs".Translate());
+                    Widgets.Label(labelSlaveReading, "BPC.SelectedSlaveDefaultReading".Translate());
+                }
+            }
+            else if (rowNumber == 3)
+            {
+                Rect labelDefaultMedicine = new Rect(0, rect.y, one, buttonHeight);
+                Rect labelSlaveDefaultMedicine = new Rect(three, rect.y, one, buttonHeight);
+
+                Widgets.Label(labelDefaultMedicine, "BPC.SelectedDefaultMedicine".Translate());
+                if (ModsConfig.IdeologyActive)
+                {
+                    Widgets.Label(labelSlaveDefaultMedicine, "BPC.SelectedSlaveDefaultMedicine".Translate());
+                }
             }
             else
             {
@@ -531,7 +560,7 @@ namespace BetterPawnControl
             {
                 Rect buttonDefaultOutfit = new Rect(0f + alignCenter, rect.y, buttonWidth, buttonHeight);
                 Rect buttonDefaultFood = new Rect(one + alignCenter, rect.y, buttonWidth, buttonHeight);
-                Rect buttonPrisionerDefaultFood = new Rect(two + alignCenter, rect.y, buttonWidth, buttonHeight);
+                Rect buttonPrisonerDefaultFood = new Rect(two + alignCenter, rect.y, buttonWidth, buttonHeight);
                 Rect buttonSlaveDefaultOutfit = new Rect(three + alignCenter, rect.y, buttonWidth, buttonHeight);
                 Rect buttonSlaveDefaultFood = new Rect(four + alignCenter, rect.y, buttonWidth, buttonHeight);
 
@@ -545,26 +574,29 @@ namespace BetterPawnControl
                     OpenFoodSelectMenu(PawnType.Colonist);
                 }
 
-                if (Widgets.ButtonText(buttonPrisionerDefaultFood, AssignManager.DefaultPrisonerFoodPolicy.label, true, false, true))
+                if (Widgets.ButtonText(buttonPrisonerDefaultFood, AssignManager.DefaultPrisonerFoodPolicy.label, true, false, true))
                 {
                     OpenFoodSelectMenu(PawnType.Prisoner);
                 }
 
-                if (Widgets.ButtonText(buttonSlaveDefaultOutfit, AssignManager.DefaultSlaveOutfit.label, true, false, true))
+                if (ModsConfig.IdeologyActive)
                 {
-                    OpenOutfitSelectMenu(PawnType.Slave);
-                }
+                    if (Widgets.ButtonText(buttonSlaveDefaultOutfit, AssignManager.DefaultSlaveOutfit.label, true, false, true))
+                    {
+                        OpenOutfitSelectMenu(PawnType.Slave);
+                    }
 
-                if (Widgets.ButtonText(buttonSlaveDefaultFood, AssignManager.DefaultSlaveFoodPolicy.label, true, false, true))
-                {
-                    OpenFoodSelectMenu(PawnType.Slave);
+                    if (Widgets.ButtonText(buttonSlaveDefaultFood, AssignManager.DefaultSlaveFoodPolicy.label, true, false, true))
+                    {
+                        OpenFoodSelectMenu(PawnType.Slave);
+                    }
                 }
             }
             else if (rowNumber == 2)
             {
-
                 Rect buttonDefaultDrugs = new Rect(0f + alignCenter, rect.y, buttonWidth, buttonHeight);
                 Rect buttonDefaultReading = new Rect(one + alignCenter, rect.y, buttonWidth, buttonHeight);
+                Rect buttonPrisonerDefaultMedicine = new Rect(two + alignCenter, rect.y, buttonWidth, buttonHeight);
                 Rect buttonSlaveDefaultDrugs = new Rect(three + alignCenter, rect.y, buttonWidth, buttonHeight);
                 Rect buttonSlaveDefaultReading = new Rect(four + alignCenter, rect.y, buttonWidth, buttonHeight);
 
@@ -578,14 +610,40 @@ namespace BetterPawnControl
                     OpenReadingSelectMenu(PawnType.Colonist);
                 }
 
-                if (Widgets.ButtonText(buttonSlaveDefaultDrugs, AssignManager.DefaultSlaveDrugPolicy.label, true, false, true))
+                if (Widgets.ButtonText(buttonPrisonerDefaultMedicine, AssignManager.DefaultPrisonerMedicinePolicy.GetLabel(), true, false, true))
                 {
-                    OpenDrugSelectMenu(PawnType.Slave);
+                    OpenMedicineSelectMenu(PawnType.Prisoner);
                 }
 
-                if (Widgets.ButtonText(buttonSlaveDefaultReading, AssignManager.DefaultSlaveReadingPolicy.label, true, false, true))
+                if (ModsConfig.IdeologyActive)
                 {
-                    OpenReadingSelectMenu(PawnType.Slave);
+                    if (Widgets.ButtonText(buttonSlaveDefaultDrugs, AssignManager.DefaultSlaveDrugPolicy.label, true, false, true))
+                    {
+                        OpenDrugSelectMenu(PawnType.Slave);
+                    }
+
+                    if (Widgets.ButtonText(buttonSlaveDefaultReading, AssignManager.DefaultSlaveReadingPolicy.label, true, false, true))
+                    {
+                        OpenReadingSelectMenu(PawnType.Slave);
+                    }
+                }
+            }
+            else if (rowNumber == 3)
+            {
+                Rect buttonDefaultMedicine = new Rect(0f + alignCenter, rect.y, buttonWidth, buttonHeight);
+                Rect buttonSlaveDefaultMedicine = new Rect(three + alignCenter, rect.y, buttonWidth, buttonHeight);
+
+                if (Widgets.ButtonText(buttonDefaultMedicine, AssignManager.DefaultMedicinePolicy.GetLabel(), true, false, true))
+                {
+                    OpenMedicineSelectMenu(PawnType.Colonist);
+                }
+
+                if (ModsConfig.IdeologyActive)
+                {
+                    if (Widgets.ButtonText(buttonSlaveDefaultMedicine, AssignManager.DefaultSlaveMedicinePolicy.GetLabel(), true, false, true))
+                    {
+                        OpenMedicineSelectMenu(PawnType.Slave);
+                    }
                 }
             }
             else
@@ -625,7 +683,7 @@ namespace BetterPawnControl
                             {
                                 AssignManager.DefaultOutfit = apparelPolicy;
                             }
-                            else //if (type == PawnType.Slave)
+                            else if (ModsConfig.IdeologyActive && type == PawnType.Slave)
                             {
                                 AssignManager.DefaultSlaveOutfit = apparelPolicy;
                             }                            
@@ -650,7 +708,7 @@ namespace BetterPawnControl
                             {
                                 AssignManager.DefaultDrugPolicy = drugPolicy;
                             }
-                            else //if (type == PawnType.Slave)
+                            else if (ModsConfig.IdeologyActive && type == PawnType.Slave)
                             {
                                 AssignManager.DefaultSlaveDrugPolicy = drugPolicy;
                             }
@@ -680,12 +738,52 @@ namespace BetterPawnControl
                             {
                                 AssignManager.DefaultPrisonerFoodPolicy = foodPolicy;
                             }
-                            else //if (type == PawnType.Slave)
+                            else if (ModsConfig.IdeologyActive && type == PawnType.Slave)
                             {
                                 AssignManager.DefaultSlaveFoodPolicy = foodPolicy;
                             }
                         },
                         MenuOptionPriority.Default, null, null, 0f, null));
+            }
+            Find.WindowStack.Add(new FloatMenu(list));
+        }
+
+        internal static MedicalCareCategory[] medicalCategories = Enum.GetValues(typeof(MedicalCareCategory)).Cast<MedicalCareCategory>().ToArray();
+
+        private static void OpenMedicineSelectMenu(PawnType type)
+        {
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
+            foreach (MedicalCareCategory category in medicalCategories)
+            {
+                list.Add(
+                    new FloatMenuOption(
+                        category.GetLabel(),
+                        delegate
+                        {
+                            if (type == PawnType.Colonist)
+                            {
+                                AssignManager.DefaultMedicinePolicy = category;
+                            }
+                            else if (type == PawnType.Prisoner)
+                            {
+                                AssignManager.DefaultPrisonerMedicinePolicy = category;
+                            }
+                            else if (ModsConfig.IdeologyActive && type == PawnType.Slave)
+                            {
+                                AssignManager.DefaultSlaveMedicinePolicy = category;
+                            }
+                        },
+                        MenuOptionPriority.Default,
+                        extraPartWidth: 30,
+                        extraPartOnGUI: rect => {
+                            int IconSize = 24;
+                            Rect optionIconRect = new Rect(0f, 0f, IconSize, IconSize)
+                                .CenteredOnXIn(rect)
+                                .CenteredOnYIn(rect);
+                            Texture2D[] medcareGraphics = AccessTools.Field(typeof(MedicalCareUtility), "careTextures").GetValue(null) as Texture2D[];
+                            GUI.DrawTexture(optionIconRect, medcareGraphics[(int)category]);
+                        return false;
+                        }));
             }
             Find.WindowStack.Add(new FloatMenu(list));
         }
@@ -726,7 +824,7 @@ namespace BetterPawnControl
                             {
                                 AssignManager.DefaultReadingPolicy = readingPolicy;
                             }
-                            else //if (type == PawnType.Slave)
+                            else if (ModsConfig.IdeologyActive && type == PawnType.Slave)
                             {
                                 AssignManager.DefaultSlaveReadingPolicy = readingPolicy;
                             }
