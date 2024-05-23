@@ -36,3 +36,4 @@ This mod was first released on Rimword Alpha 15 and is essencially a quality of 
 - Deno226 for v2.4 contributions and polish translation
 - TheLonerD for WorkTab inner priorities integation and 1.5 upgrade 
 - Ionfrigate for french and chinese updated and 1.5 updates
+- DomB for integrated medical UI buttons & Ideology compatibility fixes
