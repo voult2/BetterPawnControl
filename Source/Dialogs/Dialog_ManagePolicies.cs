@@ -780,8 +780,7 @@ namespace BetterPawnControl
                             Rect optionIconRect = new Rect(0f, 0f, IconSize, IconSize)
                                 .CenteredOnXIn(rect)
                                 .CenteredOnYIn(rect);
-                            Texture2D[] medcareGraphics = AccessTools.Field(typeof(MedicalCareUtility), "careTextures").GetValue(null) as Texture2D[];
-                            GUI.DrawTexture(optionIconRect, medcareGraphics[(int)category]);
+                            GUI.DrawTexture(optionIconRect, Resources.Textures.medcareGraphics[(int)category]);
                         return false;
                         }));
             }
