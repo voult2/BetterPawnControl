@@ -39,17 +39,17 @@
   <BPC.SelectedDefaultDrug>Soins médicaux par défaut</BPC.SelectedDefaultDrug>
   <BPC.SelectedDefaultReadings>Lecture par défaut</BPC.SelectedDefaultReadings>
   
-  <BPC.SelectedPrisionerDefaultFood>Aliment par défaut pour prisonniers</BPC.SelectedPrisionerDefaultFood>
-  <BPC.SelectedPrisionerMeds>Soins médicaux par défaut pour prisonniers</BPC.SelectedPrisionerMeds>
+  <BPC.SelectedPrisonerDefaultFood>Aliment par défaut pour prisonniers</BPC.SelectedPrisonerDefaultFood>
+  <BPC.SelectedPrisonerDefaultMedicine>Soins médicaux par défaut pour prisonniers</BPC.SelectedPrisonerDefaultMedicine>
   
   <BPC.SelectedSlaveDefaultOutfit>Equipement par défaut pour esclaves</BPC.SelectedSlaveDefaultOutfit>
   <BPC.SelectedSlaveDefaultFood>Aliment par défaut pour esclaves</BPC.SelectedSlaveDefaultFood>
   <BPC.SelectedSlaveDefaultDrugs>Drogue par défaut pour esclaves</BPC.SelectedSlaveDefaultDrugs>
   <BPC.SelectedSlaveDefaultReadings>Lecture par défaut pour esclaves</BPC.SelectedSlaveDefaultReadings>
-  <BPC.SelectedSlaveDefaultMeds>Soins médicaux par défaut pour esclaves</BPC.SelectedSlaveDefaultMeds>
+  <BPC.SelectedSlaveDefaultMedicine>Soins médicaux par défaut pour esclaves</BPC.SelectedSlaveDefaultMedicine>
   
   <BPC.ColonistDefaultHeader>Paramètres par défaut pour colonistes</BPC.ColonistDefaultHeader>
-  <BPC.PrisionerDefaultHeader>Paramètres par défaut pour prisonniers</BPC.PrisionerDefaultHeader>
+  <BPC.PrisonerDefaultHeader>Paramètres par défaut pour prisonniers</BPC.PrisonerDefaultHeader>
   <BPC.SlaveDefaultHeader>Paramètres par défaut pour esclaves</BPC.SlaveDefaultHeader>
   
   <BPC.Copy>Copier l'arrangement</BPC.Copy>

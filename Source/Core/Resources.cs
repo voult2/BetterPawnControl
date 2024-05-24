@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using HarmonyLib;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -21,6 +22,7 @@ namespace BetterPawnControl
             public static readonly Texture2D Settings = ContentFinder<Texture2D>.Get("UI/Buttons/Settings");
             public static readonly Texture2D EmergencyOn = ContentFinder<Texture2D>.Get("UI/Buttons/EmergencyOn");
             public static readonly Texture2D EmergencyOff = ContentFinder<Texture2D>.Get("UI/Buttons/EmergencyOff");
+            public static readonly Texture2D[] medcareGraphics = AccessTools.Field(typeof(MedicalCareUtility), "careTextures").GetValue(null) as Texture2D[];
         }
     }
 }

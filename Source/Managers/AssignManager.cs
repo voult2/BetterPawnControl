@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using HarmonyLib;
 using RimWorld;
 using Verse;
 
@@ -9,6 +11,7 @@ namespace BetterPawnControl
     class AssignManager : Manager<AssignLink>
     {
         internal static List<AssignLink> clipboard = new List<AssignLink>();
+
 
         internal static ApparelPolicy _defaultOutfit = null;
         internal static ApparelPolicy DefaultOutfit
@@ -55,7 +58,7 @@ namespace BetterPawnControl
             {
                 if (_defaultPrisonerFoodPolicy == null)
                 {
-                    _defaultPrisonerFoodPolicy = DefaultFoodPolicy;
+                    _defaultPrisonerFoodPolicy = Current.Game.foodRestrictionDatabase.DefaultFoodRestriction();
                 }
                 return _defaultPrisonerFoodPolicy;
             }
@@ -66,45 +69,29 @@ namespace BetterPawnControl
             }
         }
 
-        internal static MedicalCareCategory _defaultMedCare = MedicalCareCategory.NormalOrWorse;
-        internal static MedicalCareCategory DefaultMedCare 
+        internal static MedicalCareCategory DefaultPrisonerMedicinePolicy
         {
             get
             {
-                return _defaultMedCare;
+                return Current.Game.playSettings.defaultCareForPrisoner;
             }
 
             set
             {
-                _defaultMedCare = value;
+                Current.Game.playSettings.defaultCareForPrisoner = value;
             }
         }
 
-        internal static MedicalCareCategory _defaulPrisonerMedCare = MedicalCareCategory.HerbalOrWorse;
-        internal static MedicalCareCategory DefaultPrisonerMedCare
+        internal static MedicalCareCategory DefaultSlaveMedicinePolicy
         {
             get
             {
-                return _defaulPrisonerMedCare;
+                return Current.Game.playSettings.defaultCareForSlave;
             }
 
             set
             {
-                _defaulPrisonerMedCare = value;
-            }
-        }
-
-        internal static MedicalCareCategory _defaulSlaveMedCare = MedicalCareCategory.HerbalOrWorse;
-        internal static MedicalCareCategory DefaultSlaveMedCare
-        {
-            get
-            {
-                return _defaulSlaveMedCare;
-            }
-
-            set
-            {
-                _defaulSlaveMedCare = value;
+                Current.Game.playSettings.defaultCareForSlave = value;
             }
         }
 
@@ -230,7 +217,6 @@ namespace BetterPawnControl
                     link.hostilityResponse = p.playerSettings.hostilityResponse;
                     link.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
                     link.readingPolicy = p.reading.CurrentPolicy;
-                    link.medicinePolicy = p.playerSettings.medCare;
                     //AssignManager.SavePawnInventoryStock(p, link);
                     if (Widget_CombatExtended.CombatExtendedAvailable)
                     {
@@ -387,7 +373,6 @@ namespace BetterPawnControl
                     if (l.colonist != null && l.colonist.GetUniqueLoadID().Equals(p.GetUniqueLoadID()))
                     {
                         l.hostilityResponse = p.playerSettings.hostilityResponse;
-                        l.medicinePolicy = p.playerSettings.medCare;
                         l.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
                         l.outfit = p.outfits.CurrentApparelPolicy;                 
                     }
@@ -416,10 +401,9 @@ namespace BetterPawnControl
                     {
                         p.outfits.CurrentApparelPolicy = OutfitExits(l.outfit) ? l.outfit : null;
                         p.drugs.CurrentPolicy = DrugPolicyExits(l.drugPolicy) ? l.drugPolicy : null;
-                        p.foodRestriction.CurrentFoodPolicy = FoodPolicyExits(l.foodPolicy) ? l.foodPolicy : null;
+                        p.foodRestriction.CurrentFoodPolicy = FoodPolicyExists(l.foodPolicy) ? l.foodPolicy : null;
                         p.reading.CurrentPolicy = ReadingPolicyExits(l.readingPolicy) ? l.readingPolicy : null;
                         p.playerSettings.hostilityResponse = l.hostilityResponse;
-                        p.playerSettings.medCare = l.medicinePolicy;
 
                         if (Widget_CombatExtended.CombatExtendedAvailable)
                         {
@@ -518,7 +502,6 @@ namespace BetterPawnControl
                 p.outfits.CurrentApparelPolicy = AssignManager.DefaultOutfit;
                 p.drugs.CurrentPolicy = AssignManager.DefaultDrugPolicy;
                 p.foodRestriction.CurrentFoodPolicy = AssignManager.DefaultFoodPolicy;
-                //p.playerSettings.medCare = AssignManager.DefaultMedCare;
             }
         }
 
@@ -528,7 +511,6 @@ namespace BetterPawnControl
             {
                 p.foodRestriction.CurrentFoodPolicy = AssignManager.DefaultPrisonerFoodPolicy;
             }
-            //p.playerSettings.medCare = AssignManager.DefaultPrisonerMedCare;     
         }
 
         internal static void SetDefaultsForSlave(Pawn p)
@@ -538,7 +520,6 @@ namespace BetterPawnControl
                 p.outfits.CurrentApparelPolicy = AssignManager.DefaultSlaveOutfit;
                 p.drugs.CurrentPolicy = AssignManager.DefaultSlaveDrugPolicy;
                 p.foodRestriction.CurrentFoodPolicy = AssignManager.DefaultSlaveFoodPolicy;
-                //p.playerSettings.medCare = AssignManager.DefaultSlaveMedCare;
             }
         }
 

@@ -44,20 +44,20 @@
 	<BPC.SelectedDefaultFood>Food</BPC.SelectedDefaultFood>
 	<BPC.SelectedDefaultDrug>Drug</BPC.SelectedDefaultDrug>
 	<BPC.SelectedDefaultReading>Reading</BPC.SelectedDefaultReading>
-	<BPC.SelectedDefaultMeds>Medical Care</BPC.SelectedDefaultMeds>
+	<BPC.SelectedDefaultMedicine>Medical Care</BPC.SelectedDefaultMedicine>
 	<BPC.SelectedDefaultWeapons>Weapons</BPC.SelectedDefaultWeapons>
 	
-	<BPC.SelectedPrisionerDefaultFood>Food</BPC.SelectedPrisionerDefaultFood>
-	<BPC.SelectedPrisionerMeds>Medical Care</BPC.SelectedPrisionerMeds>
+	<BPC.SelectedPrisonerDefaultFood>Food</BPC.SelectedPrisonerDefaultFood>
+	<BPC.SelectedPrisonerDefaultMedicine>Medical Care</BPC.SelectedPrisonerDefaultMedicine>
 	
 	<BPC.SelectedSlaveDefaultOutfit>Outfit</BPC.SelectedSlaveDefaultOutfit>	
 	<BPC.SelectedSlaveDefaultFood>Food</BPC.SelectedSlaveDefaultFood>
 	<BPC.SelectedSlaveDefaultDrugs>Drugs</BPC.SelectedSlaveDefaultDrugs>
 	<BPC.SelectedSlaveDefaultReading>Reading</BPC.SelectedSlaveDefaultReading>
-	<BPC.SelectedSlaveDefaultMeds>Medical Care</BPC.SelectedSlaveDefaultMeds>
+	<BPC.SelectedSlaveDefaultMedicine>Medical Care</BPC.SelectedSlaveDefaultMedicine>
 	
 	<BPC.ColonistDefaultHeader>Colonist Defaults</BPC.ColonistDefaultHeader>
-	<BPC.PrisionerDefaultHeader>Prisioner Defaults</BPC.PrisionerDefaultHeader>
+	<BPC.PrisonerDefaultHeader>Prisoner Defaults</BPC.PrisonerDefaultHeader>
 	<BPC.SlaveDefaultHeader>Slave Defaults</BPC.SlaveDefaultHeader>
 	
 	<BPC.Copy>Copy Policy</BPC.Copy>
@@ -77,4 +77,6 @@
 	<BPC.DisableBPCOnWorkTabTooltip>Full integration, including the WorkTab's mod inner (or extended) priorities.</BPC.DisableBPCOnWorkTabTooltip>
 	<BPC.DisableBPCWorkTabInnerPrioritiesSetting>Disable BPC integration with WorkTab's mod inner (or extended) priorities and keep 'normal' priorities?</BPC.DisableBPCWorkTabInnerPrioritiesSetting>
 	<BPC.DisableBPCWorkTabInnerPrioritiesTooltip>This will allow to keep using BPC with WorkTab but without saving the inner priorities.</BPC.DisableBPCWorkTabInnerPrioritiesTooltip>	
+
+
 </LanguageData>
