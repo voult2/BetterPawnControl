@@ -40,6 +40,9 @@ Mod Integrations List:
 			<downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
 		</li>
 	</modDependencies>
+	<loadBefore>
+  		<li>brrainz.achtung</li>
+	</loadBefore>
 	<loadAfter>
 		<li>brrainz.harmony</li>
 		<li>Ludeon.RimWorld</li>
