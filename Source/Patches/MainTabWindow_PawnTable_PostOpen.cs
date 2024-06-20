@@ -9,20 +9,22 @@ namespace BetterPawnControl
     {
         static void Postfix(MainTabWindow_PawnTable __instance)
         {
-            if (__instance.GetType().Equals(typeof(MainTabWindow_Assign)))
+            var windowType = __instance.GetType();
+            
+            if (windowType.Equals(typeof(MainTabWindow_Assign)))
             {
                 AssignManager.LoadState(AssignManager.links, AssignManager.Colonists().ToList(), AssignManager.GetActivePolicy());
                 AssignManager.showPaste = false;
             }
 
-            if (__instance.GetType().Equals(typeof(MainTabWindow_Schedule)))
+            if (windowType.Equals(typeof(MainTabWindow_Schedule)))
             {
 
                 ScheduleManager.LoadState(ScheduleManager.links, ScheduleManager.Colonists().ToList(), ScheduleManager.GetActivePolicy());
                 ScheduleManager.showPaste = false;
             }
 
-            if (__instance.GetType().Equals(typeof(MainTabWindow_Work)) || __instance.GetType().FullName.Equals(Widget_ModsAvailable.WORKTAB_MAINTAB) || __instance.GetType().FullName.Equals(Widget_ModsAvailable.NUMBERS_MAINTAB))
+            if (windowType.Equals(typeof(MainTabWindow_Work)) || windowType.FullName.Equals(Widget_ModsAvailable.WORKTAB_MAINTAB) || windowType.FullName.Equals(Widget_ModsAvailable.NUMBERS_MAINTAB))
             {
                 if (!Widget_ModsAvailable.DisableBPCOnWorkTab)
                 {
@@ -31,20 +33,25 @@ namespace BetterPawnControl
                 }
             }
 
-            if (__instance.GetType().Equals(typeof(MainTabWindow_Animals)) || __instance.GetType().FullName.Equals(Widget_ModsAvailable.ANIMALTAB_MAINTAB) || __instance.GetType().FullName.Equals(Widget_ModsAvailable.NUMBERS_DEFNAME))
+            if (windowType.Equals(typeof(MainTabWindow_Animals)) || windowType.FullName.Equals(Widget_ModsAvailable.ANIMALTAB_MAINTAB) || windowType.FullName.Equals(Widget_ModsAvailable.NUMBERS_DEFNAME))
             {
                 AnimalManager.LoadState(AnimalManager.links, AnimalManager.Animals().ToList(), AnimalManager.GetActivePolicy());
             }
 
-            if (__instance.GetType().Equals(typeof(MainTabWindow_Mechs)))
+            if (windowType.Equals(typeof(MainTabWindow_Mechs)))
             {
                 MechManager.LoadState(MechManager.links, MechManager.Mechs().ToList(), MechManager.GetActivePolicy());
             }
             
 
-            if (__instance.GetType().FullName.Equals(Widget_ModsAvailable.WEAPONSTAB_MAINTAB) && Widget_ModsAvailable.WTBAvailable)
+            if (windowType.FullName.Equals(Widget_ModsAvailable.WEAPONSTAB_MAINTAB) && Widget_ModsAvailable.WTBAvailable)
             {
                 WeaponsManager.LoadState(WeaponsManager.links, WeaponsManager.Colonists().ToList(), WeaponsManager.GetActivePolicy());
+            }
+
+            if (windowType.FullName.Equals(Widget_ModsAvailable.AIROBOTX2_MAINTAB) && Widget_ModsAvailable.MiscRobotsAvailable)
+            {
+                RobotManager.LoadState(RobotManager.links, RobotManager.Robots().ToList(), RobotManager.GetActivePolicy());
             }
         }
     }

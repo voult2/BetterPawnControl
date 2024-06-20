@@ -67,6 +67,12 @@ namespace BetterPawnControl
                         str = "NameIsInUse".Translate();
                     }
                     break;
+                case Resources.Type.robots:
+                    if (RobotManager.policies.Any((Policy d) => d.label == name))
+                    {
+                        str = "NameIsInUse".Translate();
+                    }
+                    break;
             }
             if (!str.NullOrEmpty())
             {

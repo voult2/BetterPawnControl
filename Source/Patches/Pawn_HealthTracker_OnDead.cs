@@ -19,6 +19,11 @@ namespace BetterPawnControl.Patches
                 {
                     WeaponsManager.CleanDeadColonists(___pawn);
                 }
+
+                if (Widget_ModsAvailable.MiscRobotsAvailable)
+                {
+                    RobotManager.CleanDeadRobots(___pawn);
+                }
             }
         }
     }

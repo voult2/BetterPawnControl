@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using HarmonyLib;
-using RimWorld;
 using Verse;
 
 namespace BetterPawnControl

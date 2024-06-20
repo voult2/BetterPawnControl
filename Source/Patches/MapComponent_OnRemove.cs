@@ -17,6 +17,10 @@ namespace BetterPawnControl.Patches
             {
                 WeaponsManager.CleanRemovedMaps();
             }
+            if (Widget_ModsAvailable.MiscRobotsAvailable)
+            {
+                RobotManager.CleanRemovedMaps();
+            }
         }
     }
 }

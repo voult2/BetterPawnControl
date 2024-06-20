@@ -12,12 +12,14 @@ namespace BetterPawnControl
         private const string CSL = "Children, school and learning";
         private const string AAF = "Assign Animal Food";
         private const string WTB = "[1001]Weapons Tab Reborn";
+        private const string MISCROBOTS = "Misc. Robots";
 
         internal const string WORKTAB_MAINTAB = "WorkTab.MainTabWindow_WorkTab";
         internal const string ANIMALTAB_MAINTAB = "AnimalTab.MainTabWindow_Animals";
         internal const string NUMBERS_MAINTAB = "Numbers.MainTabWindow_Numbers";
         internal const string NUMBERS_DEFNAME = "Numbers.MainTabWindow_NumbersAnimals";       
         internal const string WEAPONSTAB_MAINTAB = "WeaponsTabReborn.MainTabWindow_Weapons";
+        internal const string AIROBOTX2_MAINTAB = "AIRobot.X2_MainTabWindow_Robots";
 
         static Widget_ModsAvailable() 
         {
@@ -86,6 +88,14 @@ namespace BetterPawnControl
             get
             {
                 return Widget_CombatExtended.CombatExtendedAvailable;
+            }
+        }
+
+        public static bool MiscRobotsAvailable
+        {
+            get
+            {
+                return LoadedModManager.RunningMods.Any(mod => mod.Name == MISCROBOTS);
             }
         }
     }

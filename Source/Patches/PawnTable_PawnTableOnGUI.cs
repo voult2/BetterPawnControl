@@ -14,6 +14,7 @@ namespace BetterPawnControl.Patches
     {
         private const string NUMBERS_DEFNAME = "Numbers_Animals";
         private const string WEAPONSTAB_DEFNAME = "WeaponsTab";
+        private const string MISCROBOTS_AIROBOTS_DEFNAME = "AIRobots";
 
         static void Postfix(PawnTable __instance, Vector2 position, PawnTableDef ___def)
         {
@@ -38,7 +39,7 @@ namespace BetterPawnControl.Patches
                 DrawAnimalBPCButtons(__instance, position);
             }
 
-            if (___def == PawnTableDefOf.Mechs )
+            if (___def == PawnTableDefOf.Mechs)
             {
                 DrawMechBPCButtons(__instance, position);
             }
@@ -46,6 +47,11 @@ namespace BetterPawnControl.Patches
             if (___def.defName == WEAPONSTAB_DEFNAME && Widget_ModsAvailable.WTBAvailable)
             {
                 DrawWeaponsBPCButtons(__instance, position);
+            }
+
+            if (___def.defName == MISCROBOTS_AIROBOTS_DEFNAME && Widget_ModsAvailable.MiscRobotsAvailable)
+            {
+                DrawMiscRobotsBPCButtons(__instance, position);
             }
         }
 
@@ -127,9 +133,19 @@ namespace BetterPawnControl.Patches
             DrawBPCButtons_WeaponsTab(position, 5f, __instance.Size.y + 15f, WeaponsManager.Colonists().ToList());
         }
 
+        private static void DrawMiscRobotsBPCButtons(PawnTable __instance, Vector2 position)
+        {
+            if (RobotManager.DirtyPolicy)
+            {
+                RobotManager.LoadState(RobotManager.links, RobotManager.Robots().ToList(), RobotManager.GetActivePolicy());
+                RobotManager.DirtyPolicy = false;
+            }
+
+            DrawBPCButtons_RobotsTab(position, 5f, __instance.Size.y + 15f, RobotManager.Robots().ToList());
+        }
+
         private static void DrawBPCButtons_AssignTab(Vector2 position, float X_ExtraSpace, float Y_ExtraSpace, List<Pawn> colonists)
         {
-
             Rect pos = new Rect(position.x + X_ExtraSpace, position.y + Y_ExtraSpace, 600f, 65f);
             float offSetX = 0f;
             float offSetY = -8f;
@@ -307,7 +323,7 @@ namespace BetterPawnControl.Patches
 
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.UpperLeft;
-            Rect rect2 = new Rect( offSetX, Mathf.Round(pos.height / 4f) - 4f,
+            Rect rect2 = new Rect(offSetX, Mathf.Round(pos.height / 4f) - 4f,
                 rect1.width, Mathf.Round(pos.height / 4f) + 4f);
 
             if (Widgets.ButtonText(rect2, WorkManager.GetActivePolicy().label, true, false, true))
@@ -345,7 +361,7 @@ namespace BetterPawnControl.Patches
                     SoundDefOf.Tick_Low.PlayOneShotOnCamera(null);
                 }
                 TooltipHandler.TipRegion(rect6, "BPC.Paste".Translate());
-            }            
+            }
             GUI.EndGroup();
         }
 
@@ -398,7 +414,7 @@ namespace BetterPawnControl.Patches
 
             if (Widgets.ButtonText(rect3, "", true, false, true))
             {
-                Find.WindowStack.Add( new Dialog_ManagePolicies(Find.CurrentMap));
+                Find.WindowStack.Add(new Dialog_ManagePolicies(Find.CurrentMap));
             }
             Rect rect4 = new Rect(offSetX + 4f, rect3.height / 4f, 14f, 14f);
             GUI.DrawTexture(rect4, Resources.Textures.Settings);
@@ -417,7 +433,7 @@ namespace BetterPawnControl.Patches
                     new FloatMenuOption(animalPolicy.label,
                         delegate
                         {
-                            AnimalManager.LoadState( links, pawns, animalPolicy);
+                            AnimalManager.LoadState(links, pawns, animalPolicy);
                         },
                         MenuOptionPriority.Default, null, null, 0f, null));
             }
@@ -447,7 +463,7 @@ namespace BetterPawnControl.Patches
 
             if (Widgets.ButtonText(rect2, MechManager.GetActivePolicy().label, true, false, true))
             {
-                MechManager.SaveCurrentState(MechManager.Mechs().ToList());;
+                MechManager.SaveCurrentState(MechManager.Mechs().ToList()); ;
                 OpenMechPolicySelectMenu(MechManager.links, MechManager.Mechs().ToList());
             }
             offSetX += rect1.width;
@@ -464,7 +480,7 @@ namespace BetterPawnControl.Patches
             GUI.EndGroup();
         }
 
-        private static void OpenMechPolicySelectMenu( List<MechLink> links, List<Pawn> pawns)
+        private static void OpenMechPolicySelectMenu(List<MechLink> links, List<Pawn> pawns)
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
 
@@ -483,7 +499,6 @@ namespace BetterPawnControl.Patches
 
         private static void DrawBPCButtons_WeaponsTab(Vector2 position, float X_ExtraSpace, float Y_ExtraSpace, List<Pawn> colonists)
         {
-
             Rect pos = new Rect(position.x + X_ExtraSpace, position.y + Y_ExtraSpace, 600f, 65f);
             float offSetX = 0f;
             float offSetY = -8f;
@@ -493,7 +508,7 @@ namespace BetterPawnControl.Patches
                 offSetY = -6f;
             }
 
-            GUI.BeginGroup(pos);           
+            GUI.BeginGroup(pos);
 
             Text.Font = GameFont.Tiny;
             Text.Anchor = TextAnchor.LowerCenter;
@@ -508,6 +523,46 @@ namespace BetterPawnControl.Patches
             {
                 WeaponsManager.SaveCurrentState(colonists);
                 OpenWeaponsPolicySelectMenu(WeaponsManager.links, colonists);
+            }
+            offSetX += rect1.width;
+            Rect rect3 = new Rect(offSetX, 0f, 20f, Mathf.Round(pos.height / 2f));
+            if (Widgets.ButtonText(rect3, "", true, false, true))
+            {
+                Find.WindowStack.Add(new Dialog_ManagePolicies(Find.CurrentMap));
+            }
+            Rect rect4 = new Rect(offSetX + 4f, rect3.height / 4f, 14f, 14f);
+            GUI.DrawTexture(rect4, Resources.Textures.Settings);
+            TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
+
+            GUI.EndGroup();
+        }
+
+        private static void DrawBPCButtons_RobotsTab(Vector2 position, float X_ExtraSpace, float Y_ExtraSpace, List<Pawn> pawns)
+        {
+            Rect pos = new Rect(position.x + X_ExtraSpace, position.y + Y_ExtraSpace, 600f, 65f);
+            float offSetX = 0f;
+            float offSetY = -8f;
+
+            if (Verse.Prefs.DisableTinyText)
+            {
+                offSetY = -6f;
+            }
+
+            GUI.BeginGroup(pos);
+
+            Text.Font = GameFont.Tiny;
+            Text.Anchor = TextAnchor.LowerCenter;
+            Rect rect1 = new Rect(offSetX, offSetY, 165f, Mathf.Round(pos.height / 3f));
+            Widgets.Label(rect1, "BPC.CurrentRobotsPolicy".Translate());
+
+            Text.Font = GameFont.Small;
+            Text.Anchor = TextAnchor.UpperLeft;
+            Rect rect2 = new Rect(offSetX, Mathf.Round(pos.height / 4f) - 4f, rect1.width, Mathf.Round(pos.height / 4f) + 4f);
+
+            if (Widgets.ButtonText(rect2, RobotManager.GetActivePolicy().label, true, false, true))
+            {
+                RobotManager.SaveCurrentState(pawns);
+                OpenRobotsPolicySelectMenu(RobotManager.links, pawns);
             }
             offSetX += rect1.width;
             Rect rect3 = new Rect(offSetX, 0f, 20f, Mathf.Round(pos.height / 2f));
@@ -539,5 +594,21 @@ namespace BetterPawnControl.Patches
             Find.WindowStack.Add(new FloatMenu(list));
         }
 
+        private static void OpenRobotsPolicySelectMenu(List<RobotLink> links, List<Pawn> pawns)
+        {
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
+
+            foreach (Policy miscRobotPolicy in RobotManager.policies)
+            {
+                list.Add(
+                    new FloatMenuOption(miscRobotPolicy.label,
+                        delegate
+                        {
+                            RobotManager.LoadState(links, pawns, miscRobotPolicy);
+                        },
+                        MenuOptionPriority.Default, null, null, 0f, null));
+            }
+            Find.WindowStack.Add(new FloatMenu(list));
+        }
     }
 }
