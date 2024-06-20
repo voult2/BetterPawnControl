@@ -17,10 +17,9 @@ Features:
 - Default outfits, food, drugs when colonist, prisoners or slaves join your colony
 - Emergency' button to toggle your configured policies at once in one click or keyboard shorcut 
 
-v2.7.4 - Integrate medical default buttons with vanilla system + Ideology slave compatibility
+v2.7.4 - Added Medical UI + Compatibility with Misc. Robots + Improved integration with Achtung! Rescue job 
 v2.7.3 - RimWorld v1.5 + Reading defaults + Updated translations + Bug fixes
-v2.6.2 - Added integration with WeaponsTabReborn mod
-v2.5.3 - Full Integration with 'Work Tab' mod (Thanks to TheLonerD)
+
 
 Mod Integrations List:                       
 - Fluffly's Work Tab (full integration!)
@@ -30,6 +29,7 @@ Mod Integrations List:
 - Assign Animal Food
 - Children, school and learning
 - WeaponsTabReborn 
+- Misc. Robots
 
 	</description>
 	<modDependencies>

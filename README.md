@@ -34,6 +34,6 @@ This mod was first released on Rimword Alpha 15 and is essencially a quality of 
 - Dango998 for chinese simplified translation
 - muggenhor for AutoCleaner integration
 - Deno226 for v2.4 contributions and polish translation
-- TheLonerD for WorkTab inner priorities integation and 1.5 upgrade 
+- TheLonerD for WorkTab inner priorities integation + Misc. Robots integration
 - Ionfrigate for french and chinese updated and 1.5 updates
 - DomB for integrated medical UI buttons & Ideology compatibility fixes

@@ -194,7 +194,7 @@ namespace BetterPawnControl
 			}
 		}
 
-        internal static MedicalCareCategory DefaultMedicinePolicy
+        internal static MedicalCareCategory DefaultMedsPolicy
         {
             get
             {

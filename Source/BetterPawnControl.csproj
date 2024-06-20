@@ -4,7 +4,7 @@
     <TargetFramework>net472</TargetFramework>
     <Title>BetterPawnControl</Title>
     <Description>BetterPawnControl RimWorld Mod</Description>
-    <Copyright>Copyright © 2017</Copyright>
+    <Copyright>Copyright © 2024</Copyright>
     <RepositoryUrl>https://github.com/voult2/BetterPawnControl</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
