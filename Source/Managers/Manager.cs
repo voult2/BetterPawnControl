@@ -146,7 +146,7 @@ namespace BetterPawnControl
             }
 		}
 
-		internal static bool FoodPolicyExits(FoodPolicy foodPolicy)
+		internal static bool FoodPolicyExists(FoodPolicy foodPolicy)
 		{
 			foreach (FoodPolicy food in Current.Game.foodRestrictionDatabase.AllFoodRestrictions)
 			{
@@ -193,6 +193,19 @@ namespace BetterPawnControl
 				_defaultReadingPolicy = value;
 			}
 		}
-	}
+
+        internal static MedicalCareCategory DefaultMedicinePolicy
+        {
+            get
+            {
+                return Current.Game.playSettings.defaultCareForColonist;
+            }
+
+            set
+            {
+                Current.Game.playSettings.defaultCareForColonist = value;
+            }
+        }
+    }
 }
 

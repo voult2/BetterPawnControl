@@ -135,7 +135,7 @@ namespace BetterPawnControl
                         p.playerSettings.followFieldwork = l.followFieldwork;
                         if (Widget_ModsAvailable.AAFAvailable)
                         {
-                            p.foodRestriction.CurrentFoodPolicy = FoodPolicyExits(l.foodPolicy) ?
+                            p.foodRestriction.CurrentFoodPolicy = FoodPolicyExists(l.foodPolicy) ?
                                 l.foodPolicy : null;
                         }                            
                     }

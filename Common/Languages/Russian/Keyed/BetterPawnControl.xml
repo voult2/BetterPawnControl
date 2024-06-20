@@ -43,7 +43,7 @@
 	<BPC.SelectedDefaultOutfit>Снаряжение</BPC.SelectedDefaultOutfit>
 	<BPC.SelectedDefaultDrug>Наркотики</BPC.SelectedDefaultDrug>
 	<BPC.SelectedDefaultFood>Еда колонистов</BPC.SelectedDefaultFood>
-	<BPC.SelectedPrisionerDefaultFood>Еда заключенных</BPC.SelectedPrisionerDefaultFood>
+	<BPC.SelectedPrisonerDefaultFood>Еда заключенных</BPC.SelectedPrisonerDefaultFood>
 	
 	<BPC.Copy>Копировать политику</BPC.Copy>
 	<BPC.Paste>Вставить политику</BPC.Paste>
