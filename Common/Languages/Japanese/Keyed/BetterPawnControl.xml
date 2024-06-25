@@ -43,16 +43,16 @@
   <BPC.SelectedDefaultOutfit>初期設定:服装</BPC.SelectedDefaultOutfit>
   <BPC.SelectedDefaultFood>初期設定:食事</BPC.SelectedDefaultFood>
   <BPC.SelectedDefaultDrug>初期設定:ドラッグ</BPC.SelectedDefaultDrug>
-  <BPC.SelectedDefaultMedicine>初期設定:治療</BPC.SelectedDefaultMedicine>
+  <BPC.SelectedDefaultMeds>初期設定:治療</BPC.SelectedDefaultMeds>
   <BPC.SelectedDefaultWeapons>初期設定:武器</BPC.SelectedDefaultWeapons>
 
   <BPC.SelectedPrisonerDefaultFood>初期設定:囚人食</BPC.SelectedPrisonerDefaultFood>
-  <BPC.SelectedPrisonerDefaultMedicine>初期設定：囚人治療</BPC.SelectedPrisonerDefaultMedicine>
+  <BPC.SelectedPrisonerDefaultMeds>初期設定：囚人治療</BPC.SelectedPrisonerDefaultMeds>
 
   <BPC.SelectedSlaveDefaultOutfit>初期設定:服装</BPC.SelectedSlaveDefaultOutfit>
   <BPC.SelectedSlaveDefaultFood>初期設定:食事</BPC.SelectedSlaveDefaultFood>
   <BPC.SelectedSlaveDefaultDrugs>初期設定:ドラッグ</BPC.SelectedSlaveDefaultDrugs>
-  <BPC.SelectedSlaveDefaultMedicine>初期設定:治療</BPC.SelectedSlaveDefaultMedicine>
+  <BPC.SelectedSlaveDefaultMeds>初期設定:治療</BPC.SelectedSlaveDefaultMeds>
 
   <BPC.ColonistDefaultHeader>初期設定:入植者</BPC.ColonistDefaultHeader>
   <BPC.PrisonerDefaultHeader>初期設定:囚人</BPC.PrisonerDefaultHeader>
@@ -74,5 +74,5 @@
   <BPC.DisableBPCOnWorkTabSetting>WorkTabとこのModの互換性を完全に無効化しますか？</BPC.DisableBPCOnWorkTabSetting>
   <BPC.DisableBPCOnWorkTabTooltip>WorkTabのMod内部(または拡張)の優先順位を含めて完全な互換性を持たせます.</BPC.DisableBPCOnWorkTabTooltip>
   <BPC.DisableBPCWorkTabInnerPrioritiesSetting>このModとFlufflyのWorkTabとのMOD内部(または拡張)優先順位との互換性を無効化して「通常の」優先順位を維持しますか？</BPC.DisableBPCWorkTabInnerPrioritiesSetting>
-  <BPC.DisableBPCWorkTabInnerPrioritiesTooltip>This will allow to keep using BPC with WorkTab but without saving the inner priorities.</BPC.DisableBPCWorkTabInnerPrioritiesTooltip>	
+  <BPC.DisableBPCWorkTabInnerPrioritiesTooltip>これにより,内部の優先順位を保存せずに,BPCをWorkTabで引き続き使用できるようになります.</BPC.DisableBPCWorkTabInnerPrioritiesTooltip>	
 </LanguageData>
