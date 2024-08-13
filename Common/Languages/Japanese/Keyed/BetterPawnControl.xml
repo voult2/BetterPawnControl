@@ -30,12 +30,17 @@
   <BPC.WeaponsPolicy>武器方針: </BPC.WeaponsPolicy>
   <BPC.CurrentWeaponsPolicy>有効な武器方針</BPC.CurrentWeaponsPolicy>
 
+  <BPC.NewRobotsPolicy>新規ロボット方針</BPC.NewRobotsPolicy>
+  <BPC.RobotsPolicy>方針 </BPC.RobotsPolicy>
+  <BPC.CurrentRobotsPolicy>有効なロボット方針</BPC.CurrentRobotsPolicy>
+
   <BPC.WorkTab>優先順位</BPC.WorkTab>
   <BPC.RestrictTab>時間割</BPC.RestrictTab>
   <BPC.AssignTab>服装・任命</BPC.AssignTab>
   <BPC.AnimalTab>家畜</BPC.AnimalTab>
   <BPC.MechTab>メカ</BPC.MechTab>
   <BPC.WeaponsTab>武器</BPC.WeaponsTab>
+  <BPC.RobotsTab>ロボット</BPC.RobotsTab>
 
   <BPC.PoliciesConfigText>方針のプリセットを作成/削除/名前変更をした後で各タブでそれらを再設定することを忘れないでください.</BPC.PoliciesConfigText>
 
@@ -43,16 +48,17 @@
   <BPC.SelectedDefaultOutfit>初期設定:服装</BPC.SelectedDefaultOutfit>
   <BPC.SelectedDefaultFood>初期設定:食事</BPC.SelectedDefaultFood>
   <BPC.SelectedDefaultDrug>初期設定:ドラッグ</BPC.SelectedDefaultDrug>
-  <BPC.SelectedDefaultMeds>初期設定:治療</BPC.SelectedDefaultMeds>
+  <BPC.SelectedDefaultReading>初期設定:読書</BPC.SelectedDefaultReading>
+  <BPC.SelectedDefaultMedicine>初期設定:治療</BPC.SelectedDefaultMedicine>
   <BPC.SelectedDefaultWeapons>初期設定:武器</BPC.SelectedDefaultWeapons>
 
   <BPC.SelectedPrisonerDefaultFood>初期設定:囚人食</BPC.SelectedPrisonerDefaultFood>
-  <BPC.SelectedPrisonerDefaultMeds>初期設定：囚人治療</BPC.SelectedPrisonerDefaultMeds>
+  <BPC.SelectedPrisonerDefaultMedicine>初期設定：囚人治療</BPC.SelectedPrisonerDefaultMedicine>
 
   <BPC.SelectedSlaveDefaultOutfit>初期設定:服装</BPC.SelectedSlaveDefaultOutfit>
   <BPC.SelectedSlaveDefaultFood>初期設定:食事</BPC.SelectedSlaveDefaultFood>
   <BPC.SelectedSlaveDefaultDrugs>初期設定:ドラッグ</BPC.SelectedSlaveDefaultDrugs>
-  <BPC.SelectedSlaveDefaultMeds>初期設定:治療</BPC.SelectedSlaveDefaultMeds>
+  <BPC.SelectedSlaveDefaultMedicine>初期設定:治療</BPC.SelectedSlaveDefaultMedicine>
 
   <BPC.ColonistDefaultHeader>初期設定:入植者</BPC.ColonistDefaultHeader>
   <BPC.PrisonerDefaultHeader>初期設定:囚人</BPC.PrisonerDefaultHeader>
@@ -75,4 +81,5 @@
   <BPC.DisableBPCOnWorkTabTooltip>WorkTabのMod内部(または拡張)の優先順位を含めて完全な互換性を持たせます.</BPC.DisableBPCOnWorkTabTooltip>
   <BPC.DisableBPCWorkTabInnerPrioritiesSetting>このModとFlufflyのWorkTabとのMOD内部(または拡張)優先順位との互換性を無効化して「通常の」優先順位を維持しますか？</BPC.DisableBPCWorkTabInnerPrioritiesSetting>
   <BPC.DisableBPCWorkTabInnerPrioritiesTooltip>これにより,内部の優先順位を保存せずに,BPCをWorkTabで引き続き使用できるようになります.</BPC.DisableBPCWorkTabInnerPrioritiesTooltip>	
+
 </LanguageData>
