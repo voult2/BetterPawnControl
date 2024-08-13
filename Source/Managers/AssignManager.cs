@@ -485,7 +485,7 @@ namespace BetterPawnControl
             Policy policy = GetActivePolicy();
             if (!AssignManager.clipboard.NullOrEmpty() && AssignManager.clipboard[0].zone != policy.id)
             {
-                WorkManager.links.RemoveAll(x => x.zone == policy.id);
+                AssignManager.links.RemoveAll(x => x.zone == policy.id);
                 foreach (AssignLink copiedLink in AssignManager.clipboard)
                 {
                     copiedLink.zone = policy.id;
