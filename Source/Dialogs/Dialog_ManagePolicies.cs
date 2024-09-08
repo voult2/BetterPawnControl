@@ -58,7 +58,11 @@ namespace BetterPawnControl
             sections.Add(PolicySection.Create(Resources.Type.restrict, ref ScheduleManager.policies));
             sections.Add(PolicySection.Create(Resources.Type.assign, ref AssignManager.policies));
             sections.Add(PolicySection.Create(Resources.Type.animal, ref AnimalManager.policies));
-            sections.Add(PolicySection.Create(Resources.Type.mech, ref MechManager.policies));
+            
+            if (ModsConfig.BiotechActive)
+            {
+                sections.Add(PolicySection.Create(Resources.Type.mech, ref MechManager.policies));
+            }
 
             if (Widget_ModsAvailable.WTBAvailable)
             {
