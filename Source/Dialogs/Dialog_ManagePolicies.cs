@@ -442,7 +442,7 @@ namespace BetterPawnControl
 
                 Widgets.Label(labelDefaultDrugs, "BPC.SelectedDefaultDrug".Translate());
                 Widgets.Label(labelDefaultReading, "BPC.SelectedDefaultReading".Translate());
-                Widgets.Label(labelPrisonerDefaultMed, "BPC.SelectedPrisonerDefaultMeds".Translate());
+                Widgets.Label(labelPrisonerDefaultMed, "BPC.SelectedPrisonerDefaultMedicine".Translate());
                 if (ModsConfig.IdeologyActive)
                 {
                     Widgets.Label(labelSlaveDrugs, "BPC.SelectedSlaveDefaultDrugs".Translate());
@@ -454,10 +454,10 @@ namespace BetterPawnControl
                 Rect labelDefaultMeds = new Rect(0, rect.y, one, buttonHeight);
                 Rect labelSlaveDefaultMeds = new Rect(three, rect.y, one, buttonHeight);
 
-                Widgets.Label(labelDefaultMeds, "BPC.SelectedDefaultMeds".Translate());
+                Widgets.Label(labelDefaultMeds, "BPC.SelectedDefaultMedicine".Translate());
                 if (ModsConfig.IdeologyActive)
                 {
-                    Widgets.Label(labelSlaveDefaultMeds, "BPC.SelectedSlaveDefaultMeds".Translate());
+                    Widgets.Label(labelSlaveDefaultMeds, "BPC.SelectedSlaveDefaultMedicine".Translate());
                 }
             }
             else
