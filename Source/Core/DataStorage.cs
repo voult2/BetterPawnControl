@@ -51,7 +51,13 @@ namespace BetterPawnControl
 				WeaponsManager.links = null;
 				WeaponsManager.policies = null;
 				WeaponsManager.activePolicies = null;
-				System.GC.Collect();
+				if (Widget_ModsAvailable.MiscRobotsAvailable)
+				{
+					RobotManager.links = null;
+					RobotManager.policies = null;
+					RobotManager.activePolicies = null;
+				}
+                System.GC.Collect();
             }
 
             if (Scribe.mode == LoadSaveMode.LoadingVars || Scribe.mode == LoadSaveMode.Saving)
@@ -98,7 +104,14 @@ namespace BetterPawnControl
 					Scribe_Collections.Look<MapActivePolicy>(ref WeaponsManager.activePolicies, "WeaponsActivePolicies", LookMode.Deep);
 				}
 
-				Scribe_Values.Look<int>(ref AlertManager._alertLevel, "ActiveLevel", 0, true);
+                if (Widget_ModsAvailable.MiscRobotsAvailable)
+                {
+                    Scribe_Collections.Look<Policy>(ref RobotManager.policies, "RobotPolicies", LookMode.Deep);
+                    Scribe_Collections.Look<RobotLink>(ref RobotManager.links, "RobotLinks", LookMode.Deep);
+                    Scribe_Collections.Look<MapActivePolicy>(ref RobotManager.activePolicies, "RobotActivePolicies", LookMode.Deep);
+                }
+
+                Scribe_Values.Look<int>(ref AlertManager._alertLevel, "ActiveLevel", 0, true);
 				Scribe_Collections.Look<AlertLevel>(ref AlertManager.alertLevelsList, "AlertLevelsList", LookMode.Deep);
 
 				if (Scribe.mode == LoadSaveMode.LoadingVars && WorkManager.activePolicies == null)
@@ -113,12 +126,18 @@ namespace BetterPawnControl
 					MechManager.ForceInit();
                 }
 
-				if (Scribe.mode == LoadSaveMode.LoadingVars && WeaponsManager.activePolicies == null)
+				if (Widget_ModsAvailable.WTBAvailable && Scribe.mode == LoadSaveMode.LoadingVars && WeaponsManager.activePolicies == null)
 				{
 					//this only happens with existing saves. Existing saves have no related data so let's initialize!
 					WeaponsManager.ForceInit();
 				}
-			}
+
+                if (Widget_ModsAvailable.MiscRobotsAvailable && Scribe.mode == LoadSaveMode.LoadingVars && RobotManager.activePolicies == null)
+                {
+                    //this only happens with existing saves. Existing saves have no related data so let's initialize!
+                    RobotManager.ForceInit();
+                }
+            }
 
 			if (Scribe.mode == LoadSaveMode.ResolvingCrossRefs)
 			{

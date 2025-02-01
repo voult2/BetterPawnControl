@@ -60,7 +60,7 @@ namespace BetterPawnControl
             List<WorkGiverDef> keysInner = new List<WorkGiverDef>();
             List<string> valuesInner = new List<string>();
 
-            if (Scribe.mode == LoadSaveMode.Saving)
+            if (Scribe.mode == LoadSaveMode.Saving && settings != null)
             {
                 foreach (KeyValuePair<WorkTypeDef, int> entry in settings)
                 {

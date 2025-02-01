@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using RimWorld;
+using Verse;
 
 namespace BetterPawnControl
 {
@@ -12,6 +13,16 @@ namespace BetterPawnControl
         internal Area area = null;
 
         public MechLink() { }
+
+        public MechLink(MechLink link)
+        {
+            this.zone = link.zone;
+            this.mech = link.mech;
+            this.controlGroupIndex = link.controlGroupIndex;
+            this.workmode = link.workmode;
+            this.area = link.area;
+            this.mapId = link.mapId;
+        }
 
         public MechLink(
             int zone, Pawn mech, int controlGroupIndex, MechWorkModeDef workmode, Area area, int mapId)

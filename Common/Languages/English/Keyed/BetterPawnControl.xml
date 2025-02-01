@@ -49,17 +49,17 @@
 	<BPC.SelectedDefaultFood>Food</BPC.SelectedDefaultFood>
 	<BPC.SelectedDefaultDrug>Drug</BPC.SelectedDefaultDrug>
 	<BPC.SelectedDefaultReading>Reading</BPC.SelectedDefaultReading>
-	<BPC.SelectedDefaultMedicine>Medical Care</BPC.SelectedDefaultMedicine>
+	<BPC.SelectedDefaultMeds>Medical Care</BPC.SelectedDefaultMeds>
 	<BPC.SelectedDefaultWeapons>Weapons</BPC.SelectedDefaultWeapons>
 	
 	<BPC.SelectedPrisonerDefaultFood>Food</BPC.SelectedPrisonerDefaultFood>
-	<BPC.SelectedPrisonerDefaultMedicine>Medical Care</BPC.SelectedPrisonerDefaultMedicine>
+	<BPC.SelectedPrisonerDefaultMeds>Medical Care</BPC.SelectedPrisonerDefaultMeds>
 	
 	<BPC.SelectedSlaveDefaultOutfit>Outfit</BPC.SelectedSlaveDefaultOutfit>	
 	<BPC.SelectedSlaveDefaultFood>Food</BPC.SelectedSlaveDefaultFood>
 	<BPC.SelectedSlaveDefaultDrugs>Drugs</BPC.SelectedSlaveDefaultDrugs>
 	<BPC.SelectedSlaveDefaultReading>Reading</BPC.SelectedSlaveDefaultReading>
-	<BPC.SelectedSlaveDefaultMedicine>Medical Care</BPC.SelectedSlaveDefaultMedicine>
+	<BPC.SelectedSlaveDefaultMeds>Medical Care</BPC.SelectedSlaveDefaultMeds>
 	
 	<BPC.ColonistDefaultHeader>Colonist Defaults</BPC.ColonistDefaultHeader>
 	<BPC.PrisonerDefaultHeader>Prisoner Defaults</BPC.PrisonerDefaultHeader>
