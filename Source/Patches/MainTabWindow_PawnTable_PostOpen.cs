@@ -41,12 +41,14 @@ namespace BetterPawnControl
             if (windowType.Equals(typeof(MainTabWindow_Mechs)))
             {
                 MechManager.LoadState(MechManager.links, MechManager.Mechs().ToList(), MechManager.GetActivePolicy());
+                MechManager.showPaste = false;
             }
             
 
             if (windowType.FullName.Equals(Widget_ModsAvailable.WEAPONSTAB_MAINTAB) && Widget_ModsAvailable.WTBAvailable)
             {
                 WeaponsManager.LoadState(WeaponsManager.links, WeaponsManager.Colonists().ToList(), WeaponsManager.GetActivePolicy());
+                WeaponsManager.showPaste = false;
             }
 
             if (windowType.FullName.Equals(Widget_ModsAvailable.AIROBOTX2_MAINTAB) && Widget_ModsAvailable.MiscRobotsAvailable)

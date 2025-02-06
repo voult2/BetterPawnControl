@@ -132,7 +132,7 @@ namespace BetterPawnControl
             bool containsValidMap = false;
             foreach (Map map in Find.Maps)
             {
-                if (MechManager.activePolicies.Any(x => x.mapId == map.uniqueID))
+                if (RobotManager.activePolicies.Any(x => x.mapId == map.uniqueID))
                 {
                     containsValidMap = true;
                     break;

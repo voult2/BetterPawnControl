@@ -7,8 +7,11 @@ using Verse;
 namespace BetterPawnControl
 {
     [StaticConstructorOnStartup]
+
     class MechManager : Manager<MechLink>
     {
+        internal static List<MechLink> clipboard = new List<MechLink>();
+
         internal static void DeletePolicy(Policy policy)
         {
             //delete if not default AssignPolicy
@@ -228,6 +231,37 @@ namespace BetterPawnControl
             }
         }
 
+        internal static void CopyToClipboard()
+        {
+            //Save state in case user has made changes to the active policy
+            MechManager.SaveCurrentState(MechManager.Mechs().ToList());
+
+            Policy policy = GetActivePolicy();
+
+            MechManager.clipboard.Clear();
+            foreach (MechLink link in MechManager.links)
+            {
+                if (link.zone == policy.id)
+                {
+                    MechManager.clipboard.Add(new MechLink(link));
+                }
+            }
+        }
+
+        internal static void PasteToActivePolicy()
+        {
+            Policy policy = GetActivePolicy();
+            if (!MechManager.clipboard.NullOrEmpty() && MechManager.clipboard[0].zone != policy.id)
+            {
+                MechManager.links.RemoveAll(x => x.zone == policy.id);
+                foreach (MechLink copiedLink in MechManager.clipboard)
+                {
+                    copiedLink.zone = policy.id;
+                    MechManager.links.Add(copiedLink);
+                }
+                MechManager.LoadState(links, Mechs().ToList(), policy);
+            }
+        }
 
         internal static void PrintAllMechPolicies(string spacer = "\n")
         {

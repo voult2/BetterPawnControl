@@ -12,6 +12,7 @@ namespace BetterPawnControl
         internal DrugPolicy drugPolicy = null;
         internal ReadingPolicy readingPolicy = null;
         internal HostilityResponseMode hostilityResponse = HostilityResponseMode.Flee;
+        internal MedicalCareCategory medicinePolicy = MedicalCareCategory.Best;
         internal int loadoutId = 1;
         //internal int mapId = 0;
 
@@ -29,6 +30,7 @@ namespace BetterPawnControl
             this.drugPolicy = drugPolicy;
             this.readingPolicy = readingPolicy;
             this.hostilityResponse = hostilityResponse;
+            this.medicinePolicy = medicinePolicy;
             this.loadoutId = loadoutId;
             this.mapId = mapId;
         }
@@ -42,6 +44,7 @@ namespace BetterPawnControl
             this.drugPolicy = link.drugPolicy;
             this.readingPolicy = link.readingPolicy;
             this.hostilityResponse = link.hostilityResponse;
+            this.medicinePolicy = link.medicinePolicy;
             this.loadoutId = link.loadoutId;
             this.mapId = link.mapId;
         }
@@ -60,6 +63,7 @@ namespace BetterPawnControl
                 "  DrugPolicy: " + drug +
                 "  ReadingPolicy: " + reading +
                 "  HostilityResponse: " + hostilityResponse +
+                "  MedCare: " + medicinePolicy +
                 "  LoadoutId: " + loadoutId +
                 "  MapID: " + mapId;
         }
@@ -78,6 +82,7 @@ namespace BetterPawnControl
             Scribe_References.Look<DrugPolicy>(ref drugPolicy, "drugPolicy");
             Scribe_References.Look<ReadingPolicy>(ref readingPolicy, "readingPolicy");
             Scribe_Values.Look<HostilityResponseMode>(ref hostilityResponse, "hostilityResponse", HostilityResponseMode.Flee, true);
+            Scribe_Values.Look<MedicalCareCategory>(ref medicinePolicy, "medcare", MedicalCareCategory.Best, true);
             Scribe_Values.Look<int>(ref loadoutId, "loadoutId", 1, true);
             if (Scribe.mode == LoadSaveMode.LoadingVars && loadoutId == 0)
             {

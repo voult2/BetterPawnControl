@@ -8,6 +8,8 @@ namespace BetterPawnControl
     class WeaponsManager : Manager<WeaponsLink>
     {
         internal static int _defaultLoadoutId = -1;
+
+        internal static List<WeaponsLink> clipboard = new List<WeaponsLink>();
         internal static int DefaultWeaponsLoadoutById
         {
             get
@@ -170,6 +172,39 @@ namespace BetterPawnControl
                 }
             }
         }
+
+        internal static void CopyToClipboard()
+        {
+            //Save state in case user has made changes to the active policy
+            WeaponsManager.SaveCurrentState(AssignManager.Colonists().ToList());
+
+            Policy policy = GetActivePolicy();
+
+            WeaponsManager.clipboard.Clear();
+            foreach (WeaponsLink link in WeaponsManager.links)
+            {
+                if (link.zone == policy.id)
+                {
+                    WeaponsManager.clipboard.Add(new WeaponsLink(link));
+                }
+            }
+        }
+
+        internal static void PasteToActivePolicy()
+        {
+            Policy policy = GetActivePolicy();
+            if (!WeaponsManager.clipboard.NullOrEmpty() && WeaponsManager.clipboard[0].zone != policy.id)
+            {
+                WeaponsManager.links.RemoveAll(x => x.zone == policy.id);
+                foreach (WeaponsLink copiedLink in WeaponsManager.clipboard)
+                {
+                    copiedLink.zone = policy.id;
+                    WeaponsManager.links.Add(copiedLink);
+                }
+                WeaponsManager.LoadState(links, Find.CurrentMap.mapPawns.FreeColonists, policy);
+            }
+        }
+
 
         internal static void PrintAllWeaponsPolicies(string spacer = "\n")
         {

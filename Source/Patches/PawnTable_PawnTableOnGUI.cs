@@ -477,6 +477,28 @@ namespace BetterPawnControl.Patches
             GUI.DrawTexture(rect4, Resources.Textures.Settings);
             TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
 
+            offSetX += rect3.width;
+            Rect rect5 = new Rect(offSetX + 3f, rect3.height / 4f - 6f, 21f, 28f);
+            if (Widgets.ButtonImage(rect5, ContentFinder<Texture2D>.Get("UI/Buttons/Copy", true)))
+            {
+                MechManager.CopyToClipboard();
+                SoundDefOf.Tick_High.PlayOneShotOnCamera(null);
+                MechManager.showPaste = true;
+            }
+            TooltipHandler.TipRegion(rect5, "BPC.Copy".Translate());
+
+            if (MechManager.showPaste)
+            {
+                offSetX += rect3.width;
+                Rect rect6 = new Rect(offSetX + 3f, rect3.height / 4f - 6f, 21f, 28f);
+                if (Widgets.ButtonImage(rect6, ContentFinder<Texture2D>.Get("UI/Buttons/Paste", true)))
+                {
+                    MechManager.PasteToActivePolicy();
+                    SoundDefOf.Tick_Low.PlayOneShotOnCamera(null);
+                }
+                TooltipHandler.TipRegion(rect6, "BPC.Paste".Translate());
+            }
+
             GUI.EndGroup();
         }
 
@@ -533,6 +555,28 @@ namespace BetterPawnControl.Patches
             Rect rect4 = new Rect(offSetX + 4f, rect3.height / 4f, 14f, 14f);
             GUI.DrawTexture(rect4, Resources.Textures.Settings);
             TooltipHandler.TipRegion(rect4, "BPC.Settings".Translate());
+
+            offSetX += rect3.width;
+            Rect rect5 = new Rect(offSetX + 3f, rect3.height / 4f - 6f, 21f, 28f);
+            if (Widgets.ButtonImage(rect5, ContentFinder<Texture2D>.Get("UI/Buttons/Copy", true)))
+            {
+                WeaponsManager.CopyToClipboard();
+                SoundDefOf.Tick_High.PlayOneShotOnCamera(null);
+                WeaponsManager.showPaste = true;
+            }
+            TooltipHandler.TipRegion(rect5, "BPC.Copy".Translate());
+
+            if (WeaponsManager.showPaste)
+            {
+                offSetX += rect3.width;
+                Rect rect6 = new Rect(offSetX + 3f, rect3.height / 4f - 6f, 21f, 28f);
+                if (Widgets.ButtonImage(rect6, ContentFinder<Texture2D>.Get("UI/Buttons/Paste", true)))
+                {
+                    WeaponsManager.PasteToActivePolicy();
+                    SoundDefOf.Tick_Low.PlayOneShotOnCamera(null);
+                }
+                TooltipHandler.TipRegion(rect6, "BPC.Paste".Translate());
+            }
 
             GUI.EndGroup();
         }

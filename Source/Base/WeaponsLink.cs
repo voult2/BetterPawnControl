@@ -10,6 +10,15 @@ namespace BetterPawnControl
 
         public WeaponsLink() { }
 
+        public WeaponsLink(WeaponsLink link) 
+        {
+            this.zone = link.zone;
+            this.colonist = link.colonist;
+            this.loadoutId = link.loadoutId;
+            this.mapId = link.mapId;
+        }
+
+
         public WeaponsLink(int zone, Pawn colonist, int loadoutId, int mapId)
         {
             this.zone = zone;

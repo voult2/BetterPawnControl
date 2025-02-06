@@ -217,6 +217,7 @@ namespace BetterPawnControl
                     link.hostilityResponse = p.playerSettings.hostilityResponse;
                     link.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
                     link.readingPolicy = p.reading.CurrentPolicy;
+                    link.medicinePolicy = p.playerSettings.medCare;
                     //AssignManager.SavePawnInventoryStock(p, link);
                     if (Widget_CombatExtended.CombatExtendedAvailable)
                     {
@@ -374,7 +375,8 @@ namespace BetterPawnControl
                     {
                         l.hostilityResponse = p.playerSettings.hostilityResponse;
                         l.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
-                        l.outfit = p.outfits.CurrentApparelPolicy;                 
+                        l.outfit = p.outfits.CurrentApparelPolicy;
+                        l.medicinePolicy = p.playerSettings.medCare;
                     }
                 }
             }
@@ -404,6 +406,7 @@ namespace BetterPawnControl
                         p.foodRestriction.CurrentFoodPolicy = FoodPolicyExists(l.foodPolicy) ? l.foodPolicy : null;
                         p.reading.CurrentPolicy = ReadingPolicyExits(l.readingPolicy) ? l.readingPolicy : null;
                         p.playerSettings.hostilityResponse = l.hostilityResponse;
+                        p.playerSettings.medCare = l.medicinePolicy;
 
                         if (Widget_CombatExtended.CombatExtendedAvailable)
                         {
