@@ -14,6 +14,7 @@ namespace BetterPawnControl
         internal HostilityResponseMode hostilityResponse = HostilityResponseMode.Flee;
         internal MedicalCareCategory medicinePolicy = MedicalCareCategory.Best;
         internal int loadoutId = 1;
+        internal int compositableState = -1;
         //internal int mapId = 0;
 
         public AssignLink() { }
@@ -21,7 +22,7 @@ namespace BetterPawnControl
         public AssignLink(
             int zone, Pawn colonist, ApparelPolicy outfit, FoodPolicy foodPolicy,
             DrugPolicy drugPolicy, ReadingPolicy readingPolicy, HostilityResponseMode hostilityResponse,
-            MedicalCareCategory medicinePolicy, int loadoutId, int mapId)
+            MedicalCareCategory medicinePolicy, int loadoutId, int compositableState, int mapId)
         {
             this.zone = zone;
             this.colonist = colonist;
@@ -32,6 +33,7 @@ namespace BetterPawnControl
             this.hostilityResponse = hostilityResponse;
             this.medicinePolicy = medicinePolicy;
             this.loadoutId = loadoutId;
+            this.compositableState = compositableState;
             this.mapId = mapId;
         }
 
@@ -46,6 +48,7 @@ namespace BetterPawnControl
             this.hostilityResponse = link.hostilityResponse;
             this.medicinePolicy = link.medicinePolicy;
             this.loadoutId = link.loadoutId;
+            this.compositableState = link.compositableState;
             this.mapId = link.mapId;
         }
 
@@ -65,6 +68,7 @@ namespace BetterPawnControl
                 "  HostilityResponse: " + hostilityResponse +
                 "  MedCare: " + medicinePolicy +
                 "  LoadoutId: " + loadoutId +
+                "  Compositable: " + compositableState +
                 "  MapID: " + mapId;
         }
 
@@ -88,6 +92,7 @@ namespace BetterPawnControl
             {
                 this.loadoutId = 1;                
             }
+            Scribe_Values.Look<int>(ref compositableState, "compositableState", -1, true);
             Scribe_Values.Look<int>(ref mapId, "mapId", 0, true);
         }
     }

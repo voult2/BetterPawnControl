@@ -98,5 +98,13 @@ namespace BetterPawnControl
                 return LoadedModManager.RunningMods.Any(mod => mod.Name == MISCROBOTS);
             }
         }
+
+        public static bool CompositableAvailable
+        {
+            get
+            {
+                return Widget_CompositableLoadouts.CompositableLoadoutsAvailable;;
+            }
+        }
     }
 }
