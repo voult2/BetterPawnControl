@@ -11,6 +11,7 @@ namespace BetterPawnControl
     {
         internal static List<AlertLevel> alertLevelsList = new List<AlertLevel>();
         internal static int _alertLevel = 0;
+        private static bool _initialized = false;
 
         //Only two levels supported for now (ON and OFF)
         internal static bool OnAlert
@@ -27,21 +28,25 @@ namespace BetterPawnControl
 
         internal static void ForceInit()
         {
-            alertLevelsList = new List<AlertLevel>();
-            Dictionary<Resources.Type, Policy> noAlert = new Dictionary<Resources.Type, Policy>
+            if (!_initialized)
             {
-                { Resources.Type.work, WorkManager.GetActivePolicy() },
-                { Resources.Type.restrict, ScheduleManager.GetActivePolicy() },
-                { Resources.Type.assign, AssignManager.GetActivePolicy() },
-                { Resources.Type.animal, AnimalManager.GetActivePolicy() },
-                { Resources.Type.mech, MechManager.GetActivePolicy() },
-                { Resources.Type.weapons, WeaponsManager.GetActivePolicy() },
-                { Resources.Type.robots, RobotManager.GetActivePolicy() },
-            };
+                alertLevelsList = new List<AlertLevel>();
+                Dictionary<Resources.Type, Policy> noAlert = new Dictionary<Resources.Type, Policy>
+                {
+                    { Resources.Type.work, WorkManager.GetActivePolicy() },
+                    { Resources.Type.restrict, ScheduleManager.GetActivePolicy() },
+                    { Resources.Type.assign, AssignManager.GetActivePolicy() },
+                    { Resources.Type.animal, AnimalManager.GetActivePolicy() },
+                    { Resources.Type.mech, MechManager.GetActivePolicy() },
+                    { Resources.Type.weapons, WeaponsManager.GetActivePolicy() },
+                    { Resources.Type.robots, RobotManager.GetActivePolicy() },
+                };
 
-            Dictionary<Resources.Type, Policy> alertOn = new Dictionary<Resources.Type, Policy>(noAlert);
-            alertLevelsList.Add(new AlertLevel(0, noAlert));
-            alertLevelsList.Add(new AlertLevel(1, alertOn));
+                Dictionary<Resources.Type, Policy> alertOn = new Dictionary<Resources.Type, Policy>(noAlert);
+                alertLevelsList.Add(new AlertLevel(0, noAlert));
+                alertLevelsList.Add(new AlertLevel(1, alertOn));
+                _initialized = true;
+            }
         }
 
         internal static void PawnsInterruptForced()

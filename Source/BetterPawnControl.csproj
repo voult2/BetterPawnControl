@@ -30,8 +30,4 @@
     </Reference>
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(TargetDir)\*.*&quot; &quot;$(SolutionDir)\..\Assemblies\&quot;  /F /R /Y /I&#xD;&#xA;" />
-  </Target>
-
 </Project>
