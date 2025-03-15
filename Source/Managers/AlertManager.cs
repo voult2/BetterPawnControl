@@ -78,18 +78,27 @@ namespace BetterPawnControl
                     //This means the alertLevelsList is missing a default policy
                     //This can be caused by loading a save from 1.3 on 1.4 (missing the new mech data or other)
                     case Resources.Type.mech:
-                        alertLevelsList[level].settings.Add(Resources.Type.mech, MechManager.GetActivePolicy());
-                        alertPolicy = MechManager.GetActivePolicy();
+                        if (ModsConfig.IdeologyActive) 
+                        { 
+                            alertLevelsList[level].settings.Add(Resources.Type.mech, MechManager.GetActivePolicy());
+                            alertPolicy = MechManager.GetActivePolicy();
+                        }
                         break;
 
                     case Resources.Type.weapons:
-                        alertLevelsList[level].settings.Add(Resources.Type.weapons, WeaponsManager.GetActivePolicy());
-                        alertPolicy = WeaponsManager.GetActivePolicy();
+                        if (Widget_ModsAvailable.WTBAvailable)
+                        {
+                            alertLevelsList[level].settings.Add(Resources.Type.weapons, WeaponsManager.GetActivePolicy());
+                            alertPolicy = WeaponsManager.GetActivePolicy();
+                        }
                         break;
 
                     case Resources.Type.robots:
-                        alertLevelsList[level].settings.Add(Resources.Type.robots, RobotManager.GetActivePolicy());
-                        alertPolicy = RobotManager.GetActivePolicy();
+                        if (Widget_ModsAvailable.MiscRobotsAvailable)
+                        {
+                            alertLevelsList[level].settings.Add(Resources.Type.robots, RobotManager.GetActivePolicy());
+                            alertPolicy = RobotManager.GetActivePolicy();
+                        }
                         break;
 
                     default:
@@ -117,13 +126,29 @@ namespace BetterPawnControl
                 var alertLevel = alertLevelsList.FirstOrDefault(x => x.level == level);
                 if (alertLevel != null)
                 {
-                    alertLevel.settings.SetOrAdd(Resources.Type.work, WorkManager.GetActivePolicy());
+                    if (!Widget_ModsAvailable.DisableBPCOnWorkTab)
+                    {
+                        alertLevel.settings.SetOrAdd(Resources.Type.work, WorkManager.GetActivePolicy());
+                    }
+
                     alertLevel.settings.SetOrAdd(Resources.Type.restrict, ScheduleManager.GetActivePolicy());
                     alertLevel.settings.SetOrAdd(Resources.Type.assign, AssignManager.GetActivePolicy());
                     alertLevel.settings.SetOrAdd(Resources.Type.animal, AnimalManager.GetActivePolicy());
-                    alertLevel.settings.SetOrAdd(Resources.Type.mech, MechManager.GetActivePolicy());
-                    alertLevel.settings.SetOrAdd(Resources.Type.weapons, WeaponsManager.GetActivePolicy());
-                    alertLevel.settings.SetOrAdd(Resources.Type.robots, RobotManager.GetActivePolicy());
+
+                    if (ModsConfig.IdeologyActive)
+                    {
+                        alertLevel.settings.SetOrAdd(Resources.Type.mech, MechManager.GetActivePolicy());
+                    }
+
+                    if (Widget_ModsAvailable.WTBAvailable)
+                    {
+                        alertLevel.settings.SetOrAdd(Resources.Type.weapons, WeaponsManager.GetActivePolicy());
+                    }                    
+
+                    if (Widget_ModsAvailable.MiscRobotsAvailable)
+                    {
+                        alertLevel.settings.SetOrAdd(Resources.Type.robots, RobotManager.GetActivePolicy());
+                    }                        
                 }
             }
             catch (NullReferenceException)
@@ -157,7 +182,10 @@ namespace BetterPawnControl
                             AnimalManager.LoadState(entry.Value);
                             break;
                         case Resources.Type.mech:
-                            MechManager.LoadState(entry.Value);
+                            if (ModsConfig.IdeologyActive)
+                            {
+                                MechManager.LoadState(entry.Value);
+                            }                                
                             break;
                         case Resources.Type.weapons:
                             if (Widget_ModsAvailable.WTBAvailable)

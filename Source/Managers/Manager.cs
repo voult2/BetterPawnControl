@@ -86,6 +86,7 @@ namespace BetterPawnControl
 			{
 				Manager<T>.ForceInit();
 			}
+
 			MapActivePolicy mapPolicy = activePolicies.Find(x => x.mapId == mapId);
 			if (mapPolicy == null)
 			{
