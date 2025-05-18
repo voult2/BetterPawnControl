@@ -490,7 +490,7 @@ namespace BetterPawnControl
             Text.Font = GameFont.Tiny;
             Text.Anchor = TextAnchor.MiddleCenter;
 
-            if (rowNumber == 1)
+            if (rowNumber == 1) //first row
             {
                 Rect buttonDefaultOutfit = new Rect(0f + alignCenter, rect.y, buttonWidth, buttonHeight);
                 Rect buttonDefaultFood = new Rect(one + alignCenter, rect.y, buttonWidth, buttonHeight);
@@ -526,7 +526,7 @@ namespace BetterPawnControl
                     }
                 }
             }
-            else if (rowNumber == 2)
+            else if (rowNumber == 2) //second row
             {
                 Rect buttonDefaultDrugs = new Rect(0f + alignCenter, rect.y, buttonWidth, buttonHeight);
                 Rect buttonDefaultReading = new Rect(one + alignCenter, rect.y, buttonWidth, buttonHeight);
@@ -562,7 +562,7 @@ namespace BetterPawnControl
                     }
                 }
             }
-            else if (rowNumber == 3)
+            else if (rowNumber == 3) //third  row
             {
                 Rect buttonDefaultMeds = new Rect(0f + alignCenter, rect.y, buttonWidth, buttonHeight);
                 Rect buttonSlaveDefaultMeds = new Rect(three + alignCenter, rect.y, buttonWidth, buttonHeight);
@@ -580,12 +580,12 @@ namespace BetterPawnControl
                     }
                 }
             }
-            else
+            else //forth row
             {
-                if (Widget_ModsAvailable.WTBAvailable)
+                if (Widget_ModsAvailable.WTBAvailable) 
                 {
                     Rect buttonDefaultWeapons = new Rect(0f + alignCenter, rect.y, buttonWidth, buttonHeight);
-                    if (Widgets.ButtonText(buttonDefaultWeapons, Widget_WeaoponsTabReborn.GetLoadoutNameById(WeaponsManager.DefaultWeaponsLoadoutById), true, false, true))
+                    if (Widgets.ButtonText(buttonDefaultWeapons, Widget_WeaponsTabReborn.GetLoadoutNameById(WeaponsManager.DefaultWeaponsLoadoutById), true, false, true))
                     {
                         OpenWeaponsSelectMenu(PawnType.Colonist);
                     }
@@ -715,7 +715,7 @@ namespace BetterPawnControl
         private static void OpenWeaponsSelectMenu(PawnType type)
         {
             List<FloatMenuOption> list = new List<FloatMenuOption>();
-            Dictionary<string, int> weaponsLoadoutDatabase = Widget_WeaoponsTabReborn.GetWeaponsLoadoutsDatabase();
+            Dictionary<string, int> weaponsLoadoutDatabase = Widget_WeaponsTabReborn.GetWeaponsLoadoutsDatabase();
             if (weaponsLoadoutDatabase != null)
             {
                 foreach (var weaponLoadout in weaponsLoadoutDatabase)
