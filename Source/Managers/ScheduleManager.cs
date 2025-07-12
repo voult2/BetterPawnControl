@@ -181,6 +181,7 @@ namespace BetterPawnControl
 
             foreach (Pawn p in pawns)
             {
+                var tick = false;
                 foreach (ScheduleLink l in zoneLinks)
                 {
                     if (l.colonist != null && l.colonist.Equals(p))
@@ -190,9 +191,11 @@ namespace BetterPawnControl
                         {
                             ScheduleManager.CopySchedule(l.schedule, p.timetable.times);
                         }
-                        p.Tick();
+                        tick = true;
                     }
                 }
+                if (tick)
+                    p.Tick();
             }
 
             ScheduleManager.SetActivePolicy(policy);
