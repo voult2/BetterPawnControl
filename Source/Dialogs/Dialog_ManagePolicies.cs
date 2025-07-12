@@ -103,8 +103,6 @@ namespace BetterPawnControl
             Settings.settingsWindowPosY = windowRect.y;
             Settings.settingsWindowWidth = windowRect.width;
             Settings.settingsWindowHeight = windowRect.height;
-
-            Log.Message($"PreClose(): {Settings.settingsWindowPosX}, {Settings.settingsWindowPosY}, {Settings.settingsWindowWidth}, {Settings.settingsWindowHeight}");
         }
 
         /// <summary>
