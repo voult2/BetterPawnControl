@@ -39,14 +39,14 @@ namespace BetterPawnControl
 
         internal static void SaveCurrentState(List<Pawn> pawns)
         {
-			int currentMap = Find.CurrentMap.uniqueID;
+            int currentMap = Find.CurrentMap.uniqueID;
             //Save current state
             foreach (Pawn p in pawns)
             {
                 //find animal on the current zone
                 AnimalLink animalLink =
                     AnimalManager.links.Find(
-                        x => x != null && p.Equals(x.animal) &&
+                        x => x != null && x.animal != null && p.Equals(x.animal) &&
                         x.zone == AnimalManager.GetActivePolicy().id &&
                         x.mapId == currentMap);
 
@@ -120,7 +120,7 @@ namespace BetterPawnControl
             //get all links from the current map
             mapLinks = links.FindAll(x => x != null && x.mapId == currentMap);
             //get all links from the selected zone
-            zoneLinks = mapLinks.FindAll(x => x != null &&  x.zone == policy.id);
+            zoneLinks = mapLinks.FindAll(x => x != null && x.zone == policy.id);
 
             foreach (Pawn p in pawns)
             {
@@ -137,7 +137,7 @@ namespace BetterPawnControl
                         {
                             p.foodRestriction.CurrentFoodPolicy = FoodPolicyExists(l.foodPolicy) ?
                                 l.foodPolicy : null;
-                        }                            
+                        }
                     }
                 }
             }
@@ -248,7 +248,7 @@ namespace BetterPawnControl
 
         internal static void PrintAllAnimalPolicies(string spacer = "\n")
         {
-            Log.Message( "[BPC] ### List Animal Policies [" + AnimalManager.policies.Count + "] ###");
+            Log.Message("[BPC] ### List Animal Policies [" + AnimalManager.policies.Count + "] ###");
             foreach (Policy p in AnimalManager.policies)
             {
                 Log.Message("[BPC]\t" + p.ToString());
