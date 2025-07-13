@@ -102,7 +102,7 @@ namespace BetterPawnControl
             dst.Clear();
             dst.AddRange(src);
 
-            return isEquals;
+            return !isEquals;
         }
 
         internal static void CleanDeadColonists(Pawn pawn)
