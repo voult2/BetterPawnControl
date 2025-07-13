@@ -82,10 +82,27 @@ namespace BetterPawnControl
             }
         }
 
-        internal static void CopySchedule(List<TimeAssignmentDef> src, List<TimeAssignmentDef> dst)
+        internal static bool CopySchedule(List<TimeAssignmentDef> src, List<TimeAssignmentDef> dst)
         {
+            var isEquals = false;
+
+            if (src.Count == dst.Count)
+            {
+                isEquals = true;
+                for (var i = 0; i < src.Count; i++)
+                {
+                    if (src[i] != dst[i])
+                    {
+                        isEquals = false;
+                        break;
+                    }
+                }
+            }
+
             dst.Clear();
             dst.AddRange(src);
+
+            return isEquals;
         }
 
         internal static void CleanDeadColonists(Pawn pawn)
@@ -186,14 +203,20 @@ namespace BetterPawnControl
                 {
                     if (l.colonist != null && l.colonist.Equals(p))
                     {
-                        p.playerSettings.AreaRestrictionInPawnCurrentMap = l.area;
+                        if (p.playerSettings.AreaRestrictionInPawnCurrentMap != l.area)
+                        {
+                            p.playerSettings.AreaRestrictionInPawnCurrentMap = l.area;
+                            tick = true;
+                        }
+
                         if (l.schedule != null && p.timetable != null)
                         {
-                            ScheduleManager.CopySchedule(l.schedule, p.timetable.times);
+                            var updated = ScheduleManager.CopySchedule(l.schedule, p.timetable.times);
+                            tick = updated == true;
                         }
-                        tick = true;
                     }
                 }
+
                 if (tick)
                     p.Tick();
             }
@@ -209,7 +232,7 @@ namespace BetterPawnControl
 
         internal static void PrintAllSchedulePolicies(string spacer = "\n")
         {
-            Log.Message("[BPC] === List Policies START [" + ScheduleManager.policies.Count +  "] ===");
+            Log.Message("[BPC] === List Policies START [" + ScheduleManager.policies.Count + "] ===");
             foreach (Policy p in ScheduleManager.policies)
             {
                 Log.Message("[BPC]\t" + p.ToString());
