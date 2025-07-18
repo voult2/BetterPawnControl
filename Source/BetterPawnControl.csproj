@@ -9,7 +9,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Authors>VouLT</Authors>
-    <Version>2.7.4</Version>
+    <Version>2.7.5</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,13 +20,13 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.4085" GeneratePathProperty="true" />
-	  <PackageReference Include="Lib.Harmony" Version="2.3.3" ExcludeAssets="runtime" />
+	  <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4523" GeneratePathProperty="true" />
+	  <PackageReference Include="Lib.Harmony" Version="2.3.6" ExcludeAssets="runtime" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>D:\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
 
