@@ -46,7 +46,8 @@ namespace BetterPawnControl
                 //find animal on the current zone
                 AnimalLink animalLink =
                     AnimalManager.links.Find(
-                        x => x != null && p.Equals(x.animal) &&
+                        x => x.animal != null &&
+                        p.Equals(x.animal) &&
                         x.zone == AnimalManager.GetActivePolicy().id &&
                         x.mapId == currentMap);
 
