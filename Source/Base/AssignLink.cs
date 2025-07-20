@@ -95,7 +95,7 @@ namespace BetterPawnControl
             Scribe_References.Look<ReadingPolicy>(ref readingPolicy, "readingPolicy");
             Scribe_Values.Look<HostilityResponseMode>(ref hostilityResponse, "hostilityResponse", HostilityResponseMode.Flee, true);
             Scribe_Values.Look<MedicalCareCategory>(ref medicinePolicy, "medcare", MedicalCareCategory.Best, true);
-            Scribe_Values.Look(ref carriedMedicineThing, "carriedMedicineThing");
+            Scribe_Defs.Look(ref carriedMedicineThing, "carriedMedicineThing");
             Scribe_Values.Look(ref carriedMedicineCount, "carriedMedicineCount");
             Scribe_Values.Look<int>(ref loadoutId, "loadoutId", 1, true);
 

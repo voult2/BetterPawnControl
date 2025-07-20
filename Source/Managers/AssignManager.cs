@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using BetterPawnControl.Helpers;
 using RimWorld;
 using Verse;
@@ -314,28 +315,63 @@ namespace BetterPawnControl
             return containsValidMap;
         }
 
-        internal static void CleanRemovedMaps()
+        internal static void CleanRemovedMaps(Map map)
         {
-            for (int i = 0; i < AssignManager.activePolicies.Count; i++)
+            //for (int i = 0; i < AssignManager.activePolicies.Count; i++)
+            //{
+            //    MapActivePolicy map = AssignManager.activePolicies[i];
+            //    if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
+            //    {
+            //        Log.Message("Find.Maps.Count: " + Find.Maps.Count);
+            //        Log.Message("AssignManager.ActivePoliciesContainsValidMap(): " + AssignManager.ActivePoliciesContainsValidMap());
+            //        if (Find.Maps.Count == 1 && !AssignManager.ActivePoliciesContainsValidMap())
+            //        {
+            //            Log.Message("ENTER 1");
+            //            this means the player was on the move without any base
+            //            and just re - settled using a caravan. So, let's move the settings to
+            //            the new map
+            //            int newMapId = Find.CurrentMap.uniqueID;
+            //            AssignManager.MoveLinksToMap(map.mapId, newMapId);
+            //            map.mapId = newMapId;
+            //        }
+            //        if (Find.Maps.Count == 0 && !AssignManager.ActivePoliciesContainsValidMap())
+            //        {
+            //            Log.Message("ENTER 0");
+            //            this means the player is on a Grav ship and has liftoff.So, let's move the 
+            //             settings to the new map
+            //            int mapid = Find.CurrentMap.u
+            //            AssignManager.MoveLinksToMap(mapid);
+            //            map.mapId = mapid;
+            //        }
+            if (!map.IsPlayerHome) 
             {
-                MapActivePolicy map = AssignManager.activePolicies[i];
-                if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
+                AssignManager.DeleteLinksInMap(map.uniqueID);
+                MapActivePolicy mapActivePolicy = AssignManager.GetActiveMap(map.uniqueID);
+                AssignManager.DeleteMap(mapActivePolicy);
+            }
+        }
+
+        internal static void ProcessNewMap(Map newMap)
+        {
+            if (Find.Maps.Count > 1)
+            {
+                //Player has a base and arrived at a new map or got in a incident in a new map with caravan
+                //BCP will create a new map in the MapActivePolicy list. Nothing to do here.
+                
+            }
+            else if (Find.Maps.Count == 1)
+            {
+                //Player has no base and just arrived in a new map via caravan or via GravShip.
+                //So let us move all links from the old and last map and then delete the old map
+                if (!AssignManager.ActivePoliciesContainsValidMap())
                 {
-                    if (Find.Maps.Count == 1 && !AssignManager.ActivePoliciesContainsValidMap())
-                    {
-                        //this means the player was on the move without any base
-                        //and just re-settled. So, let's move the settings to
-                        //the new map
-                        int mapid = Find.CurrentMap.uniqueID;
-                        AssignManager.MoveLinksToMap(mapid);
-                        map.mapId = mapid;
-                    }
-                    else
-                    {
-                        AssignManager.DeleteLinksInMap(map.mapId);
-                        AssignManager.DeleteMap(map);
-                    }
+                    AssignManager.MoveLinksToMap(LastMapManager.lastMapId, newMap.uniqueID);
                 }
+            }
+            else
+            {
+                //this makes no sense
+                Log.Warning("[BPC] This code shouldn't have ran");
             }
         }
 
@@ -544,5 +580,7 @@ namespace BetterPawnControl
 
             Log.Message(spacer);
         }
+
+
     }
 }

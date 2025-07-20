@@ -18,12 +18,7 @@ Features:
 - Default outfits, food, drugs when colonist, prisoners or slaves join your colony
 - Emergency' button to toggle your configured policies at once in one click or keyboard shorcut 
 
-v2.7.8 - Fixed emergency button not working for Mechs if Ideology was disabled
-v2.7.7 - Fixed a crash in BPC settings window if WeaponsTabReborn mod was not fully initialized; 
-v2.7.6 - Fixed translations; Added Copy/Paste MechTab and to WeaponsTab; Fixed minor bugs;
-v2.7.5 - Updated translations; Fixed AssignTab policies Copy-Paste bug 
-v2.7.4 - Added Medical UI + Compatibility with Misc. Robots + Improved integration with Achtung! Rescue job 
-
+v2.8.0 - Support for Rimworld 1.6; Improved maps handling related to GravShip; Added support for Compositable Loadouts mod;
 
 Mod Integrations List:                       
 - Fluffly's Work Tab (full integration!)

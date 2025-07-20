@@ -40,7 +40,7 @@ namespace BetterPawnControl
         {
             get
             {
-                return  LoadedModManager.RunningMods.Any(mod => mod.Name == WORKTAB);
+                return LoadedModManager.RunningMods.Any(mod => mod.Name.StartsWith(WORKTAB));
             }
         }
 

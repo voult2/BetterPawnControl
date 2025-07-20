@@ -29,7 +29,7 @@ namespace BetterPawnControl
 
         static Widget_WorkTab()
         {
-            var isModActive = LoadedModManager.RunningMods.Any(mod => mod.Name.StartsWith("Work Tab"));
+            var isModActive = Widget_ModsAvailable.WorkTabAvailable;
             if (!isModActive)
                 return;
 

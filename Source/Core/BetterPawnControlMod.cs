@@ -19,6 +19,7 @@ namespace BetterPawnControl
             listingStandard.Begin(inRect);
             listingStandard.CheckboxLabeled("BPC.AutomaticPawnsInterruptSetting".Translate(), ref Settings.automaticPawnsInterrupt);
             listingStandard.CheckboxLabeled("BPC.SaveInventoryStock".Translate(), ref Settings.saveInventoryStock);
+
             if (Widget_ModsAvailable.WorkTabAvailable)
             {
                 listingStandard.CheckboxLabeled("BPC.DisableBPCOnWorkTabSetting".Translate(), ref Settings.disableBPCOnWorkTab, "BPC.DisableBPCOnWorkTabTooltip".Translate());
