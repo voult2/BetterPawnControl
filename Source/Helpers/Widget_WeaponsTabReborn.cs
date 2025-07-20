@@ -9,7 +9,7 @@ using Verse;
 namespace BetterPawnControl
 {
     [StaticConstructorOnStartup]
-    public static class Widget_WeaoponsTabReborn
+    public static class Widget_WeaponsTabReborn
     {
         private static bool init = false;
 
@@ -25,7 +25,7 @@ namespace BetterPawnControl
             return init;
         }            
 
-        static Widget_WeaoponsTabReborn()
+        static Widget_WeaponsTabReborn()
         {
             var isModActive = LoadedModManager.RunningMods.Any(mod => mod.Name == "[1001]Weapons Tab Reborn");
             if (!isModActive)
@@ -115,7 +115,18 @@ namespace BetterPawnControl
             if (!init)
                 return -1;
 
-            return (int) getDefaultLoadoutId.Invoke(null, new object[] { });
+            int res = 1;
+
+            try
+            {
+                res = (int) getDefaultLoadoutId.Invoke(null, new object[] { });
+            }
+            catch (Exception)
+            {
+                //this happens if the WeaponsTab was never 'clicked' by the user
+            }
+
+            return res;
         }
     }
 }

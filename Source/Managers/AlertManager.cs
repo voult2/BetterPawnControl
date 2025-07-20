@@ -11,7 +11,6 @@ namespace BetterPawnControl
     {
         internal static List<AlertLevel> alertLevelsList = new List<AlertLevel>();
         internal static int _alertLevel = 0;
-        private static bool _initialized = false;
 
         //Only two levels supported for now (ON and OFF)
         internal static bool OnAlert
@@ -28,25 +27,21 @@ namespace BetterPawnControl
 
         internal static void ForceInit()
         {
-            if (!_initialized)
+            alertLevelsList = new List<AlertLevel>();
+            Dictionary<Resources.Type, Policy> noAlert = new Dictionary<Resources.Type, Policy>
             {
-                alertLevelsList = new List<AlertLevel>();
-                Dictionary<Resources.Type, Policy> noAlert = new Dictionary<Resources.Type, Policy>
-                {
-                    { Resources.Type.work, WorkManager.GetActivePolicy() },
-                    { Resources.Type.restrict, ScheduleManager.GetActivePolicy() },
-                    { Resources.Type.assign, AssignManager.GetActivePolicy() },
-                    { Resources.Type.animal, AnimalManager.GetActivePolicy() },
-                    { Resources.Type.mech, MechManager.GetActivePolicy() },
-                    { Resources.Type.weapons, WeaponsManager.GetActivePolicy() },
-                    { Resources.Type.robots, RobotManager.GetActivePolicy() },
-                };
+                { Resources.Type.work, WorkManager.GetActivePolicy() },
+                { Resources.Type.restrict, ScheduleManager.GetActivePolicy() },
+                { Resources.Type.assign, AssignManager.GetActivePolicy() },
+                { Resources.Type.animal, AnimalManager.GetActivePolicy() },
+                { Resources.Type.mech, MechManager.GetActivePolicy() },
+                { Resources.Type.weapons, WeaponsManager.GetActivePolicy() },
+                { Resources.Type.robots, RobotManager.GetActivePolicy() },
+            };
 
-                Dictionary<Resources.Type, Policy> alertOn = new Dictionary<Resources.Type, Policy>(noAlert);
-                alertLevelsList.Add(new AlertLevel(0, noAlert));
-                alertLevelsList.Add(new AlertLevel(1, alertOn));
-                _initialized = true;
-            }
+            Dictionary<Resources.Type, Policy> alertOn = new Dictionary<Resources.Type, Policy>(noAlert);
+            alertLevelsList.Add(new AlertLevel(0, noAlert));
+            alertLevelsList.Add(new AlertLevel(1, alertOn));
         }
 
         internal static void PawnsInterruptForced()
@@ -83,18 +78,27 @@ namespace BetterPawnControl
                     //This means the alertLevelsList is missing a default policy
                     //This can be caused by loading a save from 1.3 on 1.4 (missing the new mech data or other)
                     case Resources.Type.mech:
-                        alertLevelsList[level].settings.Add(Resources.Type.mech, MechManager.GetActivePolicy());
-                        alertPolicy = MechManager.GetActivePolicy();
+                        if (ModsConfig.BiotechActive) 
+                        { 
+                            alertLevelsList[level].settings.Add(Resources.Type.mech, MechManager.GetActivePolicy());
+                            alertPolicy = MechManager.GetActivePolicy();
+                        }
                         break;
 
                     case Resources.Type.weapons:
-                        alertLevelsList[level].settings.Add(Resources.Type.weapons, WeaponsManager.GetActivePolicy());
-                        alertPolicy = WeaponsManager.GetActivePolicy();
+                        if (Widget_ModsAvailable.WTBAvailable)
+                        {
+                            alertLevelsList[level].settings.Add(Resources.Type.weapons, WeaponsManager.GetActivePolicy());
+                            alertPolicy = WeaponsManager.GetActivePolicy();
+                        }
                         break;
 
                     case Resources.Type.robots:
-                        alertLevelsList[level].settings.Add(Resources.Type.robots, RobotManager.GetActivePolicy());
-                        alertPolicy = RobotManager.GetActivePolicy();
+                        if (Widget_ModsAvailable.MiscRobotsAvailable)
+                        {
+                            alertLevelsList[level].settings.Add(Resources.Type.robots, RobotManager.GetActivePolicy());
+                            alertPolicy = RobotManager.GetActivePolicy();
+                        }
                         break;
 
                     default:
@@ -122,13 +126,29 @@ namespace BetterPawnControl
                 var alertLevel = alertLevelsList.FirstOrDefault(x => x.level == level);
                 if (alertLevel != null)
                 {
-                    alertLevel.settings.SetOrAdd(Resources.Type.work, WorkManager.GetActivePolicy());
+                    if (!Widget_ModsAvailable.DisableBPCOnWorkTab)
+                    {
+                        alertLevel.settings.SetOrAdd(Resources.Type.work, WorkManager.GetActivePolicy());
+                    }
+
                     alertLevel.settings.SetOrAdd(Resources.Type.restrict, ScheduleManager.GetActivePolicy());
                     alertLevel.settings.SetOrAdd(Resources.Type.assign, AssignManager.GetActivePolicy());
                     alertLevel.settings.SetOrAdd(Resources.Type.animal, AnimalManager.GetActivePolicy());
-                    alertLevel.settings.SetOrAdd(Resources.Type.mech, MechManager.GetActivePolicy());
-                    alertLevel.settings.SetOrAdd(Resources.Type.weapons, WeaponsManager.GetActivePolicy());
-                    alertLevel.settings.SetOrAdd(Resources.Type.robots, RobotManager.GetActivePolicy());
+
+                    if (ModsConfig.BiotechActive)
+                    {
+                        alertLevel.settings.SetOrAdd(Resources.Type.mech, MechManager.GetActivePolicy());
+                    }
+
+                    if (Widget_ModsAvailable.WTBAvailable)
+                    {
+                        alertLevel.settings.SetOrAdd(Resources.Type.weapons, WeaponsManager.GetActivePolicy());
+                    }                    
+
+                    if (Widget_ModsAvailable.MiscRobotsAvailable)
+                    {
+                        alertLevel.settings.SetOrAdd(Resources.Type.robots, RobotManager.GetActivePolicy());
+                    }                        
                 }
             }
             catch (NullReferenceException)
@@ -162,7 +182,10 @@ namespace BetterPawnControl
                             AnimalManager.LoadState(entry.Value);
                             break;
                         case Resources.Type.mech:
-                            MechManager.LoadState(entry.Value);
+                            if (ModsConfig.BiotechActive)
+                            {
+                                MechManager.LoadState(entry.Value);
+                            }                                
                             break;
                         case Resources.Type.weapons:
                             if (Widget_ModsAvailable.WTBAvailable)

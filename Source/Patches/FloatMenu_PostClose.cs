@@ -6,9 +6,9 @@ namespace BetterPawnControl
 {
 
     [HarmonyPatch(typeof(FloatMenu), "PostClose")]
-    internal static class FloatMenu_PostClose
+    public static class FloatMenu_PostClose
     {
-        private static void Postfix()
+        public static void Postfix()
         {
             if (Current.ProgramState == ProgramState.Playing && Find.CurrentMap != null && Find.CurrentMap.IsPlayerHome)
             {

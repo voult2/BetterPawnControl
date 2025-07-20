@@ -2,6 +2,7 @@
 using RimWorld;
 using Verse;
 using Verse.Sound;
+using static BetterPawnControl.BetterPawnControlMod;
 
 namespace BetterPawnControl.Patches
 {
@@ -58,7 +59,7 @@ namespace BetterPawnControl.Patches
             AlertManager.SaveState(0);
             AlertManager.LoadState(1); //ON
 
-            if (LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().automaticPawnsInterrupt)
+            if (Settings.automaticPawnsInterrupt)
             {
                 AlertManager.PawnsInterruptForced();
             }

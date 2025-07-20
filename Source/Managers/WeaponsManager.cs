@@ -16,8 +16,7 @@ namespace BetterPawnControl
             {
                 if (_defaultLoadoutId == -1)
                 {
-                    _defaultLoadoutId = Widget_WeaoponsTabReborn.GetDefaultLoadoutId();
-
+                    _defaultLoadoutId = Widget_WeaponsTabReborn.GetDefaultLoadoutId();
                 }
                 return _defaultLoadoutId;
             }
@@ -71,7 +70,7 @@ namespace BetterPawnControl
                 if (weaponLink != null )
                 {
                     //Weapon found! save             
-                    weaponLink.loadoutId = Widget_WeaoponsTabReborn.GetLoadoutId(p);                }
+                    weaponLink.loadoutId = Widget_WeaponsTabReborn.GetLoadoutId(p);                }
                 else
                 {
                     //Weapon not found. So add it to the WeaponLink list
@@ -79,7 +78,7 @@ namespace BetterPawnControl
                         new WeaponsLink(
                             WeaponsManager.GetActivePolicy().id,
                             p,
-                            Widget_WeaoponsTabReborn.GetLoadoutId(p),
+                            Widget_WeaponsTabReborn.GetLoadoutId(p),
                             currentMap)); ; ;
                 }
             }
@@ -118,7 +117,7 @@ namespace BetterPawnControl
                 {
                     if (l.colonist != null && l.colonist.Equals(p))
                     {
-                        Widget_WeaoponsTabReborn.SetLoadoutId(p, l.loadoutId);
+                        Widget_WeaponsTabReborn.SetLoadoutId(p, l.loadoutId);
                     }
                 }             
             }
