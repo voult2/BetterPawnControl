@@ -17,6 +17,7 @@ namespace BetterPawnControl
         internal ThingDef carriedMedicineThing = null;
         internal int carriedMedicineCount = 0;
         internal int loadoutId = 1;
+        internal int compositableState = -1;
         //internal int mapId = 0;
 
         public AssignLink() { }
@@ -24,7 +25,7 @@ namespace BetterPawnControl
         public AssignLink(
             int zone, Pawn colonist, ApparelPolicy outfit, FoodPolicy foodPolicy,
             DrugPolicy drugPolicy, ReadingPolicy readingPolicy, HostilityResponseMode hostilityResponse,
-            MedicalCareCategory medicinePolicy, int loadoutId, int mapId)
+            MedicalCareCategory medicinePolicy, int loadoutId, int compositableState, int mapId)
         {
             this.zone = zone;
             this.colonist = colonist;
@@ -35,6 +36,7 @@ namespace BetterPawnControl
             this.hostilityResponse = hostilityResponse;
             this.medicinePolicy = medicinePolicy;
             this.loadoutId = loadoutId;
+            this.compositableState = compositableState;
             this.mapId = mapId;
             SetInventoryStockForMedicine(colonist.inventoryStock);
         }
@@ -50,6 +52,7 @@ namespace BetterPawnControl
             this.hostilityResponse = link.hostilityResponse;
             this.medicinePolicy = link.medicinePolicy;
             this.loadoutId = link.loadoutId;
+            this.compositableState = link.compositableState;
             this.carriedMedicineThing = link.carriedMedicineThing;
             this.carriedMedicineCount = link.carriedMedicineCount;
             this.mapId = link.mapId;
@@ -73,6 +76,7 @@ namespace BetterPawnControl
                 "  CarriedMedicineThing: " + carriedMedicineThing +
                 "  CarriedMedicineCount: " + carriedMedicineCount +
                 "  LoadoutId: " + loadoutId +
+                "  Compositable: " + compositableState +
                 "  MapID: " + mapId;
         }
 
@@ -109,7 +113,7 @@ namespace BetterPawnControl
                     carriedMedicineCount = 0;
                 }
             }
-
+            Scribe_Values.Look<int>(ref compositableState, "compositableState", -1, true);
             Scribe_Values.Look<int>(ref mapId, "mapId", 0, true);
         }
 

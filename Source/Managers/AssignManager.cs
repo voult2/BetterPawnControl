@@ -224,6 +224,10 @@ namespace BetterPawnControl
                     {
                         link.loadoutId = Widget_CombatExtended.GetLoadoutId(p);
                     }
+                    if (Widget_CompositableLoadouts.CompositableLoadoutsAvailable)
+                    {
+                        link.compositableState = Widget_CompositableLoadouts.GetLoadoutId(p);
+                    }
                 }
                 else
                 {
@@ -232,6 +236,11 @@ namespace BetterPawnControl
                     if (Widget_CombatExtended.CombatExtendedAvailable)
                     {
                         loadoutId = Widget_CombatExtended.GetLoadoutId(p);
+                    }
+                    int compositableState = -1;
+                    if (Widget_CompositableLoadouts.CompositableLoadoutsAvailable)
+                    {
+                        compositableState = Widget_CompositableLoadouts.GetLoadoutId(p);
                     }
 
                     ApparelPolicy outfit = p.outfits.CurrentApparelPolicy;
@@ -268,6 +277,7 @@ namespace BetterPawnControl
                             p.playerSettings.hostilityResponse,
                             p.playerSettings.medCare,
                             loadoutId,
+                            compositableState,
                             currentMap);
                     AssignManager.links.Add(link);
                 }
@@ -393,6 +403,10 @@ namespace BetterPawnControl
                         if (Widget_CombatExtended.CombatExtendedAvailable)
                         {
                             Widget_CombatExtended.SetLoadoutById(p, l.loadoutId);
+                        }
+                        if (Widget_CompositableLoadouts.CompositableLoadoutsAvailable)
+                        {
+                            Widget_CompositableLoadouts.SetLoadoutById(p, l.compositableState);
                         }
                     }
                 }
