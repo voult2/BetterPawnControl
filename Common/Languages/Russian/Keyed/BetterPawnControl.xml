@@ -1,54 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-	<BPC.Auto>Авто</BPC.Auto>
-	<BPC.Rename>Переименовать</BPC.Rename>
-	<BPC.Settings>Настройки политик</BPC.Settings>
 
-	<BPC.NewAnimalPolicy>Новая политика питомцев</BPC.NewAnimalPolicy>
-	<BPC.AnimalPolicy>Политика </BPC.AnimalPolicy>
-	<BPC.CurrentAnimalPolicy>Текущая политика</BPC.CurrentAnimalPolicy>
-	
-	<BPC.NewAssignPolicy>Новая политика назначений</BPC.NewAssignPolicy>
-	<BPC.AssignPolicy>Политика </BPC.AssignPolicy>
-	<BPC.CurrentAssignPolicy>Текущая политика</BPC.CurrentAssignPolicy>
-	
-	<BPC.NewRestrictPolicy>Новая политика ограничений</BPC.NewRestrictPolicy>
-	<BPC.RestrictPolicy>Политика </BPC.RestrictPolicy>
-	<BPC.CurrentRestrictPolicy>Текущая политика</BPC.CurrentRestrictPolicy>
-	
-	<BPC.NewWorkPolicy>Новая политика работ</BPC.NewWorkPolicy>
-	<BPC.WorkPolicy>Политика </BPC.WorkPolicy>
-	<BPC.CurrentWorkPolicy>Текущая политика</BPC.CurrentWorkPolicy>
-	
-	<BPC.NewMechPolicy>Новая политика мехов</BPC.NewMechPolicy>
-	<BPC.MechPolicy>Политика </BPC.MechPolicy>
-	<BPC.CurrentMechPolicy>Текущая политика</BPC.CurrentMechPolicy>
-	
-	<BPC.NewWeaponsPolicy>Новая политика вооружения</BPC.NewWeaponsPolicy>
-	<BPC.WeaponsPolicy>Политика </BPC.WeaponsPolicy>
-	<BPC.CurrentWeaponsPolicy>Текущая политика</BPC.CurrentWeaponsPolicy>
-	
-	<BPC.NewRobotsPolicy>Новая политика роботов</BPC.NewRobotsPolicy>
-	<BPC.RobotsPolicy>Политика </BPC.RobotsPolicy>
-	<BPC.CurrentRobotsPolicy>Текущая политика</BPC.CurrentRobotsPolicy>
-	
-	<BPC.WorkTab>Работа</BPC.WorkTab>
-	<BPC.RestrictTab>Ограничения</BPC.RestrictTab>
-	<BPC.AssignTab>Назначения</BPC.AssignTab>
-	<BPC.AnimalTab>Питомцы</BPC.AnimalTab>
-	<BPC.MechTab>Мехи</BPC.MechTab>
-	<BPC.WeaponsTab>Оружие</BPC.WeaponsTab>
-	<BPC.RobotsTab>Роботы</BPC.RobotsTab>
-	
-	<BPC.SelectedDefaultOutfit>Снаряжение</BPC.SelectedDefaultOutfit>
-	<BPC.SelectedDefaultDrug>Наркотики</BPC.SelectedDefaultDrug>
-	<BPC.SelectedDefaultFood>Еда колонистов</BPC.SelectedDefaultFood>
-	<BPC.SelectedPrisonerDefaultFood>Еда заключенных</BPC.SelectedPrisonerDefaultFood>
-	
-	<BPC.Copy>Копировать политику</BPC.Copy>
-	<BPC.Paste>Вставить политику</BPC.Paste>
-	
-	<BPC.CopySchedule>Копировать расписание</BPC.CopySchedule>
-	<BPC.PasteSchedule>Вставить расписание</BPC.PasteSchedule>
-	
+  <BPC.BetterPawnControl>Better Pawn Control</BPC.BetterPawnControl>
+
+  <BPC.Auto>Авто</BPC.Auto>
+  <BPC.Rename>Переименовать</BPC.Rename>
+  <BPC.Settings>Настройки политик</BPC.Settings>
+
+  <BPC.NewAnimalPolicy>Новая политика питомцев</BPC.NewAnimalPolicy>
+  <BPC.AnimalPolicy>Политика </BPC.AnimalPolicy>
+  <BPC.CurrentAnimalPolicy>Текущая политика</BPC.CurrentAnimalPolicy>
+
+  <BPC.NewAssignPolicy>Новая политика назначений</BPC.NewAssignPolicy>
+  <BPC.AssignPolicy>Политика </BPC.AssignPolicy>
+  <BPC.CurrentAssignPolicy>Текущая политика</BPC.CurrentAssignPolicy>
+
+  <BPC.NewRestrictPolicy>Новая политика ограничений</BPC.NewRestrictPolicy>
+  <BPC.RestrictPolicy>Политика </BPC.RestrictPolicy>
+  <BPC.CurrentRestrictPolicy>Текущая политика</BPC.CurrentRestrictPolicy>
+
+  <BPC.NewWorkPolicy>Новая политика работ</BPC.NewWorkPolicy>
+  <BPC.WorkPolicy>Политика </BPC.WorkPolicy>
+  <BPC.CurrentWorkPolicy>Текущая политика</BPC.CurrentWorkPolicy>
+
+  <BPC.NewMechPolicy>Новая политика мехов</BPC.NewMechPolicy>
+  <BPC.MechPolicy>Политика </BPC.MechPolicy>
+  <BPC.CurrentMechPolicy>Текущая политика</BPC.CurrentMechPolicy>
+
+  <BPC.NewWeaponsPolicy>Новая политика вооружения</BPC.NewWeaponsPolicy>
+  <BPC.WeaponsPolicy>Политика </BPC.WeaponsPolicy>
+  <BPC.CurrentWeaponsPolicy>Текущая политика</BPC.CurrentWeaponsPolicy>
+
+  <BPC.NewRobotsPolicy>Новая политика роботов</BPC.NewRobotsPolicy>
+  <BPC.RobotsPolicy>Политика </BPC.RobotsPolicy>
+  <BPC.CurrentRobotsPolicy>Текущая политика</BPC.CurrentRobotsPolicy>
+
+  <BPC.WorkTab>Работа</BPC.WorkTab>
+  <BPC.RestrictTab>Ограничения</BPC.RestrictTab>
+  <BPC.AssignTab>Назначения</BPC.AssignTab>
+  <BPC.AnimalTab>Питомцы</BPC.AnimalTab>
+  <BPC.MechTab>Мехи</BPC.MechTab>
+  <BPC.WeaponsTab>Оружие</BPC.WeaponsTab>
+  <BPC.RobotsTab>Роботы</BPC.RobotsTab>
+
+  <BPC.PoliciesConfigText>Изменение шаблонов политик. Не забудьте настроить каждую из них после.</BPC.PoliciesConfigText>
+
+  <BPC.DefaultsConfigText>Настройка политик при присоединении нового поселенца</BPC.DefaultsConfigText>
+  <BPC.SelectedDefaultOutfit>Снаряжение</BPC.SelectedDefaultOutfit>
+  <BPC.SelectedDefaultFood>Диета</BPC.SelectedDefaultFood>
+  <BPC.SelectedDefaultDrug>Приём препаратов</BPC.SelectedDefaultDrug>
+  <BPC.SelectedDefaultReading>Чтение</BPC.SelectedDefaultReading>
+  <BPC.SelectedDefaultMeds>Врачебный уход</BPC.SelectedDefaultMeds>
+  <BPC.SelectedDefaultWeapons>Вооружение</BPC.SelectedDefaultWeapons>
+
+  <BPC.SelectedPrisonerDefaultFood>Еда заключённых</BPC.SelectedPrisonerDefaultFood>
+  <BPC.SelectedPrisonerDefaultMeds>Врачебный уход</BPC.SelectedPrisonerDefaultMeds>
+
+  <BPC.SelectedSlaveDefaultOutfit>Снаряжение</BPC.SelectedSlaveDefaultOutfit>  
+  <BPC.SelectedSlaveDefaultFood>Диета</BPC.SelectedSlaveDefaultFood>
+  <BPC.SelectedSlaveDefaultDrugs>Приём препаратов</BPC.SelectedSlaveDefaultDrugs>
+  <BPC.SelectedSlaveDefaultReading>Чтение</BPC.SelectedSlaveDefaultReading>
+  <BPC.SelectedSlaveDefaultMeds>Врачебный уход</BPC.SelectedSlaveDefaultMeds>
+
+  <BPC.ColonistDefaultHeader>Поселенец</BPC.ColonistDefaultHeader>
+  <BPC.PrisonerDefaultHeader>Заключённый</BPC.PrisonerDefaultHeader>
+  <BPC.SlaveDefaultHeader>Раб</BPC.SlaveDefaultHeader>
+
+  <BPC.Copy>Копировать политику</BPC.Copy>
+  <BPC.Paste>Вставить политику</BPC.Paste>
+
+  <BPC.CopySchedule>Копировать расписание</BPC.CopySchedule>
+  <BPC.PasteSchedule>Вставить расписание</BPC.PasteSchedule>
+
+  <BPC.ToggleEmergencyOn>Выключить режим тревоги. Политики будут переключены на предыдущие значения до тревоги.</BPC.ToggleEmergencyOn>
+  <BPC.ToggleEmergencyOff>Включить режим тревоги. Политики назначаемые при тревоге можно настроить в окне Better Pawn Control, после нажатия кнопки с шестерёнкой.</BPC.ToggleEmergencyOff>
+  <BPC.AlertConfigText>Выбор политики при включении режима тревоги. Используйте горячую клавишу для быстрого переключения режима.</BPC.AlertConfigText>
+  <BPC.EmergencyLocationTooltip>Кнопка режима тревоги находится справа внизу под кнопками переключения скорости игры.</BPC.EmergencyLocationTooltip>
+
+  <BPC.BetterPawnControlSettingsName>Better Pawn Control</BPC.BetterPawnControlSettingsName>
+  <BPC.AutomaticPawnsInterruptSetting>Прерывать текущую работу поселенца при включении режима тревоги</BPC.AutomaticPawnsInterruptSetting>
+  <BPC.SaveInventoryStock>Сохранять колонку "Иметь при себе" в политиках Назначения.</BPC.SaveInventoryStock>
+  <BPC.DisableBPCOnWorkTabSetting>Отключить поддержку мода WorkTab.</BPC.DisableBPCOnWorkTabSetting>
+  <BPC.DisableBPCOnWorkTabTooltip>Отключение полной интеграции с модом WorkTab, включая поддержку подприоритетов.</BPC.DisableBPCOnWorkTabTooltip>
+  <BPC.DisableBPCWorkTabInnerPrioritiesSetting>Отключение поддержки подприоритетов WorkTab</BPC.DisableBPCWorkTabInnerPrioritiesSetting>
+  <BPC.DisableBPCWorkTabInnerPrioritiesTooltip>Значения подприоритетов WorkTab не будут сохраняться в политиках работ.</BPC.DisableBPCWorkTabInnerPrioritiesTooltip>
+
 </LanguageData>

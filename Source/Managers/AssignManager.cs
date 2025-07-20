@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using HarmonyLib;
+using BetterPawnControl.Helpers;
 using RimWorld;
 using Verse;
+using static BetterPawnControl.BetterPawnControlMod;
 
 namespace BetterPawnControl
 {
@@ -218,7 +218,8 @@ namespace BetterPawnControl
                     link.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
                     link.readingPolicy = p.reading.CurrentPolicy;
                     link.medicinePolicy = p.playerSettings.medCare;
-                    //AssignManager.SavePawnInventoryStock(p, link);
+                    link.SetInventoryStockForMedicine(p.inventoryStock);
+
                     if (Widget_CombatExtended.CombatExtendedAvailable)
                     {
                         link.loadoutId = Widget_CombatExtended.GetLoadoutId(p);
@@ -269,38 +270,10 @@ namespace BetterPawnControl
                             loadoutId,
                             currentMap);
                     AssignManager.links.Add(link);
-                    //SavePawnInventoryStock(p, link);
                 }
             }
         }
 
-        //internal static void SavePawnInventoryStock(Pawn p, AssignLink link)
-        //{
-        //    if (link.stockEntries != null)
-        //    {
-        //        foreach (var key in p.inventoryStock.stockEntries.Keys)
-        //        {
-        //            InventoryStockEntry test = new InventoryStockEntry
-        //            {
-        //                thingDef = p.inventoryStock.stockEntries.TryGetValue(key).thingDef,
-        //                count = p.inventoryStock.stockEntries.TryGetValue(key).count
-        //            };
-        //            link.stockEntries.SetOrAdd(key, test);
-        //        }
-        //    }
-        //}
-
-        //internal static void LoadPawnInventoryStock(Pawn p, AssignLink link)
-        //{
-        //    if (link.stockEntries != null)
-        //    {
-        //        foreach (var key in link.stockEntries.Keys)
-        //        {
-        //            p.inventoryStock.stockEntries.SetOrAdd(key, link.stockEntries.TryGetValue(key));
-        //        }
-        //    }
-        //}
-        
         internal static void CleanDeadColonists(Pawn pawn)
         {
             AssignManager.links.RemoveAll(x => x.colonist == pawn);
@@ -355,8 +328,8 @@ namespace BetterPawnControl
                 }
             }
         }
-        
-        internal static void UpdateState( List<AssignLink> links, List<Pawn> pawns, Policy policy)
+
+        internal static void UpdateState(List<AssignLink> links, List<Pawn> pawns, Policy policy)
         {
             List<AssignLink> mapLinks = null;
             List<AssignLink> zoneLinks = null;
@@ -377,6 +350,10 @@ namespace BetterPawnControl
                         l.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
                         l.outfit = p.outfits.CurrentApparelPolicy;
                         l.medicinePolicy = p.playerSettings.medCare;
+                        if (Settings.saveInventoryStock)
+                        {
+                            l.SetInventoryStockForMedicine(p.inventoryStock);
+                        }
                     }
                 }
             }
@@ -407,6 +384,11 @@ namespace BetterPawnControl
                         p.reading.CurrentPolicy = ReadingPolicyExits(l.readingPolicy) ? l.readingPolicy : null;
                         p.playerSettings.hostilityResponse = l.hostilityResponse;
                         p.playerSettings.medCare = l.medicinePolicy;
+
+                        if (Settings.saveInventoryStock)
+                        {
+                            p.SetInventoryStock(InventoryStockGroupDefOf.Medicine, l.carriedMedicineThing, l.carriedMedicineCount);
+                        }
 
                         if (Widget_CombatExtended.CombatExtendedAvailable)
                         {
@@ -510,7 +492,7 @@ namespace BetterPawnControl
 
         internal static void SetDefaultsForPrisoner(Pawn p)
         {
-            if (p!= null && p.foodRestriction != null)
+            if (p != null && p.foodRestriction != null)
             {
                 p.foodRestriction.CurrentFoodPolicy = AssignManager.DefaultPrisonerFoodPolicy;
             }
@@ -518,7 +500,7 @@ namespace BetterPawnControl
 
         internal static void SetDefaultsForSlave(Pawn p)
         {
-            if (p != null && p.outfits != null && p.foodRestriction != null &&  p.drugs != null)
+            if (p != null && p.outfits != null && p.foodRestriction != null && p.drugs != null)
             {
                 p.outfits.CurrentApparelPolicy = AssignManager.DefaultSlaveOutfit;
                 p.drugs.CurrentPolicy = AssignManager.DefaultSlaveDrugPolicy;
