@@ -90,7 +90,7 @@ namespace BetterPawnControl
 			MapActivePolicy mapPolicy = activePolicies.Find(x => x.mapId == mapId);
 			if (mapPolicy == null)
 			{
-				//new map!create default
+				//new map! create default
 				mapPolicy = new MapActivePolicy(mapId, policies[0]);
 				activePolicies.Add(mapPolicy);
 			}
@@ -102,7 +102,18 @@ namespace BetterPawnControl
 			return policies.Find(x => x.id == selected);
 		}
 
-		internal static void SetActivePolicy(int mapId, Policy policy)
+        internal static MapActivePolicy GetActiveMap(int mapId)
+        {
+            if (activePolicies == null)
+            {
+				//create default
+				GetActivePolicy(mapId);
+            }
+
+			return activePolicies.Find(x => x.mapId == mapId);
+        }
+
+        internal static void SetActivePolicy(int mapId, Policy policy)
 		{
 			MapActivePolicy map = activePolicies.Find(x => x.mapId == mapId);
 			if (map != null)
@@ -115,38 +126,71 @@ namespace BetterPawnControl
 			}
 		}
 
-		internal static void MoveLinksToMap(int dstMap)
+		internal static void MoveLinksToMap(int srcMapId, int dstMapId)
 		{
+			if (srcMapId == -1)
+			{
+				//this means there is not last map and nothing should be done.
+				Log.Warning("[BPC] Couldn't copy settings to new map since last map does not exit");
+				return;
+			}
+
 			foreach (T link in links)
 			{
 				if (link.GetType() == typeof(WorkLink))
 				{
-					link.ChangeType<WorkLink>().mapId = dstMap;
+					if (link.ChangeType<WorkLink>().mapId == srcMapId)
+					{
+                        link.ChangeType<WorkLink>().mapId = dstMapId;
+                    }
 				}
 
 				if (link.GetType() == typeof(ScheduleLink))
 				{
-					link.ChangeType<ScheduleLink>().mapId = dstMap;
-				}
+                    if (link.ChangeType<ScheduleLink>().mapId == srcMapId)
+                    {
+                        link.ChangeType<ScheduleLink>().mapId = dstMapId;
+                    }
+                }
 
 				if (link.GetType() == typeof(AssignLink))
 				{
-					link.ChangeType<AssignLink>().mapId = dstMap;
-				}
+                    if (link.ChangeType<AssignLink>().mapId == srcMapId)
+                    {
+                        link.ChangeType<AssignLink>().mapId = dstMapId;
+                    }
+                }
 
 				if (link.GetType() == typeof(AnimalLink))
 				{
-					link.ChangeType<AnimalLink>().mapId = dstMap;
-				}
+                    if (link.ChangeType<AnimalLink>().mapId == srcMapId)
+                    {
+                        link.ChangeType<AnimalLink>().mapId = dstMapId;
+                    }
+                }
 
 				if (link.GetType() == typeof(MechLink))
 				{
-					link.ChangeType<MechLink>().mapId = dstMap;
-				}
+                    if (link.ChangeType<MechLink>().mapId == srcMapId)
+                    {
+                        link.ChangeType<MechLink>().mapId = dstMapId;
+                    }
+                }
 
                 if (link.GetType() == typeof(RobotLink))
                 {
-                    link.ChangeType<RobotLink>().mapId = dstMap;
+                    if (link.ChangeType<RobotLink>().mapId == srcMapId)
+                    {
+                        link.ChangeType<RobotLink>().mapId = dstMapId;
+                    }
+                }
+                
+				if (link.GetType() == typeof(WeaponsLink))
+                {
+                    if (link.ChangeType<WeaponsLink>().mapId == srcMapId)
+                    {
+                        link.ChangeType<WeaponsLink>().mapId = dstMapId;
+                    }
                 }
             }
 		}

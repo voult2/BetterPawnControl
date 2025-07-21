@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using HarmonyLib;
 using Verse;
+using static BetterPawnControl.BetterPawnControlMod;
 
 namespace BetterPawnControl
 {
@@ -39,7 +40,7 @@ namespace BetterPawnControl
         {
             get
             {
-                return  LoadedModManager.RunningMods.Any(mod => mod.Name == WORKTAB);
+                return LoadedModManager.RunningMods.Any(mod => mod.Name.StartsWith(WORKTAB));
             }
         }
 
@@ -47,7 +48,7 @@ namespace BetterPawnControl
         {
             get
             {
-                return WorkTabAvailable && LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().disableBPCOnWorkTab;
+                return WorkTabAvailable && Settings.disableBPCOnWorkTab;
             }
         }
 
@@ -55,7 +56,7 @@ namespace BetterPawnControl
         {
             get
             {
-                return WorkTabAvailable && LoadedModManager.GetMod<BetterPawnControl>().GetSettings<Settings>().disableBPCWorkTabInnerPriorities;
+                return WorkTabAvailable && Settings.disableBPCWorkTabInnerPriorities;
             }
         }
 
@@ -96,6 +97,14 @@ namespace BetterPawnControl
             get
             {
                 return LoadedModManager.RunningMods.Any(mod => mod.Name == MISCROBOTS);
+            }
+        }
+
+        public static bool CompositableAvailable
+        {
+            get
+            {
+                return Widget_CompositableLoadouts.CompositableLoadoutsAvailable;;
             }
         }
     }

@@ -190,31 +190,61 @@ namespace BetterPawnControl
             return containsValidMap;
         }
 
-        internal static void CleanRemovedMaps()
+        internal static void CleanRemovedMaps(Map map)
         {
-            for (int i = 0; i < MechManager.activePolicies.Count; i++)
+            //for (int i = 0; i < MechManager.activePolicies.Count; i++)
+            //{
+            //    MapActivePolicy map = MechManager.activePolicies[i];
+            //    if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
+            //    {
+            //        if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
+            //        {
+            //            if (Find.Maps.Count == 1 && !MechManager.ActivePoliciesContainsValidMap())
+            //            {
+            //                //this means the player was on the move without any base
+            //                //and just re-settled. So, let's move the settings to
+            //                //the new map
+            //                int newMapId = Find.CurrentMap.uniqueID;
+            //                MechManager.MoveLinksToMap(map.mapId, newMapId);
+            //                map.mapId = newMapId;
+            //            }
+            //            else
+            //            {
+            //                MechManager.DeleteLinksInMap(map.mapId);
+            //                MechManager.DeleteMap(map);
+            //            }
+            //        }
+            //    }
+            //}
+            if (!map.IsPlayerHome)
             {
-                MapActivePolicy map = MechManager.activePolicies[i];
-                if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
+                MechManager.DeleteLinksInMap(map.uniqueID);
+                MapActivePolicy mapActivePolicy = MechManager.GetActiveMap(map.uniqueID);
+                MechManager.DeleteMap(mapActivePolicy);
+            }
+        }
+
+        internal static void ProcessNewMap(Map newMap)
+        {
+            if (Find.Maps.Count > 1)
+            {
+                //Player has a base and arrived at a new map or got in a incident in a new map with caravan
+                //BCP will create a new map in the MapActivePolicy list. Nothing to do here.
+
+            }
+            else if (Find.Maps.Count == 1)
+            {
+                //Player has no base and just arrived in a new map via caravan or via GravShip.
+                //So let us move all links from the old and last map and then delete the old map
+                if (!MechManager.ActivePoliciesContainsValidMap())
                 {
-                    if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
-                    {
-                        if (Find.Maps.Count == 1 && !MechManager.ActivePoliciesContainsValidMap())
-                        {
-                            //this means the player was on the move without any base
-                            //and just re-settled. So, let's move the settings to
-                            //the new map
-                            int mapid = Find.CurrentMap.uniqueID;
-                            MechManager.MoveLinksToMap(mapid);
-                            map.mapId = mapid;
-                        }
-                        else
-                        {
-                            MechManager.DeleteLinksInMap(map.mapId);
-                            MechManager.DeleteMap(map);
-                        }
-                    }
+                    MechManager.MoveLinksToMap(LastMapManager.lastMapId, newMap.uniqueID);
                 }
+            }
+            else
+            {
+                //this makes no sense
+                Log.Warning("[BPC] This code shouldn't have ran");
             }
         }
 

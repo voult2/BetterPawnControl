@@ -77,11 +77,11 @@
 	<BPC.EmergencyLocationTooltip>The Emergency button is in the lower right side of the game window, next to the toggle buttons</BPC.EmergencyLocationTooltip>
 	
 	<BPC.BetterPawnControlSettingsName>Better Pawn Control</BPC.BetterPawnControlSettingsName>
-	<BPC.AutomaticPawnsInterruptSetting>Automatically interrupted whatever pawns are doing when toggling emergency ON?</BPC.AutomaticPawnsInterruptSetting>	
+	<BPC.AutomaticPawnsInterruptSetting>Automatically interrupted whatever pawns are doing when toggling emergency ON?</BPC.AutomaticPawnsInterruptSetting>
+	<BPC.SaveInventoryStock>Save Carried column in Assign policies?</BPC.SaveInventoryStock>
 	<BPC.DisableBPCOnWorkTabSetting>Fully disable BPC integration with on WorkTab mod?</BPC.DisableBPCOnWorkTabSetting>
 	<BPC.DisableBPCOnWorkTabTooltip>Full integration, including the WorkTab's mod inner (or extended) priorities.</BPC.DisableBPCOnWorkTabTooltip>
 	<BPC.DisableBPCWorkTabInnerPrioritiesSetting>Disable BPC integration with WorkTab's mod inner (or extended) priorities and keep 'normal' priorities?</BPC.DisableBPCWorkTabInnerPrioritiesSetting>
-	<BPC.DisableBPCWorkTabInnerPrioritiesTooltip>This will allow to keep using BPC with WorkTab but without saving the inner priorities.</BPC.DisableBPCWorkTabInnerPrioritiesTooltip>	
-
+	<BPC.DisableBPCWorkTabInnerPrioritiesTooltip>This will allow to keep using BPC with WorkTab but without saving the inner priorities.</BPC.DisableBPCWorkTabInnerPrioritiesTooltip>
 
 </LanguageData>

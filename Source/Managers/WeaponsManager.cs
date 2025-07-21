@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Verse;
+using Verse.Noise;
 
 namespace BetterPawnControl
 {
@@ -144,31 +145,60 @@ namespace BetterPawnControl
             return containsValidMap;
         }
 
-        internal static void CleanRemovedMaps()
+        internal static void CleanRemovedMaps(Map map)
         {
-            for (int i = 0; i < WeaponsManager.activePolicies.Count; i++)
+            //for (int i = 0; i < WeaponsManager.activePolicies.Count; i++)
+            //{
+            //    MapActivePolicy map = WeaponsManager.activePolicies[i];
+            //    if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
+            //    {
+            //        if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
+            //        {
+            //            if (Find.Maps.Count == 1 && !WeaponsManager.ActivePoliciesContainsValidMap())
+            //            {
+            //                //this means the player was on the move without any base
+            //                //and just re-settled. So, let's move the settings to
+            //                //the new map
+            //                int newMapId = Find.CurrentMap.uniqueID;
+            //                WeaponsManager.MoveLinksToMap(map.mapId, newMapId);
+            //                map.mapId = newMapId;
+            //            }
+            //            else
+            //            {
+            //                WeaponsManager.DeleteLinksInMap(map.mapId);
+            //                WeaponsManager.DeleteMap(map);
+            //            }
+            //        }
+            //    }
+            //}
+            if (!map.IsPlayerHome)
             {
-                MapActivePolicy map = WeaponsManager.activePolicies[i];
-                if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
+                WeaponsManager.DeleteLinksInMap(map.uniqueID);
+                MapActivePolicy mapActivePolicy = WeaponsManager.GetActiveMap(map.uniqueID);
+                WeaponsManager.DeleteMap(mapActivePolicy);
+            }
+        }
+        internal static void ProcessNewMap(Map newMap)
+        {
+            if (Find.Maps.Count > 1)
+            {
+                //Player has a base and arrived at a new map or got in a incident in a new map with caravan
+                //BCP will create a new map in the MapActivePolicy list. Nothing to do here.
+
+            }
+            else if (Find.Maps.Count == 1)
+            {
+                //Player has no base and just arrived in a new map via caravan or via GravShip.
+                //So let us move all links from the old and last map and then delete the old map
+                if (!WeaponsManager.ActivePoliciesContainsValidMap())
                 {
-                    if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
-                    {
-                        if (Find.Maps.Count == 1 && !WeaponsManager.ActivePoliciesContainsValidMap())
-                        {
-                            //this means the player was on the move without any base
-                            //and just re-settled. So, let's move the settings to
-                            //the new map
-                            int mapid = Find.CurrentMap.uniqueID;
-                            WeaponsManager.MoveLinksToMap(mapid);
-                            map.mapId = mapid;
-                        }
-                        else
-                        {
-                            WeaponsManager.DeleteLinksInMap(map.mapId);
-                            WeaponsManager.DeleteMap(map);
-                        }
-                    }
+                    WeaponsManager.MoveLinksToMap(LastMapManager.lastMapId, newMap.uniqueID);
                 }
+            }
+            else
+            {
+                //this makes no sense
+                Log.Warning("[BPC] This code shouldn't have ran");
             }
         }
 

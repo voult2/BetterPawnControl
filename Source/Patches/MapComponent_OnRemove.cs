@@ -3,23 +3,25 @@ using Verse;
 
 namespace BetterPawnControl.Patches
 {
-    [HarmonyPatch(typeof(MapComponent), nameof(MapComponent.MapRemoved))]
+    [HarmonyPatch(typeof(MapComponentUtility), nameof(MapComponentUtility.MapRemoved))]
     static class MapComponent_OnRemove
     {
-        static void Postfix()
+        static void Postfix(Map map)
         {
-            AssignManager.CleanRemovedMaps();
-            ScheduleManager.CleanRemovedMaps();
-            WorkManager.CleanRemovedMaps();
-            AnimalManager.CleanRemovedMaps();
-            MechManager.CleanRemovedMaps();
+            LastMapManager.lastMapId = map.uniqueID;
+
+            AssignManager.CleanRemovedMaps(map);
+            ScheduleManager.CleanRemovedMaps(map);
+            WorkManager.CleanRemovedMaps(map);
+            AnimalManager.CleanRemovedMaps(map);
+            MechManager.CleanRemovedMaps(map);
             if (Widget_ModsAvailable.WTBAvailable)
             {
-                WeaponsManager.CleanRemovedMaps();
+                WeaponsManager.CleanRemovedMaps(map);
             }
             if (Widget_ModsAvailable.MiscRobotsAvailable)
             {
-                RobotManager.CleanRemovedMaps();
+                RobotManager.CleanRemovedMaps(map);
             }
         }
     }

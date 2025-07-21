@@ -1,5 +1,6 @@
 ﻿using RimWorld;
 using Verse;
+using static BetterPawnControl.BetterPawnControlMod;
 
 namespace BetterPawnControl
 {
@@ -13,7 +14,10 @@ namespace BetterPawnControl
         internal ReadingPolicy readingPolicy = null;
         internal HostilityResponseMode hostilityResponse = HostilityResponseMode.Flee;
         internal MedicalCareCategory medicinePolicy = MedicalCareCategory.Best;
+        internal ThingDef carriedMedicineThing = null;
+        internal int carriedMedicineCount = 0;
         internal int loadoutId = 1;
+        internal int compositableState = -1;
         //internal int mapId = 0;
 
         public AssignLink() { }
@@ -21,7 +25,7 @@ namespace BetterPawnControl
         public AssignLink(
             int zone, Pawn colonist, ApparelPolicy outfit, FoodPolicy foodPolicy,
             DrugPolicy drugPolicy, ReadingPolicy readingPolicy, HostilityResponseMode hostilityResponse,
-            MedicalCareCategory medicinePolicy, int loadoutId, int mapId)
+            MedicalCareCategory medicinePolicy, int loadoutId, int compositableState, int mapId)
         {
             this.zone = zone;
             this.colonist = colonist;
@@ -32,7 +36,9 @@ namespace BetterPawnControl
             this.hostilityResponse = hostilityResponse;
             this.medicinePolicy = medicinePolicy;
             this.loadoutId = loadoutId;
+            this.compositableState = compositableState;
             this.mapId = mapId;
+            SetInventoryStockForMedicine(colonist.inventoryStock);
         }
 
         public AssignLink(AssignLink link)
@@ -46,6 +52,9 @@ namespace BetterPawnControl
             this.hostilityResponse = link.hostilityResponse;
             this.medicinePolicy = link.medicinePolicy;
             this.loadoutId = link.loadoutId;
+            this.compositableState = link.compositableState;
+            this.carriedMedicineThing = link.carriedMedicineThing;
+            this.carriedMedicineCount = link.carriedMedicineCount;
             this.mapId = link.mapId;
         }
 
@@ -64,7 +73,10 @@ namespace BetterPawnControl
                 "  ReadingPolicy: " + reading +
                 "  HostilityResponse: " + hostilityResponse +
                 "  MedCare: " + medicinePolicy +
+                "  CarriedMedicineThing: " + carriedMedicineThing +
+                "  CarriedMedicineCount: " + carriedMedicineCount +
                 "  LoadoutId: " + loadoutId +
+                "  Compositable: " + compositableState +
                 "  MapID: " + mapId;
         }
 
@@ -83,12 +95,46 @@ namespace BetterPawnControl
             Scribe_References.Look<ReadingPolicy>(ref readingPolicy, "readingPolicy");
             Scribe_Values.Look<HostilityResponseMode>(ref hostilityResponse, "hostilityResponse", HostilityResponseMode.Flee, true);
             Scribe_Values.Look<MedicalCareCategory>(ref medicinePolicy, "medcare", MedicalCareCategory.Best, true);
+            Scribe_Defs.Look(ref carriedMedicineThing, "carriedMedicineThing");
+            Scribe_Values.Look(ref carriedMedicineCount, "carriedMedicineCount");
             Scribe_Values.Look<int>(ref loadoutId, "loadoutId", 1, true);
-            if (Scribe.mode == LoadSaveMode.LoadingVars && loadoutId == 0)
+
+            if (Scribe.mode == LoadSaveMode.LoadingVars)
             {
-                this.loadoutId = 1;                
+                if (loadoutId == 0)
+                    this.loadoutId = 1;
             }
+
+            if (Scribe.mode == LoadSaveMode.Saving)
+            {
+                if (!Settings.saveInventoryStock)
+                {
+                    carriedMedicineThing = null;
+                    carriedMedicineCount = 0;
+                }
+            }
+            Scribe_Values.Look<int>(ref compositableState, "compositableState", -1, true);
             Scribe_Values.Look<int>(ref mapId, "mapId", 0, true);
+        }
+
+        public void SetInventoryStockForMedicine(Pawn_InventoryStockTracker stock)
+        {
+            if (!Settings.saveInventoryStock)
+            {
+                carriedMedicineThing = null;
+                carriedMedicineCount = 0;
+                return;
+            }
+
+            if (stock == null)
+            {
+                return;
+            }
+
+            var thing = colonist.inventoryStock.GetDesiredThingForGroup(InventoryStockGroupDefOf.Medicine);
+            carriedMedicineThing = thing;
+            var count = colonist.inventoryStock.GetDesiredCountForGroup(InventoryStockGroupDefOf.Medicine);
+            carriedMedicineCount = count;
         }
     }
 }

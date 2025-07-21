@@ -2,6 +2,7 @@
 using System.Linq;
 using RimWorld;
 using Verse;
+using Verse.Noise;
 
 namespace BetterPawnControl
 {
@@ -100,28 +101,58 @@ namespace BetterPawnControl
             return containsValidMap;
         }
 
-        internal static void CleanRemovedMaps()
+        internal static void CleanRemovedMaps(Map map)
         {
-            for (int i = 0; i < WorkManager.activePolicies.Count; i++)
+            //for (int i = 0; i < WorkManager.activePolicies.Count; i++)
+            //{
+            //    MapActivePolicy map = WorkManager.activePolicies[i];
+            //    if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
+            //    {
+            //        if (Find.Maps.Count == 1 && !WorkManager.ActivePoliciesContainsValidMap())
+            //        {
+            //            //this means the player was on the move without any base
+            //            //and just re-settled. So, let's move the settings to
+            //            //the new map
+            //            int newMapId = Find.CurrentMap.uniqueID;
+            //            WorkManager.MoveLinksToMap(map.mapId, newMapId);
+            //            map.mapId = newMapId;
+            //        }
+            //        else
+            //        {
+            //            WorkManager.DeleteLinksInMap(map.mapId);
+            //            WorkManager.DeleteMap(map);
+            //        }
+            //    }
+            //}
+            if (!map.IsPlayerHome)
             {
-                MapActivePolicy map = WorkManager.activePolicies[i];
-                if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
+                WorkManager.DeleteLinksInMap(map.uniqueID);
+                MapActivePolicy mapActivePolicy = WorkManager.GetActiveMap(map.uniqueID);
+                WorkManager.DeleteMap(mapActivePolicy);
+            }
+        }
+
+        internal static void ProcessNewMap(Map newMap)
+        {
+            if (Find.Maps.Count > 1)
+            {
+                //Player has a base and arrived at a new map or got in a incident in a new map with caravan
+                //BCP will create a new map in the MapActivePolicy list. Nothing to do here.
+
+            }
+            else if (Find.Maps.Count == 1)
+            {
+                //Player has no base and just arrived in a new map via caravan or via GravShip.
+                //So let us move all links from the old and last map and then delete the old map
+                if (!WorkManager.ActivePoliciesContainsValidMap())
                 {
-                    if (Find.Maps.Count == 1 && !WorkManager.ActivePoliciesContainsValidMap())
-                    {
-                        //this means the player was on the move without any base
-                        //and just re-settled. So, let's move the settings to
-                        //the new map
-                        int mapid = Find.CurrentMap.uniqueID;
-                        WorkManager.MoveLinksToMap(mapid);
-                        map.mapId = mapid;
-                    }
-                    else
-                    {
-                        WorkManager.DeleteLinksInMap(map.mapId);
-                        WorkManager.DeleteMap(map);
-                    }
+                    WorkManager.MoveLinksToMap(LastMapManager.lastMapId, newMap.uniqueID);
                 }
+            }
+            else
+            {
+                //this makes no sense
+                Log.Warning("[BPC] This code shouldn't have ran");
             }
         }
 
@@ -184,7 +215,8 @@ namespace BetterPawnControl
         {
             if (link.settings != null)
             {
-                foreach (KeyValuePair<WorkTypeDef, int> entry in link.settings)
+                //foreach (KeyValuePair<WorkTypeDef, int> entry in link.settings)
+                foreach (KeyValuePair<WorkTypeDef, int> entry in link.settings.Where(pair => !p.WorkTypeIsDisabled(pair.Key)))
                 {
                     try
                     {

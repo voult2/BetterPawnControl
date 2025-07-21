@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using HarmonyLib;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using BetterPawnControl.Helpers;
 using RimWorld;
 using Verse;
+using static BetterPawnControl.BetterPawnControlMod;
 
 namespace BetterPawnControl
 {
@@ -218,10 +219,15 @@ namespace BetterPawnControl
                     link.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
                     link.readingPolicy = p.reading.CurrentPolicy;
                     link.medicinePolicy = p.playerSettings.medCare;
-                    //AssignManager.SavePawnInventoryStock(p, link);
+                    link.SetInventoryStockForMedicine(p.inventoryStock);
+
                     if (Widget_CombatExtended.CombatExtendedAvailable)
                     {
                         link.loadoutId = Widget_CombatExtended.GetLoadoutId(p);
+                    }
+                    if (Widget_CompositableLoadouts.CompositableLoadoutsAvailable)
+                    {
+                        link.compositableState = Widget_CompositableLoadouts.GetLoadoutId(p);
                     }
                 }
                 else
@@ -231,6 +237,11 @@ namespace BetterPawnControl
                     if (Widget_CombatExtended.CombatExtendedAvailable)
                     {
                         loadoutId = Widget_CombatExtended.GetLoadoutId(p);
+                    }
+                    int compositableState = -1;
+                    if (Widget_CompositableLoadouts.CompositableLoadoutsAvailable)
+                    {
+                        compositableState = Widget_CompositableLoadouts.GetLoadoutId(p);
                     }
 
                     ApparelPolicy outfit = p.outfits.CurrentApparelPolicy;
@@ -267,40 +278,13 @@ namespace BetterPawnControl
                             p.playerSettings.hostilityResponse,
                             p.playerSettings.medCare,
                             loadoutId,
+                            compositableState,
                             currentMap);
                     AssignManager.links.Add(link);
-                    //SavePawnInventoryStock(p, link);
                 }
             }
         }
 
-        //internal static void SavePawnInventoryStock(Pawn p, AssignLink link)
-        //{
-        //    if (link.stockEntries != null)
-        //    {
-        //        foreach (var key in p.inventoryStock.stockEntries.Keys)
-        //        {
-        //            InventoryStockEntry test = new InventoryStockEntry
-        //            {
-        //                thingDef = p.inventoryStock.stockEntries.TryGetValue(key).thingDef,
-        //                count = p.inventoryStock.stockEntries.TryGetValue(key).count
-        //            };
-        //            link.stockEntries.SetOrAdd(key, test);
-        //        }
-        //    }
-        //}
-
-        //internal static void LoadPawnInventoryStock(Pawn p, AssignLink link)
-        //{
-        //    if (link.stockEntries != null)
-        //    {
-        //        foreach (var key in link.stockEntries.Keys)
-        //        {
-        //            p.inventoryStock.stockEntries.SetOrAdd(key, link.stockEntries.TryGetValue(key));
-        //        }
-        //    }
-        //}
-        
         internal static void CleanDeadColonists(Pawn pawn)
         {
             AssignManager.links.RemoveAll(x => x.colonist == pawn);
@@ -331,32 +315,67 @@ namespace BetterPawnControl
             return containsValidMap;
         }
 
-        internal static void CleanRemovedMaps()
+        internal static void CleanRemovedMaps(Map map)
         {
-            for (int i = 0; i < AssignManager.activePolicies.Count; i++)
+            //for (int i = 0; i < AssignManager.activePolicies.Count; i++)
+            //{
+            //    MapActivePolicy map = AssignManager.activePolicies[i];
+            //    if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
+            //    {
+            //        Log.Message("Find.Maps.Count: " + Find.Maps.Count);
+            //        Log.Message("AssignManager.ActivePoliciesContainsValidMap(): " + AssignManager.ActivePoliciesContainsValidMap());
+            //        if (Find.Maps.Count == 1 && !AssignManager.ActivePoliciesContainsValidMap())
+            //        {
+            //            Log.Message("ENTER 1");
+            //            this means the player was on the move without any base
+            //            and just re - settled using a caravan. So, let's move the settings to
+            //            the new map
+            //            int newMapId = Find.CurrentMap.uniqueID;
+            //            AssignManager.MoveLinksToMap(map.mapId, newMapId);
+            //            map.mapId = newMapId;
+            //        }
+            //        if (Find.Maps.Count == 0 && !AssignManager.ActivePoliciesContainsValidMap())
+            //        {
+            //            Log.Message("ENTER 0");
+            //            this means the player is on a Grav ship and has liftoff.So, let's move the 
+            //             settings to the new map
+            //            int mapid = Find.CurrentMap.u
+            //            AssignManager.MoveLinksToMap(mapid);
+            //            map.mapId = mapid;
+            //        }
+            if (!map.IsPlayerHome) 
             {
-                MapActivePolicy map = AssignManager.activePolicies[i];
-                if (!Find.Maps.Any(x => x.uniqueID == map.mapId))
-                {
-                    if (Find.Maps.Count == 1 && !AssignManager.ActivePoliciesContainsValidMap())
-                    {
-                        //this means the player was on the move without any base
-                        //and just re-settled. So, let's move the settings to
-                        //the new map
-                        int mapid = Find.CurrentMap.uniqueID;
-                        AssignManager.MoveLinksToMap(mapid);
-                        map.mapId = mapid;
-                    }
-                    else
-                    {
-                        AssignManager.DeleteLinksInMap(map.mapId);
-                        AssignManager.DeleteMap(map);
-                    }
-                }
+                AssignManager.DeleteLinksInMap(map.uniqueID);
+                MapActivePolicy mapActivePolicy = AssignManager.GetActiveMap(map.uniqueID);
+                AssignManager.DeleteMap(mapActivePolicy);
             }
         }
-        
-        internal static void UpdateState( List<AssignLink> links, List<Pawn> pawns, Policy policy)
+
+        internal static void ProcessNewMap(Map newMap)
+        {
+            if (Find.Maps.Count > 1)
+            {
+                //Player has a base and arrived at a new map or got in a incident in a new map with caravan
+                //BCP will create a new map in the MapActivePolicy list. Nothing to do here.
+                
+            }
+            else if (Find.Maps.Count == 1)
+            {
+                //Player has no base and just arrived in a new map via caravan or via GravShip.
+                //So let us move all links from the old and last map and then delete the old map
+                if (!AssignManager.ActivePoliciesContainsValidMap())
+                {
+                    AssignManager.MoveLinksToMap(LastMapManager.lastMapId, newMap.uniqueID);
+                }
+            }
+            else
+            {
+                //this makes no sense
+                Log.Warning("[BPC] This code shouldn't have ran");
+            }
+        }
+
+        internal static void UpdateState(List<AssignLink> links, List<Pawn> pawns, Policy policy)
         {
             List<AssignLink> mapLinks = null;
             List<AssignLink> zoneLinks = null;
@@ -377,6 +396,10 @@ namespace BetterPawnControl
                         l.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
                         l.outfit = p.outfits.CurrentApparelPolicy;
                         l.medicinePolicy = p.playerSettings.medCare;
+                        if (Settings.saveInventoryStock)
+                        {
+                            l.SetInventoryStockForMedicine(p.inventoryStock);
+                        }
                     }
                 }
             }
@@ -408,9 +431,18 @@ namespace BetterPawnControl
                         p.playerSettings.hostilityResponse = l.hostilityResponse;
                         p.playerSettings.medCare = l.medicinePolicy;
 
+                        if (Settings.saveInventoryStock)
+                        {
+                            p.SetInventoryStock(InventoryStockGroupDefOf.Medicine, l.carriedMedicineThing, l.carriedMedicineCount);
+                        }
+
                         if (Widget_CombatExtended.CombatExtendedAvailable)
                         {
                             Widget_CombatExtended.SetLoadoutById(p, l.loadoutId);
+                        }
+                        if (Widget_CompositableLoadouts.CompositableLoadoutsAvailable)
+                        {
+                            Widget_CompositableLoadouts.SetLoadoutById(p, l.compositableState);
                         }
                     }
                 }
@@ -510,7 +542,7 @@ namespace BetterPawnControl
 
         internal static void SetDefaultsForPrisoner(Pawn p)
         {
-            if (p!= null && p.foodRestriction != null)
+            if (p != null && p.foodRestriction != null)
             {
                 p.foodRestriction.CurrentFoodPolicy = AssignManager.DefaultPrisonerFoodPolicy;
             }
@@ -518,7 +550,7 @@ namespace BetterPawnControl
 
         internal static void SetDefaultsForSlave(Pawn p)
         {
-            if (p != null && p.outfits != null && p.foodRestriction != null &&  p.drugs != null)
+            if (p != null && p.outfits != null && p.foodRestriction != null && p.drugs != null)
             {
                 p.outfits.CurrentApparelPolicy = AssignManager.DefaultSlaveOutfit;
                 p.drugs.CurrentPolicy = AssignManager.DefaultSlaveDrugPolicy;
@@ -548,5 +580,7 @@ namespace BetterPawnControl
 
             Log.Message(spacer);
         }
+
+
     }
 }

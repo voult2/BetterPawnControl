@@ -6,7 +6,6 @@ namespace BetterPawnControl
     {
         internal int mapId = 0;
         internal Policy activePolicy = null;
-
         public MapActivePolicy() { }
 
         public MapActivePolicy(int mapId, Policy activePolicy)
