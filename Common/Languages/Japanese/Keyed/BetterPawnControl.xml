@@ -58,6 +58,7 @@
   <BPC.SelectedSlaveDefaultOutfit>初期設定:服装</BPC.SelectedSlaveDefaultOutfit>
   <BPC.SelectedSlaveDefaultFood>初期設定:食事</BPC.SelectedSlaveDefaultFood>
   <BPC.SelectedSlaveDefaultDrugs>初期設定:ドラッグ</BPC.SelectedSlaveDefaultDrugs>
+  <BPC.SelectedSlaveDefaultReading>初期設定:読書</BPC.SelectedSlaveDefaultReading>
   <BPC.SelectedSlaveDefaultMeds>初期設定:治療</BPC.SelectedSlaveDefaultMeds>
 
   <BPC.ColonistDefaultHeader>初期設定:入植者</BPC.ColonistDefaultHeader>
@@ -77,6 +78,7 @@
 
   <BPC.BetterPawnControlSettingsName>Better Pawn Control</BPC.BetterPawnControlSettingsName>
   <BPC.AutomaticPawnsInterruptSetting>緊急事態をオンにした際に,ポーンの行動を自動的に中断しますか？</BPC.AutomaticPawnsInterruptSetting>
+  <BPC.SaveInventoryStock>割り当て方針の「積載」列を保存しますか?</BPC.SaveInventoryStock>
   <BPC.DisableBPCOnWorkTabSetting>WorkTabとこのModの互換性を完全に無効化しますか？</BPC.DisableBPCOnWorkTabSetting>
   <BPC.DisableBPCOnWorkTabTooltip>WorkTabのMod内部(または拡張)の優先順位を含めて完全な互換性を持たせます.</BPC.DisableBPCOnWorkTabTooltip>
   <BPC.DisableBPCWorkTabInnerPrioritiesSetting>このModとFlufflyのWorkTabとのMOD内部(または拡張)優先順位との互換性を無効化して「通常の」優先順位を維持しますか？</BPC.DisableBPCWorkTabInnerPrioritiesSetting>
