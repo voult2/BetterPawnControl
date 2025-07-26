@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using Verse;
@@ -61,26 +62,35 @@ namespace BetterPawnControl
                 {
                     continue;
                 }
-                // find robot in the current zone
-                RobotLink link = links.Find(
-                    x => x != null && p != null && p.Equals(x.robot) &&
-                    x.zone == GetActivePolicy().id &&
-                    x.mapId == currentMap);
 
-                if (link != null)
+                try
                 {
-                    link.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
+                    // find robot in the current zone
+                    RobotLink link = links.Find(
+                        x => x != null && p != null && p.Equals(x.robot) &&
+                        x.zone == GetActivePolicy().id &&
+                        x.mapId == currentMap);
+
+                    if (link != null)
+                    {
+                        link.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
+                    }
+                    else
+                    {
+                        links.Add(
+                            new RobotLink(
+                                GetActivePolicy().id,
+                                p,
+                                p.playerSettings.AreaRestrictionInPawnCurrentMap,
+                                currentMap
+                            )
+                        );
+                    }
                 }
-                else
+                catch
                 {
-                    links.Add(
-                        new RobotLink(
-                            GetActivePolicy().id,
-                            p,
-                            p.playerSettings.AreaRestrictionInPawnCurrentMap,
-                            currentMap
-                        )
-                    );
+                    //it seems a pawn became null during the links iteration so lets just move on
+                    Log.Message("BPC: A pawn became null during robot save state: " + p == null);
                 }
             }
         }

@@ -209,83 +209,91 @@ namespace BetterPawnControl
                     continue;
                 }
 
-                //find colonist on the current zone in the current map
-                AssignLink link = AssignManager.links.Find(
-                    x => x != null && x.colonist != null  && p!= null && p.Equals(x.colonist) &&
-                    x.zone == AssignManager.GetActivePolicy().id &&
-                    x.mapId == currentMap);
+                try
+                {                
+                    //find colonist on the current zone in the current map
+                    AssignLink link = AssignManager.links.Find(
+                        x => x != null && x.colonist != null  && p!= null && p.Equals(x.colonist) &&
+                        x.zone == AssignManager.GetActivePolicy().id &&
+                        x.mapId == currentMap);
 
-                if (link != null)
-                {
-                    //colonist found! save 
-                    link.outfit = p.outfits.CurrentApparelPolicy;
-                    link.drugPolicy = p.drugs.CurrentPolicy;
-                    link.hostilityResponse = p.playerSettings.hostilityResponse;
-                    link.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
-                    link.readingPolicy = p.reading.CurrentPolicy;
-                    link.medicinePolicy = p.playerSettings.medCare;
-                    link.SetInventoryStockForMedicine(p.inventoryStock);
-
-                    if (Widget_CombatExtended.CombatExtendedAvailable)
+                    if (link != null)
                     {
-                        link.loadoutId = Widget_CombatExtended.GetLoadoutId(p);
+                        //colonist found! save 
+                        link.outfit = p.outfits.CurrentApparelPolicy;
+                        link.drugPolicy = p.drugs.CurrentPolicy;
+                        link.hostilityResponse = p.playerSettings.hostilityResponse;
+                        link.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
+                        link.readingPolicy = p.reading.CurrentPolicy;
+                        link.medicinePolicy = p.playerSettings.medCare;
+                        link.SetInventoryStockForMedicine(p.inventoryStock);
+
+                        if (Widget_CombatExtended.CombatExtendedAvailable)
+                        {
+                            link.loadoutId = Widget_CombatExtended.GetLoadoutId(p);
+                        }
+                        if (Widget_CompositableLoadouts.CompositableLoadoutsAvailable)
+                        {
+                            link.compositableState = Widget_CompositableLoadouts.GetLoadoutId(p);
+                        }
                     }
-                    if (Widget_CompositableLoadouts.CompositableLoadoutsAvailable)
+                    else
                     {
-                        link.compositableState = Widget_CompositableLoadouts.GetLoadoutId(p);
+                        //colonist not found. So add it to the AssignLink list
+                        int loadoutId = 0;
+                        if (Widget_CombatExtended.CombatExtendedAvailable)
+                        {
+                            loadoutId = Widget_CombatExtended.GetLoadoutId(p);
+                        }
+                        int compositableState = -1;
+                        if (Widget_CompositableLoadouts.CompositableLoadoutsAvailable)
+                        {
+                            compositableState = Widget_CompositableLoadouts.GetLoadoutId(p);
+                        }
+
+                        ApparelPolicy outfit = p.outfits.CurrentApparelPolicy;
+                        if (outfit == Current.Game.outfitDatabase.DefaultOutfit())
+                        {
+                            outfit = AssignManager.DefaultOutfit;
+                        }
+
+                        DrugPolicy drug = p.drugs.CurrentPolicy;
+                        if (drug == Current.Game.drugPolicyDatabase.DefaultDrugPolicy())
+                        {
+                            drug = AssignManager.DefaultDrugPolicy;
+                        }
+
+                        FoodPolicy food = p.foodRestriction.CurrentFoodPolicy;
+                        if (food == Current.Game.foodRestrictionDatabase.DefaultFoodRestriction())
+                        {
+                            food = AssignManager.DefaultFoodPolicy;
+                        }
+
+                        ReadingPolicy reading = p.reading.CurrentPolicy;
+                        if (reading == Current.Game.readingPolicyDatabase.DefaultReadingPolicy())
+                        {
+                            reading = AssignManager.DefaultReadingPolicy;
+                        }
+
+                        link = new AssignLink(
+                                AssignManager.GetActivePolicy().id,
+                                p,
+                                outfit,
+                                food,
+                                drug,
+                                reading,
+                                p.playerSettings.hostilityResponse,
+                                p.playerSettings.medCare,
+                                loadoutId,
+                                compositableState,
+                                currentMap);
+                        AssignManager.links.Add(link);
                     }
                 }
-                else
+                catch
                 {
-                    //colonist not found. So add it to the AssignLink list
-                    int loadoutId = 0;
-                    if (Widget_CombatExtended.CombatExtendedAvailable)
-                    {
-                        loadoutId = Widget_CombatExtended.GetLoadoutId(p);
-                    }
-                    int compositableState = -1;
-                    if (Widget_CompositableLoadouts.CompositableLoadoutsAvailable)
-                    {
-                        compositableState = Widget_CompositableLoadouts.GetLoadoutId(p);
-                    }
-
-                    ApparelPolicy outfit = p.outfits.CurrentApparelPolicy;
-                    if (outfit == Current.Game.outfitDatabase.DefaultOutfit())
-                    {
-                        outfit = AssignManager.DefaultOutfit;
-                    }
-
-                    DrugPolicy drug = p.drugs.CurrentPolicy;
-                    if (drug == Current.Game.drugPolicyDatabase.DefaultDrugPolicy())
-                    {
-                        drug = AssignManager.DefaultDrugPolicy;
-                    }
-
-                    FoodPolicy food = p.foodRestriction.CurrentFoodPolicy;
-                    if (food == Current.Game.foodRestrictionDatabase.DefaultFoodRestriction())
-                    {
-                        food = AssignManager.DefaultFoodPolicy;
-                    }
-
-                    ReadingPolicy reading = p.reading.CurrentPolicy;
-                    if (reading == Current.Game.readingPolicyDatabase.DefaultReadingPolicy())
-                    {
-                        reading = AssignManager.DefaultReadingPolicy;
-                    }
-
-                    link = new AssignLink(
-                            AssignManager.GetActivePolicy().id,
-                            p,
-                            outfit,
-                            food,
-                            drug,
-                            reading,
-                            p.playerSettings.hostilityResponse,
-                            p.playerSettings.medCare,
-                            loadoutId,
-                            compositableState,
-                            currentMap);
-                    AssignManager.links.Add(link);
+                    //it seems a pawn became null during the links iteration so lets just move on
+                    Log.Message("BPC: A pawn became null during assign save state: " + p == null);
                 }
             }
         }

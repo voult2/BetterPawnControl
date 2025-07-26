@@ -48,48 +48,56 @@ namespace BetterPawnControl
                     continue;
                 }
 
-                //find animal on the current zone
-                AnimalLink animalLink =
-                    AnimalManager.links.Find(
-                        x => x != null && x.animal != null && p != null && p.Equals(x.animal) &&
-                        x.zone == AnimalManager.GetActivePolicy().id &&
-                        x.mapId == currentMap);
+                try
+                {
+                    //find animal on the current zone
+                    AnimalLink animalLink =
+                        AnimalManager.links.Find(
+                            x => x != null && x.animal != null && p != null && p.Equals(x.animal) &&
+                            x.zone == AnimalManager.GetActivePolicy().id &&
+                            x.mapId == currentMap);
 
-                if (animalLink != null)
-                {
-                    //animal found! save master and area
-                    animalLink.master = p.playerSettings.Master;
-                    animalLink.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
-                    animalLink.followDrafted = p.playerSettings.followDrafted;
-                    animalLink.followFieldwork = p.playerSettings.followFieldwork;
-                    if (Widget_ModsAvailable.AAFAvailable)
+                    if (animalLink != null)
                     {
-                        animalLink.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
-                    }
-                }
-                else
-                {
-                    FoodPolicy food = null;
-                    if (Widget_ModsAvailable.AAFAvailable)
-                    {
-                        food = p.foodRestriction.CurrentFoodPolicy;
-                        if (food == Current.Game.foodRestrictionDatabase.DefaultFoodRestriction())
+                        //animal found! save master and area
+                        animalLink.master = p.playerSettings.Master;
+                        animalLink.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
+                        animalLink.followDrafted = p.playerSettings.followDrafted;
+                        animalLink.followFieldwork = p.playerSettings.followFieldwork;
+                        if (Widget_ModsAvailable.AAFAvailable)
                         {
-                            food = AnimalManager.DefaultFoodPolicy;
+                            animalLink.foodPolicy = p.foodRestriction.CurrentFoodPolicy;
                         }
                     }
+                    else
+                    {
+                        FoodPolicy food = null;
+                        if (Widget_ModsAvailable.AAFAvailable)
+                        {
+                            food = p.foodRestriction.CurrentFoodPolicy;
+                            if (food == Current.Game.foodRestrictionDatabase.DefaultFoodRestriction())
+                            {
+                                food = AnimalManager.DefaultFoodPolicy;
+                            }
+                        }
 
-                    //animal not found. So add it to the AnimalLink list
-                    AnimalManager.links.Add(
-                        new AnimalLink(
-                            AnimalManager.GetActivePolicy().id,
-                            p,
-                            p.playerSettings.Master,
-                            p.playerSettings.AreaRestrictionInPawnCurrentMap,
-                            p.playerSettings.followDrafted,
-                            p.playerSettings.followFieldwork,
-                            food,
-                            currentMap));
+                        //animal not found. So add it to the AnimalLink list
+                        AnimalManager.links.Add(
+                            new AnimalLink(
+                                AnimalManager.GetActivePolicy().id,
+                                p,
+                                p.playerSettings.Master,
+                                p.playerSettings.AreaRestrictionInPawnCurrentMap,
+                                p.playerSettings.followDrafted,
+                                p.playerSettings.followFieldwork,
+                                food,
+                                currentMap));
+                    }
+                }
+                catch
+                {
+                    //it seems a pawn became null during the links iteration so lets just move on
+                    Log.Message("BPC: A pawn became null during animal save state: " + p == null);
                 }
             }
         }

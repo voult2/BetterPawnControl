@@ -50,28 +50,37 @@ namespace BetterPawnControl
                 {
                     continue;
                 }
-                //find colonist in the current zone in the current map
-                WorkLink link = WorkManager.links.Find(
-                    x => x != null && x.colonist != null && p != null && p.Equals(x.colonist) &&
-                    x.zone == WorkManager.GetActivePolicy().id &&
-                    x.mapId == currentMap);
-                
-                if (link != null)
+
+                try
                 {
-                    //colonist found! save  
-                    WorkManager.SavePawnPriorities(p, link);
+                    //find colonist in the current zone in the current map
+                    WorkLink link = WorkManager.links.Find(
+                        x => x != null && x.colonist != null && p != null && p.Equals(x.colonist) &&
+                        x.zone == WorkManager.GetActivePolicy().id &&
+                        x.mapId == currentMap);
+
+                    if (link != null)
+                    {
+                        //colonist found! save  
+                        WorkManager.SavePawnPriorities(p, link);
+                    }
+                    else
+                    {
+                        //colonist not found. So add it to the WorkLink list
+                        link = new WorkLink(
+                            WorkManager.GetActivePolicy().id,
+                            p,
+                            new Dictionary<WorkTypeDef, int>(),
+                            new Dictionary<WorkGiverDef, List<int>>(),
+                            currentMap);
+                        WorkManager.links.Add(link);
+                        WorkManager.SavePawnPriorities(p, link);
+                    }
                 }
-                else
+                catch
                 {
-                    //colonist not found. So add it to the WorkLink list
-                    link = new WorkLink(
-                        WorkManager.GetActivePolicy().id,
-                        p,
-                        new Dictionary<WorkTypeDef, int>(),
-                        new Dictionary<WorkGiverDef, List<int>>(),
-                        currentMap);
-                    WorkManager.links.Add(link);
-                    WorkManager.SavePawnPriorities(p, link);
+                    //it seems a pawn became null during the links iteration so lets just move on
+                    Log.Message("BPC: A pawn became null during work save state: " + p == null);
                 }
             }
         }

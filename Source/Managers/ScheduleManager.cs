@@ -58,32 +58,42 @@ namespace BetterPawnControl
                 {
                     continue;
                 }
-                //find colonist in the current zone in the current map
-                ScheduleLink link = ScheduleManager.links.Find(
-                    x => x != null && x.colonist != null && p != null && p.Equals(x.colonist) &&
-                    x.zone == activePolicyId &&
-                    x.mapId == currentMap);
 
-                if (link != null)
+                try
                 {
-                    //colonist found! save 
-                    link.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
-                    if (p.timetable != null)
+                    //find colonist in the current zone in the current map
+                    ScheduleLink link = ScheduleManager.links.Find(
+                        x => x != null && x.colonist != null && p != null && p.Equals(x.colonist) &&
+                        x.zone == activePolicyId &&
+                        x.mapId == currentMap);
+
+                    if (link != null)
                     {
-                        ScheduleManager.CopySchedule(p.timetable.times, link.schedule);
+                        //colonist found! save 
+                        link.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
+                        if (p.timetable != null)
+                        {
+                            ScheduleManager.CopySchedule(p.timetable.times, link.schedule);
+                        }
+                    }
+                    else
+                    {
+                        //colonist not found. So add it to the ScheduleLink list
+                        ScheduleManager.links.Add(
+                            new ScheduleLink(
+                                activePolicyId,
+                                p,
+                                p.playerSettings.AreaRestrictionInPawnCurrentMap,
+                                p.timetable != null ? p.timetable.times : null,
+                                currentMap));
                     }
                 }
-                else
+                catch
                 {
-                    //colonist not found. So add it to the ScheduleLink list
-                    ScheduleManager.links.Add(
-                        new ScheduleLink(
-                            activePolicyId,
-                            p,
-                            p.playerSettings.AreaRestrictionInPawnCurrentMap,
-                            p.timetable != null ? p.timetable.times : null,
-                            currentMap));
+                    //it seems a pawn became null during the links iteration so lets just move on
+                    Log.Message("BPC: A pawn became null during schedule save state: " + p == null);
                 }
+
             }
         }
 

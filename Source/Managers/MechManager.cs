@@ -51,32 +51,40 @@ namespace BetterPawnControl
                 {
                     continue;
                 }
-
-                //find mech on the current zone
-                MechLink MechLink =
-                    MechManager.links.Find(
-                        x => x != null && x.mech != null && p != null && p.Equals(x.mech) &&
-                        x.zone == MechManager.GetActivePolicy().id &&
-                        x.mapId == currentMap);
-
-                if (MechLink != null)
+                
+                try
                 {
-                    //Mech found! save area and settings                 
-                    MechLink.controlGroupIndex = p.GetMechControlGroup().Index;
-                    MechLink.workmode = p.GetMechWorkMode();
-                    MechLink.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
+                    //find mech on the current zone
+                    MechLink MechLink =
+                        MechManager.links.Find(
+                            x => x != null && x.mech != null && p != null && p.Equals(x.mech) &&
+                            x.zone == MechManager.GetActivePolicy().id &&
+                            x.mapId == currentMap);
+
+                    if (MechLink != null)
+                    {
+                        //Mech found! save area and settings                 
+                        MechLink.controlGroupIndex = p.GetMechControlGroup().Index;
+                        MechLink.workmode = p.GetMechWorkMode();
+                        MechLink.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
+                    }
+                    else
+                    {
+                        //Mech not found. So add it to the MechLink list
+                        MechManager.links.Add(
+                            new MechLink(
+                                MechManager.GetActivePolicy().id,
+                                p,
+                                p.GetMechControlGroup().Index,
+                                p.GetMechWorkMode(),
+                                p.playerSettings.AreaRestrictionInPawnCurrentMap,
+                                currentMap)); ; ;
+                    }
                 }
-                else
+                catch
                 {
-                    //Mech not found. So add it to the MechLink list
-                    MechManager.links.Add(
-                        new MechLink(
-                            MechManager.GetActivePolicy().id,
-                            p,
-                            p.GetMechControlGroup().Index,
-                            p.GetMechWorkMode(),
-                            p.playerSettings.AreaRestrictionInPawnCurrentMap,
-                            currentMap)); ; ;
+                    //it seems a pawn became null during the links iteration so lets just move on
+                    Log.Message("BPC: A pawn became null during mech save state: " + p == null);
                 }
             }
         }
