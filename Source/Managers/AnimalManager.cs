@@ -43,10 +43,15 @@ namespace BetterPawnControl
             //Save current state
             foreach (Pawn p in pawns)
             {
+                if (p == null)
+                {
+                    continue;
+                }
+
                 //find animal on the current zone
                 AnimalLink animalLink =
                     AnimalManager.links.Find(
-                        x => x != null && x.animal != null && p.Equals(x.animal) &&
+                        x => x != null && x.animal != null && p != null && p.Equals(x.animal) &&
                         x.zone == AnimalManager.GetActivePolicy().id &&
                         x.mapId == currentMap);
 
@@ -124,6 +129,11 @@ namespace BetterPawnControl
 
             foreach (Pawn p in pawns)
             {
+                if (p == null)
+                {
+                    continue;
+                }
+
                 foreach (AnimalLink l in zoneLinks)
                 {
                     if (l.animal != null && l.animal.Equals(p))

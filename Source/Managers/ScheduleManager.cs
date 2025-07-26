@@ -54,9 +54,13 @@ namespace BetterPawnControl
             //Save current state
             foreach (Pawn p in pawns)
             {
+                if (p == null)
+                {
+                    continue;
+                }
                 //find colonist in the current zone in the current map
                 ScheduleLink link = ScheduleManager.links.Find(
-                    x => p.Equals(x.colonist) &&
+                    x => x != null && x.colonist != null && p != null && p.Equals(x.colonist) &&
                     x.zone == activePolicyId &&
                     x.mapId == currentMap);
 
@@ -229,6 +233,11 @@ namespace BetterPawnControl
 
             foreach (Pawn p in pawns)
             {
+                if (p == null)
+                {
+                    continue;
+                }
+
                 var tick = false;
                 foreach (ScheduleLink l in zoneLinks)
                 {

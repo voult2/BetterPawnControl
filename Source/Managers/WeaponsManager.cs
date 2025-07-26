@@ -62,9 +62,14 @@ namespace BetterPawnControl
             //Save current state
             foreach (Pawn p in pawns)
             {
+                if (p == null)
+                {
+                    continue;
+                }
+
                 WeaponsLink weaponLink =
                     WeaponsManager.links.Find(
-                        x => x != null && p.Equals(x.colonist) &&
+                        x => x != null && x.colonist != null && p != null && p.Equals(x.colonist) &&
                         x.zone == WeaponsManager.GetActivePolicy().id &&
                         x.mapId == currentMap);
 
@@ -114,6 +119,11 @@ namespace BetterPawnControl
 
             foreach (Pawn p in pawns)
             {
+                if (p == null)
+                {
+                    continue;
+                }
+
                 foreach (WeaponsLink l in zoneLinks)
                 {
                     if (l.colonist != null && l.colonist.Equals(p))

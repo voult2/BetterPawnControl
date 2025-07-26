@@ -36,6 +36,11 @@ namespace BetterPawnControl
             
             foreach (var pawn in pawns)
             {
+                if (pawn == null)
+                {
+                    continue;
+                }
+
                 foreach (var robotLink in zoneLinks)
                 {
                     if (robotLink.robot != pawn) continue;
@@ -52,15 +57,19 @@ namespace BetterPawnControl
             int currentMap = Find.CurrentMap.uniqueID;
             foreach (Pawn p in pawns)
             {
+                if (p == null)
+                {
+                    continue;
+                }
                 // find robot in the current zone
-                var robotLink = links.Find(
-                    x => x != null && p.Equals(x.robot) &&
+                RobotLink link = links.Find(
+                    x => x != null && p != null && p.Equals(x.robot) &&
                     x.zone == GetActivePolicy().id &&
                     x.mapId == currentMap);
 
-                if (robotLink != null)
+                if (link != null)
                 {
-                    robotLink.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
+                    link.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
                 }
                 else
                 {

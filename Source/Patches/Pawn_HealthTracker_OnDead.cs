@@ -8,8 +8,8 @@ namespace BetterPawnControl.Patches
     {
         static void Postfix(Pawn ___pawn)
         {
-            if (___pawn.IsFreeColonist) 
-            { 
+            if (___pawn.IsPlayerControlled || ___pawn.IsColonyMech || ___pawn.IsPrisonerOfColony)
+            {
                 AssignManager.CleanDeadColonists(___pawn);
                 ScheduleManager.CleanDeadColonists(___pawn);
                 WorkManager.CleanDeadColonists(___pawn);

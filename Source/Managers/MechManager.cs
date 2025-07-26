@@ -47,7 +47,7 @@ namespace BetterPawnControl
             foreach (Pawn p in pawns)
             {
 
-                if (p.IsGestating() || p.GetOverseer() == null)
+                if (p == null || p.IsGestating() || p.GetOverseer() == null)
                 {
                     continue;
                 }
@@ -55,7 +55,7 @@ namespace BetterPawnControl
                 //find mech on the current zone
                 MechLink MechLink =
                     MechManager.links.Find(
-                        x => x != null && p.Equals(x.mech) &&
+                        x => x != null && x.mech != null && p != null && p.Equals(x.mech) &&
                         x.zone == MechManager.GetActivePolicy().id &&
                         x.mapId == currentMap);
 
@@ -110,6 +110,11 @@ namespace BetterPawnControl
 
             foreach (Pawn p in pawns)
             {
+                if (p == null)
+                {
+                    continue;
+                }
+
                 if (p.GetOverseer() != null)
                 {
                     foreach (MechLink l in zoneLinks)

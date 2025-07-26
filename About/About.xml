@@ -18,6 +18,7 @@ Features:
 - Default outfits, food, drugs when colonist, prisoners or slaves join your colony
 - Emergency' button to toggle your configured policies at once in one click or keyboard shorcut 
 
+v2.8.2 - Second tentative fix to 'null pointer exception' bug when saving pawn states;
 v2.8.0 - Support for Rimworld 1.6; Improved maps handling related to GravShip; Added support for Compositable Loadouts mod;
 
 Mod Integrations List:                       
@@ -29,6 +30,7 @@ Mod Integrations List:
 - Children, school and learning
 - WeaponsTabReborn 
 - Misc. Robots
+- Compositable Loadouts
 
 	</description>
 	<modDependencies>

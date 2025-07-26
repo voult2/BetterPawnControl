@@ -204,9 +204,14 @@ namespace BetterPawnControl
             //Save current state
             foreach (Pawn p in pawns)
             {
+                if (p == null)
+                {
+                    continue;
+                }
+
                 //find colonist on the current zone in the current map
                 AssignLink link = AssignManager.links.Find(
-                    x => p.Equals(x.colonist) &&
+                    x => x != null && x.colonist != null  && p!= null && p.Equals(x.colonist) &&
                     x.zone == AssignManager.GetActivePolicy().id &&
                     x.mapId == currentMap);
 
@@ -420,6 +425,11 @@ namespace BetterPawnControl
 
             foreach (Pawn p in pawns)
             {
+                if (p == null)
+                {
+                    continue;
+                }
+
                 foreach (AssignLink l in zoneLinks)
                 {
                     if (l.colonist != null && l.colonist.GetUniqueLoadID().Equals(p.GetUniqueLoadID()))

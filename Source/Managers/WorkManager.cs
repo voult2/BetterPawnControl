@@ -46,11 +46,16 @@ namespace BetterPawnControl
             //Save current state
             foreach (Pawn p in pawns)
             {
+                if (p == null)
+                {
+                    continue;
+                }
                 //find colonist in the current zone in the current map
                 WorkLink link = WorkManager.links.Find(
-                    x => p.Equals(x.colonist) &&
+                    x => x != null && x.colonist != null && p != null && p.Equals(x.colonist) &&
                     x.zone == WorkManager.GetActivePolicy().id &&
                     x.mapId == currentMap);
+                
                 if (link != null)
                 {
                     //colonist found! save  
@@ -169,6 +174,11 @@ namespace BetterPawnControl
 
             foreach (Pawn p in pawns)
             {
+                if (p == null)
+                {
+                    continue;
+                }
+
                 foreach (WorkLink l in zoneLinks)
                 {
                     if (l.colonist != null && l.colonist.Equals(p))
