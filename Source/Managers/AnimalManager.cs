@@ -195,6 +195,8 @@ namespace BetterPawnControl
                     if (l.animal != null && l.animal.GetUniqueLoadID().Equals(p.GetUniqueLoadID()))
                     {
                         l.master = p.playerSettings.Master;
+                        l.followDrafted = p.playerSettings.followDrafted;
+                        l.followFieldwork = p.playerSettings.followFieldwork;
                         l.area = p.playerSettings.AreaRestrictionInPawnCurrentMap;
                         if (Widget_ModsAvailable.AAFAvailable)
                         {
